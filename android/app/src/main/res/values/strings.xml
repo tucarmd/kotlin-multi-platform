@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Only app_name is kept: the Manifest/launcher can't read Kotlin consts. UI strings live in ui/<feature>/<Feature>Strings.kt -->
+<resources>
+    <string name="app_name">Native Device Monitor</string>
+</resources>

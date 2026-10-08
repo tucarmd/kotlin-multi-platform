@@ -1,0 +1,38 @@
+[versions]
+agp = "8.13.2"
+kotlin = "2.4.20"
+activityCompose = "1.13.0"
+# Latest BOM that still works with AGP 8.13 + compileSdk 36 (Compose 1.11.x). BOM ≥ 2026.08 (Compose 1.12) needs AGP 9.1 + compileSdk 37
+composeBom = "2026.06.01"
+# lifecycleScope / StateFlow.collectAsState come with lifecycle-runtime
+lifecycleRuntimeKtx = "2.9.4"
+# ContextCompat (registerReceiver NOT_EXPORTED, checkSelfPermission)
+coreKtx = "1.15.0"
+# Unit tests for pure rules (rowActionOf, BluetoothLookup) — run on the JVM, no device needed
+junit = "4.13.2"
+# Week 3 · Day 14: periodic MonitorWorker (CoroutineWorker + getWorkInfosForUniqueWorkFlow)
+work = "2.10.2"
+# Real org.json for JVM unit tests — android.jar only has stubs that throw "Method ... not mocked"
+json = "20240303"
+
+[libraries]
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+# The BOM pins versions for the whole Compose set → the lines below need no version
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+# Icons for the 2 bottom tabs (Lock, Search) — material3 no longer pulls in the icon set
+androidx-compose-material-icons-core = { group = "androidx.compose.material", name = "material-icons-core" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "work" }
+json = { group = "org.json", name = "json", version.ref = "json" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+# Compose compiler plugin: since Kotlin 2.0 it ships with Kotlin, same version
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
