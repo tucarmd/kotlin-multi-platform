@@ -209,7 +209,13 @@ Dependencies go one way: `ui/` → `nativecore/`, never the other way.
 
 ## Screenshots
 
-Android: Samsung A32 (real device). iOS: iPhone 17 Simulator — the Simulator has no Bluetooth, so the radio shows `NO BLUETOOTH` and the Scanner shows *Not ready*; a real-iPhone run is planned.
+**iOS — real iPhone 14** (run with the CarMD Connect signing identity, 2026-10-08): Bluetooth + Camera granted, radio ON, real BLE scan (`21 of 202` with filters on), camera capture, photo picker, monitor loop on a real battery.
+
+| Permissions | Scanner — real BLE scan | Media — capture | Media — library | API | Monitor | Monitor — BGAppRefresh + logs |
+|---|---|---|---|---|---|---|
+| <img src="../docs/assets/iphone14_permissions.png" width="140"> | <img src="../docs/assets/iphone14_scanner.png" width="140"> | <img src="../docs/assets/iphone14_media_capture.png" width="140"> | <img src="../docs/assets/iphone14_media_library.png" width="140"> | <img src="../docs/assets/iphone14_api.png" width="140"> | <img src="../docs/assets/iphone14_monitor.png" width="140"> | <img src="../docs/assets/iphone14_monitor_bgrefresh.png" width="140"> |
+
+**Android: Samsung A32 (real device) · iOS Simulator (iPhone 17)** — the Simulator has no Bluetooth, so the radio shows `NO BLUETOOTH` and the Scanner shows *Not ready*.
 
 | Permissions (Android) | Scanner (Android) | Permissions (iOS Simulator) | Scanner (iOS Simulator) |
 |---|---|---|---|
