@@ -85,7 +85,7 @@
 		6791C9D1DF6DF8226D5DDEDE /* ScannerStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerStrings.swift; sourceTree = "<group>"; };
 		692ED6019E0A49C857E9938D /* MediaStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaStrings.swift; sourceTree = "<group>"; };
 		70843E8C97E1BD2E4C528D21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		772FB34D3452E0386D303A1B /* NativeDeviceMonitor.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NativeDeviceMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		772FB34D3452E0386D303A1B /* NativeDeviceMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeDeviceMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		786896481036E82162896C29 /* AppStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
 		7D667988BEFC097FF711C847 /* AppHintText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHintText.swift; sourceTree = "<group>"; };
 		8871062319A328FF19C97EDE /* ApiClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientTests.swift; sourceTree = "<group>"; };
@@ -484,6 +484,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FCVAGS6GVB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NativeDeviceMonitor/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Native Device Monitor";
@@ -573,6 +574,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FCVAGS6GVB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NativeDeviceMonitor/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Native Device Monitor";
