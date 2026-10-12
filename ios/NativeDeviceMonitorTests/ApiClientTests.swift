@@ -1,3 +1,4 @@
+import Alamofire
 import Foundation
 import Testing
 @testable import NativeDeviceMonitor
@@ -27,6 +28,7 @@ final class StubURLProtocol: URLProtocol {
         case "/ok": (200, #"{"ok":true}"#)
         case "/posts": (201, #"{"id":101}"#)
         case "/fail": (500, #"{"error":"boom"}"#)
+        case "/empty500": (500, "")   // like httpbin /status/500 — 0 bytes, trips Alamofire's serializingData()
         default: (404, "{}")
         }
         let response = HTTPURLResponse(url: url, statusCode: status, httpVersion: "HTTP/1.1",
@@ -50,20 +52,26 @@ final class StubURLProtocol: URLProtocol {
 }
 
 /// `.serialized`: the tests share `StubURLProtocol.lastRequest` → run one after another.
+/// Every network test runs TWICE — `arguments: ApiBackend.allCases` — so both ways must behave identically.
 @Suite(.serialized)
 struct ApiClientTests {
 
     private let base = "https://stub.test"
 
-    private func client() -> ApiClient {
+    /// Same fake URLProtocol for both — Alamofire is URLSession underneath, so it goes through the stub too.
+    private func client(_ backend: ApiBackend) -> any ApiClient {
         let config = URLSessionConfiguration.ephemeral
         config.protocolClasses = [StubURLProtocol.self]
-        return ApiClient(session: URLSession(configuration: config), timeout: 8)
+        switch backend {
+        case .urlSession: return URLSessionApiClient(session: URLSession(configuration: config), timeout: 8)
+        case .alamofire: return AlamofireApiClient(session: Session(configuration: config), timeout: 8)
+        }
     }
 
-    @Test func get200IsSuccessAndSendsParamsAndDefaultHeaders() async {
-        let r = await client().get("\(base)/ok", params: ["userId": "1"])
-        guard case let .success(status, body, contentType, _) = r else { Issue.record("got \(r)"); return }
+    @Test(arguments: ApiBackend.allCases)
+    func get200IsSuccessAndSendsParamsAndDefaultHeaders(_ backend: ApiBackend) async {
+        let r = await client(backend).get("\(base)/ok", params: ["userId": "1"])
+        guard case let .success(status, body, contentType, _) = r else { Issue.record("\(backend.label) got \(r)"); return }
         #expect(status == 200)
         #expect(body == #"{"ok":true}"#)
         #expect(contentType == "application/json")
@@ -72,9 +80,10 @@ struct ApiClientTests {
         #expect(StubURLProtocol.lastRequest?.httpMethod == "GET")
     }
 
-    @Test func post201SendsJsonBodyWithContentType() async {
-        let r = await client().post("\(base)/posts", body: #"{"title":"hi"}"#)
-        guard case let .success(status, body, _, _) = r else { Issue.record("got \(r)"); return }
+    @Test(arguments: ApiBackend.allCases)
+    func post201SendsJsonBodyWithContentType(_ backend: ApiBackend) async {
+        let r = await client(backend).post("\(base)/posts", body: #"{"title":"hi"}"#)
+        guard case let .success(status, body, _, _) = r else { Issue.record("\(backend.label) got \(r)"); return }
         #expect(status == 201)
         #expect(body.contains("101"))
         #expect(StubURLProtocol.lastRequest?.httpMethod == "POST")
@@ -82,51 +91,74 @@ struct ApiClientTests {
         #expect(StubURLProtocol.lastBody.map { String(decoding: $0, as: UTF8.self) } == #"{"title":"hi"}"#)
     }
 
-    @Test func status500IsHttpErrorWithBody() async {
-        let r = await client().get("\(base)/fail")
-        guard case let .httpError(status, body, _) = r else { Issue.record("got \(r)"); return }
+    @Test(arguments: ApiBackend.allCases)
+    func status500IsHttpErrorWithBody(_ backend: ApiBackend) async {
+        let r = await client(backend).get("\(base)/fail")
+        guard case let .httpError(status, body, _) = r else { Issue.record("\(backend.label) got \(r)"); return }
         #expect(status == 500)
         #expect(body == #"{"error":"boom"}"#)
     }
 
-    @Test func timedOutIsTimeout() async {
-        let r = await client().get("\(base)/timeout")
-        guard case let .timeout(seconds, _) = r else { Issue.record("got \(r)"); return }
+    @Test(arguments: ApiBackend.allCases)
+    func emptyBody500IsStillHttpError(_ backend: ApiBackend) async {
+        let r = await client(backend).get("\(base)/empty500")
+        guard case let .httpError(status, body, _) = r else { Issue.record("\(backend.label) got \(r)"); return }
+        #expect(status == 500)
+        #expect(body.isEmpty)
+    }
+
+    @Test(arguments: ApiBackend.allCases)
+    func timedOutIsTimeout(_ backend: ApiBackend) async {
+        let r = await client(backend).get("\(base)/timeout")
+        guard case let .timeout(seconds, _) = r else { Issue.record("\(backend.label) got \(r)"); return }
         #expect(seconds == 8)
     }
 
-    @Test func offlineIsNoNetwork() async {
-        let r = await client().get("\(base)/offline")
-        guard case .noNetwork = r else { Issue.record("got \(r)"); return }
+    @Test(arguments: ApiBackend.allCases)
+    func offlineIsNoNetwork(_ backend: ApiBackend) async {
+        let r = await client(backend).get("\(base)/offline")
+        guard case .noNetwork = r else { Issue.record("\(backend.label) got \(r)"); return }
     }
 
-    @Test func malformedUrlIsFailureNotCrash() async {
-        let r = await client().get("not a url")
-        guard case .failure = r else { Issue.record("got \(r)"); return }
+    @Test(arguments: ApiBackend.allCases)
+    func malformedUrlIsFailureNotCrash(_ backend: ApiBackend) async {
+        let r = await client(backend).get("not a url")
+        guard case .failure = r else { Issue.record("\(backend.label) got \(r)"); return }
+    }
+
+    @Test func backendSwitchPicksTheRightClient() {
+        #expect(ApiBackend.urlSession.client is URLSessionApiClient)
+        #expect(ApiBackend.alamofire.client is AlamofireApiClient)
+    }
+
+    @Test func alamofireWrappedURLErrorClassifiesLikeURLSession() {
+        let wrapped = AFError.sessionTaskFailed(error: URLError(.timedOut))
+        #expect(ApiHelpers.classify(wrapped.underlyingError ?? wrapped, timeout: 8, durationMs: 1)
+                == .timeout(seconds: 8, durationMs: 1))
     }
 
     @Test func classifyMapsErrors() {
-        #expect(ApiClient.classify(URLError(.timedOut), timeout: 8, durationMs: 1) == .timeout(seconds: 8, durationMs: 1))
-        guard case .noNetwork = ApiClient.classify(URLError(.cannotFindHost), timeout: 8, durationMs: 1) else {
+        #expect(ApiHelpers.classify(URLError(.timedOut), timeout: 8, durationMs: 1) == .timeout(seconds: 8, durationMs: 1))
+        guard case .noNetwork = ApiHelpers.classify(URLError(.cannotFindHost), timeout: 8, durationMs: 1) else {
             Issue.record("cannotFindHost should be noNetwork"); return
         }
-        guard case .failure = ApiClient.classify(URLError(.badServerResponse), timeout: 8, durationMs: 1) else {
+        guard case .failure = ApiHelpers.classify(URLError(.badServerResponse), timeout: 8, durationMs: 1) else {
             Issue.record("badServerResponse should be failure"); return
         }
     }
 
     @Test func buildURLSortsAndEncodes() {
-        #expect(ApiClient.buildURL("https://a.b/p", params: [:])?.absoluteString == "https://a.b/p")
-        #expect(ApiClient.buildURL("https://a.b/p", params: ["userId": "1", "q": "a b&c"])?.absoluteString
+        #expect(ApiHelpers.buildURL("https://a.b/p", params: [:])?.absoluteString == "https://a.b/p")
+        #expect(ApiHelpers.buildURL("https://a.b/p", params: ["userId": "1", "q": "a b&c"])?.absoluteString
                 == "https://a.b/p?q=a%20b%26c&userId=1")
-        #expect(ApiClient.buildURL("https://a.b/p?x=1", params: ["y": "2"])?.absoluteString == "https://a.b/p?x=1&y=2")
+        #expect(ApiHelpers.buildURL("https://a.b/p?x=1", params: ["y": "2"])?.absoluteString == "https://a.b/p?x=1&y=2")
     }
 
     @Test func prettyJSONIndentsJsonKeepsNonJson() {
-        let pretty = ApiClient.prettyJSON(#"{"a":1,"url":"https://x.y/z"}"#)
+        let pretty = ApiHelpers.prettyJSON(#"{"a":1,"url":"https://x.y/z"}"#)
         #expect(pretty.contains("\n  \"a\" : 1"))
         #expect(pretty.contains("https://x.y/z"))   // no "\/" left
-        #expect(ApiClient.prettyJSON("<html>oops</html>") == "<html>oops</html>")
-        #expect(ApiClient.prettyJSON("{broken") == "{broken")
+        #expect(ApiHelpers.prettyJSON("<html>oops</html>") == "<html>oops</html>")
+        #expect(ApiHelpers.prettyJSON("{broken") == "{broken")
     }
 }

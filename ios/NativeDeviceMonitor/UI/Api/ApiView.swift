@@ -5,19 +5,21 @@ import SwiftUI
 /// ```
 ///  ApiView
 ///   └─ ScrollView > VStack
+///       ├─ AppCard "Connect with"   Picker URLSession | Alamofire  → ApiBackend.client (switch) → any ApiClient
 ///       ├─ AppCard "Test requests"  6 buttons = 6 rows of the test table (200 · params · POST 201 · headers · 500 · timeout)
 ///       ├─ AppCard "Custom GET"     TextField URL + [Send GET]
 ///       └─ AppCard "Response"       request · STATUS (green/red) · content-type · indented JSON body
 /// ```
 ///
+/// The View never names a library: it only holds `backend` and calls `backend.client.get/post`.
 /// `Task { result = await client.get(...) }`: the View is `@MainActor` so assigning state is safe; the network part is
 /// run by URLSession on its own threads → the UI doesn't freeze. While sending every button is disabled.
 struct ApiView: View {
 
-    private let client = ApiClient.shared
     private let bodyPreview = 3000
     private let resultAnchor = "result"
 
+    @State private var backend: ApiBackend = .urlSession
     @State private var customURL = "https://jsonplaceholder.typicode.com/users/1"
     @State private var lastRequest = ""
     @State private var result: ApiResult?
@@ -29,6 +31,14 @@ struct ApiView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: AppSpacing.md) {
                 AppHintText(text: ApiStrings.hint, showBullet: false)
+                AppCard(title: ApiStrings.backendTitle) {
+                    Picker(ApiStrings.backendTitle, selection: $backend) {
+                        ForEach(ApiBackend.allCases) { Text($0.label).tag($0) }
+                    }
+                    .pickerStyle(.segmented)
+                    .disabled(sending)
+                    AppHintText(text: ApiStrings.backendHint(backend))
+                }
                 AppCard(title: ApiStrings.presetsTitle) {
                     ForEach(ApiStrings.presets) { preset in
                         AppSecondaryButton(title: preset.label, action: { send(preset) }, isEnabled: !sending)
@@ -80,7 +90,7 @@ struct ApiView: View {
                 }
                 let body = responseBody(result)
                 if !body.isEmpty {
-                    let pretty = ApiClient.prettyJSON(body)
+                    let pretty = ApiHelpers.prettyJSON(body)
                     Text(pretty.count > bodyPreview ? String(pretty.prefix(bodyPreview)) + "\n… (\(pretty.count) chars)" : pretty)
                         .font(.system(size: 11, design: .monospaced))
                         .foregroundStyle(AppColor.terminalText)
@@ -105,12 +115,16 @@ struct ApiView: View {
     private func send(_ preset: ApiPreset) {
         sending = true
         result = nil
-        let shown = ApiClient.buildURL(preset.url, params: preset.params)?.absoluteString ?? preset.url
-        lastRequest = "\(preset.method) \(shown)"
+        let shown = ApiHelpers.buildURL(preset.url, params: preset.params)?.absoluteString ?? preset.url
+        lastRequest = "[\(backend.label)] \(preset.method) \(shown)"
+        // Branch 1: WHICH way to connect — decided once inside `ApiBackend.client` (switch .urlSession / .alamofire).
+        let client = backend.client
         Task {
-            if preset.method == "POST" {
+            // Branch 2: WHICH request — same call for both backends.
+            switch preset.method {
+            case "POST":
                 result = await client.post(preset.url, body: preset.body ?? "")
-            } else {
+            default:
                 result = await client.get(preset.url, params: preset.params)
             }
             sending = false
