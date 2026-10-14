@@ -103,7 +103,9 @@ nav:
       - project/index.md
       - "Code mẫu": project/source-code.md
       - "Checklist hoàn thành": project/checklist.md
-  - "Đánh giá & kế hoạch": plan/kmp-review.md
+  - "Đánh giá & kế hoạch":
+      - plan/kmp-review.md
+      - "Kotlin làm web": plan/kotlin-web.md
   - "Tra cứu":
       - "Tài nguyên học chính chủ": reference/learning-resources.md
       - "Repo mẫu tham khảo": reference/sample-repos.md

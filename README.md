@@ -61,7 +61,7 @@ Push lên `main` → GitHub Actions (`.github/workflows/pages.yml`) build và đ
 - `docs/lessons/NN-*.md` — 14 bài (thanh "Bài N/14" do `hooks/lesson_bar.py` chèn)
 - `DevicePulse/` — code hoàn chỉnh của app (Android + iOS)
 - `docs/project/` — app Device Pulse, code mẫu, checklist
-- `docs/plan/` — đánh giá KMP và kế hoạch học
+- `docs/plan/` — đánh giá KMP, kế hoạch học, nghiên cứu Kotlin làm web
 - `docs/reference/` — tài nguyên học, repo mẫu, bản đồ docs gốc, từ điển, lỗi hay gặp
 - `specs/` — thiết kế nội dung (không đăng lên site)
 

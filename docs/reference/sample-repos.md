@@ -53,6 +53,10 @@ Không phải KMP. Đưa vào để thấy app Android "kiểu cũ" tổ chức 
 |---|---|---|
 | [janishar/android-kotlin-mvp-architecture](https://github.com/janishar/android-kotlin-mvp-architecture) | Kiến trúc **MVP**: tách View / Presenter / Interactor rõ ràng, mỗi màn một package | Ngừng cập nhật từ 01/2024. Dagger2, RxJava2, FastAndroidNetworking **không chạy trên iOS**, nên đừng chép sang KMP. Ở KMP dùng Koin, Coroutines/Flow, Ktor, và **MVVM** với `ViewModel` ([bài 8](../lessons/08-viewmodel-navigation.md)) |
 
+## Kotlin trên web
+
+Template Compose + Wasm, Compose HTML, Kobweb, kotlin-wrappers: xem bảng cuối trang [Kotlin làm web](../plan/kotlin-web.md#repo-va-nguon-e-oc-tiep).
+
 ## Thư viện Device Pulse đang dùng
 
 Mở `README` và thư mục `samples/` của từng thư viện khi cần tra API.
