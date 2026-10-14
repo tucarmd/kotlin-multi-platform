@@ -1,0 +1,22 @@
+CREATE TABLE snapshot (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    takenAtMillis INTEGER NOT NULL,
+    batteryPercent INTEGER,
+    charging TEXT,
+    latitude REAL,
+    longitude REAL,
+    accuracyMeters REAL,
+    connection TEXT,
+    online INTEGER,
+    latencyMs INTEGER
+);
+
+selectAll:
+SELECT * FROM snapshot ORDER BY takenAtMillis DESC;
+
+insert:
+INSERT INTO snapshot(takenAtMillis, batteryPercent, charging, latitude, longitude, accuracyMeters, connection, online, latencyMs)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteAll:
+DELETE FROM snapshot;
