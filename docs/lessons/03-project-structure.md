@@ -25,6 +25,10 @@ DevicePulse/
 └── settings.gradle.kts          # danh sách module
 ```
 
+!!! note "Code mẫu chia module khác"
+    Cây trên là project wizard sinh ra. Code mẫu đã tách thành `shared/` + `androidApp/` + `iosApp/`, kèm giải thích
+    các thư mục `.gradle`, `.idea`, `.kotlin`, `build`, `local.properties`: xem [Cây thư mục của code mẫu](../project/source-code.md#cay-thu-muc).
+
 ## Target — "build ra cho máy nào"
 
 Target là một nền tảng đích. Device Pulse có ba:

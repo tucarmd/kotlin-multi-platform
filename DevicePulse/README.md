@@ -69,6 +69,32 @@ iOS Simulator: `xcrun simctl location booted set 10.7769,106.7009`.
 
 ## Cấu trúc
 
+Thư mục gốc. Cột phải cho biết file nằm trong git hay do máy tự sinh (đã gitignore, xoá đi sẽ được tạo lại):
+
+```text
+DevicePulse/
+├── shared/                       [git]  module KMP core (Kotlin chung + androidMain + iosMain)
+├── androidApp/                   [git]  app Android, Jetpack Compose
+├── iosApp/                       [git]  app iOS, SwiftUI + project.yml (XcodeGen)
+├── design/mockups/               [git]  mockup UI 8 màn, chia android/ và ios/
+├── gradle/
+│   ├── libs.versions.toml        [git]  version catalog: mọi phiên bản thư viện + plugin
+│   ├── gradle-daemon-jvm.properties [git] ghim Gradle chạy bằng JDK 21 (hết lỗi "Gradle JVM incompatible")
+│   └── wrapper/                  [git]  gradle-wrapper.jar + .properties (Gradle 8.14.5)
+├── build.gradle.kts              [git]  khai báo plugin cho cả project (apply false)
+├── settings.gradle.kts           [git]  repo Maven + danh sách module :shared, :androidApp
+├── gradle.properties             [git]  RAM cho Gradle/Kotlin daemon, bật cache, AndroidX
+├── gradlew, gradlew.bat          [git]  chạy Gradle đúng phiên bản, không cần cài Gradle
+├── .gitignore                    [git]
+├── local.properties              [máy]  sdk.dir = đường dẫn Android SDK, Studio tự tạo
+├── .idea/                        [máy]  setting Android Studio của riêng máy bạn
+├── .gradle/                      [máy]  cache Gradle của project (+ config.properties: java.home)
+├── .kotlin/                      [máy]  cache/session của Kotlin compiler daemon
+└── build/                        [máy]  output build ở gốc; mỗi module còn có build/ riêng
+```
+
+Trong `src/` của từng module:
+
 ```text
 shared/src/                     KMP core — không có UI
 ├── commonMain/kotlin/dev/devicepulse/

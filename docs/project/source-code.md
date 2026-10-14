@@ -22,6 +22,35 @@ open iosApp/iosApp.xcodeproj                                        # iOS: bấm
 Cần JDK 17+, Android SDK 36, Xcode 16+. Chi tiết và lệnh giả lập cảm biến:
 [`DevicePulse/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/README.md).
 
+## Cây thư mục
+
+Mở `DevicePulse/` trong Android Studio sẽ thấy các mục dưới đây. Mục **[máy]** do Studio/Gradle tự sinh, nằm trong
+`.gitignore`, nên không có trên GitHub. Xoá đi thì lần build sau sẽ được tạo lại.
+
+```text
+DevicePulse/
+├── shared/                          [git]  module KMP core: commonMain, androidMain, iosMain, commonTest
+├── androidApp/                      [git]  app Android, Jetpack Compose
+├── iosApp/                          [git]  app iOS, SwiftUI + project.yml (XcodeGen)
+├── design/mockups/                  [git]  mockup UI 8 màn, chia android/ và ios/
+├── gradle/
+│   ├── libs.versions.toml           [git]  version catalog: phiên bản thư viện + plugin
+│   ├── gradle-daemon-jvm.properties [git]  ghim Gradle chạy bằng JDK 21
+│   └── wrapper/                     [git]  Gradle wrapper (8.14.5)
+├── build.gradle.kts                 [git]  khai báo plugin cho cả project
+├── settings.gradle.kts              [git]  repo Maven + danh sách module
+├── gradle.properties                [git]  RAM cho daemon, bật cache, AndroidX
+├── gradlew, gradlew.bat             [git]  chạy đúng phiên bản Gradle, không cần cài
+├── local.properties                 [máy]  sdk.dir → Android SDK
+├── .idea/                           [máy]  setting Android Studio
+├── .gradle/                         [máy]  cache Gradle của project
+├── .kotlin/                         [máy]  cache Kotlin compiler daemon
+└── build/                           [máy]  output build
+```
+
+Cây bên trong `shared/src/`, `androidApp/src/` và `iosApp/` có ở mục *Cấu trúc* của
+[`DevicePulse/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/README.md#cau-truc).
+
 ## Code mẫu khác bài học ở đâu
 
 !!! warning "Code mẫu đã chuyển sang UI native"

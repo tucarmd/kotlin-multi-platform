@@ -5,6 +5,7 @@
 | Triệu chứng | Sửa |
 |---|---|
 | Lần đầu sync rất lâu | Bình thường (tải Kotlin/Native, thư viện). Đừng huỷ |
+| `Gradle JVM version incompatible` (… requires a Gradle JVM that supports version 17) | Gradle đang chạy bằng JDK quá cũ (11) hoặc quá mới (JBR 25 của Studio; Gradle 8.14 chỉ hỗ trợ tới Java 24). Thêm file `gradle/gradle-daemon-jvm.properties` có dòng `toolchainVersion=21` rồi Sync. Gradle sẽ tự tìm JDK 21 trên máy, không còn phụ thuộc setting Gradle JDK trong Studio |
 | `Unresolved reference` cho thư viện vừa thêm | Thêm sai source set, hoặc chưa sync Gradle |
 | Lớp `Res` thiếu chuỗi mới | Build lại để sinh code resource |
 | Phiên bản Kotlin và Compose không hợp | Xem bảng *Compatibility and versions* của Compose Multiplatform; dùng bộ phiên bản wizard sinh |
