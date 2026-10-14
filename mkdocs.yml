@@ -1,8 +1,8 @@
 site_name: Kotlin MVP Learning
 site_description: Học Kotlin Multiplatform bằng cách làm một app MVP chạy Android, iOS và Desktop — theo đúng lộ trình docs chính chủ của Kotlin.
-site_url: https://tucarmd.github.io/kotlin-mvp-learning/
-repo_url: https://github.com/tucarmd/kotlin-mvp-learning
-repo_name: tucarmd/kotlin-mvp-learning
+site_url: https://tucarmd.github.io/kotlin-multi-platform/
+repo_url: https://github.com/tucarmd/kotlin-multi-platform
+repo_name: tucarmd/kotlin-multi-platform
 edit_uri: edit/main/docs/
 # Xem ở máy: mkdocs serve · Đăng: push main → GitHub Actions (.github/workflows/pages.yml)
 docs_dir: docs
@@ -75,7 +75,7 @@ extra_css:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/tucarmd/kotlin-mvp-learning
+      link: https://github.com/tucarmd/kotlin-multi-platform
       name: Mã nguồn trên GitHub
     - icon: fontawesome/solid/book
       link: https://kotlinlang.org/docs/multiplatform/get-started.html

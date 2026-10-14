@@ -1,6 +1,6 @@
 # Kotlin MVP Learning — học Kotlin Multiplatform bằng một app MVP
 
-[![Site](https://img.shields.io/badge/site-tucarmd.github.io%2Fkotlin--mvp--learning-C8643F)](https://tucarmd.github.io/kotlin-mvp-learning/)
+[![Site](https://img.shields.io/badge/site-tucarmd.github.io%2Fkotlin--multi--platform-C8643F)](https://tucarmd.github.io/kotlin-multi-platform/)
 [![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin-Multiplatform-7F52FF)](https://kotlinlang.org/docs/multiplatform/get-started.html)
 
 Lộ trình 14 bài, đi theo mục lục docs Kotlin Multiplatform chính chủ. Mỗi bài thêm một mảnh vào cùng một app:
@@ -13,7 +13,7 @@ Lộ trình 14 bài, đi theo mục lục docs Kotlin Multiplatform chính chủ
  share · deps
 ```
 
-**Đọc online:** https://tucarmd.github.io/kotlin-mvp-learning/
+**Đọc online:** https://tucarmd.github.io/kotlin-multi-platform/
 
 ## Chạy site ở máy
 
