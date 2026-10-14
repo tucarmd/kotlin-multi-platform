@@ -37,11 +37,13 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kermit)
+            api(libs.koin.core) // androidApp declares its own module and calls startKoin through initKoin
             implementation(libs.ktor.client.core)
             implementation(libs.sqldelight.coroutines)
         }
         androidMain.dependencies {
             implementation(libs.kotlinx.coroutines.android)
+            implementation(libs.koin.android)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.sqldelight.android.driver)
         }

@@ -76,15 +76,16 @@ shared/src/                     KMP core — không có UI
 │   ├── rules/    batteryLevel · fixQuality · latencyGrade (hàm thuần, có test)
 │   ├── sensor/   interface 3 cảm biến, LatencyProbe (Ktor)
 │   ├── data/     HistoryRepository (SQLDelight)
-│   └── core/     PulseMonitor (gộp cảm biến thành StateFlow), PulseCore (ráp các phần)
+│   ├── core/     PulseMonitor (gộp cảm biến thành StateFlow), PulseCore (cửa vào core)
+│   └── di/       Koin: commonModule + expect platformModule, initKoin()
 ├── commonMain/sqldelight/      Snapshot.sq
-├── androidMain/  3 cảm biến Android, createPulseCore(context)
-├── iosMain/      3 cảm biến iOS, createPulseCore()
+├── androidMain/  3 cảm biến Android, platformModule
+├── iosMain/      3 cảm biến iOS, platformModule, pulseCore() cho Swift
 └── commonTest/   RulesTest, LatencyProbeTest, PulseMonitorTest (Turbine)
 
 androidApp/src/main/            Jetpack Compose
 ├── kotlin/dev/devicepulse/android/
-│   ├── DevicePulseApp.kt       tạo PulseCore một lần
+│   ├── DevicePulseApp.kt       initKoin { androidContext(); modules(appModule) }
 │   └── ui/  App (NavHost), PulseViewModel, Dashboard, Detail, History, LocationPermission
 └── res/values*/strings.xml     en + vi
 
@@ -99,7 +100,8 @@ Framework tên `Shared` (Swift viết `import Shared`). Plugin **[SKIE](https://
 Kotlin tự nhiên:
 
 ```swift
-let monitor = createPulseCore().startMonitor()     // hàm top-level Kotlin → hàm global Swift
+doInitKoin()                                        // Koin.kt: initKoin(), cùng module với Android
+let monitor = pulseCore().startMonitor()            // hàm top-level Kotlin → hàm global Swift
 for await state in monitor.state { ... }            // StateFlow → AsyncSequence
 switch onEnum(of: state.battery) {                  // sealed class Reading → enum Swift, switch đủ nhánh
 case .available(let a): a.value.levelPercent
@@ -110,7 +112,7 @@ switch info.charging { case .charging: ... }        // enum Kotlin → enum Swif
 
 ## Version và vì sao
 
-Kotlin 2.4.20 · SKIE 0.10.15 · AGP 8.13.2 · Compose BOM 2026.06.01 (UI 1.11.4, Material3 1.4.0) · Ktor 3.5.1 ·
+Kotlin 2.4.20 · SKIE 0.10.15 · Koin 4.2.2 · AGP 8.13.2 · Compose BOM 2026.06.01 (UI 1.11.4, Material3 1.4.0) · Ktor 3.5.1 ·
 SQLDelight 2.4.1 · Navigation 2.9.7.
 
 - **SKIE 0.10.15** là bản đầu tiên hỗ trợ Kotlin 2.4.20. Nâng Kotlin thì phải chờ SKIE ra bản tương ứng.
@@ -122,6 +124,8 @@ SQLDelight 2.4.1 · Navigation 2.9.7.
 
 - **Swift mất kiểu generic của `sealed interface`**: Objective-C chỉ giữ generic cho *class*. `Reading` vì vậy là
   `sealed class Reading<out T : Any>`, để Swift thấy `Reading<BatteryInfo>` chứ không phải `any Reading`.
+- **Swift không gọi được `get<T>()` của Koin** (hàm `reified`): `iosMain/di/KoinIos.kt` có `pulseCore()` lấy sẵn
+  `PulseCore` cho Swift. Android thì dùng `koinViewModel()` như bình thường.
 - **Tên hàm bắt đầu bằng `new`**: Objective-C dành tiền tố `new` cho hàm tạo object, nên `newMonitor()` sang Swift thành
   `doNewMonitor()`. Hàm được đặt tên `startMonitor()`.
 - **Link lỗi `_sqlite3_*` trên iOS**: framework là static, nên `-lsqlite3` phải thêm vào `OTHER_LDFLAGS` của app, không chỉ ở

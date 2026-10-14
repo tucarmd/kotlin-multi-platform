@@ -9,11 +9,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dev.devicepulse.model.SensorKind
+import org.koin.compose.viewmodel.koinViewModel
 
 private val Brand = Color(0xFF3D5AFE)
 
@@ -29,7 +29,7 @@ fun App() {
     val colors = if (isSystemInDarkTheme()) darkColorScheme(primary = Color(0xFF8C9EFF)) else lightColorScheme(primary = Brand)
     MaterialTheme(colorScheme = colors) {
         // One ViewModel for the whole app, created above the NavHost so every screen shares the same live readings.
-        val viewModel: PulseViewModel = viewModel(factory = PulseViewModel.Factory)
+        val viewModel: PulseViewModel = koinViewModel()
         val monitor = viewModel.monitor
         val state by monitor.state.collectAsStateWithLifecycle()
         val snapshots by monitor.snapshots.collectAsStateWithLifecycle()

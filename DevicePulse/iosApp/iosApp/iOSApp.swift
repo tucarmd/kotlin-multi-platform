@@ -3,9 +3,13 @@ import Shared
 
 @main
 struct iOSApp: App {
-    // Built once, like DevicePulseApp.core on Android. createPulseCore() comes from shared/iosMain.
-    @State private var model = PulseModel(core: createPulseCore())
+    @State private var model: PulseModel
     @State private var permission = LocationPermission()
+
+    init() {
+        doInitKoin()                                  // Koin.kt: initKoin() — same modules as Android
+        _model = State(initialValue: PulseModel(core: pulseCore()))
+    }
 
     var body: some Scene {
         WindowGroup {

@@ -6,7 +6,7 @@ import dev.devicepulse.model.NetworkStatus
 import dev.devicepulse.model.Reading
 import kotlinx.coroutines.flow.Flow
 
-// Implemented per platform in androidMain / iosMain and wired by createPulseCore().
+// Implemented per platform in androidMain / iosMain and bound through Koin's platformModule.
 
 interface BatterySensor {
     fun observe(): Flow<Reading<BatteryInfo>>

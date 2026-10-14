@@ -9,8 +9,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 
 /**
- * Wires the core together once per app. Each platform builds it with `createPulseCore(...)`
- * (androidMain / iosMain), which picks the sensors, the Ktor engine and the SQLite driver.
+ * Entry point to the core for both apps. Koin builds it once (commonModule) from the sensors, HttpClient and
+ * SQLite driver that each platformModule binds.
  */
 class PulseCore(
     private val battery: BatterySensor,

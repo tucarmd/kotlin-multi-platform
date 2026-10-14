@@ -27,13 +27,13 @@ Cần JDK 17+, Android SDK 36, Xcode 16+. Chi tiết và lệnh giả lập cả
 !!! warning "Code mẫu đã chuyển sang UI native"
     14 bài viết UI **chung** bằng Compose Multiplatform. Code mẫu hiện dùng kiến trúc **KMP core + UI native**:
     `shared/` chứa toàn bộ logic, `androidApp/` vẽ bằng Jetpack Compose, `iosApp/` vẽ bằng SwiftUI.
-    Phần core (bài 4, 9–13) gần như giữ nguyên; phần UI (bài 6–8) và cách ráp phụ thuộc (bài 5) khác bài học.
+    Phần core và Koin (bài 4–5, 9–13) gần như giữ nguyên; phần UI (bài 6–8) khác bài học.
 
 | Bài | File trong code mẫu (tính từ `DevicePulse/`) |
 |---|---|
 | [3. Cấu trúc project](../lessons/03-project-structure.md) | `settings.gradle.kts`, `shared/build.gradle.kts`, `androidApp/build.gradle.kts`, `gradle/libs.versions.toml` |
 | [4. Chia sẻ code](../lessons/04-share-code.md) | `shared/.../model/Models.kt`, `shared/.../rules/Rules.kt` |
-| [5. Thêm thư viện](../lessons/05-dependencies.md) | `shared/.../core/PulseCore.kt` + `PulseCore.android.kt` / `.ios.kt` (ráp tay, không dùng Koin) |
+| [5. Thêm thư viện](../lessons/05-dependencies.md) | `shared/.../di/Koin.kt`, `*/di/PlatformModule.*.kt`, `iosMain/.../di/KoinIos.kt` · Android: `androidApp/.../DevicePulseApp.kt` (`appModule`) |
 | [6. Compose cơ bản](../lessons/06-compose-basics.md) | Android: `androidApp/.../ui/DashboardScreen.kt`, `Components.kt` · iOS: `iosApp/iosApp/Views/DashboardView.swift`, `Components.swift` |
 | [7. Resources](../lessons/07-resources.md) | `androidApp/src/main/res/values*/strings.xml` · `iosApp/iosApp/*.lproj/Localizable.strings` |
 | [8. ViewModel và điều hướng](../lessons/08-viewmodel-navigation.md) | `shared/.../core/PulseMonitor.kt` · Android: `ui/PulseViewModel.kt`, `ui/App.kt` · iOS: `PulseModel.swift`, `Views/RootView.swift` |
