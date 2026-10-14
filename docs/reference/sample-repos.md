@@ -45,6 +45,14 @@ Mỗi repo là đáp án của một tutorial trên kotlinlang.org. Làm tutoria
 | [JetBrains/kotlinconf-app](https://github.com/JetBrains/kotlinconf-app) | App hội nghị KotlinConf chính thức: UI chung, backend Ktor, resources, đa ngôn ngữ |
 | [joreilly/Confetti](https://github.com/joreilly/Confetti) | GraphQL (Apollo), Wear OS, Desktop, iOS. Xem cách tách module khi app lớn dần |
 
+## Android thuần, đọc để so sánh kiến trúc
+
+Không phải KMP. Đưa vào để thấy app Android "kiểu cũ" tổ chức thế nào, rồi so với cách Device Pulse làm.
+
+| Repo | Đáng xem chỗ nào | Lưu ý |
+|---|---|---|
+| [janishar/android-kotlin-mvp-architecture](https://github.com/janishar/android-kotlin-mvp-architecture) | Kiến trúc **MVP**: tách View / Presenter / Interactor rõ ràng, mỗi màn một package | Ngừng cập nhật từ 01/2024. Dagger2, RxJava2, FastAndroidNetworking **không chạy trên iOS**, nên đừng chép sang KMP. Ở KMP dùng Koin, Coroutines/Flow, Ktor, và **MVVM** với `ViewModel` ([bài 8](../lessons/08-viewmodel-navigation.md)) |
+
 ## Thư viện Device Pulse đang dùng
 
 Mở `README` và thư mục `samples/` của từng thư viện khi cần tra API.
