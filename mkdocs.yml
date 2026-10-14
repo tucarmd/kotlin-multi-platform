@@ -104,6 +104,7 @@ nav:
       - "Checklist hoàn thành": mvp/checklist.md
   - "Đánh giá & kế hoạch": plan/kmp-review.md
   - "Tra cứu":
+      - "Tài nguyên học chính chủ": reference/learning-resources.md
       - "Bản đồ docs chính chủ": reference/docs-map.md
       - "Từ điển": reference/glossary.md
       - "Lỗi hay gặp": reference/troubleshooting.md
