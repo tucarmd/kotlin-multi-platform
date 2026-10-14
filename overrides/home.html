@@ -1,0 +1,91 @@
+{% extends "main.html" %}
+
+{% block tabs %}
+{{ super() }}
+<div class="home">
+
+  <section class="hero">
+    <div class="hero__text">
+      <p class="kicker"><span class="dot"></span> Kotlin Multiplatform · 14 bài · 1 app MVP</p>
+      <h1>Một code Kotlin, <em>chạy Android, iOS và Desktop.</em></h1>
+      <p class="hero__lead">Lộ trình học Kotlin Multiplatform (KMP) đi theo mục lục docs chính chủ của Kotlin, nhưng
+        học bằng tay: mỗi bài thêm một mảnh vào cùng một app — <mark>Habit Tick</mark>, app đánh dấu thói quen mỗi ngày.
+        Học xong là có app chạy thật trên 3 nền tảng.</p>
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="{{ 'roadmap/' | url }}">Xem lộ trình 14 bài →</a>
+        <a class="btn" href="{{ 'mvp/' | url }}">App MVP sẽ làm</a>
+      </div>
+    </div>
+    <ol class="track" aria-label="14 bài của lộ trình">
+      <li><b>1</b> KMP là gì</li>
+      <li><b>2</b> cài máy</li>
+      <li><b>3</b> cấu trúc</li>
+      <li class="gate"><b>4</b> share code <i>LÕI</i></li>
+      <li><b>5</b> thư viện</li>
+      <li class="loop"><b>6</b> Compose <i>UI</i></li>
+      <li><b>7</b> resources</li>
+      <li class="loop"><b>8</b> ViewModel <i>UI</i></li>
+      <li class="gate"><b>9</b> SQLDelight <i>DATA</i></li>
+      <li class="gate"><b>10</b> Ktor <i>DATA</i></li>
+      <li><b>11</b> iOS</li>
+      <li><b>12</b> test</li>
+      <li><b>13</b> phát hành</li>
+      <li><b>14</b> migrate</li>
+    </ol>
+  </section>
+
+  <section class="steps">
+    <div class="step"><span class="step__n">1</span><h3>Đọc khái niệm</h3><p>Mỗi bài tóm ý chính bằng tiếng Việt, kèm link tới đúng trang docs gốc.</p></div>
+    <div class="step"><span class="step__n">2</span><h3>Làm trên app MVP</h3><p>Code từng bước vào Habit Tick. Không có bài tập rời, mọi thứ ráp vào một app.</p></div>
+    <div class="step"><span class="step__n">3</span><h3>Tự kiểm</h3><p>Checklist cuối bài: chạy được trên Android, iOS, Desktop thì mới sang bài sau.</p></div>
+  </section>
+
+  <section class="block">
+    <h2 class="block__title">Bạn đang muốn học gì?</h2>
+    <p class="block__sub">Bấm vào câu giống bạn nhất. Mỗi thẻ mở đúng một bài.</p>
+    <div class="cards">
+      <a class="card c-coral" href="{{ 'lessons/01-what-is-kmp/' | url }}"><span class="card__emoji">🤔</span><b>KMP khác Flutter chỗ nào?</b><span>Chia sẻ logic, UI tuỳ chọn, khi nào nên dùng</span></a>
+      <a class="card c-sun" href="{{ 'lessons/02-setup/' | url }}"><span class="card__emoji">🧰</span><b>Cài máy từ số 0</b><span>IDE, plugin KMP, wizard, chạy app đầu tiên</span></a>
+      <a class="card c-sky" href="{{ 'lessons/04-share-code/' | url }}"><span class="card__emoji">🔀</span><b>expect / actual là gì?</b><span>Gọi API riêng của Android và iOS từ code chung</span></a>
+      <a class="card c-sage" href="{{ 'lessons/06-compose-basics/' | url }}"><span class="card__emoji">🎨</span><b>Một UI cho mọi nền tảng</b><span>Compose Multiplatform: layout, modifier, preview</span></a>
+      <a class="card c-coral" href="{{ 'lessons/08-viewmodel-navigation/' | url }}"><span class="card__emoji">🧠</span><b>ViewModel + điều hướng</b><span>StateFlow, lifecycle, Navigation type-safe</span></a>
+      <a class="card c-sun" href="{{ 'lessons/09-sqldelight/' | url }}"><span class="card__emoji">💾</span><b>Lưu dữ liệu offline</b><span>SQLDelight: viết SQL, sinh code Kotlin an toàn kiểu</span></a>
+      <a class="card c-sky" href="{{ 'lessons/10-ktor/' | url }}"><span class="card__emoji">🌐</span><b>Gọi REST API</b><span>Ktor client + kotlinx.serialization</span></a>
+      <a class="card c-sage" href="{{ 'lessons/11-ios-integration/' | url }}"><span class="card__emoji">🍎</span><b>Nối với Xcode / SwiftUI</b><span>Direct, SwiftPM, CocoaPods — chọn cái nào</span></a>
+      <a class="card c-ink" href="{{ 'lessons/14-migrate-android/' | url }}"><span class="card__emoji">🚚</span><b>Có sẵn app Android rồi</b><span>Chuyển dần sang KMP, không viết lại từ đầu</span></a>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2 class="block__title">Xem theo nhóm</h2>
+    <div class="areas areas--6">
+      <a href="{{ 'roadmap/' | url }}"><span>🧭</span><b>Lộ trình</b><i>14 bài</i></a>
+      <a href="{{ 'mvp/' | url }}"><span>✅</span><b>App MVP</b><i>Habit Tick</i></a>
+      <a href="{{ 'mvp/checklist/' | url }}"><span>📋</span><b>Checklist</b><i>xong khi nào</i></a>
+      <a href="{{ 'reference/docs-map/' | url }}"><span>🗺️</span><b>Bản đồ docs</b><i>bài ↔ docs gốc</i></a>
+      <a href="{{ 'reference/glossary/' | url }}"><span>📖</span><b>Từ điển</b><i>thuật ngữ KMP</i></a>
+      <a href="{{ 'reference/troubleshooting/' | url }}"><span>🩹</span><b>Lỗi hay gặp</b><i>Gradle · Xcode</i></a>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2 class="block__title">Năm luật khi học</h2>
+    <div class="notes">
+      <div class="note n1"><b>Chạy được mới tính.</b> Mỗi bài kết thúc bằng app chạy trên máy, không dừng ở "đã đọc".</div>
+      <div class="note n2"><b>Logic chung trước.</b> Đưa vào <code>commonMain</code> mọi thứ không dính UI hay API riêng của máy.</div>
+      <div class="note n3"><b>Ít expect/actual.</b> Ưu tiên interface + truyền vào; expect/actual chỉ cho chỗ thật sự khác.</div>
+      <div class="note n4"><b>Dùng wizard.</b> Đừng tự gõ Gradle từ đầu — tạo bằng wizard rồi đọc hiểu file sinh ra.</div>
+      <div class="note n5"><b>Docs gốc là chuẩn.</b> Phiên bản đổi nhanh; lệch với site này thì tin docs của Kotlin.</div>
+    </div>
+  </section>
+
+  <section class="final">
+    <h2>Mở bài 1. Cuối bài 14, Habit Tick chạy trên 3 nền tảng.</h2>
+    <a class="btn btn--primary btn--big" href="{{ 'lessons/01-what-is-kmp/' | url }}">Bắt đầu bài 1 →</a>
+    <p>Nội dung tóm tắt và bài tập tự viết · nguồn gốc: <a href="https://kotlinlang.org/docs/multiplatform/get-started.html">Kotlin Multiplatform docs</a></p>
+  </section>
+</div>
+{% endblock %}
+
+{% block content %}{% endblock %}
+{% block footer %}{{ super() }}{% endblock %}

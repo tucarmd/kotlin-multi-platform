@@ -1,0 +1,113 @@
+site_name: Kotlin MVP Learning
+site_description: Học Kotlin Multiplatform bằng cách làm một app MVP chạy Android, iOS và Desktop — theo đúng lộ trình docs chính chủ của Kotlin.
+site_url: https://tucarmd.github.io/kotlin-mvp-learning/
+repo_url: https://github.com/tucarmd/kotlin-mvp-learning
+repo_name: tucarmd/kotlin-mvp-learning
+edit_uri: edit/main/docs/
+# Xem ở máy: mkdocs serve · Đăng: push main → GitHub Actions (.github/workflows/pages.yml)
+docs_dir: docs
+site_dir: _site
+use_directory_urls: true
+
+theme:
+  name: material
+  language: vi
+  custom_dir: overrides
+  font:
+    text: Figtree
+    code: JetBrains Mono
+  icon:
+    logo: material/language-kotlin
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle: { icon: material/weather-night, name: Chế độ tối }
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle: { icon: material/weather-sunny, name: Chế độ sáng }
+
+markdown_extensions:
+  - tables
+  - admonition
+  - attr_list
+  - md_in_html
+  - toc: { permalink: true }
+  - pymdownx.highlight: { anchor_linenums: true }
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed: { alternate_style: true }
+  - pymdownx.details
+  - pymdownx.tasklist: { custom_checkbox: true }
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+hooks:
+  - hooks/lesson_bar.py
+
+plugins:
+  - search
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/tucarmd/kotlin-mvp-learning
+      name: Mã nguồn trên GitHub
+    - icon: fontawesome/solid/book
+      link: https://kotlinlang.org/docs/multiplatform/get-started.html
+      name: Docs Kotlin Multiplatform chính chủ
+
+nav:
+  - "Trang chủ": index.md
+  - "Lộ trình":
+      - roadmap.md
+      - "1. KMP là gì, khi nào dùng": lessons/01-what-is-kmp.md
+      - "2. Cài máy, tạo project đầu tiên": lessons/02-setup.md
+      - "3. Cấu trúc project": lessons/03-project-structure.md
+      - "4. Chia sẻ code giữa các nền tảng": lessons/04-share-code.md
+      - "5. Thêm thư viện": lessons/05-dependencies.md
+      - "6. Compose Multiplatform cơ bản": lessons/06-compose-basics.md
+      - "7. Resources và đa ngôn ngữ": lessons/07-resources.md
+      - "8. ViewModel và điều hướng": lessons/08-viewmodel-navigation.md
+      - "9. Lưu dữ liệu với SQLDelight": lessons/09-sqldelight.md
+      - "10. Gọi API với Ktor": lessons/10-ktor.md
+      - "11. Nối với iOS": lessons/11-ios-integration.md
+      - "12. Test": lessons/12-testing.md
+      - "13. Build và phát hành": lessons/13-build-publish.md
+      - "14. Đưa app Android có sẵn sang KMP": lessons/14-migrate-android.md
+  - "App MVP":
+      - mvp/index.md
+      - "Checklist hoàn thành": mvp/checklist.md
+  - "Tra cứu":
+      - "Bản đồ docs chính chủ": reference/docs-map.md
+      - "Từ điển": reference/glossary.md
+      - "Lỗi hay gặp": reference/troubleshooting.md
+
+validation:
+  links:
+    not_found: warn
+    unrecognized_links: info
