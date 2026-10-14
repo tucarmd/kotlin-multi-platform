@@ -3,102 +3,133 @@
   "repo": "app",
   "preset": "ui-mockup",
   "raw_dir": "raw",
-  "style_lock": "Style: simple, flat developer UI mockup of a single Android phone screen built with Material 3 (Compose Multiplatform). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective, no shadows outside the screen. Android status bar at top (time 9:41, Wi-Fi and battery icons), gesture bar at bottom. Palette: background #FBFBFF, cards #F1F2FA with 12 px rounded corners and no heavy shadow, primary/brand #3D5AFE for filled buttons and accents, body text #1B1B1F, secondary text #5F6170, good/green #2E7D32, warn/amber #B26A00, bad/red #BA1A1A. Grade chips are pill-shaped with the tone colour at 14% opacity as fill and the tone colour as text. Font: Roboto-like sans-serif, sizes as in Material 3 (top app bar title 22 sp semibold, card title 16 sp, big value 36 sp bold). 16 dp screen padding, 12 dp gap between cards. Emoji icons are used exactly as written (🔋 📍 📶 🕘).",
+  "style_lock": {
+    "android": "Style: simple, flat developer UI mockup of a single Android phone screen built with Material 3 (Compose Multiplatform). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective, no shadows outside the screen. Android status bar at top (time 9:41, Wi-Fi and battery icons), gesture bar at bottom. Palette: background #FBFBFF, cards #F1F2FA with 12 px rounded corners and no heavy shadow, primary/brand #3D5AFE for filled buttons and accents, body text #1B1B1F, secondary text #5F6170, good/green #2E7D32, warn/amber #B26A00, bad/red #BA1A1A. Grade chips are pill-shaped with the tone colour at 14% opacity as fill and the tone colour as text. Font: Roboto-like sans-serif, sizes as in Material 3 (top app bar title 22 sp semibold, card title 16 sp, big value 36 sp bold). 16 dp screen padding, 12 dp gap between cards. Emoji icons are used exactly as written (🔋 📍 📶 🕘).",
+    "ios": "Style: simple, flat developer UI mockup of a single iPhone screen built with native SwiftUI (iOS 17/18 look). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective. iOS status bar at top (time 9:41 left, signal, Wi-Fi and battery icons right, space for the Dynamic Island), home indicator bar at bottom. Palette: system background #FFFFFF, grouped/secondary background #F2F2F7, app tint #3D5AFF for buttons and toolbar items, label text #000000, secondary label #8A8A8E, separators #C6C6C8, good/green #2E7D33, warn/amber #B36B00, bad/red #FF3B30. Grade chips are capsules with the tone colour at 14% opacity as fill and the tone colour as caption semibold text. Font: San Francisco (SF Pro). Sensor cards are #F2F2F7 rounded rectangles with 16 pt corner radius and 16 pt padding, no shadow, 12 pt apart, 16 pt screen margins. \".bordered\" buttons are capsule-like rounded rectangles filled with the tint at about 15% opacity and tint-coloured text (no outline). \".borderedProminent\" buttons are solid tint with white text. Emoji icons are used exactly as written (🔋 📍 📶 🕘)."
+  },
   "jobs": [
     {
-      "id": "01-dashboard",
-      "file": "01-dashboard.png",
+      "id": "android-01-dashboard",
+      "file": "android-01-dashboard.png",
       "size": "1024x1536",
       "format": "png",
       "background": "opaque",
       "text": "verbatim",
       "title": "Dashboard (all sensors available)",
-      "source": "Matches ui/DashboardScreen.kt with every Reading Available.",
+      "source": "Matches androidApp …/android/ui/DashboardScreen.kt with every Reading Available.",
       "prompt": "Subject: Device Pulse app — Dashboard (all sensors available). Matches ui/DashboardScreen.kt with every Reading Available.\nStyle: simple, flat developer UI mockup of a single Android phone screen built with Material 3 (Compose Multiplatform). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective, no shadows outside the screen. Android status bar at top (time 9:41, Wi-Fi and battery icons), gesture bar at bottom. Palette: background #FBFBFF, cards #F1F2FA with 12 px rounded corners and no heavy shadow, primary/brand #3D5AFE for filled buttons and accents, body text #1B1B1F, secondary text #5F6170, good/green #2E7D32, warn/amber #B26A00, bad/red #BA1A1A. Grade chips are pill-shaped with the tone colour at 14% opacity as fill and the tone colour as text. Font: Roboto-like sans-serif, sizes as in Material 3 (top app bar title 22 sp semibold, card title 16 sp, big value 36 sp bold). 16 dp screen padding, 12 dp gap between cards. Emoji icons are used exactly as written (🔋 📍 📶 🕘).\nComposition (top to bottom, render every text exactly as quoted, nothing else):\n- Top app bar: title \"Device Pulse\" left; text button \"🕘 History\" right in brand blue.\n- Card 1: header row \"🔋\" + \"Battery\" and a green chip \"OK\" on the right; below, big bold \"78%\" and next to it smaller \"Charging\".\n- Card 2: header row \"📍\" + \"Location\" and a green chip \"Good\"; below, \"10.77689, 106.70081\" (title size) and a grey line \"± 12 m\".\n- Card 3: header row \"📶\" + \"Network\" and a green chip \"Fast\"; below, \"Wi-Fi\" (title size) with green \"Online\" next to it; then a row with \"64 ms\" on the left and an outlined button \"Measure latency\" on the right.\n- Empty space, then a full-width filled brand-blue button \"Save reading\" pinned at the bottom with 16 dp margin.\nSpec: portrait 1024x1536, opaque background, one screen only, all text crisp and legible.\nNegative: watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos.",
       "negative": "watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos",
-      "dest": "DevicePulse/design/mockups/01-dashboard.png"
+      "dest": "DevicePulse/design/mockups/android/01-dashboard.png",
+      "platform": "android",
+      "code": [
+        "DashboardScreen.kt"
+      ]
     },
     {
-      "id": "02-dashboard-states",
-      "file": "02-dashboard-states.png",
+      "id": "android-02-dashboard-states",
+      "file": "android-02-dashboard-states.png",
       "size": "1024x1536",
       "format": "png",
       "background": "opaque",
       "text": "verbatim",
       "title": "Dashboard (non-value states)",
-      "source": "Shows how ReadingContent in ui/Components.kt draws Loading, PermissionDenied and Unsupported.",
+      "source": "Shows how ReadingContent in androidApp …/android/ui/Components.kt draws Loading, PermissionDenied and Unsupported.",
       "prompt": "Subject: Device Pulse app — Dashboard (non-value states). Shows how ReadingContent in ui/Components.kt draws Loading, PermissionDenied and Unsupported.\nStyle: simple, flat developer UI mockup of a single Android phone screen built with Material 3 (Compose Multiplatform). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective, no shadows outside the screen. Android status bar at top (time 9:41, Wi-Fi and battery icons), gesture bar at bottom. Palette: background #FBFBFF, cards #F1F2FA with 12 px rounded corners and no heavy shadow, primary/brand #3D5AFE for filled buttons and accents, body text #1B1B1F, secondary text #5F6170, good/green #2E7D32, warn/amber #B26A00, bad/red #BA1A1A. Grade chips are pill-shaped with the tone colour at 14% opacity as fill and the tone colour as text. Font: Roboto-like sans-serif, sizes as in Material 3 (top app bar title 22 sp semibold, card title 16 sp, big value 36 sp bold). 16 dp screen padding, 12 dp gap between cards. Emoji icons are used exactly as written (🔋 📍 📶 🕘).\nComposition (top to bottom, render every text exactly as quoted, nothing else):\n- Top app bar: \"Device Pulse\" left, text button \"🕘 History\" right.\n- Card 1: header \"🔋\" + \"Battery\", no chip; body grey text \"Not supported on this device\".\n- Card 2: header \"📍\" + \"Location\", no chip; body red text \"Permission denied\" and under it an outlined button \"Grant permission\".\n- Card 3: header \"📶\" + \"Network\", no chip; body a small circular spinner followed by \"Reading…\"; then a row with \"Not measured\" left and outlined button \"Measure latency\" right.\n- Full-width filled brand-blue button \"Save reading\" at the bottom.\nSpec: portrait 1024x1536, opaque background, one screen only, all text crisp and legible.\nNegative: watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos.",
       "negative": "watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos",
-      "dest": "DevicePulse/design/mockups/02-dashboard-states.png"
+      "dest": "DevicePulse/design/mockups/android/02-dashboard-states.png",
+      "platform": "android",
+      "code": [
+        "Components.kt"
+      ]
     },
     {
-      "id": "03-detail-battery",
-      "file": "03-detail-battery.png",
+      "id": "android-03-detail-battery",
+      "file": "android-03-detail-battery.png",
       "size": "1024x1536",
       "format": "png",
       "background": "opaque",
       "text": "verbatim",
       "title": "Detail — Battery",
-      "source": "Matches ui/DetailScreen.kt for SensorKind.Battery.",
+      "source": "Matches androidApp …/android/ui/DetailScreen.kt for SensorKind.Battery.",
       "prompt": "Subject: Device Pulse app — Detail — Battery. Matches ui/DetailScreen.kt for SensorKind.Battery.\nStyle: simple, flat developer UI mockup of a single Android phone screen built with Material 3 (Compose Multiplatform). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective, no shadows outside the screen. Android status bar at top (time 9:41, Wi-Fi and battery icons), gesture bar at bottom. Palette: background #FBFBFF, cards #F1F2FA with 12 px rounded corners and no heavy shadow, primary/brand #3D5AFE for filled buttons and accents, body text #1B1B1F, secondary text #5F6170, good/green #2E7D32, warn/amber #B26A00, bad/red #BA1A1A. Grade chips are pill-shaped with the tone colour at 14% opacity as fill and the tone colour as text. Font: Roboto-like sans-serif, sizes as in Material 3 (top app bar title 22 sp semibold, card title 16 sp, big value 36 sp bold). 16 dp screen padding, 12 dp gap between cards. Emoji icons are used exactly as written (🔋 📍 📶 🕘).\nComposition (top to bottom, render every text exactly as quoted, nothing else):\n- Top app bar: back arrow icon left, title \"🔋  Battery\".\n- A list of label/value rows (label grey on the left, value medium weight right-aligned), no cards:\n  \"Level\" — \"78%\"; \"Status\" — \"Charging\"; \"Rating\" — \"OK\".\n- A thin horizontal divider, then small grey text \"Critical ≤ 10% · Low ≤ 20% · otherwise OK\".\n- The rest of the screen empty.\nSpec: portrait 1024x1536, opaque background, one screen only, all text crisp and legible.\nNegative: watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos.",
       "negative": "watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos",
-      "dest": "DevicePulse/design/mockups/03-detail-battery.png"
+      "dest": "DevicePulse/design/mockups/android/03-detail-battery.png",
+      "platform": "android",
+      "code": [
+        "DetailScreen.kt"
+      ]
     },
     {
-      "id": "04-detail-location",
-      "file": "04-detail-location.png",
+      "id": "android-04-detail-location",
+      "file": "android-04-detail-location.png",
       "size": "1024x1536",
       "format": "png",
       "background": "opaque",
       "text": "verbatim",
       "title": "Detail — Location",
-      "source": "Matches ui/DetailScreen.kt for SensorKind.Location.",
+      "source": "Matches androidApp …/android/ui/DetailScreen.kt for SensorKind.Location.",
       "prompt": "Subject: Device Pulse app — Detail — Location. Matches ui/DetailScreen.kt for SensorKind.Location.\nStyle: simple, flat developer UI mockup of a single Android phone screen built with Material 3 (Compose Multiplatform). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective, no shadows outside the screen. Android status bar at top (time 9:41, Wi-Fi and battery icons), gesture bar at bottom. Palette: background #FBFBFF, cards #F1F2FA with 12 px rounded corners and no heavy shadow, primary/brand #3D5AFE for filled buttons and accents, body text #1B1B1F, secondary text #5F6170, good/green #2E7D32, warn/amber #B26A00, bad/red #BA1A1A. Grade chips are pill-shaped with the tone colour at 14% opacity as fill and the tone colour as text. Font: Roboto-like sans-serif, sizes as in Material 3 (top app bar title 22 sp semibold, card title 16 sp, big value 36 sp bold). 16 dp screen padding, 12 dp gap between cards. Emoji icons are used exactly as written (🔋 📍 📶 🕘).\nComposition (top to bottom, render every text exactly as quoted, nothing else):\n- Top app bar: back arrow icon left, title \"📍  Location\".\n- Label/value rows (label grey left, value right):\n  \"Latitude\" — \"10.776889\"; \"Longitude\" — \"106.700806\"; \"Accuracy\" — \"12.4 m\"; \"Speed\" — \"3.6 km/h\"; \"Updated\" — \"09:41:07 · 14/10/2026\"; \"Rating\" — \"Good\".\n- Thin divider, then small grey text \"Good ≤ 20 m · Fair ≤ 100 m · otherwise Poor\".\n- No map. The rest of the screen empty.\nSpec: portrait 1024x1536, opaque background, one screen only, all text crisp and legible.\nNegative: watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos.",
       "negative": "watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos",
-      "dest": "DevicePulse/design/mockups/04-detail-location.png"
+      "dest": "DevicePulse/design/mockups/android/04-detail-location.png",
+      "platform": "android",
+      "code": [
+        "DetailScreen.kt"
+      ]
     },
     {
-      "id": "05-detail-network",
-      "file": "05-detail-network.png",
+      "id": "android-05-detail-network",
+      "file": "android-05-detail-network.png",
       "size": "1024x1536",
       "format": "png",
       "background": "opaque",
       "text": "verbatim",
       "title": "Detail — Network",
-      "source": "Matches ui/DetailScreen.kt for SensorKind.Network.",
+      "source": "Matches androidApp …/android/ui/DetailScreen.kt for SensorKind.Network.",
       "prompt": "Subject: Device Pulse app — Detail — Network. Matches ui/DetailScreen.kt for SensorKind.Network.\nStyle: simple, flat developer UI mockup of a single Android phone screen built with Material 3 (Compose Multiplatform). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective, no shadows outside the screen. Android status bar at top (time 9:41, Wi-Fi and battery icons), gesture bar at bottom. Palette: background #FBFBFF, cards #F1F2FA with 12 px rounded corners and no heavy shadow, primary/brand #3D5AFE for filled buttons and accents, body text #1B1B1F, secondary text #5F6170, good/green #2E7D32, warn/amber #B26A00, bad/red #BA1A1A. Grade chips are pill-shaped with the tone colour at 14% opacity as fill and the tone colour as text. Font: Roboto-like sans-serif, sizes as in Material 3 (top app bar title 22 sp semibold, card title 16 sp, big value 36 sp bold). 16 dp screen padding, 12 dp gap between cards. Emoji icons are used exactly as written (🔋 📍 📶 🕘).\nComposition (top to bottom, render every text exactly as quoted, nothing else):\n- Top app bar: back arrow icon left, title \"📶  Network\".\n- Label/value rows: \"Type\" — \"Wi-Fi\"; \"Status\" — \"Online\"; \"Latency\" — \"64 ms\"; \"Rating\" — \"Fast\".\n- A filled brand-blue button \"Measure latency\" (wrap content width, left aligned).\n- Thin divider, then small grey text \"Fast < 100 ms · OK < 300 ms · otherwise Slow\".\n- The rest of the screen empty.\nSpec: portrait 1024x1536, opaque background, one screen only, all text crisp and legible.\nNegative: watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos.",
       "negative": "watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos",
-      "dest": "DevicePulse/design/mockups/05-detail-network.png"
+      "dest": "DevicePulse/design/mockups/android/05-detail-network.png",
+      "platform": "android",
+      "code": [
+        "DetailScreen.kt"
+      ]
     },
     {
-      "id": "06-history",
-      "file": "06-history.png",
+      "id": "android-06-history",
+      "file": "android-06-history.png",
       "size": "1024x1536",
       "format": "png",
       "background": "opaque",
       "text": "verbatim",
       "title": "History (with saved readings)",
-      "source": "Matches ui/HistoryScreen.kt with three snapshots.",
+      "source": "Matches androidApp …/android/ui/HistoryScreen.kt with three snapshots.",
       "prompt": "Subject: Device Pulse app — History (with saved readings). Matches ui/HistoryScreen.kt with three snapshots.\nStyle: simple, flat developer UI mockup of a single Android phone screen built with Material 3 (Compose Multiplatform). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective, no shadows outside the screen. Android status bar at top (time 9:41, Wi-Fi and battery icons), gesture bar at bottom. Palette: background #FBFBFF, cards #F1F2FA with 12 px rounded corners and no heavy shadow, primary/brand #3D5AFE for filled buttons and accents, body text #1B1B1F, secondary text #5F6170, good/green #2E7D32, warn/amber #B26A00, bad/red #BA1A1A. Grade chips are pill-shaped with the tone colour at 14% opacity as fill and the tone colour as text. Font: Roboto-like sans-serif, sizes as in Material 3 (top app bar title 22 sp semibold, card title 16 sp, big value 36 sp bold). 16 dp screen padding, 12 dp gap between cards. Emoji icons are used exactly as written (🔋 📍 📶 🕘).\nComposition (top to bottom, render every text exactly as quoted, nothing else):\n- Top app bar: back arrow icon left, title \"🕘 History\", text button \"Clear\" right in brand blue.\n- Three stacked cards, 10 dp apart, each with 4 lines (first line semibold):\n  Card 1: \"09:41:07 · 14/10/2026\" / \"🔋 78% · Charging\" / \"📍 10.77689, 106.70081 (± 12 m)\" / \"📶 Wi-Fi · 64 ms\".\n  Card 2: \"08:15:32 · 14/10/2026\" / \"🔋 19% · Discharging\" / \"📍 10.77512, 106.69870 (± 48 m)\" / \"📶 Cellular · 212 ms\".\n  Card 3: \"22:03:55 · 13/10/2026\" / \"🔋 100% · Full\" / \"📍 —\" / \"📶 No connection · Offline\".\n- The rest of the screen empty.\nSpec: portrait 1024x1536, opaque background, one screen only, all text crisp and legible.\nNegative: watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos.",
       "negative": "watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos",
-      "dest": "DevicePulse/design/mockups/06-history.png"
+      "dest": "DevicePulse/design/mockups/android/06-history.png",
+      "platform": "android",
+      "code": [
+        "HistoryScreen.kt"
+      ]
     },
     {
-      "id": "07-history-empty",
-      "file": "07-history-empty.png",
+      "id": "android-07-history-empty",
+      "file": "android-07-history-empty.png",
       "size": "1024x1536",
       "format": "png",
       "background": "opaque",
       "text": "verbatim",
       "title": "History (empty)",
-      "source": "Matches the empty branch of ui/HistoryScreen.kt.",
+      "source": "Matches the empty branch of androidApp …/android/ui/HistoryScreen.kt.",
       "prompt": "Subject: Device Pulse app — History (empty). Matches the empty branch of ui/HistoryScreen.kt.\nStyle: simple, flat developer UI mockup of a single Android phone screen built with Material 3 (Compose Multiplatform). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective, no shadows outside the screen. Android status bar at top (time 9:41, Wi-Fi and battery icons), gesture bar at bottom. Palette: background #FBFBFF, cards #F1F2FA with 12 px rounded corners and no heavy shadow, primary/brand #3D5AFE for filled buttons and accents, body text #1B1B1F, secondary text #5F6170, good/green #2E7D32, warn/amber #B26A00, bad/red #BA1A1A. Grade chips are pill-shaped with the tone colour at 14% opacity as fill and the tone colour as text. Font: Roboto-like sans-serif, sizes as in Material 3 (top app bar title 22 sp semibold, card title 16 sp, big value 36 sp bold). 16 dp screen padding, 12 dp gap between cards. Emoji icons are used exactly as written (🔋 📍 📶 🕘).\nComposition (top to bottom, render every text exactly as quoted, nothing else):\n- Top app bar: back arrow icon left, title \"🕘 History\", no action button.\n- Centered in the screen, grey centered text on two lines: \"No saved readings yet. Tap \\\"Save reading\\\" on the dashboard.\"\n- Nothing else.\nSpec: portrait 1024x1536, opaque background, one screen only, all text crisp and legible.\nNegative: watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos.",
       "negative": "watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos",
-      "dest": "DevicePulse/design/mockups/07-history-empty.png"
+      "dest": "DevicePulse/design/mockups/android/07-history-empty.png",
+      "platform": "android",
+      "code": [
+        "HistoryScreen.kt"
+      ]
     },
     {
-      "id": "08-dashboard-dark",
-      "file": "08-dashboard-dark.png",
+      "id": "android-08-dashboard-dark",
+      "file": "android-08-dashboard-dark.png",
       "size": "1024x1536",
       "format": "png",
       "background": "opaque",
@@ -107,7 +138,149 @@
       "source": "Same layout as 01 but isSystemInDarkTheme() = true and readings that trigger warn/bad chips.",
       "prompt": "Subject: Device Pulse app — Dashboard (dark theme, warning grades). Same layout as 01 but isSystemInDarkTheme() = true and readings that trigger warn/bad chips.\nStyle: simple, flat developer UI mockup of a single Android phone screen built with Material 3 (Compose Multiplatform). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective, no shadows outside the screen. Android status bar at top (time 9:41, Wi-Fi and battery icons), gesture bar at bottom. Palette: background #FBFBFF, cards #F1F2FA with 12 px rounded corners and no heavy shadow, primary/brand #3D5AFE for filled buttons and accents, body text #1B1B1F, secondary text #5F6170, good/green #2E7D32, warn/amber #B26A00, bad/red #BA1A1A. Grade chips are pill-shaped with the tone colour at 14% opacity as fill and the tone colour as text. Font: Roboto-like sans-serif, sizes as in Material 3 (top app bar title 22 sp semibold, card title 16 sp, big value 36 sp bold). 16 dp screen padding, 12 dp gap between cards. Emoji icons are used exactly as written (🔋 📍 📶 🕘).\nComposition (top to bottom, render every text exactly as quoted, nothing else):\n- DARK THEME: background #121318, cards #1E1F25, text #E4E1E6, secondary text #C6C5D0, primary #8C9EFF.\n- Top app bar: \"Device Pulse\" left, text button \"🕘 History\" right.\n- Card 1: \"🔋\" + \"Battery\", red chip \"Critical\"; big \"8%\" and \"Discharging\".\n- Card 2: \"📍\" + \"Location\", amber chip \"Fair\"; \"10.77512, 106.69870\" and grey \"± 48 m\".\n- Card 3: \"📶\" + \"Network\", red chip \"Slow\"; \"Cellular\" with green \"Online\"; row \"412 ms\" left, outlined button \"Measure latency\" right.\n- Full-width filled button \"Save reading\" in #8C9EFF with dark text at the bottom.\nSpec: portrait 1024x1536, opaque background, one screen only, all text crisp and legible.\nNegative: watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos.",
       "negative": "watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos",
-      "dest": "DevicePulse/design/mockups/08-dashboard-dark.png"
+      "dest": "DevicePulse/design/mockups/android/08-dashboard-dark.png",
+      "platform": "android",
+      "code": [
+        "App.kt",
+        "DashboardScreen.kt"
+      ]
+    },
+    {
+      "id": "ios-01-dashboard",
+      "platform": "ios",
+      "file": "ios-01-dashboard.png",
+      "size": "1024x1536",
+      "format": "png",
+      "background": "opaque",
+      "text": "verbatim",
+      "title": "Dashboard (all sensors available)",
+      "source": "Matches iosApp Views/DashboardView.swift with every Reading available.",
+      "code": [
+        "DashboardView.swift"
+      ],
+      "prompt": "Subject: Device Pulse iOS app — Dashboard (all sensors available). Matches iosApp Views/DashboardView.swift with every Reading available.\nStyle: simple, flat developer UI mockup of a single iPhone screen built with native SwiftUI (iOS 17/18 look). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective. iOS status bar at top (time 9:41 left, signal, Wi-Fi and battery icons right, space for the Dynamic Island), home indicator bar at bottom. Palette: system background #FFFFFF, grouped/secondary background #F2F2F7, app tint #3D5AFF for buttons and toolbar items, label text #000000, secondary label #8A8A8E, separators #C6C6C8, good/green #2E7D33, warn/amber #B36B00, bad/red #FF3B30. Grade chips are capsules with the tone colour at 14% opacity as fill and the tone colour as caption semibold text. Font: San Francisco (SF Pro). Sensor cards are #F2F2F7 rounded rectangles with 16 pt corner radius and 16 pt padding, no shadow, 12 pt apart, 16 pt screen margins. \".bordered\" buttons are capsule-like rounded rectangles filled with the tint at about 15% opacity and tint-coloured text (no outline). \".borderedProminent\" buttons are solid tint with white text. Emoji icons are used exactly as written (🔋 📍 📶 🕘).\nComposition (top to bottom, render every text exactly as quoted, nothing else):\n- Navigation bar: a toolbar button \"🕘 History\" in tint colour at the top right; below it the LARGE left-aligned bold navigation title \"Device Pulse\".\n- Card 1: header row \"🔋\" (title2 size) + \"Battery\" (headline) and a green capsule chip \"OK\" at the right; below, \"78%\" in largeTitle bold and on the same baseline \"Charging\" in body size.\n- Card 2: header \"📍\" + \"Location\" and green chip \"Good\"; below, \"10.77689, 106.70081\" (title3) and on the next line secondary grey \"± 12 m\".\n- Card 3: header \"📶\" + \"Network\" and green chip \"Fast\"; below, \"Wi-Fi\" (title3) and on the same baseline green \"Online\"; then a row with \"64 ms\" on the left and a .bordered button \"Measure latency\" on the right.\n- Bottom: a translucent bar material strip pinned above the home indicator containing a full-width large .borderedProminent button \"Save reading\" (solid #3D5AFF, white text, rounded corners, 16 pt margin).\nSpec: portrait 1024x1536, opaque background, one screen only, all text crisp and legible.\nNegative: watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos, Android status bar, Material Design, floating action button.",
+      "negative": "watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos",
+      "dest": "DevicePulse/design/mockups/ios/01-dashboard.png"
+    },
+    {
+      "id": "ios-02-dashboard-states",
+      "platform": "ios",
+      "file": "ios-02-dashboard-states.png",
+      "size": "1024x1536",
+      "format": "png",
+      "background": "opaque",
+      "text": "verbatim",
+      "title": "Dashboard (non-value states)",
+      "source": "Shows how ReadingView in Views/Components.swift draws loading, permission denied and unsupported.",
+      "code": [
+        "Components.swift"
+      ],
+      "prompt": "Subject: Device Pulse iOS app — Dashboard (non-value states). Shows how ReadingView in Views/Components.swift draws loading, permission denied and unsupported.\nStyle: simple, flat developer UI mockup of a single iPhone screen built with native SwiftUI (iOS 17/18 look). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective. iOS status bar at top (time 9:41 left, signal, Wi-Fi and battery icons right, space for the Dynamic Island), home indicator bar at bottom. Palette: system background #FFFFFF, grouped/secondary background #F2F2F7, app tint #3D5AFF for buttons and toolbar items, label text #000000, secondary label #8A8A8E, separators #C6C6C8, good/green #2E7D33, warn/amber #B36B00, bad/red #FF3B30. Grade chips are capsules with the tone colour at 14% opacity as fill and the tone colour as caption semibold text. Font: San Francisco (SF Pro). Sensor cards are #F2F2F7 rounded rectangles with 16 pt corner radius and 16 pt padding, no shadow, 12 pt apart, 16 pt screen margins. \".bordered\" buttons are capsule-like rounded rectangles filled with the tint at about 15% opacity and tint-coloured text (no outline). \".borderedProminent\" buttons are solid tint with white text. Emoji icons are used exactly as written (🔋 📍 📶 🕘).\nComposition (top to bottom, render every text exactly as quoted, nothing else):\n- Navigation bar: a toolbar button \"🕘 History\" in tint colour at the top right; below it the LARGE left-aligned bold navigation title \"Device Pulse\".\n- Card 1: header \"🔋\" + \"Battery\", no chip; body secondary grey text \"Not supported on this device\".\n- Card 2: header \"📍\" + \"Location\", no chip; body red text \"Permission denied\" and under it a .bordered button \"Grant permission\".\n- Card 3: header \"📶\" + \"Network\", no chip; body a small iOS activity spinner (grey spokes) followed by \"Reading…\" in subheadline; then a row with \"Not measured\" left and .bordered button \"Measure latency\" right.\n- Bottom: a translucent bar material strip pinned above the home indicator containing a full-width large .borderedProminent button \"Save reading\" (solid #3D5AFF, white text, rounded corners, 16 pt margin).\nSpec: portrait 1024x1536, opaque background, one screen only, all text crisp and legible.\nNegative: watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos, Android status bar, Material Design, floating action button.",
+      "negative": "watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos",
+      "dest": "DevicePulse/design/mockups/ios/02-dashboard-states.png"
+    },
+    {
+      "id": "ios-03-detail-battery",
+      "platform": "ios",
+      "file": "ios-03-detail-battery.png",
+      "size": "1024x1536",
+      "format": "png",
+      "background": "opaque",
+      "text": "verbatim",
+      "title": "Detail — Battery",
+      "source": "Matches Views/DetailView.swift for .battery.",
+      "code": [
+        "DetailView.swift"
+      ],
+      "prompt": "Subject: Device Pulse iOS app — Detail — Battery. Matches Views/DetailView.swift for .battery.\nStyle: simple, flat developer UI mockup of a single iPhone screen built with native SwiftUI (iOS 17/18 look). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective. iOS status bar at top (time 9:41 left, signal, Wi-Fi and battery icons right, space for the Dynamic Island), home indicator bar at bottom. Palette: system background #FFFFFF, grouped/secondary background #F2F2F7, app tint #3D5AFF for buttons and toolbar items, label text #000000, secondary label #8A8A8E, separators #C6C6C8, good/green #2E7D33, warn/amber #B36B00, bad/red #FF3B30. Grade chips are capsules with the tone colour at 14% opacity as fill and the tone colour as caption semibold text. Font: San Francisco (SF Pro). Sensor cards are #F2F2F7 rounded rectangles with 16 pt corner radius and 16 pt padding, no shadow, 12 pt apart, 16 pt screen margins. \".bordered\" buttons are capsule-like rounded rectangles filled with the tint at about 15% opacity and tint-coloured text (no outline). \".borderedProminent\" buttons are solid tint with white text. Emoji icons are used exactly as written (🔋 📍 📶 🕘).\nComposition (top to bottom, render every text exactly as quoted, nothing else):\n- Navigation bar (inline, small centered title): back chevron \"‹ Device Pulse\" in tint at left; centered title \"🔋  Battery\".\n- Plain white background, no cards. Label/value rows (label secondary grey on the left, value medium weight black on the right):\n  \"Level\" — \"78%\"; \"Status\" — \"Charging\"; \"Rating\" — \"OK\" (plain text, not a chip).\n- A thin divider, then footnote grey text \"Critical ≤ 10% · Low ≤ 20% · otherwise OK\".\n- The rest of the screen empty.\nSpec: portrait 1024x1536, opaque background, one screen only, all text crisp and legible.\nNegative: watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos, Android status bar, Material Design, floating action button.",
+      "negative": "watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos",
+      "dest": "DevicePulse/design/mockups/ios/03-detail-battery.png"
+    },
+    {
+      "id": "ios-04-detail-location",
+      "platform": "ios",
+      "file": "ios-04-detail-location.png",
+      "size": "1024x1536",
+      "format": "png",
+      "background": "opaque",
+      "text": "verbatim",
+      "title": "Detail — Location",
+      "source": "Matches Views/DetailView.swift for .location.",
+      "code": [
+        "DetailView.swift"
+      ],
+      "prompt": "Subject: Device Pulse iOS app — Detail — Location. Matches Views/DetailView.swift for .location.\nStyle: simple, flat developer UI mockup of a single iPhone screen built with native SwiftUI (iOS 17/18 look). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective. iOS status bar at top (time 9:41 left, signal, Wi-Fi and battery icons right, space for the Dynamic Island), home indicator bar at bottom. Palette: system background #FFFFFF, grouped/secondary background #F2F2F7, app tint #3D5AFF for buttons and toolbar items, label text #000000, secondary label #8A8A8E, separators #C6C6C8, good/green #2E7D33, warn/amber #B36B00, bad/red #FF3B30. Grade chips are capsules with the tone colour at 14% opacity as fill and the tone colour as caption semibold text. Font: San Francisco (SF Pro). Sensor cards are #F2F2F7 rounded rectangles with 16 pt corner radius and 16 pt padding, no shadow, 12 pt apart, 16 pt screen margins. \".bordered\" buttons are capsule-like rounded rectangles filled with the tint at about 15% opacity and tint-coloured text (no outline). \".borderedProminent\" buttons are solid tint with white text. Emoji icons are used exactly as written (🔋 📍 📶 🕘).\nComposition (top to bottom, render every text exactly as quoted, nothing else):\n- Navigation bar (inline, small centered title): back chevron \"‹ Device Pulse\" in tint at left; centered title \"📍  Location\".\n- Plain white background, no cards. Label/value rows (label secondary grey left, value medium weight right):\n  \"Latitude\" — \"10.776889\"; \"Longitude\" — \"106.700806\"; \"Accuracy\" — \"12.4 m\"; \"Speed\" — \"3.6 km/h\"; \"Updated\" — \"09:41:07 · 14/10/2026\"; \"Rating\" — \"Good\" (plain text, not a chip).\n- Thin divider, then footnote grey text \"Good ≤ 20 m · Fair ≤ 100 m · otherwise Poor\".\n- No map. The rest of the screen empty.\nSpec: portrait 1024x1536, opaque background, one screen only, all text crisp and legible.\nNegative: watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos, Android status bar, Material Design, floating action button.",
+      "negative": "watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos",
+      "dest": "DevicePulse/design/mockups/ios/04-detail-location.png"
+    },
+    {
+      "id": "ios-05-detail-network",
+      "platform": "ios",
+      "file": "ios-05-detail-network.png",
+      "size": "1024x1536",
+      "format": "png",
+      "background": "opaque",
+      "text": "verbatim",
+      "title": "Detail — Network",
+      "source": "Matches Views/DetailView.swift for .network.",
+      "code": [
+        "DetailView.swift"
+      ],
+      "prompt": "Subject: Device Pulse iOS app — Detail — Network. Matches Views/DetailView.swift for .network.\nStyle: simple, flat developer UI mockup of a single iPhone screen built with native SwiftUI (iOS 17/18 look). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective. iOS status bar at top (time 9:41 left, signal, Wi-Fi and battery icons right, space for the Dynamic Island), home indicator bar at bottom. Palette: system background #FFFFFF, grouped/secondary background #F2F2F7, app tint #3D5AFF for buttons and toolbar items, label text #000000, secondary label #8A8A8E, separators #C6C6C8, good/green #2E7D33, warn/amber #B36B00, bad/red #FF3B30. Grade chips are capsules with the tone colour at 14% opacity as fill and the tone colour as caption semibold text. Font: San Francisco (SF Pro). Sensor cards are #F2F2F7 rounded rectangles with 16 pt corner radius and 16 pt padding, no shadow, 12 pt apart, 16 pt screen margins. \".bordered\" buttons are capsule-like rounded rectangles filled with the tint at about 15% opacity and tint-coloured text (no outline). \".borderedProminent\" buttons are solid tint with white text. Emoji icons are used exactly as written (🔋 📍 📶 🕘).\nComposition (top to bottom, render every text exactly as quoted, nothing else):\n- Navigation bar (inline, small centered title): back chevron \"‹ Device Pulse\" in tint at left; centered title \"📶  Network\".\n- Plain white background, no cards. Label/value rows (label grey left, value right): \"Type\" — \"Wi-Fi\"; \"Status\" — \"Online\"; \"Latency\" — \"64 ms\"; \"Rating\" — \"Fast\" (all plain black text).\n- A .borderedProminent button \"Measure latency\" (solid #3D5AFF, white text, wrap-content width, left aligned).\n- Thin divider, then footnote grey text \"Fast < 100 ms · OK < 300 ms · otherwise Slow\".\n- The rest of the screen empty.\nSpec: portrait 1024x1536, opaque background, one screen only, all text crisp and legible.\nNegative: watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos, Android status bar, Material Design, floating action button.",
+      "negative": "watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos",
+      "dest": "DevicePulse/design/mockups/ios/05-detail-network.png"
+    },
+    {
+      "id": "ios-06-history",
+      "platform": "ios",
+      "file": "ios-06-history.png",
+      "size": "1024x1536",
+      "format": "png",
+      "background": "opaque",
+      "text": "verbatim",
+      "title": "History (with saved readings)",
+      "source": "Matches Views/HistoryView.swift with three snapshots in a SwiftUI List.",
+      "code": [
+        "HistoryView.swift"
+      ],
+      "prompt": "Subject: Device Pulse iOS app — History (with saved readings). Matches Views/HistoryView.swift with three snapshots in a SwiftUI List.\nStyle: simple, flat developer UI mockup of a single iPhone screen built with native SwiftUI (iOS 17/18 look). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective. iOS status bar at top (time 9:41 left, signal, Wi-Fi and battery icons right, space for the Dynamic Island), home indicator bar at bottom. Palette: system background #FFFFFF, grouped/secondary background #F2F2F7, app tint #3D5AFF for buttons and toolbar items, label text #000000, secondary label #8A8A8E, separators #C6C6C8, good/green #2E7D33, warn/amber #B36B00, bad/red #FF3B30. Grade chips are capsules with the tone colour at 14% opacity as fill and the tone colour as caption semibold text. Font: San Francisco (SF Pro). Sensor cards are #F2F2F7 rounded rectangles with 16 pt corner radius and 16 pt padding, no shadow, 12 pt apart, 16 pt screen margins. \".bordered\" buttons are capsule-like rounded rectangles filled with the tint at about 15% opacity and tint-coloured text (no outline). \".borderedProminent\" buttons are solid tint with white text. Emoji icons are used exactly as written (🔋 📍 📶 🕘).\nComposition (top to bottom, render every text exactly as quoted, nothing else):\n- Navigation bar (inline): back chevron \"‹ Device Pulse\" in tint at left; centered title \"🕘 History\"; toolbar button \"Clear\" in tint at right.\n- Background #F2F2F7. An inset-grouped List: one white rounded-corner group with three rows separated by thin inset separators. Each row has 4 lines (first line semibold):\n  Row 1: \"09:41:07 · 14/10/2026\" / \"🔋 78% · Charging\" / \"📍 10.77689, 106.70081 (± 12 m)\" / \"📶 Wi-Fi · 64 ms\".\n  Row 2: \"08:15:32 · 14/10/2026\" / \"🔋 19% · Discharging\" / \"📍 10.77512, 106.69870 (± 48 m)\" / \"📶 Cellular · 212 ms\".\n  Row 3: \"22:03:55 · 13/10/2026\" / \"🔋 100% · Full\" / \"📍 —\" / \"📶 No connection · Offline\".\n- The rest of the screen empty grey.\nSpec: portrait 1024x1536, opaque background, one screen only, all text crisp and legible.\nNegative: watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos, Android status bar, Material Design, floating action button.",
+      "negative": "watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos",
+      "dest": "DevicePulse/design/mockups/ios/06-history.png"
+    },
+    {
+      "id": "ios-07-history-empty",
+      "platform": "ios",
+      "file": "ios-07-history-empty.png",
+      "size": "1024x1536",
+      "format": "png",
+      "background": "opaque",
+      "text": "verbatim",
+      "title": "History (empty)",
+      "source": "Matches the empty branch of Views/HistoryView.swift.",
+      "code": [
+        "HistoryView.swift"
+      ],
+      "prompt": "Subject: Device Pulse iOS app — History (empty). Matches the empty branch of Views/HistoryView.swift.\nStyle: simple, flat developer UI mockup of a single iPhone screen built with native SwiftUI (iOS 17/18 look). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective. iOS status bar at top (time 9:41 left, signal, Wi-Fi and battery icons right, space for the Dynamic Island), home indicator bar at bottom. Palette: system background #FFFFFF, grouped/secondary background #F2F2F7, app tint #3D5AFF for buttons and toolbar items, label text #000000, secondary label #8A8A8E, separators #C6C6C8, good/green #2E7D33, warn/amber #B36B00, bad/red #FF3B30. Grade chips are capsules with the tone colour at 14% opacity as fill and the tone colour as caption semibold text. Font: San Francisco (SF Pro). Sensor cards are #F2F2F7 rounded rectangles with 16 pt corner radius and 16 pt padding, no shadow, 12 pt apart, 16 pt screen margins. \".bordered\" buttons are capsule-like rounded rectangles filled with the tint at about 15% opacity and tint-coloured text (no outline). \".borderedProminent\" buttons are solid tint with white text. Emoji icons are used exactly as written (🔋 📍 📶 🕘).\nComposition (top to bottom, render every text exactly as quoted, nothing else):\n- Navigation bar (inline): back chevron \"‹ Device Pulse\" in tint at left; centered title \"🕘 History\"; no right button.\n- White background. Centered in the screen, secondary grey centered text on two lines: \"No saved readings yet. Tap \\\"Save reading\\\" on the dashboard.\"\n- Nothing else.\nSpec: portrait 1024x1536, opaque background, one screen only, all text crisp and legible.\nNegative: watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos, Android status bar, Material Design, floating action button.",
+      "negative": "watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos",
+      "dest": "DevicePulse/design/mockups/ios/07-history-empty.png"
+    },
+    {
+      "id": "ios-08-dashboard-dark",
+      "platform": "ios",
+      "file": "ios-08-dashboard-dark.png",
+      "size": "1024x1536",
+      "format": "png",
+      "background": "opaque",
+      "text": "verbatim",
+      "title": "Dashboard (dark mode, warning grades)",
+      "source": "Same layout as ios-01 in iOS dark appearance, with readings that trigger warn/bad chips.",
+      "code": [
+        "RootView.swift",
+        "DashboardView.swift"
+      ],
+      "prompt": "Subject: Device Pulse iOS app — Dashboard (dark mode, warning grades). Same layout as ios-01 in iOS dark appearance, with readings that trigger warn/bad chips.\nStyle: simple, flat developer UI mockup of a single iPhone screen built with native SwiftUI (iOS 17/18 look). Clean and readable like a spec screenshot, not a marketing render. Flat front view of the screen only, no hand, no device frame, no perspective. iOS status bar at top (time 9:41 left, signal, Wi-Fi and battery icons right, space for the Dynamic Island), home indicator bar at bottom. Palette: system background #FFFFFF, grouped/secondary background #F2F2F7, app tint #3D5AFF for buttons and toolbar items, label text #000000, secondary label #8A8A8E, separators #C6C6C8, good/green #2E7D33, warn/amber #B36B00, bad/red #FF3B30. Grade chips are capsules with the tone colour at 14% opacity as fill and the tone colour as caption semibold text. Font: San Francisco (SF Pro). Sensor cards are #F2F2F7 rounded rectangles with 16 pt corner radius and 16 pt padding, no shadow, 12 pt apart, 16 pt screen margins. \".bordered\" buttons are capsule-like rounded rectangles filled with the tint at about 15% opacity and tint-coloured text (no outline). \".borderedProminent\" buttons are solid tint with white text. Emoji icons are used exactly as written (🔋 📍 📶 🕘).\nComposition (top to bottom, render every text exactly as quoted, nothing else):\n- DARK MODE: background #000000, cards #1C1C1E, label text #FFFFFF, secondary label #8D8D93, tint stays #3D5AFF, red #FF453A.\n- Navigation bar: a toolbar button \"🕘 History\" in tint colour at the top right; below it the LARGE left-aligned bold navigation title \"Device Pulse\".\n- Card 1: \"🔋\" + \"Battery\", red chip \"Critical\"; \"8%\" largeTitle bold and on the same baseline \"Discharging\".\n- Card 2: \"📍\" + \"Location\", amber chip \"Fair\"; \"10.77512, 106.69870\" and below grey \"± 48 m\".\n- Card 3: \"📶\" + \"Network\", red chip \"Slow\"; \"Cellular\" with green \"Online\" on the same baseline; row \"412 ms\" left, .bordered button \"Measure latency\" right.\n- Bottom: dark translucent bar with a full-width .borderedProminent button \"Save reading\" (solid #3D5AFF, white text).\nSpec: portrait 1024x1536, opaque background, one screen only, all text crisp and legible.\nNegative: watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos, Android status bar, Material Design, floating action button.",
+      "negative": "watermark, logo, signature, extra text not listed, lorem ipsum, misspelled words, device frame, hands, 3D perspective, collage of several screens, gradients, illustrations, photos",
+      "dest": "DevicePulse/design/mockups/ios/08-dashboard-dark.png"
     }
   ]
 }
