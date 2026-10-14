@@ -15,6 +15,37 @@ Lộ trình 14 bài, đi theo mục lục docs Kotlin Multiplatform chính chủ
 
 **Đọc online:** https://tucarmd.github.io/kotlin-multi-platform/
 
+## Demo mẫu
+
+**[`DevicePulse/`](DevicePulse/)**: bản code hoàn chỉnh của app sau bài 14, chạy Android + iOS. Có pin, GPS, mạng, đo độ trễ,
+lịch sử (SQLDelight) và test chung.
+
+```bash
+cd DevicePulse
+./gradlew :composeApp:installDebug     # Android
+open iosApp/iosApp.xcodeproj           # iOS: bấm Run
+```
+
+- Cách chạy, version thư viện, lệnh giả lập cảm biến: [DevicePulse/README.md](DevicePulse/README.md)
+- Bài nào ứng với file nào: [Code mẫu](https://tucarmd.github.io/kotlin-multi-platform/project/source-code/)
+- Mockup 8 màn: [DevicePulse/design/mockups/](DevicePulse/design/mockups/README-MOCKUPS.md)
+
+## Tham khảo
+
+| | |
+|---|---|
+| [Tài nguyên học chính chủ](https://tucarmd.github.io/kotlin-multi-platform/reference/learning-resources/) | Kotlin for Education, Koans, khóa Android của Google |
+| [Repo mẫu tham khảo](https://tucarmd.github.io/kotlin-multi-platform/reference/sample-repos/) | Template chính chủ, đáp án tutorial JetBrains, app KMP thật (KotlinConf, KaMPKit, PeopleInSpace…) gắn theo bài |
+| [Bản đồ docs chính chủ](https://tucarmd.github.io/kotlin-multi-platform/reference/docs-map/) | Trang docs kotlinlang.org nào ứng với bài nào |
+| [Lỗi hay gặp](https://tucarmd.github.io/kotlin-multi-platform/reference/troubleshooting/) | Gradle sync, Xcode, framework iOS |
+
+Repo hay mở nhất:
+
+- [Kotlin/KMP-App-Template](https://github.com/Kotlin/KMP-App-Template): template chính chủ, UI chung
+- [kotlin-hands-on/kmp-networking-and-data-storage](https://github.com/kotlin-hands-on/kmp-networking-and-data-storage): Ktor + SQLDelight + Koin
+- [touchlab/KaMPKit](https://github.com/touchlab/KaMPKit): kiến trúc gần Device Pulse nhất
+- [terrakok/kmp-awesome](https://github.com/terrakok/kmp-awesome): tìm thư viện KMP
+
 ## Chạy site ở máy
 
 ```bash
@@ -28,9 +59,10 @@ Push lên `main` → GitHub Actions (`.github/workflows/pages.yml`) build và đ
 
 - `docs/roadmap.md` — lộ trình 4 chặng
 - `docs/lessons/NN-*.md` — 14 bài (thanh "Bài N/14" do `hooks/lesson_bar.py` chèn)
-- `docs/project/` — app Device Pulse + checklist
+- `DevicePulse/` — code hoàn chỉnh của app (Android + iOS)
+- `docs/project/` — app Device Pulse, code mẫu, checklist
 - `docs/plan/` — đánh giá KMP và kế hoạch học
-- `docs/reference/` — tài nguyên học, bản đồ docs gốc, từ điển, lỗi hay gặp
+- `docs/reference/` — tài nguyên học, repo mẫu, bản đồ docs gốc, từ điển, lỗi hay gặp
 - `specs/` — thiết kế nội dung (không đăng lên site)
 
 ## Nguồn

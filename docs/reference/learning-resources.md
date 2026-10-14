@@ -24,7 +24,7 @@ Nguồn học miễn phí từ JetBrains và Google, dùng kèm lộ trình khi 
 
 - [Kotlin Multiplatform docs](https://kotlinlang.org/docs/multiplatform/get-started.html): xem [Bản đồ docs chính chủ](docs-map.md) để biết trang nào ứng với bài nào.
 - [KMP learning resources](https://kotlinlang.org/docs/multiplatform/kmp-learning-resources.html): danh sách khóa học, mẫu và bài viết JetBrains chọn sẵn.
-- [KMP samples](https://kotlinlang.org/docs/multiplatform/multiplatform-samples.html): project mẫu để đọc code thật.
+- [KMP samples](https://kotlinlang.org/docs/multiplatform/multiplatform-samples.html): project mẫu để đọc code thật. Danh sách đã chọn lọc và gắn theo bài: [Repo mẫu tham khảo](sample-repos.md).
 
 ## Android (từ Google)
 

@@ -101,10 +101,12 @@ nav:
       - "14. Build và phát hành": lessons/14-build-publish.md
   - "Dự án Device Pulse":
       - project/index.md
+      - "Code mẫu": project/source-code.md
       - "Checklist hoàn thành": project/checklist.md
   - "Đánh giá & kế hoạch": plan/kmp-review.md
   - "Tra cứu":
       - "Tài nguyên học chính chủ": reference/learning-resources.md
+      - "Repo mẫu tham khảo": reference/sample-repos.md
       - "Bản đồ docs chính chủ": reference/docs-map.md
       - "Từ điển": reference/glossary.md
       - "Lỗi hay gặp": reference/troubleshooting.md

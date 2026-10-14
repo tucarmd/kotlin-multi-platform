@@ -370,9 +370,10 @@ body {
 .track .loop { background: var(--sky); color: #1F2A44; }
 .track .loop b { color: #1F2A44; }
 .areas--6 { grid-template-columns: repeat(6, 1fr); }
+.areas--8 { grid-template-columns: repeat(4, 1fr); }
 @media (max-width: 1200px) { .track i { display: none; } }
-@media (max-width: 1000px) { .track { transform: none; } .areas--6 { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 620px) { .track { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: .8rem; } .track i { display: none; } .areas--6 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 1000px) { .track { transform: none; } .areas--6 { grid-template-columns: repeat(3, 1fr); } .areas--8 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px) { .track { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: .8rem; } .track i { display: none; } .areas--6, .areas--8 { grid-template-columns: repeat(2, 1fr); } }
 .page[data-area="reference"] { --accent: var(--sky); }
 .page[data-area="file-templates"] { --accent: var(--sage); }
 
