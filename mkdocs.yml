@@ -102,6 +102,7 @@ nav:
   - "App MVP":
       - mvp/index.md
       - "Checklist hoàn thành": mvp/checklist.md
+  - "Đánh giá & kế hoạch": plan/kmp-review.md
   - "Tra cứu":
       - "Bản đồ docs chính chủ": reference/docs-map.md
       - "Từ điển": reference/glossary.md
