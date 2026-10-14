@@ -11,6 +11,8 @@ Compose Multiplatform. Đây là bản code hoàn chỉnh của app mà 14 bài 
 | Mạng | `ConnectivityManager` | `nw_path_monitor` |
 | Lịch sử | SQLDelight (`AndroidSqliteDriver`) | SQLDelight (`NativeSqliteDriver`) |
 
+Mockup UI (8 màn, prompt + bảng theo dõi): [design/mockups/README-MOCKUPS.md](design/mockups/README-MOCKUPS.md).
+
 ## Chạy
 
 Cần: JDK 17+ (đã thử JDK 21), Android SDK 36, Xcode 16+ (đã thử 26.5).
