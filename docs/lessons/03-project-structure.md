@@ -5,23 +5,43 @@ Trước khi viết tính năng, đọc hiểu project wizard vừa sinh. KMP ch
 ## Mục tiêu
 
 - Phân biệt target và source set.
-- Biết đặt code mới vào thư mục nào.
+- Đọc được `build.gradle.kts` và `gradle/libs.versions.toml`.
+- Biết đặt từng file của Device Pulse vào thư mục nào.
+
+## Cây thư mục
+
+```text
+DevicePulse/
+├── composeApp/
+│   ├── build.gradle.kts        # target + thư viện của module
+│   └── src/
+│       ├── commonMain/          # code chung: model, rules, UI, ViewModel
+│       ├── androidMain/         # MainActivity + code gọi Android SDK
+│       ├── iosMain/             # MainViewController + code gọi API Apple
+│       └── commonTest/          # test chạy trên mọi target
+├── iosApp/                      # project Xcode, chỉ là vỏ gọi framework ComposeApp
+├── gradle/libs.versions.toml    # version catalog: phiên bản thư viện, plugin
+├── build.gradle.kts             # cấu hình gốc (khai báo plugin)
+└── settings.gradle.kts          # danh sách module
+```
 
 ## Target — "build ra cho máy nào"
 
-Target là một nền tảng đích: `android`, `iosArm64` (iPhone thật), `iosSimulatorArm64` (simulator trên Mac chip M), `jvm("desktop")`…
+Target là một nền tảng đích. Device Pulse có ba:
+
+- `androidTarget()` — Android.
+- `iosArm64()` — iPhone thật.
+- `iosSimulatorArm64()` — simulator trên Mac chip Apple.
+
 Khai báo trong khối `kotlin { }` của `composeApp/build.gradle.kts`.
 
 ## Source set — "code này dùng cho máy nào"
 
-Mỗi thư mục trong `src/` là một source set:
-
 | Source set | Biên dịch cho | Được dùng gì |
 |---|---|---|
 | `commonMain` | mọi target | chỉ Kotlin chung + thư viện multiplatform |
-| `androidMain` | Android | thêm Android SDK (`Context`, `Activity`…) |
-| `iosMain` | mọi target iOS | thêm API Apple (`platform.UIKit`, `platform.Foundation`) |
-| `desktopMain` | JVM desktop | thêm thư viện Java |
+| `androidMain` | Android | thêm Android SDK (`Context`, `BatteryManager`, `LocationManager`…) |
+| `iosMain` | mọi target iOS | thêm API Apple (`platform.UIKit`, `platform.CoreLocation`, `platform.Network`) |
 | `commonTest` | test chạy trên mọi target | `kotlin.test` |
 
 ## Hierarchy — source set lồng nhau
@@ -36,7 +56,6 @@ flowchart BT
   iosSimulatorArm64Main --> iosMain
   iosMain --> appleMain --> nativeMain --> commonMain
   androidMain --> commonMain
-  desktopMain --> commonMain
 ```
 
 ## Đọc `build.gradle.kts`
@@ -45,40 +64,48 @@ Khung thường thấy (rút gọn — file thật của bạn có thể khác t
 
 ```kotlin
 kotlin {
-    // các target: android, iOS (framework cho Xcode), desktop
+    androidTarget()
+
     listOf(iosArm64(), iosSimulatorArm64()).forEach { target ->
         target.binaries.framework {
             baseName = "ComposeApp"   // tên framework Xcode import
             isStatic = true
         }
     }
-    jvm("desktop")
 
     sourceSets {
         commonMain.dependencies { /* thư viện dùng chung */ }
         androidMain.dependencies { /* chỉ Android */ }
+        iosMain.dependencies { /* chỉ iOS */ }
+        commonTest.dependencies { implementation(libs.kotlin.test) }
     }
 }
 ```
 
-## Làm trên app MVP
+`gradle/libs.versions.toml` giữ phiên bản; Gradle sinh ra accessor `libs.…` để dùng ở trên. Bài 5 thêm thư viện qua file này.
 
-Tạo package `dev.habittick.model` trong `commonMain`, thêm:
+## Làm trên Device Pulse
 
-```kotlin
-data class Habit(
-    val id: Long,
-    val title: String,
-    val doneDates: Set<String> = emptySet(), // "2026-10-14"
-)
-```
+Tạo sẵn các package trong `composeApp/src/commonMain/kotlin/dev/devicepulse/`:
 
-Thử import `android.content.Context` trong file này — IDE báo đỏ. Đó là `commonMain` đang bảo vệ bạn.
+| Package | Chứa gì | Bài |
+|---|---|---|
+| `model/` | `BatteryInfo`, `LocationFix`, `NetworkStatus`, `Reading`, `SensorKind` | 4 |
+| `rules/` | hàm thuần `batteryLevel`, `fixQuality`, `latencyGrade` | 4 |
+| `sensor/` | interface `BatterySensor`, `LocationSensor`, `NetworkSensor` | 4 |
+| `ui/` | Dashboard, Detail, `DashboardViewModel` | 6–8 |
+| `data/` | `LatencyProbe`, `HistoryRepository` | 11–12 |
+
+Code cài đặt cảm biến thật sẽ nằm trong `androidMain/kotlin/dev/devicepulse/sensor/` và `iosMain/kotlin/dev/devicepulse/sensor/`.
+
+Thử nhanh: tạo file tạm trong `commonMain/.../model/`, gõ `import android.content.Context` — IDE báo đỏ.
+Đó là `commonMain` đang bảo vệ bạn. Xoá file tạm đi.
 
 ## Kiểm tra
 
-- [ ] Giải thích được vì sao `Habit` nằm ở `commonMain`.
-- [ ] Chỉ ra được dòng khai báo target iOS trong Gradle.
+- [ ] Chỉ ra được dòng khai báo `androidTarget()` và hai target iOS trong Gradle.
+- [ ] Giải thích được vì sao `LocationFix` nằm ở `commonMain`, còn code gọi `CLLocationManager` nằm ở `iosMain`.
+- [ ] Sau khi tạo package, app vẫn build và chạy trên **Android** và **iOS**.
 
 ## Tiếp theo?
 

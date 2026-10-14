@@ -1,7 +1,7 @@
 # Bản đồ docs chính chủ
 
 Mục lục docs Kotlin Multiplatform (lấy từ kotlinlang.org) và bài nào của lộ trình đi qua trang đó.
-Trang không có bài là phần đọc thêm khi cần — không bắt buộc cho MVP.
+Trang không có bài là phần đọc thêm khi cần — không bắt buộc cho app Device Pulse.
 
 - [Get started](https://kotlinlang.org/docs/multiplatform/get-started.html) → [bài 2](../lessons/02-setup.md)
 - [Kotlin Multiplatform quickstart](https://kotlinlang.org/docs/multiplatform/quickstart.html) → [bài 2](../lessons/02-setup.md)
@@ -19,15 +19,15 @@ Trang không có bài là phần đọc thêm khi cần — không bắt buộc 
 ## Create KMP apps
 
 - [Fully shared code: Time zone picker app](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-new-project.html) → [bài 2](../lessons/02-setup.md)
-- [Native UI: Shared logic for REST API requests](https://kotlinlang.org/docs/multiplatform/multiplatform-upgrade-app.html) → [bài 10](../lessons/10-ktor.md)
+- [Native UI: Shared logic for REST API requests](https://kotlinlang.org/docs/multiplatform/multiplatform-upgrade-app.html) → [bài 11](../lessons/11-network.md)
 
 ### Migrate to KMP from Android
 
-- [Make your app multiplatform](https://kotlinlang.org/docs/multiplatform/multiplatform-integrate-in-existing-app.html) → [bài 14](../lessons/14-migrate-android.md)
-- [Migrate advanced Android app to KMP](https://kotlinlang.org/docs/multiplatform/migrate-from-android.html) → [bài 14](../lessons/14-migrate-android.md)
+- [Make your app multiplatform](https://kotlinlang.org/docs/multiplatform/multiplatform-integrate-in-existing-app.html)
+- [Migrate advanced Android app to KMP](https://kotlinlang.org/docs/multiplatform/migrate-from-android.html)
 
-- [Share data access layer](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html) → [bài 9](../lessons/09-sqldelight.md)
-- [Create Kotlin Multiplatform library](https://kotlinlang.org/docs/multiplatform/create-kotlin-multiplatform-library.html) → [bài 14](../lessons/14-migrate-android.md)
+- [Share data access layer](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html) → [bài 12](../lessons/12-history-sqldelight.md)
+- [Create Kotlin Multiplatform library](https://kotlinlang.org/docs/multiplatform/create-kotlin-multiplatform-library.html)
 
 ## Compose Multiplatform UI framework
 
@@ -68,7 +68,7 @@ Trang không có bài là phần đọc thêm khi cần — không bắt buộc 
 
 - [Drag-and-drop operations](https://kotlinlang.org/docs/multiplatform/compose-drag-drop.html)
 - [Popups](https://kotlinlang.org/docs/multiplatform/compose-popups.html)
-- [Testing Compose Multiplatform UI](https://kotlinlang.org/docs/multiplatform/compose-test.html) → [bài 12](../lessons/12-testing.md)
+- [Testing Compose Multiplatform UI](https://kotlinlang.org/docs/multiplatform/compose-test.html) → [bài 13](../lessons/13-testing.md)
 
 ### Localization
 
@@ -81,8 +81,8 @@ Trang không có bài là phần đọc thêm khi cần — không bắt buộc 
 
 ### iOS-specific features
 
-- [Integration with SwiftUI](https://kotlinlang.org/docs/multiplatform/compose-swiftui-integration.html) → [bài 11](../lessons/11-ios-integration.md)
-- [Integration with UIKit](https://kotlinlang.org/docs/multiplatform/compose-uikit-integration.html) → [bài 11](../lessons/11-ios-integration.md)
+- [Integration with SwiftUI](https://kotlinlang.org/docs/multiplatform/compose-swiftui-integration.html)
+- [Integration with UIKit](https://kotlinlang.org/docs/multiplatform/compose-uikit-integration.html)
 - [Liquid Glass](https://kotlinlang.org/docs/multiplatform/ios-liquid-glass.html)
 - [Handling touch with native UI elements](https://kotlinlang.org/docs/multiplatform/compose-ios-touch.html)
 - [Accessibility support](https://kotlinlang.org/docs/multiplatform/compose-ios-accessibility.html)
@@ -103,7 +103,7 @@ Trang không có bài là phần đọc thêm khi cần — không bắt buộc 
 - [Mouse events](https://kotlinlang.org/docs/multiplatform/compose-desktop-mouse-events.html)
 - [Keyboard events](https://kotlinlang.org/docs/multiplatform/compose-desktop-keyboard.html)
 - [Tab navigation](https://kotlinlang.org/docs/multiplatform/compose-desktop-tabbing.html)
-- [Native distributions](https://kotlinlang.org/docs/multiplatform/compose-native-distribution.html) → [bài 13](../lessons/13-build-publish.md)
+- [Native distributions](https://kotlinlang.org/docs/multiplatform/compose-native-distribution.html)
 - [Accessibility support](https://kotlinlang.org/docs/multiplatform/compose-desktop-accessibility.html)
 - [Testing UI with JUnit](https://kotlinlang.org/docs/multiplatform/compose-desktop-ui-testing.html)
 - [Swing interoperability](https://kotlinlang.org/docs/multiplatform/compose-desktop-swing-interoperability.html)
@@ -141,19 +141,19 @@ Trang không có bài là phần đọc thêm khi cần — không bắt buộc 
 
 ## Set up iOS integration
 
-- [Choose integration method](https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html) → [bài 11](../lessons/11-ios-integration.md)
-- [Direct integration](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html) → [bài 11](../lessons/11-ios-integration.md)
+- [Choose integration method](https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html) → [bài 3](../lessons/03-project-structure.md)
+- [Direct integration](https://kotlinlang.org/docs/multiplatform/multiplatform-direct-integration.html) → [bài 3](../lessons/03-project-structure.md)
 
 ### SwiftPM integration
 
-- [Remote SwiftPM export](https://kotlinlang.org/docs/multiplatform/multiplatform-spm-export.html) → [bài 11](../lessons/11-ios-integration.md)
-- [SwiftPM import](https://kotlinlang.org/docs/multiplatform/multiplatform-spm-import.html) → [bài 11](../lessons/11-ios-integration.md)
-- [Migrating from CocoaPods to SwiftPM](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-spm-migration.html) → [bài 11](../lessons/11-ios-integration.md)
+- [Remote SwiftPM export](https://kotlinlang.org/docs/multiplatform/multiplatform-spm-export.html)
+- [SwiftPM import](https://kotlinlang.org/docs/multiplatform/multiplatform-spm-import.html)
+- [Migrating from CocoaPods to SwiftPM](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-spm-migration.html)
 - [From CocoaPods to SwiftPM using Junie](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-spm-migration-ai.html)
 
 ### CocoaPods integration
 
-- [CocoaPods overview and setup](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html) → [bài 11](../lessons/11-ios-integration.md)
+- [CocoaPods overview and setup](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-overview.html)
 - [Add dependencies on a Pod library](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-libraries.html)
 - [Use a Kotlin project as a CocoaPods dependency](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-xcode.html)
 - [CocoaPods Gradle plugin DSL reference](https://kotlinlang.org/docs/multiplatform/multiplatform-cocoapods-dsl-reference.html)
@@ -162,18 +162,18 @@ Trang không có bài là phần đọc thêm khi cần — không bắt buộc 
 
 ## Compile artifacts
 
-- [Configure compilations](https://kotlinlang.org/docs/multiplatform/multiplatform-configure-compilations.html) → [bài 13](../lessons/13-build-publish.md)
-- [Build final native binaries](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html) → [bài 13](../lessons/13-build-publish.md)
+- [Configure compilations](https://kotlinlang.org/docs/multiplatform/multiplatform-configure-compilations.html) → [bài 14](../lessons/14-build-publish.md)
+- [Build final native binaries](https://kotlinlang.org/docs/multiplatform/multiplatform-build-native-binaries.html) → [bài 14](../lessons/14-build-publish.md)
 
-- [Test your multiplatform app](https://kotlinlang.org/docs/multiplatform/multiplatform-run-tests.html) → [bài 12](../lessons/12-testing.md)
+- [Test your multiplatform app](https://kotlinlang.org/docs/multiplatform/multiplatform-run-tests.html) → [bài 13](../lessons/13-testing.md)
 
 ## Publish your multiplatform project
 
-- [Publish your application](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-apps.html) → [bài 13](../lessons/13-build-publish.md)
+- [Publish your application](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-apps.html) → [bài 14](../lessons/14-build-publish.md)
 - [Set up library publication](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-lib-setup.html)
 - [Publish your library to Maven Central – tutorial](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-libraries-to-maven.html)
 - [Publish your library to npm – tutorial](https://kotlinlang.org/docs/multiplatform/multiplatform-publish-libraries-to-npm.html)
-- [App Store privacy manifest](https://kotlinlang.org/docs/multiplatform/multiplatform-privacy-manifest.html) → [bài 13](../lessons/13-build-publish.md)
+- [App Store privacy manifest](https://kotlinlang.org/docs/multiplatform/multiplatform-privacy-manifest.html) → [bài 14](../lessons/14-build-publish.md)
 
 ## Kotlin Multiplatform tooling
 
@@ -185,7 +185,7 @@ Trang không có bài là phần đọc thêm khi cần — không bắt buộc 
 
 ### Configure CI for a KMP app
 
-- [Configure GitHub Actions](https://kotlinlang.org/docs/multiplatform/github-actions-for-kmp.html) → [bài 13](../lessons/13-build-publish.md)
+- [Configure GitHub Actions](https://kotlinlang.org/docs/multiplatform/github-actions-for-kmp.html) → [bài 14](../lessons/14-build-publish.md)
 - [Configure TeamCity](https://kotlinlang.org/docs/multiplatform/configure-teamcity-for-kmp.html)
 - [Configure iOS delivery pipeline](https://kotlinlang.org/docs/multiplatform/ios-ci-cd-teamcity.html)
 
@@ -193,10 +193,10 @@ Trang không có bài là phần đọc thêm khi cần — không bắt buộc 
 
 ## Compatibility
 
-- [Compatibility guide](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html) → [bài 14](../lessons/14-migrate-android.md)
+- [Compatibility guide](https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html)
 - [Android source set layout](https://kotlinlang.org/docs/multiplatform/multiplatform-android-layout.html)
 - [Kotlin Multiplatform IDE plugin releases](https://kotlinlang.org/docs/multiplatform/multiplatform-plugin-releases.html)
-- [Upgrading to AGP 9](https://kotlinlang.org/docs/multiplatform/multiplatform-project-agp-9-migration.html) → [bài 14](../lessons/14-migrate-android.md)
+- [Upgrading to AGP 9](https://kotlinlang.org/docs/multiplatform/multiplatform-project-agp-9-migration.html)
 
 ## Multiplatform journal
 

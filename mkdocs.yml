@@ -1,5 +1,5 @@
-site_name: Kotlin MVP Learning
-site_description: Học Kotlin Multiplatform bằng cách làm một app MVP chạy Android, iOS và Desktop — theo đúng lộ trình docs chính chủ của Kotlin.
+site_name: Học Kotlin Multiplatform
+site_description: Học Kotlin Multiplatform bằng cách làm một app đo pin, GPS và mạng (Device Pulse) chạy Android và iOS — theo đúng lộ trình docs chính chủ của Kotlin.
 site_url: https://tucarmd.github.io/kotlin-multi-platform/
 repo_url: https://github.com/tucarmd/kotlin-multi-platform
 repo_name: tucarmd/kotlin-multi-platform
@@ -88,20 +88,20 @@ nav:
       - "1. KMP là gì, khi nào dùng": lessons/01-what-is-kmp.md
       - "2. Cài máy, tạo project đầu tiên": lessons/02-setup.md
       - "3. Cấu trúc project": lessons/03-project-structure.md
-      - "4. Chia sẻ code giữa các nền tảng": lessons/04-share-code.md
+      - "4. Chia sẻ code: model và luật": lessons/04-share-code.md
       - "5. Thêm thư viện": lessons/05-dependencies.md
       - "6. Compose Multiplatform cơ bản": lessons/06-compose-basics.md
       - "7. Resources và đa ngôn ngữ": lessons/07-resources.md
       - "8. ViewModel và điều hướng": lessons/08-viewmodel-navigation.md
-      - "9. Lưu dữ liệu với SQLDelight": lessons/09-sqldelight.md
-      - "10. Gọi API với Ktor": lessons/10-ktor.md
-      - "11. Nối với iOS": lessons/11-ios-integration.md
-      - "12. Test": lessons/12-testing.md
-      - "13. Build và phát hành": lessons/13-build-publish.md
-      - "14. Đưa app Android có sẵn sang KMP": lessons/14-migrate-android.md
-  - "App MVP":
-      - mvp/index.md
-      - "Checklist hoàn thành": mvp/checklist.md
+      - "9. Đọc pin": lessons/09-battery.md
+      - "10. GPS và xin quyền": lessons/10-location.md
+      - "11. Mạng và đo độ trễ": lessons/11-network.md
+      - "12. Lưu lịch sử với SQLDelight": lessons/12-history-sqldelight.md
+      - "13. Test": lessons/13-testing.md
+      - "14. Build và phát hành": lessons/14-build-publish.md
+  - "Dự án Device Pulse":
+      - project/index.md
+      - "Checklist hoàn thành": project/checklist.md
   - "Đánh giá & kế hoạch": plan/kmp-review.md
   - "Tra cứu":
       - "Tài nguyên học chính chủ": reference/learning-resources.md

@@ -1,4 +1,4 @@
-/* Kotlin MVP Learning — "warm sticker notebook" theme (cloned from Product Growth Playbook).
+/* Học Kotlin Multiplatform — "warm sticker notebook" theme (cloned from Product Growth Playbook).
    Palette matches docs/images/illustrations (cream, terracotta, coral, navy, sage, sun, sky). */
 @import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..900,50..100&display=swap");
 
@@ -172,7 +172,7 @@ body {
 .md-typeset h2#credits::before { content: "🙏"; }
 .md-typeset h2#five-things-to-remember::before { content: "⭐"; }
 .md-typeset h2:is(#goal, #when-to-use, #inputs, #steps, #prompt-copy-paste, #example-output, #common-mistakes,
-  #related-skills, #credits, #five-things-to-remember, #tiep-theo, #muc-tieu, #lam-tren-app-mvp, #kiem-tra, #loi-hay-gap, #docs-goc)::before {
+  #related-skills, #credits, #five-things-to-remember, #tiep-theo, #muc-tieu, #lam-tren-device-pulse, #kiem-tra, #loi-hay-gap, #docs-goc)::before {
   background: none; box-shadow: none; transform: none; flex: 0 0 auto; height: auto; font-size: .9em;
 }
 
@@ -388,7 +388,7 @@ body {
 .md-typeset a.tut__step:hover { background: var(--sun); color: #1F2A44; }
 .md-typeset h2#tiep-theo::before { content: "➡️"; }
 .md-typeset h2#muc-tieu::before { content: "🎯"; }
-.md-typeset h2#lam-tren-app-mvp::before { content: "🛠️"; }
+.md-typeset h2#lam-tren-device-pulse::before { content: "🛠️"; }
 .md-typeset h2#kiem-tra::before { content: "✅"; }
 .md-typeset h2#loi-hay-gap::before { content: "⚠️"; }
 .md-typeset h2#docs-goc::before { content: "📘"; }

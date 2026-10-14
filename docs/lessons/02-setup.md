@@ -1,17 +1,18 @@
 # Cài máy, tạo project đầu tiên
 
-Bài này dựng project Habit Tick bằng wizard và chạy nó trên cả 3 nền tảng. Chưa viết tính năng — chỉ cần thấy app chạy.
+Bài này dựng project Device Pulse bằng wizard và chạy nó trên Android emulator lẫn iOS simulator. Chưa viết tính năng — chỉ cần thấy app chạy.
 
 ## Mục tiêu
 
-- Máy có đủ công cụ để build Android, iOS, Desktop.
-- Project `habit-tick` chạy được trên Android emulator, iOS simulator và cửa sổ Desktop.
+- Máy có đủ công cụ để build Android và iOS.
+- Project `DevicePulse` chạy được trên Android emulator và iOS simulator.
+- Biết chỗ giả lập pin, vị trí, mạng — các bài sau sẽ dùng.
 
 ## Cài công cụ
 
 1. **IDE:** IntelliJ IDEA hoặc Android Studio, kèm **plugin Kotlin Multiplatform**. Plugin thêm cấu hình chạy iOS ngay trong IDE và có bước kiểm môi trường.
-2. **Xcode** (từ App Store) — bắt buộc để build iOS. Mở Xcode một lần để nó cài thêm thành phần, rồi chọn một iOS Simulator.
-3. **JDK** — IDE thường tự kèm. Android SDK + emulator cài qua IDE.
+2. **Xcode** (từ App Store) — bắt buộc để build iOS, chỉ chạy trên macOS. Mở Xcode một lần để nó cài thêm thành phần, rồi tải một iOS Simulator.
+3. **JDK 17+** — IDE thường tự kèm. Android SDK + emulator cài qua IDE (*Device Manager*).
 
 !!! tip "Kiểm môi trường trước"
     Plugin KMP có bước *preflight checks* báo thiếu gì (Xcode, JDK, Android SDK…). Sửa hết đỏ rồi mới tạo project.
@@ -22,7 +23,7 @@ Bài này dựng project Habit Tick bằng wizard và chạy nó trên cả 3 n�
     - Cài extension **Kotlin by JetBrains** (`JetBrains.kotlin-server`, bản Alpha) — completion, báo lỗi, điều hướng, format, import Gradle.
       Docs ghi rõ: *hỗ trợ Kotlin Multiplatform đang được phát triển*.
     - Máy vẫn cần **JDK 17+**, **Android SDK**, **Xcode** — VS Code không thay được các thứ này.
-    - Build/chạy bằng terminal: `./gradlew :composeApp:assembleDebug`, `./gradlew :composeApp:run`; iOS mở `iosApp/` bằng Xcode.
+    - Build/chạy bằng terminal: `./gradlew :composeApp:assembleDebug` (Android), `./gradlew :composeApp:allTests` (test); iOS mở `iosApp/` bằng Xcode.
 
     Khuyên dùng: tạo project + chạy app bằng IntelliJ IDEA / Android Studio, VS Code chỉ là editor phụ.
 
@@ -30,32 +31,46 @@ Bài này dựng project Habit Tick bằng wizard và chạy nó trên cả 3 n�
 
 Dùng wizard trong IDE (*New Project → Kotlin Multiplatform*) hoặc trang web wizard của JetBrains:
 
-- **Tên:** `HabitTick` · **package:** `dev.habittick`
-- **Nền tảng:** Android, iOS, Desktop
+- **Tên:** `DevicePulse` · **package:** `dev.devicepulse`
+- **Nền tảng:** Android, iOS
 - **iOS UI:** chọn **Share UI** (Compose Multiplatform)
-- Không chọn Server, Web ở MVP
+- Bỏ trống các nền tảng còn lại (Web, Server)
 
 Wizard sinh sẵn Gradle, version catalog, project Xcode `iosApp/` và một màn mẫu. **Đừng tự gõ Gradle từ đầu** — dùng file wizard sinh rồi đọc hiểu nó (bài 3).
 
-## Chạy trên 3 nền tảng
+## Chạy trên Android và iOS
 
 | Nền tảng | Cách chạy |
 |---|---|
-| Android | chọn cấu hình `composeApp` trong IDE → chạy trên emulator |
-| iOS | chọn cấu hình `iosApp` → chọn simulator → chạy (lần đầu build lâu vài phút) |
-| Desktop | chạy task `run` của `composeApp` (ví dụ `./gradlew :composeApp:run`) |
+| Android | chọn cấu hình `composeApp` trong IDE → chọn emulator → chạy (hoặc `./gradlew :composeApp:installDebug`) |
+| iOS | chọn cấu hình `iosApp` → chọn simulator → chạy (lần đầu build lâu vài phút); hoặc mở `iosApp/iosApp.xcodeproj` bằng Xcode rồi Run |
 
 Tên task và cấu hình có thể khác chút tuỳ phiên bản wizard; xem tab Gradle trong IDE.
 
-## Làm trên app MVP
+## Giả lập cảm biến (dùng từ bài 9)
 
-Mở `App.kt` trong `commonMain`, đổi chữ trên nút mẫu thành **"Habit Tick"**, chạy lại cả 3 nền tảng. Một chỗ sửa, ba nơi đổi —
-đó là cảm giác của KMP.
+Device Pulse đọc pin, vị trí và mạng. Trên máy ảo bạn tự "bơm" giá trị:
+
+| | Android Emulator | iOS Simulator |
+|---|---|---|
+| Pin | *Extended Controls* (nút `⋯`) → **Battery**: mức %, đang sạc | không có pin — app sẽ hiện "Không hỗ trợ" |
+| Vị trí | *Extended Controls* → **Location**: nhập toạ độ hoặc phát lộ trình | menu **Features → Location**: Custom Location, City Run, Freeway Drive |
+| Mạng | *Extended Controls* → **Cellular**, hoặc bật chế độ máy bay | tắt Wi-Fi của Mac (simulator dùng mạng của Mac) |
+
+Muốn đo pin thật trên iOS thì cần iPhone thật — không bắt buộc cho lộ trình.
+
+## Làm trên Device Pulse
+
+1. Mở `App.kt` trong `commonMain`, đổi chữ trên nút mẫu thành **"Device Pulse"**.
+2. Chạy lại trên emulator và simulator. Một chỗ sửa, hai nơi đổi — đó là cảm giác của KMP.
+3. Mở thử *Extended Controls* của emulator và menu *Features → Location* của simulator để biết chúng nằm đâu.
 
 ## Kiểm tra
 
-- [ ] Chụp được màn hình app trên Android, iOS, Desktop.
-- [ ] Sửa `App.kt` một lần, cả 3 nền tảng đổi theo.
+- [ ] App chạy trên **Android** emulator, chụp được màn hình.
+- [ ] App chạy trên **iOS** simulator, chụp được màn hình.
+- [ ] Sửa `App.kt` một lần, cả hai nền tảng đổi theo.
+- [ ] Tìm được chỗ chỉnh pin/vị trí trên emulator và chỗ chỉnh vị trí trên simulator.
 
 ## Lỗi hay gặp
 

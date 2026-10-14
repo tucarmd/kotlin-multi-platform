@@ -26,6 +26,6 @@ def on_page_markdown(markdown, page, config, files):
         steps.append(f'<a class="tut__step tut__step--{state}" href="../{stem}/" '
                      f'title="{html.escape(titles.get(f.src_uri, stem))}">{i}</a>')
     bar = (f'\n<div class="tut"><p class="tut__label">Bài {n}/{len(lessons)} của lộ trình '
-           f'<a href="../../roadmap/">Học Kotlin Multiplatform bằng một app MVP</a></p>\n'
+           f'<a href="../../roadmap/">Học Kotlin Multiplatform qua app Device Pulse</a></p>\n'
            f'<nav class="tut__bar">{"".join(steps)}</nav></div>\n')
     return re.sub(r"^(# .+\n)", lambda h: h.group(1) + bar, markdown, count=1, flags=re.M)

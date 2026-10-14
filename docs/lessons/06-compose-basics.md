@@ -1,14 +1,16 @@
 # Compose Multiplatform cơ bản
 
-Compose Multiplatform là Jetpack Compose của Android, được JetBrains đưa lên iOS, Desktop và Web.
-Biết Jetpack Compose rồi thì gần như biết luôn — khác chủ yếu ở **điểm khởi động** của từng nền tảng.
+Compose Multiplatform là Jetpack Compose của Android, được JetBrains đưa lên iOS. Biết Jetpack Compose rồi thì gần như
+biết luôn — khác chủ yếu ở **điểm khởi động** của từng nền tảng. Bài này dựng màn Dashboard của Device Pulse với 3 thẻ,
+chạy trên dữ liệu giả.
 
 ## Mục tiêu
 
-- Biết mỗi nền tảng khởi động hàm `App()` chung thế nào.
-- Dựng màn danh sách thói quen bằng layout + modifier.
+- Biết Android và iOS khởi động hàm `App()` chung thế nào.
+- Viết composable `SensorCard` vẽ được mọi trạng thái của `Reading<T>`.
+- Dựng Dashboard 3 thẻ (Pin / Vị trí / Mạng) bằng Material 3, layout và modifier.
 
-## Một App(), ba điểm khởi động
+## Một App(), hai điểm khởi động
 
 Toàn bộ UI nằm trong `@Composable fun App()` ở `commonMain`. Mỗi nền tảng chỉ có vài dòng gọi nó:
 
@@ -18,6 +20,7 @@ Toàn bộ UI nằm trong `@Composable fun App()` ở `commonMain`. Mỗi nền 
     class MainActivity : ComponentActivity() {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
+            enableEdgeToEdge()
             setContent { App() }
         }
     }
@@ -29,55 +32,113 @@ Toàn bộ UI nằm trong `@Composable fun App()` ở `commonMain`. Mỗi nền 
     fun MainViewController() = ComposeUIViewController { App() }
     ```
 
-    Phía Swift gọi `MainViewController()` và bọc vào SwiftUI (bài 11).
+    Phía Swift (`iosApp/ContentView.swift`, wizard đã tạo sẵn) bọc `MainViewController()` vào SwiftUI qua `UIViewControllerRepresentable`.
 
-=== "Desktop · desktopMain"
+## Layout và modifier
 
-    ```kotlin
-    fun main() = application {
-        Window(onCloseRequest = ::exitApplication, title = "Habit Tick") { App() }
-    }
-    ```
+- `Column` / `Row` / `Box` xếp dọc / ngang / chồng; `LazyColumn` cho danh sách dài (chỉ vẽ dòng đang thấy).
+- `Modifier` đổi cỡ, khoảng cách, bấm. **Thứ tự modifier có ý nghĩa**: `padding` trước `background` khác `background` trước `padding`.
+- Composable nên nhận `modifier: Modifier = Modifier` để chỗ gọi tự chỉnh vị trí, cỡ.
+- Tràn viền (edge-to-edge): dùng `Scaffold` hoặc `Modifier.safeDrawingPadding()` để nội dung không bị tai thỏ / thanh trạng thái che.
 
-## Layout và modifier — đủ dùng cho MVP
+## Làm trên Device Pulse
 
-- `Column` / `Row` / `Box` xếp dọc / ngang / chồng.
-- `LazyColumn` cho danh sách dài (chỉ vẽ dòng đang thấy).
-- `Modifier` đổi cỡ, khoảng cách, bấm: **thứ tự modifier có ý nghĩa** — `padding` trước `background` khác `background` trước `padding`.
-- Màn rộng (desktop, iPad) → xem *adaptive layouts* để đổi bố cục theo cỡ cửa sổ.
-
-## Làm trên app MVP
+`SensorCard` là composable generic: phần khung (tiêu đề, spinner, lỗi) dùng chung, phần hiện giá trị do chỗ gọi truyền vào.
 
 ```kotlin
+// commonMain/kotlin/dev/devicepulse/ui/SensorCard.kt
 @Composable
-fun HabitListScreen(habits: List<Habit>, today: String, onToggle: (Habit) -> Unit) {
-    LazyColumn(Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        items(habits, key = { it.id }) { habit ->
-            HabitRow(habit, done = today in habit.doneDates, onToggle = { onToggle(habit) })
-        }
-    }
-}
-
-@Composable
-fun HabitRow(habit: Habit, done: Boolean, onToggle: () -> Unit) {
-    Card(Modifier.fillMaxWidth().clickable(onClick = onToggle)) {
-        Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-            Text(habit.title, Modifier.weight(1f), style = MaterialTheme.typography.titleMedium)
-            Checkbox(checked = done, onCheckedChange = { onToggle() })
+fun <T> SensorCard(
+    title: String,
+    reading: Reading<T>,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
+    content: @Composable (T) -> Unit,
+) {
+    Card(onClick = onClick, modifier = modifier.fillMaxWidth()) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(title, style = MaterialTheme.typography.titleMedium)
+            when (reading) {
+                Reading.Loading -> CircularProgressIndicator(Modifier.size(24.dp))
+                is Reading.Available -> content(reading.value)
+                Reading.PermissionDenied -> Text("Chưa được cấp quyền", color = MaterialTheme.colorScheme.error)
+                Reading.Unsupported -> Text("Máy này không hỗ trợ")
+                is Reading.Error -> Text("Lỗi: ${reading.message}", color = MaterialTheme.colorScheme.error)
+            }
         }
     }
 }
 ```
 
-Tạm dùng dữ liệu giả: `remember { mutableStateListOf(...) }` trong `App()`. Bài 8 chuyển state sang ViewModel.
+`when` trên `sealed interface` là *exhaustive*: thêm trạng thái mới vào `Reading` mà quên vẽ thì compiler báo lỗi ngay.
 
-!!! tip "Xem nhanh không cần chạy app"
-    Thêm `@Preview` cho `HabitRow` để xem trong IDE. Với desktop, **Compose Hot Reload** cho thấy thay đổi UI ngay khi lưu file.
+Màn Dashboard chỉ nhận `DashboardState` và vẽ — không tự lấy dữ liệu:
+
+```kotlin
+// commonMain/kotlin/dev/devicepulse/ui/DashboardScreen.kt
+@Composable
+fun DashboardScreen(state: DashboardState, modifier: Modifier = Modifier, onOpen: (SensorKind) -> Unit = {}) {
+    Column(
+        modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        SensorCard("Pin", state.battery, onClick = { onOpen(SensorKind.Battery) }) { b ->
+            Text("${b.levelPercent}% · ${b.charging}", style = MaterialTheme.typography.headlineMedium)
+        }
+        SensorCard("Vị trí", state.location, onClick = { onOpen(SensorKind.Location) }) { fix ->
+            Text("${fix.latitude}, ${fix.longitude} (±${fix.accuracyMeters} m)")
+        }
+        SensorCard("Mạng", state.network, onClick = { onOpen(SensorKind.Network) }) { net ->
+            Text(if (net.isOnline) "${net.type} · online" else "Mất mạng")
+        }
+    }
+}
+
+private val fakeState = DashboardState(
+    battery = Reading.Available(BatteryInfo(levelPercent = 76, charging = ChargingState.Charging)),
+    location = Reading.Loading,
+    network = Reading.Available(NetworkStatus(ConnectionType.Wifi, isOnline = true)),
+)
+
+@Composable
+fun App() {
+    MaterialTheme {
+        Scaffold { padding -> DashboardScreen(fakeState, Modifier.padding(padding)) }
+    }
+}
+```
+
+Chuỗi đang viết cứng — bài 7 chuyển ra resources. `DashboardState` là `data class` trong spec chung
+(xem [trang dự án](../project/index.md)); bài 8 mới có ViewModel sinh ra nó.
+
+### @Preview
+
+Xem thẻ ngay trong IDE, không cần chạy máy ảo:
+
+```kotlin
+import androidx.compose.ui.tooling.preview.Preview
+
+@Preview
+@Composable
+private fun SensorCardErrorPreview() {
+    MaterialTheme {
+        SensorCard<BatteryInfo>("Pin", Reading.Error("timeout")) {}
+    }
+}
+```
+
+!!! tip "Preview trong commonMain"
+    Bản Compose Multiplatform mới cho phép `@Preview` ngay trong `commonMain` (cần dependency `ui-tooling-preview`,
+    wizard thường thêm sẵn). Không thấy khung preview → kiểm tra plugin Compose Multiplatform trong IDE, hoặc đặt preview tạm ở `androidMain`.
 
 ## Kiểm tra
 
-- [ ] Danh sách 3 thói quen giả hiện trên cả 3 nền tảng.
-- [ ] Bấm dòng → checkbox đổi.
+- [ ] Android: Dashboard hiện 3 thẻ — Pin `76% · Charging`, Vị trí đang quay spinner, Mạng `Wifi · online`.
+- [ ] iOS (Simulator): cùng 3 thẻ, không bị tai thỏ che tiêu đề đầu.
+- [ ] Đổi `fakeState.location` thành `Reading.PermissionDenied` rồi `Reading.Error("x")` → thẻ Vị trí đổi chữ trên cả hai nền tảng.
+- [ ] Preview `SensorCardErrorPreview` hiện trong IDE.
+
+Gặp lỗi build iOS → xem [xử lý sự cố](../reference/troubleshooting.md).
 
 ## Tiếp theo?
 
@@ -86,4 +147,4 @@ Tạm dùng dữ liệu giả: `remember { mutableStateListOf(...) }` trong `App
 
 ## Docs gốc
 
-[App entry points](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-entry-points.html) · [Layout basics](https://kotlinlang.org/docs/multiplatform/compose-layout.html) · [Modifiers](https://kotlinlang.org/docs/multiplatform/compose-layout-modifiers.html) · [UI previews](https://kotlinlang.org/docs/multiplatform/compose-previews.html)
+[App entry points](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-entry-points.html) · [Layout basics](https://kotlinlang.org/docs/multiplatform/compose-layout.html) · [Modifiers](https://kotlinlang.org/docs/multiplatform/compose-layout-modifiers.html) · [UI previews](https://kotlinlang.org/docs/multiplatform/compose-previews.html) · [Material 3 trong Compose](https://developer.android.com/develop/ui/compose/designsystems/material3)

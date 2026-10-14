@@ -263,12 +263,12 @@ Spec → Tiêu chí chấp nhận → Hợp đồng (interface, model) ở commo
 
 | Tuần | Mục tiêu | Bài | Kết quả phải có |
 |---|---|---|---|
-| 1 | Kotlin cốt lõi + máy chạy được | 1–3 | App wizard chạy trên 3 nền tảng; giải thích được từng file Gradle |
-| 2 | Code chung + thư viện | 4–5 | `expect/actual` + interface; Kermit log được trên cả 2 nền tảng |
-| 3 | UI + state | 6–8 | Màn danh sách, chi tiết; ViewModel + Flow; xoay màn không mất state |
-| 4 | Dữ liệu + mạng | 9–10 | SQLDelight + Ktor; xử lý mất mạng; test Repository bằng fake |
-| 5 | iOS + test | 11–12 | SwiftUI gọi shared; test `commonTest` chạy trên iOS simulator; flow Maestro đầu tiên |
-| 6 | Phát hành | 13–14 | Bản release có crash report; CI build 2 nền tảng; tự viết lại 1 tính năng không nhìn bài |
+| 1 | Kotlin cốt lõi + máy chạy được | 1–3 | App wizard chạy trên Android + iOS; giải thích được từng file Gradle |
+| 2 | Code chung + thư viện | 4–5 | Model, luật đánh giá, interface cảm biến; Kermit log được trên cả 2 nền tảng |
+| 3 | UI + state | 6–8 | Dashboard 3 thẻ + màn chi tiết; ViewModel + Flow; xoay màn không mất state |
+| 4 | Cảm biến thật | 9–10 | Đọc pin + GPS thật trên 2 nền tảng; xử lý bị từ chối quyền |
+| 5 | Mạng + dữ liệu | 11–12 | Trạng thái mạng + đo độ trễ bằng Ktor; lưu lịch sử bằng SQLDelight |
+| 6 | Test + phát hành | 13–14 | Test chạy trên iOS simulator; flow Maestro đầu tiên; bản release có crash report; CI build 2 nền tảng; tự viết lại 1 tính năng không nhìn bài |
 
 **Nhịp mỗi ngày (khoảng 3–4 giờ):**
 
