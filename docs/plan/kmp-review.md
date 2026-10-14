@@ -1,8 +1,5 @@
 # Đánh giá Kotlin Multiplatform & kế hoạch học
 
-> Góc nhìn: một người làm mobile lâu năm (Android/Kotlin + iOS), đồng thời đứng ở vị trí người bỏ tiền ra làm sản phẩm.
-> Cập nhật: **10/2026**. KMP thay đổi rất nhanh, nên mỗi mốc phiên bản dưới đây cần kiểm lại khi đọc.
-
 ## Kết luận ngắn
 
 | Câu hỏi | Trả lời ngắn |
@@ -23,7 +20,7 @@
 
 ---
 
-## 1. Góc nhìn kỹ thuật lâu năm: tình hình thật
+## 1. Đánh giá kỹ thuật: tình hình thật
 
 **Điểm mạnh thật sự**
 
@@ -42,7 +39,7 @@
 
 ---
 
-## 2. Góc nhìn người làm chủ: lợi ích kinh tế
+## 2. Lợi ích kinh tế
 
 ### Tiền thật nằm ở đâu
 
