@@ -3,10 +3,11 @@ name: iosApp
 options:
   bundleIdPrefix: dev.devicepulse
   deploymentTarget:
-    iOS: "15.0"
+    iOS: "17.0" # @Observable needs iOS 17
 settings:
   base:
     ENABLE_USER_SCRIPT_SANDBOXING: NO
+    SWIFT_VERSION: "5.0"
 targets:
   iosApp:
     type: application
@@ -21,7 +22,6 @@ targets:
         CFBundleVersion: "1"
         CFBundleDevelopmentRegion: en
         CFBundleLocalizations: [en, vi]
-        CADisableMinimumFrameDurationOnPhone: true
         NSLocationWhenInUseUsageDescription: Device Pulse shows your current position and GPS accuracy on the dashboard.
         UILaunchScreen: {}
         UIApplicationSceneManifest:
@@ -34,9 +34,9 @@ targets:
         DEVELOPMENT_TEAM: ""
         CODE_SIGN_STYLE: Automatic
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
-        FRAMEWORK_SEARCH_PATHS: ["$(inherited)", "$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)"]
-        # ComposeApp is a static framework, so the system SQLite used by SQLDelight must be linked here too
-        OTHER_LDFLAGS: ["$(inherited)", "-framework", "ComposeApp", "-lsqlite3"]
+        FRAMEWORK_SEARCH_PATHS: ["$(inherited)", "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)"]
+        # Shared is a static framework, so the system SQLite used by SQLDelight must be linked here too
+        OTHER_LDFLAGS: ["$(inherited)", "-framework", "Shared", "-lsqlite3"]
     preBuildScripts:
       - name: Compile Kotlin Framework
         basedOnDependencyAnalysis: false
@@ -46,4 +46,4 @@ targets:
             exit 0
           fi
           cd "$SRCROOT/.."
-          ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode
+          ./gradlew :shared:embedAndSignAppleFrameworkForXcode

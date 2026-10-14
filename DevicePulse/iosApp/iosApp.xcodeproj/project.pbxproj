@@ -8,15 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		22EA1CB33A17DCC6FC82406D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F543015C899423D4B01CEB2E /* Assets.xcassets */; };
+		240E2F29DD5E11D68DEEE0D6 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E31472B0758352052C4527 /* HistoryView.swift */; };
 		307C2654CD5972A25FB7FD87 /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668CECA83ACC03A83C85A623 /* iOSApp.swift */; };
-		56B0305B5D3847FC6B326502 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8509E5A49E4A5CAAEB3ADB /* ContentView.swift */; };
+		43B79FF0A73A401E8F146B6A /* PulseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E3CF8EDDD8A899C18CD74 /* PulseModel.swift */; };
+		653DAFA41DB9C4A2FE5DF59E /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2FF4818DBEF2D169761A75 /* DetailView.swift */; };
+		86A6000310FA931D64BB4C68 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A7F3482AB68B54C1CB27AB9D /* Localizable.strings */; };
+		95EDDA27F5D6255C491BB6E1 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C3DE86DDD4F7D0C4BBF9C7 /* Components.swift */; };
+		A39C37A3A981963D60CEA833 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4552A3FD355A6ACB53EECF /* RootView.swift */; };
+		B2A1BD17C5D235607CF24E6F /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E83E8DC1255E73A5744FA1E /* DashboardView.swift */; };
+		C75FD15B6D5C69A627246F2C /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8244F0904D9BAD9B0C34EA /* Labels.swift */; };
+		E941E54EED33E80FB38A4C55 /* LocationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3A74DF3393C57B06597D7C /* LocationPermission.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09C3DE86DDD4F7D0C4BBF9C7 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		0C2FF4818DBEF2D169761A75 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		3D4552A3FD355A6ACB53EECF /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		668CECA83ACC03A83C85A623 /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		86038AE1032E284E79B32AD6 /* iosApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E83E8DC1255E73A5744FA1E /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		AE8244F0904D9BAD9B0C34EA /* Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
+		BF3A74DF3393C57B06597D7C /* LocationPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermission.swift; sourceTree = "<group>"; };
 		C117AD187833E2513BD2F553 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		CE8509E5A49E4A5CAAEB3ADB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C35CD2C849A242A9332863DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CE4E3CF8EDDD8A899C18CD74 /* PulseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseModel.swift; sourceTree = "<group>"; };
+		D0E31472B0758352052C4527 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		EF73CFABC45E88D1B8FBE357 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F543015C899423D4B01CEB2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -25,9 +42,12 @@
 			isa = PBXGroup;
 			children = (
 				F543015C899423D4B01CEB2E /* Assets.xcassets */,
-				CE8509E5A49E4A5CAAEB3ADB /* ContentView.swift */,
 				C117AD187833E2513BD2F553 /* Info.plist */,
 				668CECA83ACC03A83C85A623 /* iOSApp.swift */,
+				BF3A74DF3393C57B06597D7C /* LocationPermission.swift */,
+				CE4E3CF8EDDD8A899C18CD74 /* PulseModel.swift */,
+				A7F3482AB68B54C1CB27AB9D /* Localizable.strings */,
+				430E7B864E0EEAC082A830CC /* Views */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -38,6 +58,19 @@
 				1DB4B685CAEE8BEFEBBAEF94 /* iosApp */,
 				94C98B8B3A2BFC1966447269 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		430E7B864E0EEAC082A830CC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				09C3DE86DDD4F7D0C4BBF9C7 /* Components.swift */,
+				8E83E8DC1255E73A5744FA1E /* DashboardView.swift */,
+				0C2FF4818DBEF2D169761A75 /* DetailView.swift */,
+				D0E31472B0758352052C4527 /* HistoryView.swift */,
+				AE8244F0904D9BAD9B0C34EA /* Labels.swift */,
+				3D4552A3FD355A6ACB53EECF /* RootView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		94C98B8B3A2BFC1966447269 /* Products */ = {
@@ -91,6 +124,7 @@
 			knownRegions = (
 				Base,
 				en,
+				vi,
 			);
 			mainGroup = 38B69C3F79CD97858CF7B609;
 			minimizedProjectReferenceProxies = 1;
@@ -110,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22EA1CB33A17DCC6FC82406D /* Assets.xcassets in Resources */,
+				86A6000310FA931D64BB4C68 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,7 +168,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew :composeApp:embedAndSignAppleFrameworkForXcode\n";
+			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n./gradlew :shared:embedAndSignAppleFrameworkForXcode\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -142,12 +177,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56B0305B5D3847FC6B326502 /* ContentView.swift in Sources */,
+				95EDDA27F5D6255C491BB6E1 /* Components.swift in Sources */,
+				B2A1BD17C5D235607CF24E6F /* DashboardView.swift in Sources */,
+				653DAFA41DB9C4A2FE5DF59E /* DetailView.swift in Sources */,
+				240E2F29DD5E11D68DEEE0D6 /* HistoryView.swift in Sources */,
+				C75FD15B6D5C69A627246F2C /* Labels.swift in Sources */,
+				E941E54EED33E80FB38A4C55 /* LocationPermission.swift in Sources */,
+				43B79FF0A73A401E8F146B6A /* PulseModel.swift in Sources */,
+				A39C37A3A981963D60CEA833 /* RootView.swift in Sources */,
 				307C2654CD5972A25FB7FD87 /* iOSApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A7F3482AB68B54C1CB27AB9D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C35CD2C849A242A9332863DC /* en */,
+				EF73CFABC45E88D1B8FBE357 /* vi */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		11814011E7D6EC822BFBC66D /* Release */ = {
@@ -196,7 +250,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -259,7 +313,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -280,7 +334,7 @@
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = iosApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -290,7 +344,7 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
-					ComposeApp,
+					Shared,
 					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.devicepulse.ios;
@@ -309,7 +363,7 @@
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = iosApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -319,7 +373,7 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
-					ComposeApp,
+					Shared,
 					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.devicepulse.ios;

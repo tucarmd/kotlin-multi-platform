@@ -19,10 +19,11 @@ Lộ trình 14 bài, đi theo mục lục docs Kotlin Multiplatform chính chủ
 
 **[`DevicePulse/`](DevicePulse/)**: bản code hoàn chỉnh của app sau bài 14, chạy Android + iOS. Có pin, GPS, mạng, đo độ trễ,
 lịch sử (SQLDelight) và test chung.
+Kiến trúc **KMP core + UI native**: logic trong `shared/`, Android vẽ bằng Jetpack Compose, iOS vẽ bằng SwiftUI.
 
 ```bash
 cd DevicePulse
-./gradlew :composeApp:installDebug     # Android
+./gradlew :androidApp:installDebug     # Android
 open iosApp/iosApp.xcodeproj           # iOS: bấm Run
 ```
 

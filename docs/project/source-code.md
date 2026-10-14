@@ -14,32 +14,35 @@ pin, GPS, mạng, đo độ trễ và lịch sử đều chạy thật trên And
 git clone https://github.com/tucarmd/kotlin-multi-platform.git
 cd kotlin-multi-platform/DevicePulse
 
-./gradlew :composeApp:installDebug                                          # Android: cài lên emulator / máy đang cắm
-./gradlew :composeApp:testDebugUnitTest :composeApp:iosSimulatorArm64Test   # test chung trên JVM + iOS Simulator
-open iosApp/iosApp.xcodeproj                                                # iOS: bấm Run trong Xcode
+./gradlew :androidApp:installDebug                                  # Android: cài lên emulator / máy đang cắm
+./gradlew :shared:testDebugUnitTest :shared:iosSimulatorArm64Test   # test core trên JVM + iOS Simulator
+open iosApp/iosApp.xcodeproj                                        # iOS: bấm Run trong Xcode
 ```
 
 Cần JDK 17+, Android SDK 36, Xcode 16+. Chi tiết và lệnh giả lập cảm biến:
 [`DevicePulse/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/README.md).
 
-## Bài nào, xem file nào
+## Code mẫu khác bài học ở đâu
 
-Đường dẫn tính từ `DevicePulse/composeApp/src/`.
+!!! warning "Code mẫu đã chuyển sang UI native"
+    14 bài viết UI **chung** bằng Compose Multiplatform. Code mẫu hiện dùng kiến trúc **KMP core + UI native**:
+    `shared/` chứa toàn bộ logic, `androidApp/` vẽ bằng Jetpack Compose, `iosApp/` vẽ bằng SwiftUI.
+    Phần core (bài 4, 9–13) gần như giữ nguyên; phần UI (bài 6–8) và cách ráp phụ thuộc (bài 5) khác bài học.
 
-| Bài | File trong code mẫu |
+| Bài | File trong code mẫu (tính từ `DevicePulse/`) |
 |---|---|
-| [3. Cấu trúc project](../lessons/03-project-structure.md) | `DevicePulse/settings.gradle.kts`, `composeApp/build.gradle.kts`, `gradle/libs.versions.toml` |
-| [4. Chia sẻ code](../lessons/04-share-code.md) | `commonMain/.../model/Models.kt`, `commonMain/.../rules/Rules.kt` |
-| [5. Thêm thư viện](../lessons/05-dependencies.md) | `commonMain/.../di/Koin.kt`, `androidMain/.../DevicePulseApp.kt`, `*/di/PlatformModule.*.kt` |
-| [6. Compose cơ bản](../lessons/06-compose-basics.md) | `commonMain/.../ui/DashboardScreen.kt`, `ui/Components.kt` |
-| [7. Resources](../lessons/07-resources.md) | `commonMain/composeResources/values/strings.xml`, `values-vi/strings.xml` |
-| [8. ViewModel và điều hướng](../lessons/08-viewmodel-navigation.md) | `ui/DashboardViewModel.kt`, `ui/App.kt`, `ui/Routes.kt` |
-| [9. Đọc pin](../lessons/09-battery.md) | `commonMain/.../sensor/Sensors.kt`, `AndroidBatterySensor.kt`, `IosBatterySensor.kt` |
-| [10. GPS và xin quyền](../lessons/10-location.md) | `sensor/Permission.kt` + `Permission.android.kt` / `.ios.kt`, `AndroidLocationSensor.kt`, `IosLocationSensor.kt` |
-| [11. Mạng và độ trễ](../lessons/11-network.md) | `sensor/LatencyProbe.kt`, `AndroidNetworkSensor.kt`, `IosNetworkSensor.kt` |
-| [12. Lịch sử với SQLDelight](../lessons/12-history-sqldelight.md) | `commonMain/sqldelight/.../Snapshot.sq`, `data/HistoryRepository.kt`, `ui/HistoryScreen.kt` |
-| [13. Test](../lessons/13-testing.md) | `commonTest/.../RulesTest.kt`, `LatencyProbeTest.kt`, `DashboardViewModelTest.kt` |
-| [14. Build và phát hành](../lessons/14-build-publish.md) | `DevicePulse/iosApp/project.yml`, `iosApp/iosApp/Info.plist` |
+| [3. Cấu trúc project](../lessons/03-project-structure.md) | `settings.gradle.kts`, `shared/build.gradle.kts`, `androidApp/build.gradle.kts`, `gradle/libs.versions.toml` |
+| [4. Chia sẻ code](../lessons/04-share-code.md) | `shared/.../model/Models.kt`, `shared/.../rules/Rules.kt` |
+| [5. Thêm thư viện](../lessons/05-dependencies.md) | `shared/.../core/PulseCore.kt` + `PulseCore.android.kt` / `.ios.kt` (ráp tay, không dùng Koin) |
+| [6. Compose cơ bản](../lessons/06-compose-basics.md) | Android: `androidApp/.../ui/DashboardScreen.kt`, `Components.kt` · iOS: `iosApp/iosApp/Views/DashboardView.swift`, `Components.swift` |
+| [7. Resources](../lessons/07-resources.md) | `androidApp/src/main/res/values*/strings.xml` · `iosApp/iosApp/*.lproj/Localizable.strings` |
+| [8. ViewModel và điều hướng](../lessons/08-viewmodel-navigation.md) | `shared/.../core/PulseMonitor.kt` · Android: `ui/PulseViewModel.kt`, `ui/App.kt` · iOS: `PulseModel.swift`, `Views/RootView.swift` |
+| [9. Đọc pin](../lessons/09-battery.md) | `shared/.../sensor/Sensors.kt`, `AndroidBatterySensor.kt`, `IosBatterySensor.kt` |
+| [10. GPS và xin quyền](../lessons/10-location.md) | `AndroidLocationSensor.kt`, `IosLocationSensor.kt` · quyền: `androidApp/.../ui/LocationPermission.kt`, `iosApp/iosApp/LocationPermission.swift` |
+| [11. Mạng và độ trễ](../lessons/11-network.md) | `shared/.../sensor/LatencyProbe.kt`, `AndroidNetworkSensor.kt`, `IosNetworkSensor.kt` |
+| [12. Lịch sử với SQLDelight](../lessons/12-history-sqldelight.md) | `shared/src/commonMain/sqldelight/.../Snapshot.sq`, `data/HistoryRepository.kt` |
+| [13. Test](../lessons/13-testing.md) | `shared/src/commonTest/.../RulesTest.kt`, `LatencyProbeTest.kt`, `PulseMonitorTest.kt` |
+| [14. Build và phát hành](../lessons/14-build-publish.md) | `iosApp/project.yml`, `iosApp/iosApp/Info.plist` |
 
 Code mẫu có thể đi trước bài học một chút về phiên bản thư viện. Gặp chỗ khác nhau thì xem mục *Version và vì sao* trong
 README của `DevicePulse/`.
