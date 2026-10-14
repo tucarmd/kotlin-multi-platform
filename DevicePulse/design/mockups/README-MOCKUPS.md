@@ -3,22 +3,33 @@
 Mockup đơn giản cho dev nhìn và đối chiếu khi code UI Compose. Mỗi màn bám đúng code hiện tại trong
 `composeApp/src/commonMain/kotlin/dev/devicepulse/ui/` và chuỗi tiếng Anh trong `composeResources/values/strings.xml`.
 
-Ảnh sinh bằng Codex/ChatGPT (Claude chỉ viết prompt). File máy đọc: [`jobs.json`](jobs.json).
+Ảnh sinh bằng Codex CLI (`codex exec`, tool image_generation), 1024x1536. File máy đọc: [`jobs.json`](jobs.json).
 
 ## Theo dõi
 
 | ID | Màn | Code | Trạng thái |
 |---|---|---|---|
-| 01-dashboard | Dashboard (all sensors available) | `DashboardScreen.kt` | ⬜ chưa có |
-| 02-dashboard-states | Dashboard (non-value states) | `Components.kt` | ⬜ chưa có |
-| 03-detail-battery | Detail — Battery | `DetailScreen.kt` | ⬜ chưa có |
-| 04-detail-location | Detail — Location | `DetailScreen.kt` | ⬜ chưa có |
-| 05-detail-network | Detail — Network | `DetailScreen.kt` | ⬜ chưa có |
-| 06-history | History (with saved readings) | `HistoryScreen.kt` | ⬜ chưa có |
-| 07-history-empty | History (empty) | `HistoryScreen.kt` | ⬜ chưa có |
-| 08-dashboard-dark | Dashboard (dark theme, warning grades) | `App.kt + DashboardScreen.kt` | ⬜ chưa có |
+| [01-dashboard](01-dashboard.png) | Dashboard (all sensors available) | `DashboardScreen.kt` | ✅ có ảnh |
+| [02-dashboard-states](02-dashboard-states.png) | Dashboard (non-value states) | `Components.kt` | ✅ có ảnh |
+| [03-detail-battery](03-detail-battery.png) | Detail — Battery | `DetailScreen.kt` | ✅ có ảnh |
+| [04-detail-location](04-detail-location.png) | Detail — Location | `DetailScreen.kt` | ✅ có ảnh — lệch: các dòng nằm trong card và Rating là chip; code là dòng chữ thường, không card |
+| [05-detail-network](05-detail-network.png) | Detail — Network | `DetailScreen.kt` | ✅ có ảnh — lệch: card và chip Rating giống 04; giá trị căn trái thay vì căn phải |
+| [06-history](06-history.png) | History (with saved readings) | `HistoryScreen.kt` | ✅ có ảnh |
+| [07-history-empty](07-history-empty.png) | History (empty) | `HistoryScreen.kt` | ✅ có ảnh |
+| [08-dashboard-dark](08-dashboard-dark.png) | Dashboard (dark theme, warning grades) | `App.kt + DashboardScreen.kt` | ✅ có ảnh — lệch: "Discharging"/"Online" xuống dòng thay vì nằm cạnh giá trị |
 
 Đổi `⬜ chưa có` → `✅ có ảnh` khi ảnh đã nằm ở `design/mockups/<id>.png`. Ảnh lệch code → ghi chú ở cột Trạng thái.
+
+## Ảnh
+
+<img src="01-dashboard.png" width="240" alt="01-dashboard">
+<img src="02-dashboard-states.png" width="240" alt="02-dashboard-states">
+<img src="03-detail-battery.png" width="240" alt="03-detail-battery">
+<img src="04-detail-location.png" width="240" alt="04-detail-location">
+<img src="05-detail-network.png" width="240" alt="05-detail-network">
+<img src="06-history.png" width="240" alt="06-history">
+<img src="07-history-empty.png" width="240" alt="07-history-empty">
+<img src="08-dashboard-dark.png" width="240" alt="08-dashboard-dark">
 
 ## Cách sinh ảnh
 
