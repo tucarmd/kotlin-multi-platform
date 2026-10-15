@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kotlin Playground</title>
+<meta name="description" content="Gõ và chạy Kotlin ngay trên trình duyệt — dùng compiler chính chủ của JetBrains (api.kotlinlang.org).">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%237F52FF'/%3E%3Cstop offset='.5' stop-color='%23C811E2'/%3E%3Cstop offset='1' stop-color='%23E54857'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23g)' d='M0 0h64L32 32 64 64H0z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/lint/lint.min.css">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bar: #19191c;
+    --bar-fg: #ffffffcc;
+    --bar-line: #ffffff26;
+    --panel: #f4f4f4;
+    --fg: #19191c;
+    --fg-2: #19191cb3;
+    --line: #19191c1f;
+    --accent: #7f52ff;
+    --accent-2: #6b3cff;
+    --ok: #4dbb5f;
+    --err: #e54857;
+    --warn: #c9871a;
+    --code-bg: #ffffff;
+    --gutter: #f7f7f7;
+    --sel: #d6d1ff;
+    --kw: #0033b3;
+    --str: #067d17;
+    --num: #1750eb;
+    --com: #8c8c8c;
+    --def: #00627a;
+    --type: #000000;
+    --atom: #871094;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #19191c; --panel: #232327; --fg: #ffffffde; --fg-2: #ffffff99; --line: #ffffff1f;
+      --code-bg: #1e1f22; --gutter: #1e1f22; --sel: #214283;
+      --kw: #cf8e6d; --str: #6aab73; --num: #2aacb8; --com: #7a7e85; --def: #56a8f5; --type: #bcbec4; --atom: #c77dbb;
+      --ok: #5fb865; --err: #f75464; --warn: #e0a84d;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #19191c; --panel: #232327; --fg: #ffffffde; --fg-2: #ffffff99; --line: #ffffff1f;
+    --code-bg: #1e1f22; --gutter: #1e1f22; --sel: #214283;
+    --kw: #cf8e6d; --str: #6aab73; --num: #2aacb8; --com: #7a7e85; --def: #56a8f5; --type: #bcbec4; --atom: #c77dbb;
+    --ok: #5fb865; --err: #f75464; --warn: #e0a84d;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg); color: var(--fg);
+    font: 14px/1.5 Inter, system-ui, -apple-system, sans-serif;
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+
+  /* ---------- top bar ---------- */
+  .top {
+    background: var(--bar); color: var(--bar-fg);
+    display: flex; align-items: center; gap: 16px;
+    padding: 0 16px; height: 56px; flex: none;
+    border-bottom: 1px solid #000;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 600; font-size: 16px; white-space: nowrap; }
+  .brand svg { width: 22px; height: 22px; }
+  .top nav { display: flex; gap: 4px; margin-left: 8px; }
+  .top nav a { color: var(--bar-fg); text-decoration: none; padding: 6px 10px; border-radius: 6px; font-size: 13px; }
+  .top nav a:hover { background: #ffffff14; color: #fff; }
+  .spacer { flex: 1; }
+  .icon-btn {
+    background: transparent; border: 1px solid var(--bar-line); color: var(--bar-fg);
+    height: 32px; min-width: 32px; padding: 0 10px; border-radius: 6px; cursor: pointer;
+    font: inherit; font-size: 13px; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .icon-btn:hover { color: #fff; border-color: #ffffff55; }
+
+  /* ---------- toolbar ---------- */
+  .toolbar {
+    display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap;
+    padding: 12px 16px; border-bottom: 1px solid var(--line); flex: none;
+  }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .field label { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--fg-2); font-weight: 600; }
+  .field select, .field input {
+    height: 34px; border: 1px solid var(--line); background: var(--bg); color: var(--fg);
+    border-radius: 6px; padding: 0 10px; font: inherit; font-size: 13px; min-width: 0;
+  }
+  .field select:focus, .field input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  .field.args { flex: 1; min-width: 160px; }
+  .run {
+    height: 34px; padding: 0 18px 0 14px; border: 0; border-radius: 6px; cursor: pointer;
+    background: var(--accent); color: #fff; font: inherit; font-weight: 600; font-size: 14px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .run:hover { background: var(--accent-2); }
+  .run:disabled { opacity: .6; cursor: progress; }
+  .run svg { width: 14px; height: 14px; }
+  .ghost {
+    height: 34px; padding: 0 12px; border: 1px solid var(--line); border-radius: 6px; cursor: pointer;
+    background: transparent; color: var(--fg); font: inherit; font-size: 13px;
+  }
+  .ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .kbd { font-size: 11px; opacity: .75; font-weight: 500; }
+
+  /* ---------- workspace ---------- */
+  .work { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .editor-wrap { flex: 1; min-height: 120px; position: relative; }
+  .CodeMirror {
+    height: 100%; font-family: var(--mono); font-size: 14px; line-height: 1.6;
+    background: var(--code-bg); color: var(--fg);
+  }
+  .CodeMirror-gutters { background: var(--gutter); border-right: 1px solid var(--line); }
+  .CodeMirror-linenumber { color: var(--com); }
+  .CodeMirror-cursor { border-left-color: var(--fg); }
+  .CodeMirror-selected, .CodeMirror-focused .CodeMirror-selected { background: var(--sel); }
+  .CodeMirror-matchingbracket { color: inherit !important; background: #7f52ff33; outline: 1px solid #7f52ff88; }
+  .cm-s-default .cm-keyword { color: var(--kw); font-weight: 600; }
+  .cm-s-default .cm-string, .cm-s-default .cm-string-2 { color: var(--str); }
+  .cm-s-default .cm-number { color: var(--num); }
+  .cm-s-default .cm-comment { color: var(--com); font-style: italic; }
+  .cm-s-default .cm-def { color: var(--def); }
+  .cm-s-default .cm-type, .cm-s-default .cm-variable-3 { color: var(--type); }
+  .cm-s-default .cm-atom { color: var(--atom); }
+  .cm-s-default .cm-variable, .cm-s-default .cm-variable-2, .cm-s-default .cm-property, .cm-s-default .cm-operator, .cm-s-default .cm-punctuation { color: var(--fg); }
+  .cm-s-default .cm-meta { color: #9e880d; }
+  .CodeMirror-lint-mark-error { background-image: none; border-bottom: 2px wavy var(--err); }
+  .CodeMirror-lint-mark-warning { background-image: none; border-bottom: 2px wavy var(--warn); }
+  .CodeMirror-lint-tooltip { font: 12px/1.4 Inter, sans-serif; background: var(--panel); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; z-index: 50; }
+  .CodeMirror-hints { font-family: var(--mono); font-size: 13px; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; z-index: 50; max-height: 260px; }
+  .CodeMirror-hint { color: var(--fg); padding: 2px 8px; display: flex; gap: 16px; justify-content: space-between; }
+  .CodeMirror-hint .tail { color: var(--fg-2); }
+  li.CodeMirror-hint-active { background: var(--accent); color: #fff; }
+  li.CodeMirror-hint-active .tail { color: #ffffffcc; }
+
+  /* resize handle between editor and console */
+  .split { height: 6px; cursor: row-resize; background: var(--line); flex: none; position: relative; touch-action: none; }
+  .split::after { content: ""; position: absolute; left: 50%; top: 2px; width: 36px; height: 2px; margin-left: -18px; border-radius: 2px; background: var(--fg-2); opacity: .5; }
+
+  /* ---------- console ---------- */
+  .console { flex: none; height: 34%; min-height: 80px; display: flex; flex-direction: column; background: var(--panel); }
+  .console-head {
+    display: flex; align-items: center; gap: 10px; padding: 6px 16px;
+    border-bottom: 1px solid var(--line); font-size: 12px; color: var(--fg-2); flex: none;
+  }
+  .console-head b { color: var(--fg); font-weight: 600; letter-spacing: .02em; }
+  .status { display: inline-flex; align-items: center; gap: 6px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--fg-2); }
+  .status.ok .dot { background: var(--ok); }
+  .status.err .dot { background: var(--err); }
+  .status.busy .dot { background: var(--accent); animation: pulse 1s infinite; }
+  @keyframes pulse { 50% { opacity: .3; } }
+  .console-head .ghost { height: 24px; font-size: 12px; padding: 0 8px; }
+  .out {
+    flex: 1; overflow: auto; margin: 0; padding: 12px 16px;
+    font: 13px/1.6 var(--mono); white-space: pre-wrap; word-break: break-word;
+  }
+  .out .muted { color: var(--fg-2); }
+  .out .e { color: var(--err); }
+  .out .w { color: var(--warn); }
+  .out a.loc { color: inherit; text-decoration: underline dotted; cursor: pointer; }
+
+  .toast {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--bar); color: #fff; padding: 8px 14px; border-radius: 8px; font-size: 13px;
+    opacity: 0; transition: .2s; pointer-events: none; z-index: 100;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%); }
+
+  @media (max-width: 720px) {
+    .top nav, .hide-sm { display: none; }
+    .toolbar { gap: 8px; }
+    .field.args { order: 9; flex-basis: 100%; }
+    .CodeMirror { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" href="../" title="Về trang học Kotlin Multiplatform">
+    <svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="kg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#7F52FF"/><stop offset=".5" stop-color="#C811E2"/><stop offset="1" stop-color="#E54857"/></linearGradient></defs><path fill="url(#kg)" d="M0 0h64L32 32 64 64H0z"/></svg>
+    Kotlin Playground
+  </a>
+  <nav>
+    <a href="../">Bài học</a>
+    <a href="../reference/kotlin-conventions/">Quy ước code</a>
+    <a href="https://kotlinlang.org/docs/kotlin-tour-welcome.html" target="_blank" rel="noopener">Kotlin tour</a>
+  </nav>
+  <span class="spacer"></span>
+  <button class="icon-btn" id="share" title="Copy link chứa code hiện tại">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>
+    <span class="hide-sm">Share</span>
+  </button>
+  <button class="icon-btn" id="theme" title="Đổi sáng / tối">◐</button>
+</header>
+
+<div class="toolbar">
+  <div class="field">
+    <label for="sample">Ví dụ</label>
+    <select id="sample"></select>
+  </div>
+  <div class="field">
+    <label for="version">Kotlin</label>
+    <select id="version"><option>đang tải…</option></select>
+  </div>
+  <div class="field args">
+    <label for="args">Program arguments</label>
+    <input id="args" placeholder="vd: 120000 4 10 → args[0], args[1]…" autocomplete="off" spellcheck="false">
+  </div>
+  <button class="ghost" id="reset" title="Trả code về ví dụ đang chọn">Reset</button>
+  <button class="run" id="run" title="Chạy (Ctrl/⌘ + Enter)">
+    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 1.5v13l11-6.5z"/></svg>
+    Run <span class="kbd hide-sm">⌘↵</span>
+  </button>
+</div>
+
+<main class="work" id="work">
+  <div class="editor-wrap"><textarea id="code"></textarea></div>
+  <div class="split" id="split" title="Kéo để đổi chiều cao"></div>
+  <section class="console" id="console">
+    <div class="console-head">
+      <b>OUTPUT</b>
+      <span class="status" id="status"><span class="dot"></span><span id="status-text">Sẵn sàng</span></span>
+      <span class="spacer"></span>
+      <button class="ghost" id="clear">Xoá</button>
+    </div>
+    <pre class="out" id="out"><span class="muted">Bấm Run (hoặc Ctrl/⌘ + Enter) để chạy. Ctrl + Space để gợi ý code.</span></pre>
+  </section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/comment/comment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/lint/lint.min.js"></script>
+<script>
+// Gọi thẳng compiler chính chủ của JetBrains (cùng server với play.kotlinlang.org, CORS mở).
+const API = "https://api.kotlinlang.org";
+const STORE = "kmp-playground";
+
+const SAMPLES = [
+  { name: "Hello, world", code:
+`fun main() {
+    val name = "Kotlin"
+    println("Hello, $name!")
+}` },
+  { name: "Biến: val / var", code:
+`fun main() {
+    val pi = 3.14          // val = không gán lại được
+    var count = 0          // var = gán lại được
+    count += 1
+
+    val greeting: String = "Xin chào"   // ghi rõ kiểu
+    val total = 1_200_000               // tự suy ra Int
+
+    println("$greeting, count = $count, pi = $pi")
+    println("Tổng: \${total / 1000}k")
+}` },
+  { name: "Null safety", code:
+`fun main() {
+    val city: String? = null           // dấu ? = được phép null
+
+    println(city?.length)              // safe call → null
+    println(city?.length ?: 0)         // elvis → giá trị mặc định
+
+    val input = "42"
+    val number = input.toIntOrNull()   // Int?
+    if (number != null) {
+        println(number + 1)            // smart cast thành Int
+    }
+
+    // Bỏ comment dòng dưới để xem lỗi compile:
+    // println(city.length)
+}` },
+  { name: "if / when là biểu thức", code:
+`fun level(battery: Int): String = when {
+    battery >= 80 -> "Đầy"
+    battery >= 30 -> "Ổn"
+    battery > 0   -> "Yếu"
+    else          -> "Hết pin"
+}
+
+fun main() {
+    for (b in listOf(95, 50, 12, 0)) {
+        val icon = if (b < 30) "🔴" else "🟢"
+        println("$icon $b% → \${level(b)}")
+    }
+}` },
+  { name: "Collections", code:
+`fun main() {
+    val prices = listOf(45_000, 120_000, 30_000, 89_000)
+
+    println(prices.filter { it > 40_000 })
+    println(prices.map { it / 1000 }.joinToString(prefix = "[", postfix = "k]"))
+    println("Tổng: \${prices.sum()}, lớn nhất: \${prices.max()}")
+
+    val stock = mutableMapOf("cà phê" to 3, "trà" to 0)
+    stock["bánh"] = 5
+    stock.forEach { (item, qty) -> println("$item: $qty") }
+
+    val (cheap, expensive) = prices.partition { it < 50_000 }
+    println("rẻ = $cheap, đắt = $expensive")
+}` },
+  { name: "Lambda & hàm bậc cao", code:
+`fun repeatTimes(n: Int, action: (Int) -> Unit) {
+    for (i in 1..n) action(i)
+}
+
+fun main() {
+    val square: (Int) -> Int = { x -> x * x }
+    println(square(7))
+
+    repeatTimes(3) { i -> println("Lần $i") }   // trailing lambda
+
+    val words = listOf("kotlin", "android", "ios", "kmp")
+    println(words.sortedBy { it.length })
+    println(words.groupBy { it.length })
+}` },
+  { name: "data class & copy", code:
+`data class Reading(val battery: Int, val charging: Boolean, val label: String = "phone")
+
+fun main() {
+    val a = Reading(80, charging = false)
+    val b = a.copy(charging = true)
+
+    println(a)              // toString có sẵn
+    println(a == b)         // so sánh theo giá trị
+    val (battery, charging) = b
+    println("battery=$battery charging=$charging")
+}` },
+  { name: "sealed class + when", code:
+`sealed interface UiState {
+    data object Loading : UiState
+    data class Success(val latencyMs: Long) : UiState
+    data class Error(val message: String) : UiState
+}
+
+fun render(state: UiState): String = when (state) {   // không cần else
+    UiState.Loading -> "⏳ Đang đo…"
+    is UiState.Success -> "✅ \${state.latencyMs} ms"
+    is UiState.Error -> "❌ \${state.message}"
+}
+
+fun main() {
+    listOf(UiState.Loading, UiState.Success(42), UiState.Error("Mất mạng"))
+        .forEach { println(render(it)) }
+}` },
+  { name: "Extension function", code:
+`fun Int.toVnd(): String =
+    toString().reversed().chunked(3).joinToString(".").reversed() + " ₫"
+
+val String.isEmail: Boolean
+    get() = contains("@") && substringAfter("@").contains(".")
+
+fun main() {
+    println(1250000.toVnd())
+    println("tu@gmail.com".isEmail)
+    println("abc".isEmail)
+}` },
+  { name: "Coroutines", code:
+`import kotlinx.coroutines.*
+
+suspend fun fetch(name: String, ms: Long): String {
+    delay(ms)                       // treo, không chặn thread
+    return "$name xong sau \${ms}ms"
+}
+
+fun main() = runBlocking {
+    val start = System.currentTimeMillis()
+    val a = async { fetch("pin", 300) }
+    val b = async { fetch("gps", 200) }
+    println(a.await())
+    println(b.await())
+    println("Tổng ≈ \${System.currentTimeMillis() - start}ms (chạy song song)")
+}` },
+  { name: "Tip Split (dùng args)", code:
+`// Điền Program arguments: 450000 15 3  (tổng bill, % tip, số người)
+fun main(args: Array<String>) {
+    val bill = args.getOrNull(0)?.toDoubleOrNull() ?: 450_000.0
+    val tipPercent = args.getOrNull(1)?.toIntOrNull() ?: 10
+    val people = args.getOrNull(2)?.toIntOrNull()?.coerceAtLeast(1) ?: 2
+
+    val tip = bill * tipPercent / 100
+    val perPerson = (bill + tip) / people
+
+    println("Bill:      \${"%,.0f".format(bill)}")
+    println("Tip $tipPercent%:   \${"%,.0f".format(tip)}")
+    println("Mỗi người: \${"%,.0f".format(perPerson)} ($people người)")
+}` },
+];
+
+// ---------- helpers ----------
+const $ = (id) => document.getElementById(id);
+const out = $("out");
+const load = () => { try { return JSON.parse(localStorage.getItem(STORE)) || {}; } catch { return {}; } };
+const save = (patch) => { try { localStorage.setItem(STORE, JSON.stringify({ ...load(), ...patch })); } catch {} };
+const toast = (msg) => { const t = $("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 1800); };
+const esc = (s) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+const unesc = (s) => { const t = document.createElement("textarea"); t.innerHTML = s; return t.value; };
+const b64enc = (s) => btoa(String.fromCharCode(...new TextEncoder().encode(s))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+const b64dec = (s) => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/")), (c) => c.charCodeAt(0)));
+
+// ---------- theme ----------
+const applyTheme = (t) => { if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme; };
+applyTheme(load().theme);
+$("theme").onclick = () => {
+  const dark = document.documentElement.dataset.theme
+    ? document.documentElement.dataset.theme === "dark"
+    : matchMedia("(prefers-color-scheme: dark)").matches;
+  const next = dark ? "light" : "dark";
+  applyTheme(next); save({ theme: next });
+};
+
+// ---------- samples ----------
+SAMPLES.forEach((s, i) => $("sample").add(new Option(s.name, i)));
+
+// ---------- editor ----------
+let version = null;
+const editor = CodeMirror.fromTextArea($("code"), {
+  mode: "text/x-kotlin",
+  lineNumbers: true,
+  indentUnit: 4,
+  tabSize: 4,
+  indentWithTabs: false,
+  matchBrackets: true,
+  autoCloseBrackets: true,
+  gutters: ["CodeMirror-lint-markers", "CodeMirror-linenumbers"],
+  lint: { getAnnotations: lintKotlin, async: true, delay: 700 },
+  extraKeys: {
+    "Ctrl-Enter": () => run(),
+    "Cmd-Enter": () => run(),
+    "Ctrl-Space": (cm) => cm.showHint({ hint: hintKotlin, completeSingle: false }),
+    "Ctrl-/": "toggleComment",
+    "Cmd-/": "toggleComment",
+    Tab: (cm) => cm.somethingSelected() ? cm.indentSelection("add") : cm.replaceSelection("    "),
+    "Shift-Tab": (cm) => cm.indentSelection("subtract"),
+  },
+});
+
+// Thứ tự ưu tiên lấy code: link share (#code=) → code đang gõ dở → ví dụ đầu tiên.
+(function initCode() {
+  const st = load();
+  const hash = new URLSearchParams(location.hash.slice(1));
+  if (hash.get("code")) {
+    try { editor.setValue(b64dec(hash.get("code"))); } catch { editor.setValue(SAMPLES[0].code); }
+    if (hash.get("args")) $("args").value = hash.get("args");
+    history.replaceState(null, "", location.pathname);
+  } else {
+    $("sample").value = st.sample ?? 0;
+    editor.setValue(st.code ?? SAMPLES[$("sample").value].code);
+    $("args").value = st.args ?? "";
+  }
+  editor.clearHistory();
+})();
+
+editor.on("change", () => save({ code: editor.getValue() }));
+$("args").oninput = () => save({ args: $("args").value });
+$("sample").onchange = () => {
+  editor.setValue(SAMPLES[$("sample").value].code);
+  save({ sample: $("sample").value, code: editor.getValue() });
+  editor.focus();
+};
+$("reset").onclick = () => { editor.setValue(SAMPLES[$("sample").value].code); toast("Đã trả về code ví dụ"); };
+$("clear").onclick = () => { out.innerHTML = ""; setStatus("", "Sẵn sàng"); };
+
+// ---------- versions ----------
+fetch(`${API}/versions`).then((r) => r.json()).then((list) => {
+  const sel = $("version");
+  sel.innerHTML = "";
+  list.forEach((v) => sel.add(new Option(v.version + (v.latestStable ? " (stable)" : ""), v.version)));
+  const stable = (list.find((v) => v.latestStable) || list[0]).version;
+  const saved = load().version;
+  sel.value = list.some((v) => v.version === saved) ? saved : stable;
+  version = sel.value;
+  sel.onchange = () => { version = sel.value; save({ version }); editor.performLint(); };
+  editor.performLint();
+}).catch(() => {
+  $("version").innerHTML = '<option value="2.4.21">2.4.21</option>';
+  version = "2.4.21";
+});
+
+// ---------- API ----------
+const body = () => JSON.stringify({
+  args: $("args").value.trim(),
+  files: [{ name: "File.kt", text: editor.getValue(), publicId: "" }],
+  confType: "java",
+});
+const post = (path) => fetch(`${API}/api/${version}/compiler/${path}`, {
+  method: "POST", headers: { "Content-Type": "application/json" }, body: body(),
+}).then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); });
+
+function lintKotlin(text, done) {
+  if (!version || !text.trim()) return done([]);
+  post("highlight").then((res) => done((res["File.kt"] || []).map(toMark))).catch(() => done([]));
+}
+const toMark = (e) => ({
+  from: CodeMirror.Pos(e.interval.start.line, e.interval.start.ch),
+  to: CodeMirror.Pos(e.interval.end.line, Math.max(e.interval.end.ch, e.interval.start.ch + 1)),
+  message: e.message,
+  severity: e.severity === "ERROR" ? "error" : "warning",
+});
+
+function hintKotlin(cm) {
+  const cur = cm.getCursor();
+  const token = cm.getTokenAt(cur);
+  const word = /^[\w$]+$/.test(token.string) ? token : { start: cur.ch, end: cur.ch };
+  return fetch(`${API}/api/${version}/compiler/complete?line=${cur.line}&ch=${cur.ch}`, {
+    method: "POST", headers: { "Content-Type": "application/json" }, body: body(),
+  }).then((r) => r.json()).then((items) => ({
+    from: CodeMirror.Pos(cur.line, word.start),
+    to: CodeMirror.Pos(cur.line, word.end),
+    list: items.slice(0, 80).map((it) => ({
+      text: it.text,
+      render: (el) => { el.innerHTML = `<span>${esc(it.displayText)}</span><span class="tail">${esc(it.tail || "")}</span>`; },
+    })),
+  })).catch(() => ({ from: cur, to: cur, list: [] }));
+}
+
+// ---------- run ----------
+function setStatus(kind, text) {
+  $("status").className = "status " + kind;
+  $("status-text").textContent = text;
+}
+
+let running = false;
+async function run() {
+  if (running || !version) return;
+  running = true;
+  $("run").disabled = true;
+  setStatus("busy", `Đang compile với Kotlin ${version}…`);
+  out.innerHTML = "";
+  const t0 = performance.now();
+  try {
+    const res = await post("run");
+    const ms = Math.round(performance.now() - t0);
+    const errs = (res.errors?.["File.kt"] || []).filter((e) => e.severity === "ERROR");
+    let html = "";
+
+    if (errs.length) {
+      html += errs.map((e) => `<span class="e">e: <a class="loc" data-l="${e.interval.start.line}" data-c="${e.interval.start.ch}">File.kt:${e.interval.start.line + 1}:${e.interval.start.ch + 1}</a> ${esc(e.message)}</span>`).join("\n");
+      setStatus("err", `Compile lỗi (${errs.length}) · ${ms} ms`);
+    } else {
+      // text có dạng <outStream>…</outStream><errStream>…</errStream>, nội dung đã escape HTML
+      const parts = [...(res.text || "").matchAll(/<(outStream|errStream)>([\s\S]*?)<\/\1>/g)];
+      html += parts.map(([, kind, txt]) => kind === "errStream" ? `<span class="e">${esc(unesc(txt))}</span>` : esc(unesc(txt))).join("");
+      if (res.exception) html += renderException(res.exception);
+      if (!html.trim()) html = '<span class="muted">(chương trình không in gì)</span>';
+      if (res.exception) setStatus("err", `Lỗi khi chạy · ${ms} ms`);
+      else setStatus("ok", `Chạy xong · ${ms} ms`);
+    }
+    out.innerHTML = html;
+  } catch (e) {
+    setStatus("err", "Không gọi được compiler");
+    out.innerHTML = `<span class="e">${esc(String(e.message || e))}\nKiểm tra mạng rồi thử lại — code được chạy trên api.kotlinlang.org.</span>`;
+  } finally {
+    running = false;
+    $("run").disabled = false;
+  }
+}
+
+function renderException(ex, caused = false) {
+  let s = `\n<span class="e">${caused ? "Caused by: " : "Exception in thread \"main\" "}${esc(ex.fullName)}${ex.message ? ": " + esc(ex.message) : ""}`;
+  for (const f of ex.stackTrace || []) {
+    if (!f.fileName || f.lineNumber < 0) continue;
+    const loc = f.fileName === "File.kt"
+      ? `<a class="loc" data-l="${f.lineNumber - 1}" data-c="0">${f.fileName}:${f.lineNumber}</a>`
+      : `${esc(f.fileName)}:${f.lineNumber}`;
+    s += `\n    at ${esc(f.className)}.${esc(f.methodName)}(${loc})`;
+  }
+  s += "</span>";
+  if (ex.cause) s += renderException(ex.cause, true);
+  return s;
+}
+
+// bấm vào File.kt:12 trong output → nhảy tới dòng đó
+out.addEventListener("click", (e) => {
+  const a = e.target.closest("a.loc");
+  if (!a) return;
+  const pos = CodeMirror.Pos(+a.dataset.l, +a.dataset.c);
+  editor.focus(); editor.setCursor(pos); editor.scrollIntoView(pos, 80);
+});
+
+$("run").onclick = run;
+document.addEventListener("keydown", (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === "Enter") { e.preventDefault(); run(); }
+});
+
+// ---------- share ----------
+$("share").onclick = async () => {
+  const p = new URLSearchParams({ code: b64enc(editor.getValue()) });
+  if ($("args").value.trim()) p.set("args", $("args").value.trim());
+  const url = `${location.origin}${location.pathname}#${p}`;
+  try { await navigator.clipboard.writeText(url); toast("Đã copy link — mở link là thấy đúng code này"); }
+  catch { prompt("Copy link này:", url); }
+};
+
+// ---------- kéo đổi chiều cao console ----------
+(function splitter() {
+  const con = $("console"), work = $("work");
+  const h = load().consoleH;
+  if (h) con.style.height = h + "px";
+  $("split").addEventListener("pointerdown", (e) => {
+    e.preventDefault();
+    $("split").setPointerCapture(e.pointerId);
+    const move = (ev) => {
+      const rect = work.getBoundingClientRect();
+      const nh = Math.min(rect.height - 120, Math.max(80, rect.bottom - ev.clientY));
+      con.style.height = nh + "px";
+      editor.refresh();
+    };
+    const up = () => {
+      $("split").removeEventListener("pointermove", move);
+      save({ consoleH: parseInt(con.style.height) });
+    };
+    $("split").addEventListener("pointermove", move);
+    $("split").addEventListener("pointerup", up, { once: true });
+  });
+})();
+</script>
+</body>
+</html>
