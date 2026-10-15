@@ -83,8 +83,10 @@ extra:
 
 nav:
   - "Trang chủ": index.md
+  - "Playground": playground/index.html
   - "Lộ trình":
       - roadmap.md
+      - "Sơ đồ lộ trình": roadmap-map.md
       - "1. KMP là gì, khi nào dùng": lessons/01-what-is-kmp.md
       - "2. Cài máy, tạo project đầu tiên": lessons/02-setup.md
       - "3. Cấu trúc project": lessons/03-project-structure.md
@@ -114,6 +116,8 @@ nav:
   - "Đánh giá & kế hoạch":
       - plan/kmp-review.md
       - "Kotlin làm web": plan/kotlin-web.md
+  - "Mở rộng":
+      - "Học bền & thực chiến": extend/practice.md
   - "Tra cứu":
       - "Tài nguyên học chính chủ": reference/learning-resources.md
       - "Repo mẫu tham khảo": reference/sample-repos.md
