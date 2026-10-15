@@ -35,6 +35,8 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
+            implementation(libs.kotlinx.coroutines.test) // runTest, virtual time
+            implementation(libs.turbine) // flow.test { awaitItem() }
         }
     }
 }

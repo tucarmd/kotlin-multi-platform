@@ -1,5 +1,5 @@
 # [App 1] Same versions as DevicePulse/gradle/libs.versions.toml, minus everything Tip Split does not use
-# (no Ktor, no SQLDelight, no Navigation, no Turbine). Later apps add libraries back one at a time.
+# (no Ktor, no SQLDelight, no Navigation). Later apps add libraries back one at a time.
 [versions]
 agp = "8.13.2"
 android-compileSdk = "36"
@@ -13,6 +13,8 @@ androidx-activity = "1.13.0"
 androidx-lifecycle = "2.10.0"
 kotlinx-coroutines = "1.11.0"
 koin = "4.2.2"
+# Phụ lục P1: test Flow. Same versions as RateWatch.
+turbine = "1.2.1"
 
 [libraries]
 # shared/
@@ -20,6 +22,8 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
 # androidApp/ (Jetpack Compose, Android only)
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }

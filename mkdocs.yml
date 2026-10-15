@@ -121,6 +121,7 @@ nav:
   - "Phụ lục":
       - appendix/index.md
       - "P1 · Unit test cơ bản & test bảng": appendix/unit-basics.md
+      - "P1 · Test coroutine & Flow": appendix/unit-coroutines-flow.md
   - "Tra cứu":
       - "Tài nguyên học chính chủ": reference/learning-resources.md
       - "Repo mẫu tham khảo": reference/sample-repos.md

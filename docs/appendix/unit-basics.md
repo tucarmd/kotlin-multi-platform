@@ -38,10 +38,12 @@ Tên test là **câu mô tả hành vi**, đọc lên là biết test bảo vệ
 fun `shares are rounded up so the group never pays less than the total`() { … }
 ```
 
-!!! warning "Kotlin/Native cấm dấu `,` `.` `:` `;` trong tên test"
-    JVM chấp nhận, nhưng khi build cho iOS sẽ gặp đúng lỗi này (gặp thật lúc viết trang này):
+!!! warning "Ký tự cấm trong tên test"
+    `.` `;` `:` `[` `]` `/` `<` `>` bị cấm ở mọi nền tảng. Riêng **dấu phẩy `,` và ngoặc `(` `)`** thì JVM chấp nhận
+    nhưng Kotlin/Native (iOS) báo lỗi. Cả hai lỗi dưới đây đều gặp thật khi viết phụ lục này:
     ```text
     SplitTableTest.kt:53:9 Name contains illegal characters: ",".
+    TipCoreFlowTest.kt:61:9 Name contains illegal characters: "()".
     Execution failed for task ':shared:compileTestKotlinIosSimulatorArm64'.
     ```
     Vì vậy luôn chạy `allTests` (cả 2 nền tảng) chứ không chỉ `testDebugUnitTest`.
@@ -126,7 +128,7 @@ Report HTML: `shared/build/reports/tests/<task>/index.html`. File XML (CI đọc
 
 | Triệu chứng | Nguyên nhân | Sửa |
 |---|---|---|
-| JVM xanh, iOS không compile | Tên test có `,` `.` `:` | Đổi tên, xem [cảnh báo trên](#at-ten-test) |
+| JVM xanh, iOS không compile | Tên test có `,` `(` `)` | Đổi tên, xem [cảnh báo trên](#at-ten-test) |
 | Test đỏ nhưng không biết case nào | Thiếu `message` trong `assertEquals` | Thêm `"case '${c.name}'"` |
 | So `Double` lúc đỏ lúc xanh | Sai số dấu phẩy động | Dùng `Long` (như TipSplit) hoặc `assertEquals(a, b, absoluteTolerance = 1e-9)` |
 | Test xanh dù code sai | Test chưa từng được thấy đỏ | [Phá rồi sửa](#pha-roi-sua-test-co-bat-uoc-loi-that-khong) một lần |
