@@ -1,0 +1,17 @@
+-- [App 3 · B3] Starred currency codes. Independent of the base: a starred VND stays starred when the base changes.
+
+CREATE TABLE favorite (
+    code TEXT NOT NULL PRIMARY KEY
+);
+
+selectAll:
+SELECT code FROM favorite;
+
+isFavorite:
+SELECT COUNT(*) FROM favorite WHERE code = ?;
+
+insert:
+INSERT OR IGNORE INTO favorite(code) VALUES (?);
+
+delete:
+DELETE FROM favorite WHERE code = ?;

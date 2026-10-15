@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- [App 3 · B5] INTERNET is the only permission: Rate Watch downloads rates over HTTPS and caches them in SQLite. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- PLATFORM: without this line every request fails with "SecurityException: Permission denied (missing INTERNET
+         permission?)", which the core reports as Offline. iOS needs no permission for HTTPS. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".RateWatchApp"
+        android:allowBackup="true"
+        android:icon="@android:drawable/ic_menu_rotate"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

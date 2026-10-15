@@ -9,7 +9,7 @@
 | **Cấp độ** | ⭐⭐⭐ |
 | **Mới học** | Ktor client + `kotlinx.serialization` · engine OkHttp / Darwin · **offline-first** (mạng + cache SQLDelight) · dữ liệu "cũ" (stale) · `MockEngine` |
 | **Cần trước** | App 2 · [bài 11](../lessons/11-network.md) |
-| **Thư mục code** | `RateWatch/` · package `dev.ratewatch` |
+| **Thư mục code** | [`RateWatch/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/RateWatch) · package `dev.ratewatch` · ✅ đã có code |
 | **API** | [open.er-api.com](https://www.exchangerate-api.com/docs/free) `GET /v6/latest/{base}`, miễn phí, không cần key, cập nhật 1 lần / ngày |
 | **Thời gian** | 5–6 buổi tối |
 
@@ -59,17 +59,29 @@ Luồng **offline-first**: UI luôn đọc từ database. Mạng chỉ ghi vào 
 | **B6** | `.refreshable { }`, `List` + `Section`, `.toolbar` chọn đồng gốc. |
 | **B7** | `RateApiTest` với `MockEngine` (200, 500, JSON thiếu field, timeout) · `RatesCoreTest` (refresh lỗi vẫn giữ dữ liệu cũ) · `RulesTest`. |
 
-## 6. Bản đồ function (dự kiến)
+## 6. Bản đồ function
+
+Bảng đầy đủ (20 hàm, có link tới đúng dòng code) nằm trong
+[`RateWatch/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/README.md#ban-o-function). Các hàm chính:
 
 | Hàm | File | Làm gì | Vì sao |
 |---|---|---|---|
-| `convert(amount, from, to, table)` | `rules/Convert.kt` | `amount / rate[from] * rate[to]` | API chỉ trả tỷ giá theo 1 đồng gốc, đổi chéo phải qua nó |
-| `isStale(fetchedAt, now, maxAge)` | `rules/Freshness.kt` | Cũ hơn `maxAge` → `true` | Quyết định tự làm mới và tô đỏ "cập nhật lúc…" |
-| `RateApi.latest(base)` | `data/RateApi.kt` | `GET /v6/latest/{base}` → `RateResponse` | Chỉ biết HTTP + JSON, không biết database |
-| `RateRepository.observe(base)` | `data/RateRepository.kt` | `Flow<RateTable?>` từ database | UI luôn đọc từ một nguồn → offline tự nhiên |
-| `RateRepository.refresh(base)` | `data/RateRepository.kt` | API → DB trong 1 transaction, trả `Result<Unit>` | Không ném exception qua core |
-| `RatesCore.refresh()` | `core/RatesCore.kt` | Bật `refreshing`, lỗi → `error`, **giữ** `table` | Mất mạng không làm trống màn hình |
-| `httpClient()` | `di/PlatformModule.*.kt` | OkHttp / Darwin engine | Engine là thứ duy nhất khác giữa 2 máy |
+| `convert(amount, from, to, table)` | `rules/Convert.kt` | Đổi chéo qua đồng gốc; `amount` là `Long` tính theo phần trăm đơn vị | API chỉ trả tỷ giá theo 1 đồng gốc; tiền gõ vào vẫn chính xác như app 1 |
+| `isStale(fetchedAt, now, maxAge)` | `rules/Freshness.kt` | Cũ hơn 1 giờ → `true` (đúng 1 giờ vẫn còn mới) | Quyết định tự làm mới và tô đỏ "cập nhật lúc…" |
+| `parseAmount(text)` / `formatRate(rate)` | `rules/Amount.kt` | Đọc "12,50" / "120.000"; in tỷ giá ~6 chữ số có nghĩa | Hai máy in ra giống nhau |
+| `rateRows(table, favorites)` | `rules/Rates.kt` | Yêu thích lên đầu, rồi A→Z | Một luật sắp xếp, có test |
+| `createHttpClient(engine)` | `data/HttpClients.kt` | ContentNegotiation + `ignoreUnknownKeys` + timeout | Test `MockEngine` dùng đúng cấu hình thật |
+| `RateApi.latest(base)` | `data/RateApi.kt` | `GET /v6/latest/{base}`, lỗi → `RateApiException(reason)` | Chỉ biết HTTP + JSON |
+| `RateRepository.observe(base)` | `data/RateRepository.kt` | `Flow<RateTable?>` từ database | UI chỉ đọc một nguồn → offline tự nhiên |
+| `RateRepository.refresh(base, now)` | `data/RateRepository.kt` | API → DB trong 1 transaction, trả `Result<Unit>` | Không ném exception qua core, không bao giờ hiện bảng ghi dở |
+| `resultOf { }` | `data/RateRepository.kt` | Như `runCatching` nhưng ném lại `CancellationException` | Hủy coroutine không hiện thành lỗi |
+| `RatesCore.refresh()` | `core/RatesCore.kt` | Bật `refreshing`; lỗi → `error` nhưng **giữ** bảng cũ | Mất mạng không làm trống màn hình |
+
+!!! note "Code khác plan ở đâu"
+    - `RatesState` có thêm `base`, `rows`, `age`, `currencies`, `showOfflineBanner`, `showEmptyError`. Màn Convert có `StateFlow<ConvertState>` riêng, cùng một `RatesCore`.
+    - Database chia `rate_table` (base, fetchedAt) + `rate`; thêm `Setting.sq` nhớ đồng gốc đã chọn, nên mở lại khi offline vẫn đúng đồng.
+    - `RefreshError`: `Offline`, `Timeout`, `ServerError`, `BadResponse`, `UnknownBase`, `Unknown`. Banner offline hiện cho mọi lỗi làm mới khi đã có bảng cũ, kèm lý do.
+    - Độ "cũ" tính theo lúc **máy này** tải về, không theo `time_last_update_unix` của API (API chỉ cập nhật 1 lần / ngày).
 
 Bẫy cần ghi `// TRAP:` trong code:
 
@@ -77,6 +89,10 @@ Bẫy cần ghi `// TRAP:` trong code:
 - Tỷ giá `Double` là chấp nhận được (hiển thị), nhưng số tiền người dùng nhập vẫn dùng `Money` từ app 1.
 - Hủy coroutine khi rời màn: lỗi `CancellationException` không phải lỗi mạng, đừng hiện cho người dùng.
 - iOS Simulator dùng mạng của Mac: muốn thử offline thì tắt Wi-Fi của Mac.
+- **API báo lỗi bằng HTTP 200**: đồng gốc sai trả `{"result":"error","error-type":"unsupported-code"}`, không có `rates`. Mọi field trừ `result` phải là optional và tự kiểm.
+- `flatMapLatest` khi đổi đồng gốc phát lại bảng của đồng cũ một nhịp: core bỏ bảng nào có `base` không khớp.
+- Test core chạy trong `backgroundScope` của `runTest` không chạy khi gọi `advanceUntilIdle()`: cho core scope riêng trên test scheduler.
+- SwiftUI `Button` trong dòng của `List` cần `.buttonStyle(.borderless)`, không thì bấm đâu trên dòng cũng ăn.
 
 ## 7. Test
 

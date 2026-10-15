@@ -1,0 +1,12 @@
+-- [App 3 · B3] Small key/value settings. Only "base" for now, so a reopened offline app shows the same base it closed with.
+
+CREATE TABLE setting (
+    key TEXT NOT NULL PRIMARY KEY,
+    value TEXT NOT NULL
+);
+
+select:
+SELECT value FROM setting WHERE key = ?;
+
+upsert:
+INSERT OR REPLACE INTO setting(key, value) VALUES (?, ?);

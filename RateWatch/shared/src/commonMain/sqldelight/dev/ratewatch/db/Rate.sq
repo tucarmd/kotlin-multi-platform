@@ -1,0 +1,31 @@
+-- [App 3 · B3] Saved rate tables, one per base currency. The UI only ever reads from here (offline-first).
+-- Why two tables: the header row (when it was fetched) and the many rate rows are replaced together inside
+-- one transaction in SqlRateRepository.refresh, so a reader never sees new rates with an old time or half a table.
+
+CREATE TABLE rate_table (
+    base TEXT NOT NULL PRIMARY KEY,
+    fetchedAtMillis INTEGER NOT NULL
+);
+
+CREATE TABLE rate (
+    base TEXT NOT NULL,
+    code TEXT NOT NULL,
+    rate REAL NOT NULL,
+    PRIMARY KEY (base, code)
+);
+
+-- One row per currency, each carrying the table's fetch time. Zero rows = nothing saved for this base.
+selectTable:
+SELECT rate_table.fetchedAtMillis, rate.code, rate.rate
+FROM rate_table
+JOIN rate ON rate.base = rate_table.base
+WHERE rate_table.base = ?;
+
+upsertTable:
+INSERT OR REPLACE INTO rate_table(base, fetchedAtMillis) VALUES (?, ?);
+
+deleteRates:
+DELETE FROM rate WHERE base = ?;
+
+insertRate:
+INSERT INTO rate(base, code, rate) VALUES (?, ?, ?);

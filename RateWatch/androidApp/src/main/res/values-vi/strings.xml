@@ -1,0 +1,39 @@
+<!-- [App 3 · B5] Chuỗi tiếng Việt. Cùng key với values/ và iosApp/*.lproj/Localizable.strings. -->
+<resources>
+    <string name="app_name">Rate Watch</string>
+    <string name="tab_rates">Tỷ giá</string>
+    <string name="tab_convert">Đổi tiền</string>
+    <string name="base_label">1 %1$s bằng</string>
+    <string name="pick_base">Chọn đồng gốc</string>
+    <string name="pick_currency">Chọn đồng tiền</string>
+    <string name="cancel">Huỷ</string>
+    <string name="refresh">Làm mới</string>
+    <string name="retry">Thử lại</string>
+    <string name="updated_never">Chưa tải lần nào</string>
+    <string name="updated_just_now">Vừa cập nhật</string>
+    <string name="updated_minutes">Cập nhật %1$s phút trước</string>
+    <string name="updated_hours">Cập nhật %1$s giờ trước</string>
+    <string name="updated_days">Cập nhật %1$s ngày trước</string>
+    <string name="favorites">Yêu thích</string>
+    <string name="all_currencies">Tất cả</string>
+    <string name="star">Thêm vào yêu thích</string>
+    <string name="unstar">Bỏ khỏi yêu thích</string>
+    <string name="offline_banner">%1$s · đang hiện tỷ giá đã lưu</string>
+    <string name="loading">Đang tải tỷ giá…</string>
+    <string name="empty_error_title">Chưa có tỷ giá nào được lưu</string>
+    <string name="error_offline">Đang offline</string>
+    <string name="error_timeout">Máy chủ phản hồi quá lâu</string>
+    <string name="error_server">Máy chủ tỷ giá báo lỗi</string>
+    <string name="error_bad_response">Máy chủ trả dữ liệu không đọc được</string>
+    <string name="error_unknown_base">Đồng gốc này không được hỗ trợ</string>
+    <string name="error_unknown">Có lỗi xảy ra</string>
+    <string name="amount">Số tiền</string>
+    <string name="from">Từ</string>
+    <string name="to">Sang</string>
+    <string name="swap">Đảo chiều</string>
+    <string name="convert_waiting">Nhập số tiền để đổi.</string>
+    <string name="convert_no_rates">Chưa có tỷ giá cho cặp này. Mở tab Tỷ giá và kéo để làm mới.</string>
+    <string name="amount_not_numeric">Chỉ nhập số, ví dụ 1.234,50</string>
+    <string name="amount_too_large">Số tiền có vẻ quá lớn</string>
+    <string name="rate_line">1 %1$s = %2$s %3$s</string>
+</resources>
