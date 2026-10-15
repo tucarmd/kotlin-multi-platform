@@ -149,6 +149,10 @@ Tên test là câu tiếng Anh mô tả hành vi, theo mẫu `given_when_then` h
 fun `share is rounded up so the total never falls below the bill`() { … }
 ```
 
+!!! warning "Không dùng dấu phẩy, chấm, hai chấm trong tên test"
+    JVM chấp nhận, nhưng Kotlin/Native báo `Name contains illegal characters` khi chạy `iosSimulatorArm64Test`.
+    Viết `rounded half up instead of truncated`, không viết `rounded half up, not truncated`.
+
 ## 5. Bản đồ function (trang app + README)
 
 Mỗi app có một bảng giống [HOW-TO của native-mobile-learning](https://github.com/tucarmd/native-mobile-learning).
