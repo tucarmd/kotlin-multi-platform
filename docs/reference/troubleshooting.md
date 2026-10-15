@@ -28,4 +28,6 @@
 | Danh sách không cập nhật sau khi ghi DB | Flow đang quan sát sai bảng — xem cảnh báo ở bài 9 |
 | Crash iOS vì gọi UI ngoài main thread | Cập nhật state UI trên `Dispatchers.Main` |
 
+Code compile được mà chạy sai (tràn số, `!!`, coroutine không dừng…): xem [Phụ lục: Kotlin khó gì, bẫy gì](kotlin-pitfalls.md).
+
 Còn kẹt: tìm trong [docs chính chủ](https://kotlinlang.org/docs/multiplatform/get-started.html) và kênh `#multiplatform` trên Kotlin Slack.
