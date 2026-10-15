@@ -77,6 +77,7 @@ Muốn đo pin thật trên iOS thì cần iPhone thật — không bắt buộc
 - Build iOS báo không tìm thấy Xcode → chạy `sudo xcode-select -s /Applications/Xcode.app` (bạn tự gõ, cần mật khẩu máy).
 - Lần đầu Gradle tải rất lâu → bình thường; đừng huỷ giữa chừng.
 - Xem thêm [lỗi hay gặp](../reference/troubleshooting.md).
+- Chạy lên điện thoại thật (Android lẫn iPhone), adb và simctl: [Máy thật & máy ảo](../reference/devices.md).
 
 ## Tiếp theo?
 
