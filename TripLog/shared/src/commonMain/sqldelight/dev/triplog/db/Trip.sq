@@ -1,0 +1,33 @@
+-- [App 4 · B3] One row per trip. endedAtMillis stays NULL while the trip is being recorded,
+-- so a trip interrupted by a crash or a kill never shows up in the list.
+CREATE TABLE trip (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    startedAtMillis INTEGER NOT NULL,
+    endedAtMillis INTEGER,
+    distanceMeters REAL NOT NULL DEFAULT 0,
+    durationMillis INTEGER NOT NULL DEFAULT 0,
+    maxSpeedMps REAL NOT NULL DEFAULT 0,
+    pointCount INTEGER NOT NULL DEFAULT 0
+);
+
+insertTrip:
+INSERT INTO trip(startedAtMillis) VALUES (?);
+
+-- TRAP: must run in the SAME transaction as insertTrip. The native driver has a connection pool,
+-- and last_insert_rowid() on another connection returns that connection's last id.
+lastInsertId:
+SELECT last_insert_rowid();
+
+finishTrip:
+UPDATE trip
+SET endedAtMillis = ?, distanceMeters = ?, durationMillis = ?, maxSpeedMps = ?, pointCount = ?
+WHERE id = ?;
+
+selectFinished:
+SELECT * FROM trip WHERE endedAtMillis IS NOT NULL ORDER BY startedAtMillis DESC;
+
+selectById:
+SELECT * FROM trip WHERE id = ? AND endedAtMillis IS NOT NULL;
+
+deleteTrip:
+DELETE FROM trip WHERE id = ?;

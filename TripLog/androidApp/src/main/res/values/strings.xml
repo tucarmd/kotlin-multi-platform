@@ -1,0 +1,41 @@
+<!-- [App 4 · B5] English strings. Same keys as values-vi/ and iosApp/*.lproj/Localizable.strings. -->
+<resources>
+    <string name="app_name">Trip Log</string>
+    <string name="record">Record</string>
+    <string name="trips">Trips</string>
+    <string name="start">Start</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
+    <string name="stop">Stop</string>
+    <string name="saving">Saving trip…</string>
+    <string name="paused">Paused</string>
+    <string name="time">Time</string>
+    <string name="distance">Distance</string>
+    <string name="duration">Duration</string>
+    <string name="speed_now">Speed now</string>
+    <string name="speed_avg">Average speed</string>
+    <string name="speed_max">Top speed</string>
+    <string name="accuracy">GPS accuracy</string>
+    <string name="kmh">%1$s km/h</string>
+    <string name="accuracy_value">± %1$s m</string>
+    <string name="dropped_fixes">%1$s noisy fixes dropped</string>
+    <string name="points_count">%1$s points</string>
+    <string name="waiting_gps">Waiting for GPS…</string>
+    <string name="idle_hint">Tap Start, put the phone in your pocket and go. Recording continues with the screen off.</string>
+    <string name="problem_permission">Location permission is off. Allow it in Settings to record.</string>
+    <string name="problem_location_off">Location is switched off. Turn it on, then tap Pause and Resume.</string>
+    <string name="permission_location_denied">Trip Log needs location access to record a trip.</string>
+    <string name="permission_precise_denied">Precise location is off. Approximate fixes are too rough to record a route.</string>
+    <string name="permission_notifications_denied">Notifications are off. Recording still runs, but you will not see it in the status bar.</string>
+    <string name="open_settings">Open settings</string>
+    <string name="no_trips">No trips yet. Record one on the Record screen.</string>
+    <string name="share_gpx">Share GPX</string>
+    <string name="trip_missing">This trip no longer exists.</string>
+    <string name="speed_chart">Speed</string>
+    <string name="loading">Loading…</string>
+    <string name="back">Back</string>
+    <string name="delete">Delete</string>
+    <string name="notification_channel">Trip recording</string>
+    <string name="notification_recording">Recording trip</string>
+    <string name="notification_text">%1$s · %2$s</string>
+</resources>

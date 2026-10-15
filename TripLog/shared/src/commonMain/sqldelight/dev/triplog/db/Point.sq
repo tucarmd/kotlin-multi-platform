@@ -1,0 +1,25 @@
+-- [App 4 · B3] Every accepted GPS fix, written in batches by TripRepository.appendPoints.
+-- No foreign key cascade: SQLite ignores ON DELETE CASCADE unless PRAGMA foreign_keys = ON on every connection,
+-- so TripRepository deletes the points itself, in the same transaction as the trip.
+CREATE TABLE point (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    tripId INTEGER NOT NULL,
+    segment INTEGER NOT NULL,
+    latitude REAL NOT NULL,
+    longitude REAL NOT NULL,
+    accuracyMeters REAL NOT NULL,
+    speedMps REAL,
+    timeMillis INTEGER NOT NULL
+);
+
+CREATE INDEX point_trip ON point(tripId);
+
+insertPoint:
+INSERT INTO point(tripId, segment, latitude, longitude, accuracyMeters, speedMps, timeMillis)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+selectByTrip:
+SELECT * FROM point WHERE tripId = ? ORDER BY timeMillis, id;
+
+deleteByTrip:
+DELETE FROM point WHERE tripId = ?;

@@ -1,0 +1,54 @@
+# [App 4 · B6] Regenerate the Xcode project after editing this file: `xcodegen generate` (in iosApp/)
+name: iosApp
+options:
+  bundleIdPrefix: dev.triplog
+  deploymentTarget:
+    iOS: "17.0" # @Observable, MapPolyline and Map(position:) need iOS 17
+settings:
+  base:
+    ENABLE_USER_SCRIPT_SANDBOXING: NO
+    SWIFT_VERSION: "5.0"
+targets:
+  iosApp:
+    type: application
+    platform: iOS
+    sources:
+      - iosApp
+    info:
+      path: iosApp/Info.plist
+      properties:
+        CFBundleDisplayName: Trip Log
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        CFBundleDevelopmentRegion: en
+        CFBundleLocalizations: [en, vi]
+        NSLocationWhenInUseUsageDescription: Trip Log records your route, distance and speed while a trip is running, also with the screen off.
+        # PLATFORM: without this, IosLocationStream setting allowsBackgroundLocationUpdates = true crashes at once.
+        UIBackgroundModes: [location]
+        UILaunchScreen: {}
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.triplog.ios
+        PRODUCT_NAME: TripLog
+        DEVELOPMENT_TEAM: ""
+        CODE_SIGN_STYLE: Automatic
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        FRAMEWORK_SEARCH_PATHS: ["$(inherited)", "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)"]
+        # Shared is a static framework, so the system SQLite used by SQLDelight must be linked here too
+        OTHER_LDFLAGS: ["$(inherited)", "-framework", "Shared", "-lsqlite3"]
+        # TRAP: `-destination 'generic/platform=iOS Simulator'` builds arm64 AND x86_64. shared/ only has
+        # iosSimulatorArm64, so Gradle fails with "Requested Architecture Not Configured". Apple-silicon Macs only.
+        EXCLUDED_ARCHS[sdk=iphonesimulator*]: x86_64
+    preBuildScripts:
+      - name: Compile Kotlin Framework
+        basedOnDependencyAnalysis: false
+        script: |
+          if [ "YES" = "$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED" ]; then
+            echo "Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \"YES\""
+            exit 0
+          fi
+          cd "$SRCROOT/.."
+          ./gradlew :shared:embedAndSignAppleFrameworkForXcode

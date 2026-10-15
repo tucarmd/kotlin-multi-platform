@@ -9,7 +9,7 @@
 | **Cấp độ** | ⭐⭐⭐⭐ |
 | **Mới học** | **Chạy ngầm**: Android Foreground Service (`foregroundServiceType="location"`), iOS background location · `callbackFlow` · core sống ngoài màn hình · bản đồ native · xuất file GPX |
 | **Cần trước** | App 3 · Device Pulse ([bài 10](../lessons/10-location.md) GPS + quyền) |
-| **Thư mục code** | `TripLog/` · package `dev.triplog` |
+| **Thư mục code** | [`TripLog/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/TripLog) · package `dev.triplog` · ✅ đã có code |
 | **Thời gian** | 7–10 buổi tối |
 
 So với Device Pulse: GPS không chỉ đọc khi màn hình mở, mà phải **sống tiếp** khi app ra nền. Core không còn gắn với
@@ -68,18 +68,32 @@ flowchart TB
 | **B6** | Info.plist: `UIBackgroundModes = location`, `NSLocationWhenInUseUsageDescription`. SwiftUI `Map` + `MapPolyline`. Share GPX bằng `ShareLink`. |
 | **B7** | `RulesTest` (haversine có đáp án chuẩn, lọc nhiễu) · `TripRecorderTest` với `FakeLocationStream` phát điểm giả · chạy thật: đi bộ 1 km tắt màn hình. |
 
-## 6. Bản đồ function (dự kiến)
+## 6. Bản đồ function
+
+Bảng đầy đủ (24 hàm, có link tới đúng dòng code) nằm trong
+[`TripLog/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/README.md#ban-o-function). Các hàm chính:
 
 | Hàm | File | Làm gì | Vì sao |
 |---|---|---|---|
-| `distanceMeters(a, b)` | `rules/Geo.kt` | Khoảng cách 2 tọa độ theo haversine | Không phụ thuộc `Location.distanceTo` / `CLLocation.distance` → test được, 2 máy ra cùng số |
-| `acceptFix(prev, next)` | `rules/Geo.kt` | Bỏ điểm quá nhiễu hoặc nhảy phi lý | GPS trong nhà nhảy vài trăm mét, cộng vào là sai quãng đường |
-| `tripStats(points)` | `rules/Stats.kt` | Quãng đường, thời gian chạy, tốc độ TB / max | Bỏ thời gian `Paused` khỏi tốc độ TB |
-| `TripRecorder.start()` | `core/TripRecorder.kt` | `Idle → Recording`, bắt đầu thu `points()` | Một state machine duy nhất cho cả 2 nền tảng |
-| `AndroidLocationStream.points()` | `androidMain/platform/` | `callbackFlow` bọc listener, `awaitClose` gỡ listener | Quên gỡ listener = GPS chạy mãi, hết pin |
-| `IosLocationStream.points()` | `iosMain/platform/` | Delegate CLLocationManager → `Flow` | `allowsBackgroundLocationUpdates` chỉ bật được khi Info.plist có mode `location` |
-| `GpxWriter.write(trip)` | `data/GpxWriter.kt` | `Trip` → chuỗi GPX 1.1 | Viết ở `commonMain`: chỉ là XML, không cần API máy |
-| `TrackingService.onStartCommand()` | `androidApp/.../TrackingService.kt` | `startForeground()` trong 5 giây đầu | Quá 5 giây Android 12+ ném `ForegroundServiceDidNotStartInTimeException` |
+| `distanceMeters(a, b)` | `rules/Geo.kt` | Khoảng cách haversine | Test được, 2 máy ra cùng số |
+| `judgeFix(prev, next)` / `acceptFix()` | `rules/Geo.kt` | `Accepted` / `TooInaccurate` (> 30 m) / `TooFast` (> 50 m/s) / `OutOfOrder` | GPS trong nhà nhảy vài trăm mét, cộng vào là sai quãng đường |
+| `tripStats(points)` | `rules/Stats.kt` | Quãng đường, thời gian chạy, tốc độ TB / max | Cộng theo từng đoạn (segment), nên thời gian tạm dừng không bị tính |
+| `formatFixed(value, decimals)` | `rules/Format.kt` | Số thập phân cố định, không bao giờ ra `1.0E-4` | Tọa độ GPX; `commonMain` không có `String.format` |
+| `TripRecorder.start / pause / resume / finish` | `core/TripRecorder.kt` | State machine Idle → Recording ⇄ Paused → Saving | Một state machine cho cả 2 nền tảng; chuyến < 2 điểm bị bỏ |
+| `TripRecorder.onFix()` | `core/TripRecorder.kt` | Lọc, cộng quãng đường, ghi DB mỗi 10 điểm | Ghi từng điểm là mỗi lần một lần sync đĩa |
+| `TripLibrary.load(id)` | `core/TripLibrary.kt` | Chuyến + các điểm; lỗi → `null` | Exception Kotlin lọt sang Swift là crash |
+| `GpxWriter.write(trip)` | `data/GpxWriter.kt` | GPX 1.1, mỗi đoạn một `<trkseg>` | Viết ở `commonMain`, 2 máy ra file giống hệt |
+| `AndroidLocationStream.points()` | `androidMain/platform/` | `callbackFlow` + `awaitClose { removeUpdates }` | Quên gỡ listener = GPS chạy mãi |
+| `IosLocationStream.points()` | `iosMain/platform/` | Delegate Kotlin, `flowOn(Dispatchers.Main)` | `CLLocationManager` tạo ngoài main thread không gọi delegate |
+| `TrackingService.onStartCommand()` | `androidApp/.../service/TrackingService.kt` | `startForeground(type = LOCATION)` rồi `recorder.start()` | Quá 5 giây là Android 12+ crash |
+| `RouteCanvas()` / `RouteMap` | `ui/Components.kt` / `Views/Components.swift` | Vẽ đường đi: Canvas (Android), `Map` + `MapPolyline` (iOS) | Android không cần API key Google Maps; đoạn tạm dừng hiện thành khoảng trống |
+
+!!! note "Code khác plan ở đâu"
+    - `TripRecorder` chạy trong một `CoroutineScope` cả app (Koin cấp), **không** trong `lifecycleScope` của Service. Service chỉ điều khiển recorder và cập nhật notification.
+    - Thêm `TripLibrary` (danh sách, mở, xoá chuyến) bên cạnh `TripRecorder`.
+    - `TrackPoint` có trường `segment`: mỗi lần tạm dừng mở đoạn mới, nên quãng đường, bản đồ và GPX đều tách đoạn.
+    - Android chỉ dùng `GPS_PROVIDER` của `LocationManager`, không có Play Services. Service là `START_NOT_STICKY`: ghi tiếp khi app bị kill hẳn nằm ngoài phạm vi.
+    - Test "GPX đọc lại được" dùng `javax.xml`, nên nằm ở `androidUnitTest` (chỉ chạy trên JVM).
 
 Bẫy cần ghi `// TRAP:` / `// PLATFORM:` trong code:
 
@@ -87,18 +101,23 @@ Bẫy cần ghi `// TRAP:` / `// PLATFORM:` trong code:
 - `PLATFORM:` iOS: thiếu `UIBackgroundModes = location` mà bật `allowsBackgroundLocationUpdates` → crash ngay.
 - `TRAP:` Ghi từng điểm xuống DB một → chậm và tốn pin. Ghi theo lô.
 - `TRAP:` Xoay màn trên Android không được làm mất chuyến đang ghi: state ở `TripRecorder` (singleton), không ở ViewModel.
+- `TRAP:` `LocationListener { }` viết dạng lambda crash `AbstractMethodError` trên Android < 11: viết hẳn `object`.
+- `PLATFORM:` iOS `pausesLocationUpdatesAutomatically` mặc định là `true`: dừng đèn đỏ là iOS tắt GPS và không tự bật lại.
+- `PLATFORM:` Người dùng chỉ cho vị trí "gần đúng" thì sai số ~2 km, bộ lọc bỏ hết điểm: app báo riêng trường hợp này.
+- `TRAP:` `Double.toString()` có thể ra `1.0E-4`, không hợp lệ trong GPX.
 
 ## 7. Test
 
 ```bash
 cd TripLog
 ./gradlew :shared:testDebugUnitTest :shared:iosSimulatorArm64Test
-# Giả lập đi đường: Android
-adb emu geo fix 106.7009 10.7769   # lặp lại với tọa độ khác, hoặc dùng Extended Controls → Routes
-# iOS Simulator: Features → Location → City Run / Freeway Drive
+# Giả lập đi đường, Android (bấm Bắt đầu trước): ~11 m mỗi giây, qua được bộ lọc nhiễu
+for i in $(seq 0 60); do adb emu geo fix $(echo "106.7009 + $i*0.0001" | bc) 10.7769; sleep 1; done
+# iOS Simulator
+xcrun simctl location booted start --speed=8 21.0285,105.8542 21.0300,105.8560 21.0320,105.8570
 ```
 
-Case tối thiểu: haversine Hà Nội → TP.HCM ≈ 1.137 km (sai < 1 %) · điểm nhảy 500 m trong 1 s bị bỏ · pause không cộng thời gian · GPX parse lại được.
+Case tối thiểu: haversine Hà Nội (21.0285, 105.8542) → TP.HCM (10.7769, 106.7009) = 1.143,5 km · điểm nhảy 500 m trong 1 s bị bỏ · pause không cộng thời gian · GPX parse lại được.
 
 ## 8. Xong khi
 

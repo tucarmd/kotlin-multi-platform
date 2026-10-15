@@ -1,0 +1,41 @@
+<!-- [App 4 · B5] Chuỗi tiếng Việt. Cùng key với values/ và iosApp/*.lproj/Localizable.strings. -->
+<resources>
+    <string name="app_name">Trip Log</string>
+    <string name="record">Ghi</string>
+    <string name="trips">Chuyến đi</string>
+    <string name="start">Bắt đầu</string>
+    <string name="pause">Tạm dừng</string>
+    <string name="resume">Tiếp tục</string>
+    <string name="stop">Kết thúc</string>
+    <string name="saving">Đang lưu chuyến…</string>
+    <string name="paused">Đang tạm dừng</string>
+    <string name="time">Thời gian</string>
+    <string name="distance">Quãng đường</string>
+    <string name="duration">Thời gian chạy</string>
+    <string name="speed_now">Tốc độ hiện tại</string>
+    <string name="speed_avg">Tốc độ trung bình</string>
+    <string name="speed_max">Tốc độ tối đa</string>
+    <string name="accuracy">Độ chính xác GPS</string>
+    <string name="kmh">%1$s km/h</string>
+    <string name="accuracy_value">± %1$s m</string>
+    <string name="dropped_fixes">Đã bỏ %1$s điểm nhiễu</string>
+    <string name="points_count">%1$s điểm</string>
+    <string name="waiting_gps">Đang chờ GPS…</string>
+    <string name="idle_hint">Bấm Bắt đầu, cất điện thoại vào túi rồi đi. App vẫn ghi khi tắt màn hình.</string>
+    <string name="problem_permission">Quyền vị trí đang tắt. Bật trong Cài đặt để ghi chuyến.</string>
+    <string name="problem_location_off">Định vị đang tắt. Bật lên rồi bấm Tạm dừng và Tiếp tục.</string>
+    <string name="permission_location_denied">Trip Log cần quyền vị trí để ghi chuyến đi.</string>
+    <string name="permission_precise_denied">Vị trí chính xác đang tắt. Vị trí gần đúng quá thô để vẽ đường đi.</string>
+    <string name="permission_notifications_denied">Thông báo đang tắt. App vẫn ghi, nhưng bạn sẽ không thấy nó trên thanh trạng thái.</string>
+    <string name="open_settings">Mở Cài đặt</string>
+    <string name="no_trips">Chưa có chuyến nào. Ghi một chuyến ở màn Ghi.</string>
+    <string name="share_gpx">Chia sẻ GPX</string>
+    <string name="trip_missing">Chuyến này không còn nữa.</string>
+    <string name="speed_chart">Tốc độ</string>
+    <string name="loading">Đang tải…</string>
+    <string name="back">Quay lại</string>
+    <string name="delete">Xoá</string>
+    <string name="notification_channel">Ghi chuyến đi</string>
+    <string name="notification_recording">Đang ghi chuyến đi</string>
+    <string name="notification_text">%1$s · %2$s</string>
+</resources>

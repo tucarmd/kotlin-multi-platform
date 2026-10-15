@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- [App 4 · B5] Permissions for recording with the screen off, plus the service and the GPX FileProvider. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Runtime permissions: asked by RecordScreen when the user taps Start. FINE is needed: COARSE alone gives
+         fixes ~2 km wide, which the 30 m noise filter drops. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- Runtime from Android 13. If denied, the service STILL runs; only the notification is hidden. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Install-time. PLATFORM: Android 14+ also needs the per-type permission, or startForeground throws
+         SecurityException. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+
+    <uses-feature android:name="android.hardware.location.gps" android:required="false" />
+
+    <application
+        android:name=".TripLogApplication"
+        android:allowBackup="true"
+        android:icon="@android:drawable/ic_menu_mylocation"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- exported=false: only this app can start it.
+             PLATFORM: foregroundServiceType is mandatory on Android 14+ (MissingForegroundServiceTypeException)
+             and must match the type passed to startForeground in TrackingService. -->
+        <service
+            android:name=".service.TrackingService"
+            android:exported="false"
+            android:foregroundServiceType="location" />
+
+        <!-- Hands the GPX file to the share sheet as a content:// uri. A file:// uri crashes with
+             FileUriExposedException on Android 7+. -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+</manifest>
