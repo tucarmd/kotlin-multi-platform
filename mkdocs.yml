@@ -118,6 +118,8 @@ nav:
       - "Kotlin làm web": plan/kotlin-web.md
   - "Mở rộng":
       - "Học bền & thực chiến": extend/practice.md
+  - "Phụ lục":
+      - appendix/index.md
   - "Tra cứu":
       - "Tài nguyên học chính chủ": reference/learning-resources.md
       - "Repo mẫu tham khảo": reference/sample-repos.md
