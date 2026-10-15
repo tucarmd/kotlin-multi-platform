@@ -1,0 +1,36 @@
+<idea-plugin>
+    <id>dev.devicepulse.variants</id>
+    <name>Kotlin Variants (Claude)</name>
+    <vendor>Device Pulse</vendor>
+    <description><![CDATA[
+        Adds a gutter icon next to every Kotlin function. Clicking it asks Claude Code
+        (<code>claude -p</code>) for 3 alternative implementations of that function, with notes
+        on the Kotlin features each one uses, and opens them in a split beside your code.
+        Made for learning Kotlin: write your own version first, then compare.
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.kotlin</depends>
+
+    <extensions defaultExtensionNs="org.jetbrains.kotlin">
+        <!-- Without this the IDE disables the plugin while the Kotlin plugin runs in K2 mode -->
+        <supportsKotlinPluginMode supportsK1="true" supportsK2="true"/>
+    </extensions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <codeInsight.lineMarkerProvider language="kotlin"
+                                        implementationClass="dev.devicepulse.variants.VariantsLineMarkerProvider"/>
+        <notificationGroup id="Kotlin Variants" displayType="BALLOON"/>
+    </extensions>
+
+    <actions>
+        <action id="dev.devicepulse.variants.ShowVariants"
+                class="dev.devicepulse.variants.ShowVariantsAction"
+                text="Show 3 Variants (Claude)"
+                description="Ask Claude for 3 alternative implementations of the function at the caret"
+                icon="/icons/variants.svg">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt shift V"/>
+        </action>
+    </actions>
+</idea-plugin>

@@ -326,11 +326,38 @@ Mô hình: một người hoặc team lo `shared` (logic, state), một người
 
 ---
 
+## 13. Học Kotlin bằng "3 variant" ngay trong Android Studio
+
+**Vấn đề:** Claude trong Android Studio vẫn là CLI chạy trong tab Terminal (plugin JetBrains chỉ thêm diff viewer), không có panel như bản VS Code. Muốn xem nhiều cách viết cho một function thì phải nhảy qua lại giữa terminal và editor.
+
+**Giải pháp:** plugin nhỏ [`studio-variants-plugin/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/studio-variants-plugin) (code do AI viết, mình chỉ dùng):
+
+- Cạnh tên mỗi `fun` Kotlin có icon **3V** ở gutter. Bấm icon (hoặc `Ctrl+⌥+⇧+V`, hoặc chuột phải → *Show 3 Variants*) thì plugin gọi `claude -p` chạy ngầm.
+- Khoảng 1 phút sau, file `learn-variants/<File>.<fun>.variants.kt` mở trong một split bên phải, nằm cạnh code gốc. File có 3 variant: **Cơ bản**, **Idiomatic Kotlin** và **Nâng cao**. Mỗi variant có phần *Ý tưởng · Học được · Ưu/Nhược · Dùng khi*, kèm `main()` chạy thử và bảng so sánh.
+- Cuối file chừa sẵn 2 dòng `// TÔI CHỌN:` và `// VÌ:` để mình tự điền.
+
+**Học Kotlin nhanh, từng bước:**
+
+- **Scratch file (`.kts`):** vào *File → New → Scratch File → Kotlin*, gõ tới đâu kết quả hiện ngay cạnh dòng đó. Đây là cách học cú pháp nhanh nhất mà không cần build app. Có thể copy một variant vào scratch để chạy và sửa thử.
+- **Chia việc theo nội dung học:**
+    - Kotlin thuần (null safety, collection, lambda, coroutine): học bằng scratch file, hoặc bằng VS Code + Claude extension (JetBrains có [Kotlin LSP cho VS Code](https://kotlinlang.org/docs/kotlin-lsp.html)).
+    - Phần dính Android (Activity, Compose, permission, BLE): mới mở Android Studio. Có thể mở VS Code và Android Studio song song trên cùng project, vì hai bên dùng chung file trên ổ đĩa.
+- **Vòng học cho mỗi yêu cầu:**
+    1. **Tự viết bản của mình trước.**
+    2. Bấm **3V** để gọi 3 variant ra so sánh.
+    3. Điền `TÔI CHỌN` / `VÌ`: variant nào hay hơn và vì sao.
+
+    Bước 1 là quan trọng nhất. Chỉ đọc code AI viết thì sẽ thấy mình hiểu, nhưng tự viết thì không ra.
+- **Nguồn yêu cầu để luyện:** mỗi Day trong learning plan của skill `kotlin-android-mentor`, và mỗi bước trong [5 app luyện tập](../apps/index.md).
+
+---
+
 ## Bước tiếp theo
 
 - [ ] Bài 1–3: dựng project, cài Kermit, dựng CI build cả 2 nền tảng.
 - [ ] Thêm CrashKiOS hoặc Sentry vào bản iOS ngay từ tuần 2.
 - [ ] Viết flow Maestro đầu tiên ở tuần 5.
+- [ ] Cài plugin 3V ([`studio-variants-plugin/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/studio-variants-plugin)) và chạy vòng học "tự viết → 3 variant → TÔI CHỌN/VÌ" mỗi ngày.
 - [ ] Ghi mọi lỗi build/crash gặp phải vào [Lỗi hay gặp](../reference/troubleshooting.md).
 
 ## Nguồn

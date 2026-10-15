@@ -38,3 +38,4 @@ nhưng sắp lại thành 14 bài **làm tay**. Mỗi bài thêm một mảnh v�
 - Đọc qua [dự án Device Pulse](project/index.md) để biết đích đến.
 - Bắt đầu [bài 1: KMP là gì, khi nào dùng](lessons/01-what-is-kmp.md).
 - Muốn biết KMP được và mất gì trước khi học: [Đánh giá & kế hoạch](plan/kmp-review.md).
+- Xong 14 bài: luyện tiếp [5 app từ dễ đến khó](apps/index.md), cùng khuôn với Device Pulse.

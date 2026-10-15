@@ -31,6 +31,20 @@ open iosApp/iosApp.xcodeproj           # iOS: bấm Run
 - Bài nào ứng với file nào: [Code mẫu](https://tucarmd.github.io/kotlin-multi-platform/project/source-code/)
 - Mockup 8 màn: [DevicePulse/design/mockups/](DevicePulse/design/mockups/README-MOCKUPS.md)
 
+## 5 app luyện tập
+
+Làm xong Device Pulse thì luyện thêm 5 app, từ dễ đến khó, **cùng kiến trúc, cùng cây thư mục, cùng 7 bước, cùng quy ước comment**:
+
+| # | App | Mới học thêm |
+|:-:|---|---|
+| 1 | Tip Split | logic thuần `commonMain`, `StateFlow`, test |
+| 2 | Pocket Notes | SQLDelight CRUD, điều hướng |
+| 3 | Rate Watch | Ktor + cache offline-first |
+| 4 | Trip Log | GPS chạy ngầm, bản đồ, xuất GPX |
+| 5 | OBD Link | BLE (Kable), hàng đợi lệnh, nhiều module |
+
+Chi tiết từng app và quy ước comment: [5 app luyện tập](https://tucarmd.github.io/kotlin-multi-platform/apps/).
+
 ## Tham khảo
 
 | | |
@@ -62,6 +76,7 @@ Push lên `main` → GitHub Actions (`.github/workflows/pages.yml`) build và đ
 - `docs/lessons/NN-*.md` — 14 bài (thanh "Bài N/14" do `hooks/lesson_bar.py` chèn)
 - `DevicePulse/` — code hoàn chỉnh của app (Android + iOS)
 - `docs/project/` — app Device Pulse, code mẫu, checklist
+- `docs/apps/` — 5 app luyện tập (dễ → khó) + khung chung, quy ước comment
 - `docs/plan/` — đánh giá KMP, kế hoạch học, nghiên cứu Kotlin làm web
 - `docs/reference/` — tài nguyên học, repo mẫu, bản đồ docs gốc, từ điển, lỗi hay gặp
 - `specs/` — thiết kế nội dung (không đăng lên site)

@@ -103,6 +103,14 @@ nav:
       - project/index.md
       - "Code mẫu": project/source-code.md
       - "Checklist hoàn thành": project/checklist.md
+  - "5 app luyện tập":
+      - apps/index.md
+      - "Khung chung & quy ước comment": apps/conventions.md
+      - "1. Tip Split": apps/01-tip-split.md
+      - "2. Pocket Notes": apps/02-pocket-notes.md
+      - "3. Rate Watch": apps/03-rate-watch.md
+      - "4. Trip Log": apps/04-trip-log.md
+      - "5. OBD Link": apps/05-obd-link.md
   - "Đánh giá & kế hoạch":
       - plan/kmp-review.md
       - "Kotlin làm web": plan/kotlin-web.md
