@@ -1,0 +1,35 @@
+-- [App 2 · B3] The notes table and every query the app runs. SQLDelight generates NoteQueries (named after this file) and the NoteRecord row class (named after the table).
+--
+-- This CREATE TABLE is the CURRENT schema (version 2), used for fresh installs.
+-- Phones that installed version 1 (no `pinned` column) are upgraded by 1.sqm instead.
+-- TRAP: changing this table without adding a new N.sqm crashes the app for existing users on update
+-- ("no such column: pinned"). TEST: NoteRepositoryTest.`migration from schema 1 keeps old notes and adds pinned`
+--
+-- TRAP: the table is called noteRecord, not note: SQLDelight generates a public class named after the table,
+-- and a second class called Note in the iOS framework would be renamed Note_ in Swift.
+CREATE TABLE noteRecord (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    body TEXT NOT NULL,
+    updatedAtMillis INTEGER NOT NULL,
+    -- 0 / 1. SQLite has no boolean type.
+    pinned INTEGER NOT NULL DEFAULT 0
+);
+
+-- Unsorted on purpose: the order is a rule (sortNotes), tested once, not something SQL and Kotlin both decide.
+selectAll:
+SELECT * FROM noteRecord;
+
+insert:
+INSERT INTO noteRecord(title, body, updatedAtMillis, pinned) VALUES (?, ?, ?, ?);
+
+-- Only valid right after `insert`, inside the same transaction (same connection).
+lastInsertedId:
+SELECT last_insert_rowid();
+
+-- Writes a note with a known id: updates it, or puts it back after "Undo" with its old id and time.
+upsert:
+INSERT OR REPLACE INTO noteRecord(id, title, body, updatedAtMillis, pinned) VALUES (?, ?, ?, ?, ?);
+
+deleteById:
+DELETE FROM noteRecord WHERE id = ?;

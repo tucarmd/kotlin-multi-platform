@@ -1,0 +1,4 @@
+-- [App 2 · B3] Migration 1 → 2: version 1 of the app had no pinning.
+-- SQLDelight runs N.sqm to go from version N to N + 1; the highest file number + 1 is the schema version (2).
+-- The default 0 means every note saved by version 1 arrives unpinned.
+ALTER TABLE noteRecord ADD COLUMN pinned INTEGER NOT NULL DEFAULT 0;

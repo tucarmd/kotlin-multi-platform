@@ -1,0 +1,26 @@
+<!-- [App 2 · B5] Vietnamese strings. Same keys as values/ and iosApp/*.lproj/Localizable.strings. -->
+<resources>
+    <string name="app_name">Pocket Notes</string>
+    <string name="search_hint">Tìm ghi chú</string>
+    <string name="new_note">Ghi chú mới</string>
+    <string name="empty_title">Chưa có ghi chú nào</string>
+    <string name="empty_body">Bấm + để viết ghi chú đầu tiên.</string>
+    <string name="no_results">Không có ghi chú nào khớp “%1$s”</string>
+    <string name="load_failed">Không mở được cơ sở dữ liệu ghi chú.</string>
+    <string name="untitled">Không tiêu đề</string>
+    <string name="title_hint">Tiêu đề</string>
+    <string name="body_hint">Viết gì đó…</string>
+    <string name="pin">Ghim</string>
+    <string name="unpin">Bỏ ghim</string>
+    <string name="pinned">Đã ghim</string>
+    <string name="delete">Xoá</string>
+    <string name="back">Quay lại</string>
+    <string name="deleted">Đã xoá ghi chú</string>
+    <string name="undo">Hoàn tác</string>
+    <string name="just_now">vừa xong</string>
+    <string name="minutes_ago">%1$d phút trước</string>
+    <string name="hours_ago">%1$d giờ trước</string>
+    <string name="yesterday">hôm qua</string>
+    <string name="days_ago">%1$d ngày trước</string>
+    <string name="on_date">%3$d/%2$d/%1$d</string>
+</resources>

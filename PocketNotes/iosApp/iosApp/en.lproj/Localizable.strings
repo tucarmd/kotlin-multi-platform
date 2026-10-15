@@ -1,0 +1,24 @@
+/* [App 2 · B6] Generated from androidApp/src/main/res/values/strings.xml. Same keys; %1$s → %@, %N$d kept. */
+"app_name" = "Pocket Notes";
+"search_hint" = "Search notes";
+"new_note" = "New note";
+"empty_title" = "No notes yet";
+"empty_body" = "Tap + to write your first note.";
+"no_results" = "No notes match “%@”";
+"load_failed" = "Could not open the notes database.";
+"untitled" = "Untitled";
+"title_hint" = "Title";
+"body_hint" = "Write something…";
+"pin" = "Pin";
+"unpin" = "Unpin";
+"pinned" = "Pinned";
+"delete" = "Delete";
+"back" = "Back";
+"deleted" = "Note deleted";
+"undo" = "Undo";
+"just_now" = "just now";
+"minutes_ago" = "%1$d min ago";
+"hours_ago" = "%1$d h ago";
+"yesterday" = "yesterday";
+"days_ago" = "%1$d days ago";
+"on_date" = "%2$d/%3$d/%1$d";

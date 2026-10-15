@@ -9,7 +9,7 @@
 | **Cấp độ** | ⭐⭐ |
 | **Mới học** | SQLDelight CRUD · `Flow` tự phát khi bảng đổi · điều hướng list → edit · `kotlinx-datetime` · `platformModule` đầu tiên (driver database) |
 | **Cần trước** | App 1 · [bài 8](../lessons/08-viewmodel-navigation.md), [12](../lessons/12-history-sqldelight.md) |
-| **Thư mục code** | `PocketNotes/` · package `dev.pocketnotes` |
+| **Thư mục code** | [`PocketNotes/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/PocketNotes) · package `dev.pocketnotes` · ✅ đã có code |
 | **Thời gian** | 4–5 buổi tối |
 
 So với app 1: thêm `data/` và lần đầu có code ở `androidMain` / `iosMain` (tạo `SqlDriver`).
@@ -55,22 +55,38 @@ flowchart LR
 | **B6** | `NavigationStack` + `.swipeActions` + `.searchable`. Lưu khi `onDisappear`. |
 | **B7** | `RulesTest`, `NotesCoreTest` (Turbine), `NoteRepositoryTest` ở `androidUnitTest` với `JdbcSqliteDriver` in-memory. |
 
-## 6. Bản đồ function (dự kiến)
+## 6. Bản đồ function
+
+Bảng đầy đủ (20 hàm, có link tới đúng dòng code) nằm trong
+[`PocketNotes/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/README.md#ban-o-function). Các hàm chính:
 
 | Hàm | File | Làm gì | Vì sao |
 |---|---|---|---|
-| `matches(note, query)` | `rules/Search.kt` | So khớp không phân biệt hoa thường, bỏ dấu | Gõ "ghi chu" vẫn ra "Ghi chú" |
-| `sortNotes(notes)` | `rules/Search.kt` | Ghim lên đầu, rồi `updatedAt` giảm dần | Thứ tự là luật, không để UI tự sắp |
-| `relativeTime(from, now)` | `rules/Time.kt` | `Instant` → "vừa xong / 5 phút / hôm qua" | Truyền `now` vào để test được, không gọi `Clock.System` bên trong |
-| `NoteRepository.observeAll()` | `data/NoteRepository.kt` | `Flow<List<Note>>` tự phát khi bảng đổi | UI không cần "reload" sau khi lưu |
-| `NotesCore.delete(id)` | `core/NotesCore.kt` | Xoá, giữ bản sao 5 s cho `undoDelete()` | Hoàn tác không cần đọc lại database |
-| `createDriver()` | `androidMain` / `iosMain` `di/PlatformModule.*.kt` | Tạo `SqlDriver` đúng nền tảng | Driver là thứ duy nhất khác giữa 2 máy |
+| `fold(text)` | `rules/Search.kt` | "ĐẶT Hàng" → "dat hang" | `đ/Đ` không phải "d + dấu", phải map tay |
+| `matches(note, query)` | `rules/Search.kt` | Tìm trong tiêu đề + nội dung, bỏ dấu, không phân biệt hoa thường | Gõ "ghi chu" vẫn ra "Ghi chú" |
+| `sortNotes(notes)` | `rules/Search.kt` | Ghim lên đầu, rồi `updatedAt` mới trước | Thứ tự là luật, không để UI hay SQL tự sắp |
+| `relativeTime(from, now, timeZone)` | `rules/Time.kt` | Trả `RelativeTime` (vừa xong / phút / giờ / hôm qua / ngày) | Truyền `now` vào để test được; "hôm qua" tính theo ngày lịch |
+| `planSave(existing, draft, now)` | `rules/Save.kt` | Quyết định Insert / Update / Delete / Skip | Ghi chú rỗng không được tạo; ghim không đẩy ghi chú lên đầu |
+| `SqlNoteRepository.observeAll()` | `data/NoteRepository.kt` | `asFlow().mapToList()` | List tự cập nhật sau khi lưu |
+| `NotesCore.delete(id)` / `undoDelete()` | `core/NotesCore.kt` | Xoá, giữ bản sao 5 s; hoàn tác ghi lại đúng id, ghim, thời gian | Hoàn tác không đọc lại database, ghi chú về đúng chỗ |
+| `NotesCore.write(block)` | `core/NotesCore.kt` | Mọi lệnh ghi đi qua một `Mutex` | Xoá rồi hoàn tác thật nhanh không bị đảo thứ tự |
+| `createDriver()` | `androidMain` / `iosMain` `di/PlatformModule.*.kt` | `AndroidSqliteDriver` / `NativeSqliteDriver` | Driver là thứ duy nhất khác giữa 2 máy |
+
+!!! note "Code khác plan ở đâu"
+    - `NoteRepository` là **interface**, bản thật là `SqlNoteRepository`, để test core bằng `FakeNoteRepository`.
+    - Bảng tên `noteRecord`, database `NotesDb`. Đặt tên bảng là `note` thì SQLDelight sinh thêm một class `Note`, Swift sẽ thấy `Note_`.
+    - `NotesState` là sealed: `Loading` / `Failed` / `Ready`. `NotesCore` **không** phải singleton: Android tạo trong ViewModel với `viewModelScope`, iOS lấy từ `notesCore()` với `MainScope()`.
+    - Android lưu ghi chú trong `BackHandler`, không phải `onDispose` (vì `onDispose` cũng chạy khi xoay màn → lưu trùng). iOS lưu ở `onDisappear`.
+    - Xoá hết tiêu đề và nội dung của một ghi chú cũ = xoá ghi chú (có hoàn tác). Ghim được ngay từ danh sách.
+    - App bị kill khi đang mở màn sửa thì bản nháp chưa lưu sẽ mất.
 
 Bẫy cần ghi `// TRAP:` trong code:
 
 - Quên `-lsqlite3` trong `OTHER_LDFLAGS` của Xcode → link lỗi `_sqlite3_*` (Device Pulse đã gặp).
 - Đổi schema mà không viết file `.sqm` → app cũ crash khi cập nhật.
 - `Clock.System.now()` gọi trong luật → test không ổn định. Luôn truyền `now` vào.
+- Build iOS với "Any iOS Simulator" đòi cả x86_64 mà Gradle không build → thêm `EXCLUDED_ARCHS[sdk=iphonesimulator*]: x86_64` vào `project.yml`.
+- `LazyColumn` phải có `key = id`, không thì vuốt xoá một dòng sẽ làm dòng kế tiếp mang trạng thái vuốt của dòng đã xoá.
 
 ## 7. Test
 

@@ -44,7 +44,7 @@ Code của mỗi app sẽ nằm ở thư mục gốc repo, cạnh `DevicePulse/`
 | App | Trang plan | 🤖 Android | 🍎 iOS | Test |
 |---|:-:|:-:|:-:|:-:|
 | Tip Split | ✅ | ✅ | ✅ | ✅ 16 test |
-| Pocket Notes | ✅ | ⬜ | ⬜ | ⬜ |
+| Pocket Notes | ✅ | ✅ | ✅ | ✅ 29 test JVM · 25 iOS |
 | Rate Watch | ✅ | ⬜ | ⬜ | ⬜ |
 | Trip Log | ✅ | ⬜ | ⬜ | ⬜ |
 | OBD Link | ✅ | ⬜ | ⬜ | ⬜ |

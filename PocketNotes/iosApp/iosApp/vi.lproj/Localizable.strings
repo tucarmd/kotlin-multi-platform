@@ -1,0 +1,24 @@
+/* [App 2 · B6] Generated from androidApp/src/main/res/values-vi/strings.xml. Same keys; %1$s → %@, %N$d kept. */
+"app_name" = "Pocket Notes";
+"search_hint" = "Tìm ghi chú";
+"new_note" = "Ghi chú mới";
+"empty_title" = "Chưa có ghi chú nào";
+"empty_body" = "Bấm + để viết ghi chú đầu tiên.";
+"no_results" = "Không có ghi chú nào khớp “%@”";
+"load_failed" = "Không mở được cơ sở dữ liệu ghi chú.";
+"untitled" = "Không tiêu đề";
+"title_hint" = "Tiêu đề";
+"body_hint" = "Viết gì đó…";
+"pin" = "Ghim";
+"unpin" = "Bỏ ghim";
+"pinned" = "Đã ghim";
+"delete" = "Xoá";
+"back" = "Quay lại";
+"deleted" = "Đã xoá ghi chú";
+"undo" = "Hoàn tác";
+"just_now" = "vừa xong";
+"minutes_ago" = "%1$d phút trước";
+"hours_ago" = "%1$d giờ trước";
+"yesterday" = "hôm qua";
+"days_ago" = "%1$d ngày trước";
+"on_date" = "%3$d/%2$d/%1$d";
