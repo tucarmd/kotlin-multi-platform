@@ -1,0 +1,18 @@
+/* [App 1 · B6] Generated from androidApp/src/main/res/values/strings.xml. Same keys; %1$s → %@. */
+"app_name" = "Tip Split";
+"reset" = "Reset";
+"bill" = "Bill amount";
+"tip" = "Tip";
+"people" = "People";
+"round_up" = "Round each share up to 1,000đ";
+"waiting" = "Enter the bill to see each share.";
+"fix_input" = "Fix the bill amount above.";
+"per_person" = "Each person pays";
+"tip_amount" = "Tip";
+"total" = "Total";
+"extra" = "%@ đ left over from rounding";
+"error_not_a_number" = "Digits only, e.g. 120.000";
+"error_not_positive" = "The bill must be more than 0";
+"error_too_large" = "That amount looks too large";
+"error_no_people" = "At least 1 person";
+"error_too_many_people" = "At most 50 people";

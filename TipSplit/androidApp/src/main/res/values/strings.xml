@@ -1,0 +1,20 @@
+<!-- [App 1 · B5] English strings. Same keys as values-vi/ and iosApp/*.lproj/Localizable.strings. -->
+<resources>
+    <string name="app_name">Tip Split</string>
+    <string name="reset">Reset</string>
+    <string name="bill">Bill amount</string>
+    <string name="tip">Tip</string>
+    <string name="people">People</string>
+    <string name="round_up">Round each share up to 1,000đ</string>
+    <string name="waiting">Enter the bill to see each share.</string>
+    <string name="fix_input">Fix the bill amount above.</string>
+    <string name="per_person">Each person pays</string>
+    <string name="tip_amount">Tip</string>
+    <string name="total">Total</string>
+    <string name="extra">%1$s đ left over from rounding</string>
+    <string name="error_not_a_number">Digits only, e.g. 120.000</string>
+    <string name="error_not_positive">The bill must be more than 0</string>
+    <string name="error_too_large">That amount looks too large</string>
+    <string name="error_no_people">At least 1 person</string>
+    <string name="error_too_many_people">At most 50 people</string>
+</resources>

@@ -1,0 +1,18 @@
+/* [App 1 · B6] Generated from androidApp/src/main/res/values-vi/strings.xml. Same keys; %1$s → %@. */
+"app_name" = "Tip Split";
+"reset" = "Làm lại";
+"bill" = "Tiền hóa đơn";
+"tip" = "Tiền tip";
+"people" = "Số người";
+"round_up" = "Làm tròn lên 1.000đ mỗi người";
+"waiting" = "Nhập tiền hóa đơn để xem mỗi người trả bao nhiêu.";
+"fix_input" = "Sửa lại số tiền ở trên.";
+"per_person" = "Mỗi người trả";
+"tip_amount" = "Tip";
+"total" = "Tổng";
+"extra" = "Dư %@ đ do làm tròn";
+"error_not_a_number" = "Chỉ nhập số, ví dụ 120.000";
+"error_not_positive" = "Hóa đơn phải lớn hơn 0";
+"error_too_large" = "Số tiền có vẻ quá lớn";
+"error_no_people" = "Ít nhất 1 người";
+"error_too_many_people" = "Tối đa 50 người";

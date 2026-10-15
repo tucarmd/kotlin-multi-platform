@@ -1,0 +1,20 @@
+<!-- [App 1 · B5] Chuỗi tiếng Việt. Cùng key với values/ và iosApp/vi.lproj/Localizable.strings. -->
+<resources>
+    <string name="app_name">Tip Split</string>
+    <string name="reset">Làm lại</string>
+    <string name="bill">Tiền hóa đơn</string>
+    <string name="tip">Tiền tip</string>
+    <string name="people">Số người</string>
+    <string name="round_up">Làm tròn lên 1.000đ mỗi người</string>
+    <string name="waiting">Nhập tiền hóa đơn để xem mỗi người trả bao nhiêu.</string>
+    <string name="fix_input">Sửa lại số tiền ở trên.</string>
+    <string name="per_person">Mỗi người trả</string>
+    <string name="tip_amount">Tip</string>
+    <string name="total">Tổng</string>
+    <string name="extra">Dư %1$s đ do làm tròn</string>
+    <string name="error_not_a_number">Chỉ nhập số, ví dụ 120.000</string>
+    <string name="error_not_positive">Hóa đơn phải lớn hơn 0</string>
+    <string name="error_too_large">Số tiền có vẻ quá lớn</string>
+    <string name="error_no_people">Ít nhất 1 người</string>
+    <string name="error_too_many_people">Tối đa 50 người</string>
+</resources>
