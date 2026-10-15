@@ -112,6 +112,29 @@
   .ghost:hover { border-color: var(--accent); color: var(--accent); }
   .kbd { font-size: 11px; opacity: .75; font-weight: 500; }
 
+  /* ---------- tabs: Gốc + 3 variant ---------- */
+  .tabs {
+    display: flex; align-items: center; gap: 4px; padding: 0 16px; flex: none;
+    border-bottom: 1px solid var(--line); background: var(--gutter); overflow-x: auto; scrollbar-width: none;
+  }
+  .tab {
+    position: relative; height: 38px; padding: 0 12px; border: 0; background: transparent; cursor: pointer;
+    color: var(--fg-2); font: inherit; font-size: 13px; font-weight: 500; white-space: nowrap;
+    border-bottom: 2px solid transparent; margin-bottom: -1px; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .tab:hover { color: var(--fg); }
+  .tab.on { color: var(--fg); border-bottom-color: var(--accent); }
+  .tab .n {
+    display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%;
+    font-size: 11px; font-weight: 600; background: var(--line); color: var(--fg-2);
+  }
+  .tab.on .n { background: var(--accent); color: #fff; }
+  .tab.dirty::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--warn); }
+  .tabs .spacer { min-width: 12px; }
+  .tabs .ghost { height: 28px; font-size: 12px; white-space: nowrap; }
+  .out .sec { display: block; margin: 14px 0 4px; color: var(--accent); font-weight: 600; }
+  .out .sec:first-child { margin-top: 0; }
+
   /* ---------- workspace ---------- */
   .work { flex: 1; display: flex; flex-direction: column; min-height: 0; }
   .editor-wrap { flex: 1; min-height: 120px; position: relative; }
@@ -225,6 +248,11 @@
 </div>
 
 <main class="work" id="work">
+  <div class="tabs" role="tablist" id="tabs">
+    <span class="spacer" id="tabs-end"></span>
+    <button class="ghost" id="run-all" title="Chạy lần lượt cả 4 bản, in output nối nhau để so sánh">▶ Chạy cả 4</button>
+    <button class="ghost" id="prompt" title="Copy prompt kèm code đang gõ — dán vào Claude để có 3 cách viết cho code của bạn">✦ Prompt 3V</button>
+  </div>
   <div class="editor-wrap"><textarea id="code"></textarea></div>
   <div class="split" id="split" title="Kéo để đổi chiều cao"></div>
   <section class="console" id="console">
@@ -247,6 +275,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/comment/comment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/lint/lint.min.js"></script>
+<script src="variants.js"></script>
 <script>
 // Gọi thẳng compiler chính chủ của JetBrains (cùng server với play.kotlinlang.org, CORS mở).
 const API = "https://api.kotlinlang.org";
@@ -451,30 +480,72 @@ const editor = CodeMirror.fromTextArea($("code"), {
   },
 });
 
+// ---------- tabs: Gốc + 3 variant (variants.js) ----------
+// Code sửa dở của từng tab giữ trong drafts["<ví dụ>:<tab>"], đổi tab không mất.
+const tabsOf = (si) => [{ name: "Gốc", code: SAMPLES[si].code }, ...((window.VARIANTS || {})[SAMPLES[si].name] || [])];
+let tab = 0;
+const drafts = load().drafts || {};
+const keyOf = (i) => `${$("sample").value}:${i}`;
+const codeOf = (i) => i === tab ? editor.getValue() : drafts[keyOf(i)] ?? tabsOf($("sample").value)[i].code;
+
+function renderTabs() {
+  document.querySelectorAll("#tabs .tab").forEach((b) => b.remove());
+  tabsOf($("sample").value).forEach((t, i) => {
+    const b = document.createElement("button");
+    b.className = "tab" + (i === tab ? " on" : "") + (drafts[keyOf(i)] != null ? " dirty" : "");
+    b.setAttribute("role", "tab");
+    b.title = i ? `Cách viết ${i}: ${t.name}` : "Code ví dụ gốc";
+    b.innerHTML = i ? `<span class="n">${i}</span>${esc(t.name)}` : esc(t.name);
+    b.onclick = () => { openTab(i); editor.focus(); };
+    $("tabs-end").before(b);
+  });
+}
+
+function openTab(i) {
+  tab = i;
+  editor.setValue(drafts[keyOf(i)] ?? tabsOf($("sample").value)[i].code);
+  editor.clearHistory();
+  save({ tab });
+  renderTabs();
+}
+
 // Thứ tự ưu tiên lấy code: link share (#code=) → code đang gõ dở → ví dụ đầu tiên.
 (function initCode() {
   const st = load();
+  $("sample").value = st.sample ?? 0;
+  tab = Math.min(st.tab ?? 0, tabsOf($("sample").value).length - 1);
+  // bản cũ chỉ lưu 1 ô code → chuyển thành draft của tab Gốc
+  if (st.code != null && !st.drafts && st.code !== SAMPLES[$("sample").value].code) drafts[keyOf(0)] = st.code;
   const hash = new URLSearchParams(location.hash.slice(1));
   if (hash.get("code")) {
-    try { editor.setValue(b64dec(hash.get("code"))); } catch { editor.setValue(SAMPLES[0].code); }
+    try { drafts[keyOf(tab)] = b64dec(hash.get("code")); } catch {}
     if (hash.get("args")) $("args").value = hash.get("args");
     history.replaceState(null, "", location.pathname);
   } else {
-    $("sample").value = st.sample ?? 0;
-    editor.setValue(st.code ?? SAMPLES[$("sample").value].code);
     $("args").value = st.args ?? "";
   }
-  editor.clearHistory();
+  openTab(tab);
 })();
 
-editor.on("change", () => save({ code: editor.getValue() }));
+editor.on("change", () => {
+  const code = editor.getValue();
+  if (code === tabsOf($("sample").value)[tab].code) delete drafts[keyOf(tab)];
+  else drafts[keyOf(tab)] = code;
+  save({ drafts });
+  document.querySelectorAll("#tabs .tab")[tab]?.classList.toggle("dirty", drafts[keyOf(tab)] != null);
+});
 $("args").oninput = () => save({ args: $("args").value });
 $("sample").onchange = () => {
-  editor.setValue(SAMPLES[$("sample").value].code);
-  save({ sample: $("sample").value, code: editor.getValue() });
+  save({ sample: $("sample").value });
+  openTab(0);
   editor.focus();
 };
-$("reset").onclick = () => { editor.setValue(SAMPLES[$("sample").value].code); toast("Đã trả về code ví dụ"); };
+$("reset").onclick = () => {
+  delete drafts[keyOf(tab)];
+  openTab(tab);
+  save({ drafts });
+  toast("Đã trả về code gốc của tab này");
+};
 $("clear").onclick = () => { out.innerHTML = ""; setStatus("", "Sẵn sàng"); };
 
 // ---------- versions ----------
@@ -494,13 +565,13 @@ fetch(`${API}/versions`).then((r) => r.json()).then((list) => {
 });
 
 // ---------- API ----------
-const body = () => JSON.stringify({
+const body = (code = editor.getValue()) => JSON.stringify({
   args: $("args").value.trim(),
-  files: [{ name: "File.kt", text: editor.getValue(), publicId: "" }],
+  files: [{ name: "File.kt", text: code, publicId: "" }],
   confType: "java",
 });
-const post = (path) => fetch(`${API}/api/${version}/compiler/${path}`, {
-  method: "POST", headers: { "Content-Type": "application/json" }, body: body(),
+const post = (path, code) => fetch(`${API}/api/${version}/compiler/${path}`, {
+  method: "POST", headers: { "Content-Type": "application/json" }, body: body(code),
 }).then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); });
 
 function lintKotlin(text, done) {
@@ -545,24 +616,11 @@ async function run() {
   out.innerHTML = "";
   const t0 = performance.now();
   try {
-    const res = await post("run");
+    const r = renderResult(await post("run"), tab);
     const ms = Math.round(performance.now() - t0);
-    const errs = (res.errors?.["File.kt"] || []).filter((e) => e.severity === "ERROR");
-    let html = "";
-
-    if (errs.length) {
-      html += errs.map((e) => `<span class="e">e: <a class="loc" data-l="${e.interval.start.line}" data-c="${e.interval.start.ch}">File.kt:${e.interval.start.line + 1}:${e.interval.start.ch + 1}</a> ${esc(e.message)}</span>`).join("\n");
-      setStatus("err", `Compile lỗi (${errs.length}) · ${ms} ms`);
-    } else {
-      // text có dạng <outStream>…</outStream><errStream>…</errStream>, nội dung đã escape HTML
-      const parts = [...(res.text || "").matchAll(/<(outStream|errStream)>([\s\S]*?)<\/\1>/g)];
-      html += parts.map(([, kind, txt]) => kind === "errStream" ? `<span class="e">${esc(unesc(txt))}</span>` : esc(unesc(txt))).join("");
-      if (res.exception) html += renderException(res.exception);
-      if (!html.trim()) html = '<span class="muted">(chương trình không in gì)</span>';
-      if (res.exception) setStatus("err", `Lỗi khi chạy · ${ms} ms`);
-      else setStatus("ok", `Chạy xong · ${ms} ms`);
-    }
-    out.innerHTML = html;
+    setStatus(r.errors ? "err" : r.crashed ? "err" : "ok",
+      r.errors ? `Compile lỗi (${r.errors}) · ${ms} ms` : r.crashed ? `Lỗi khi chạy · ${ms} ms` : `Chạy xong · ${ms} ms`);
+    out.innerHTML = r.html;
   } catch (e) {
     setStatus("err", "Không gọi được compiler");
     out.innerHTML = `<span class="e">${esc(String(e.message || e))}\nKiểm tra mạng rồi thử lại — code được chạy trên api.kotlinlang.org.</span>`;
@@ -572,17 +630,60 @@ async function run() {
   }
 }
 
-function renderException(ex, caused = false) {
+// t = tab chứa code này, để bấm File.kt:12 thì mở đúng tab rồi mới nhảy dòng
+function renderResult(res, t) {
+  const loc = (l, c, label) => `<a class="loc" data-t="${t}" data-l="${l}" data-c="${c}">${label}</a>`;
+  const errs = (res.errors?.["File.kt"] || []).filter((e) => e.severity === "ERROR");
+  if (errs.length) {
+    const html = errs.map((e) => `<span class="e">e: ${loc(e.interval.start.line, e.interval.start.ch, `File.kt:${e.interval.start.line + 1}:${e.interval.start.ch + 1}`)} ${esc(e.message)}</span>`).join("\n");
+    return { html, errors: errs.length };
+  }
+  // text có dạng <outStream>…</outStream><errStream>…</errStream>, nội dung đã escape HTML
+  const parts = [...(res.text || "").matchAll(/<(outStream|errStream)>([\s\S]*?)<\/\1>/g)];
+  let html = parts.map(([, kind, txt]) => kind === "errStream" ? `<span class="e">${esc(unesc(txt))}</span>` : esc(unesc(txt))).join("");
+  if (res.exception) html += renderException(res.exception, loc);
+  if (!html.trim()) html = '<span class="muted">(chương trình không in gì)</span>';
+  return { html, crashed: !!res.exception };
+}
+
+// ---------- chạy cả 4 tab, output nối nhau để so sánh ----------
+async function runAll() {
+  if (running || !version) return;
+  running = true;
+  $("run").disabled = $("run-all").disabled = true;
+  const list = tabsOf($("sample").value);
+  out.innerHTML = "";
+  let failed = 0;
+  const t0 = performance.now();
+  for (let i = 0; i < list.length; i++) {
+    setStatus("busy", `Đang chạy ${i + 1}/${list.length}: ${list[i].name}…`);
+    const head = `<span class="sec">── ${i ? `${i} · ` : ""}${esc(list[i].name)} ──</span>`;
+    try {
+      const r = renderResult(await post("run", codeOf(i)), i);
+      if (r.errors || r.crashed) failed++;
+      out.insertAdjacentHTML("beforeend", head + r.html.replace(/\n+$/, "") + "\n");
+    } catch (e) {
+      failed++;
+      out.insertAdjacentHTML("beforeend", head + `<span class="e">${esc(String(e.message || e))}</span>\n`);
+    }
+  }
+  const ms = Math.round(performance.now() - t0);
+  setStatus(failed ? "err" : "ok", failed ? `${failed}/${list.length} bản lỗi · ${ms} ms` : `Chạy xong cả ${list.length} bản · ${ms} ms`);
+  running = false;
+  $("run").disabled = $("run-all").disabled = false;
+}
+
+function renderException(ex, loc, caused = false) {
   let s = `\n<span class="e">${caused ? "Caused by: " : "Exception in thread \"main\" "}${esc(ex.fullName)}${ex.message ? ": " + esc(ex.message) : ""}`;
   for (const f of ex.stackTrace || []) {
     if (!f.fileName || f.lineNumber < 0) continue;
-    const loc = f.fileName === "File.kt"
-      ? `<a class="loc" data-l="${f.lineNumber - 1}" data-c="0">${f.fileName}:${f.lineNumber}</a>`
+    const where = f.fileName === "File.kt"
+      ? loc(f.lineNumber - 1, 0, `${f.fileName}:${f.lineNumber}`)
       : `${esc(f.fileName)}:${f.lineNumber}`;
-    s += `\n    at ${esc(f.className)}.${esc(f.methodName)}(${loc})`;
+    s += `\n    at ${esc(f.className)}.${esc(f.methodName)}(${where})`;
   }
   s += "</span>";
-  if (ex.cause) s += renderException(ex.cause, true);
+  if (ex.cause) s += renderException(ex.cause, loc, true);
   return s;
 }
 
@@ -590,14 +691,46 @@ function renderException(ex, caused = false) {
 out.addEventListener("click", (e) => {
   const a = e.target.closest("a.loc");
   if (!a) return;
+  if (+a.dataset.t !== tab) openTab(+a.dataset.t);
   const pos = CodeMirror.Pos(+a.dataset.l, +a.dataset.c);
   editor.focus(); editor.setCursor(pos); editor.scrollIntoView(pos, 80);
 });
 
 $("run").onclick = run;
+$("run-all").onclick = runAll;
 document.addEventListener("keydown", (e) => {
   if ((e.metaKey || e.ctrlKey) && e.key === "Enter") { e.preventDefault(); run(); }
 });
+
+// ---------- Prompt 3V: cùng format với plugin studio-variants-plugin ----------
+const promptFor = (code) => `You are a Kotlin mentor. The learner is studying Kotlin and just wrote the program below in the Kotlin Playground.
+Write 3 alternative implementations of it so they can compare styles and learn Kotlin features.
+
+Reply with ONE Kotlin code block per variant. Each block must be a complete program with its own fun main()
+that runs on its own in play.kotlinlang.org (JVM, kotlinx.coroutines available). No other libraries.
+
+- Variant 1 "Cơ bản": plain and explicit, easy for a beginner to follow.
+- Variant 2 "Idiomatic Kotlin": stdlib collection ops, expression bodies, null-safety operators, scope functions, when.
+- Variant 3 "Nâng cao": a more advanced idea that really fits (extension function, sequence, generics,
+  sealed/value class, inline/reified, coroutine/Flow, ...). Do not force it; if nothing fits, show a different design.
+
+Start each block with Vietnamese comments in exactly this shape:
+// ===== Variant N: <short name> =====
+// Ý tưởng: ...
+// Học được: <Kotlin keywords/features, each with a one-line explanation>
+// Ưu: ...  Nhược: ...
+// Dùng khi: ...
+
+After the 3 blocks, a short Vietnamese "So sánh nhanh" (one line per variant).
+
+--- Program ---
+${code}`;
+
+$("prompt").onclick = async () => {
+  const text = promptFor(editor.getValue());
+  try { await navigator.clipboard.writeText(text); toast("Đã copy prompt — dán vào Claude, rồi dán từng variant vào đây để chạy"); }
+  catch { prompt("Copy prompt này:", text); }
+};
 
 // ---------- share ----------
 $("share").onclick = async () => {
