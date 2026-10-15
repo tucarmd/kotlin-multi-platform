@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- [App 5 · B5] BLE permissions. Bluetooth permissions were split in two at Android 12 (API 31),
+     and minSdk is 24, so BOTH branches are declared; maxSdkVersion makes each branch apply to its own range. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- API 24–30: BLUETOOTH + BLUETOOTH_ADMIN are granted at install. Scanning ALSO needs runtime fine location,
+         because the list of nearby BLE devices can reveal where the phone is. -->
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" android:maxSdkVersion="30" />
+
+    <!-- API 31+: two runtime permissions, no location. neverForLocation = we promise not to derive location from
+         scan results, so Android does not demand location access too. -->
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
+    <!-- BLE is required: hide the app on devices without it. -->
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
+
+    <application
+        android:name=".ObdLinkApp"
+        android:allowBackup="true"
+        android:icon="@android:drawable/stat_sys_data_bluetooth"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
