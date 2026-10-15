@@ -17,7 +17,7 @@ Nguồn học miễn phí từ JetBrains và Google, dùng kèm lộ trình khi 
 
 - [Kotlin tour](https://kotlinlang.org/docs/kotlin-tour-welcome.html): đi nhanh toàn bộ cú pháp Kotlin, nên đọc trước bài 1.
 - [Kotlin Koans](https://play.kotlinlang.org/koans/overview): bài tập nhỏ chạy ngay trên trình duyệt.
-- [Kotlin Playground](https://play.kotlinlang.org/): chạy thử code mà không cần cài gì. Site này có [bản Playground riêng](../playground/index.html) kèm sẵn ví dụ theo các bài học.
+- [Kotlin Playground](https://play.kotlinlang.org/): chạy thử code mà không cần cài gì.
 - [Atomic Kotlin](https://www.atomickotlin.com/): sách + bài tập, đi từ con số 0.
 - [Exercism – Kotlin track](https://exercism.org/tracks/kotlin): bài tập có mentor người thật review miễn phí.
 - Cách luyện cho nhớ lâu, chỗ luyện có người chấm: [Học bền & thực chiến](../extend/practice.md).

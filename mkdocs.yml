@@ -83,7 +83,6 @@ extra:
 
 nav:
   - "Trang chủ": index.md
-  - "Playground": playground/index.html
   - "Lộ trình":
       - roadmap.md
       - "Sơ đồ lộ trình": roadmap-map.md
