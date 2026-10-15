@@ -120,6 +120,7 @@ nav:
       - "Học bền & thực chiến": extend/practice.md
   - "Phụ lục":
       - appendix/index.md
+      - "P1 · Unit test cơ bản & test bảng": appendix/unit-basics.md
   - "Tra cứu":
       - "Tài nguyên học chính chủ": reference/learning-resources.md
       - "Repo mẫu tham khảo": reference/sample-repos.md
