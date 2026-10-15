@@ -41,7 +41,7 @@ vòng đời app.
 
 | Mục | Trang | Trạng thái |
 |---|---|---|
-| **P1 · Unit test** | [Cơ bản & test bảng](unit-basics.md) · [Coroutine & Flow](unit-coroutines-flow.md) · Fake & mock · Coverage | đang viết |
+| **P1 · Unit test** | [Cơ bản & test bảng](unit-basics.md) · [Coroutine & Flow](unit-coroutines-flow.md) · [Fake & mock](unit-fakes-mocks.md) · Coverage | đang viết |
 | **P2 · Automation test** | Chiến lược · Compose UI test · XCUITest · Maestro · Screenshot · CI | kế hoạch |
 | **P3 · Debug trong Android Studio** | Breakpoint · Coroutine · Inspector · Kotlin trên iOS · Bug hunt | kế hoạch |
 | **P4 · Tool hỗ trợ code** | Tool nên cài · Tool tự làm | kế hoạch |

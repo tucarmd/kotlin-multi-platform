@@ -20,6 +20,8 @@ koin = "4.2.2"
 ktor = "3.5.1"
 sqldelight = "2.4.1"
 turbine = "1.2.1"
+# Phụ lục P1 · Fake & mock. Compiler plugin: its version must support the Kotlin version above.
+mokkery = "3.5.1"
 
 [libraries]
 # shared/
@@ -62,3 +64,4 @@ kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", versio
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 skie = { id = "co.touchlab.skie", version.ref = "skie" }
+mokkery = { id = "dev.mokkery", version.ref = "mokkery" }

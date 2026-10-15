@@ -113,6 +113,26 @@ nav:
       - "3. Rate Watch": apps/03-rate-watch.md
       - "4. Trip Log": apps/04-trip-log.md
       - "5. OBD Link": apps/05-obd-link.md
+  - "900 lỗi Kotlin":
+      - issues/index.md
+      - "1. Cú pháp & kiểu cơ bản (K001–K050)": issues/01-basics.md
+      - "2. Null safety (K051–K100)": issues/02-null-safety.md
+      - "3. Collections & Sequence (K101–K150)": issues/03-collections.md
+      - "4. Class, object, sealed, enum (K151–K200)": issues/04-classes.md
+      - "5. Hàm, lambda, generics (K201–K250)": issues/05-functions.md
+      - "6. Coroutines (K251–K300)": issues/06-coroutines.md
+      - "7. Flow, StateFlow, SharedFlow (K301–K350)": issues/07-flow.md
+      - "8. Gradle & build (K351–K400)": issues/08-gradle.md
+      - "9. KMP: source set, expect/actual (K401–K450)": issues/09-kmp.md
+      - "10. Swift ↔ Kotlin, iOS, Xcode (K451–K500)": issues/10-ios-interop.md
+      - "11. Android: lifecycle, quyền, Manifest (K501–K550)": issues/11-android.md
+      - "12. Compose: state & recomposition (K551–K600)": issues/12-compose-state.md
+      - "13. Compose: layout, navigation, side effect (K601–K650)": issues/13-compose-ui.md
+      - "14. Lưu dữ liệu (K651–K700)": issues/14-persistence.md
+      - "15. Mạng & JSON (K701–K750)": issues/15-networking.md
+      - "16. Test (K751–K800)": issues/16-testing.md
+      - "17. Hiệu năng & chạy ngầm (K801–K850)": issues/17-performance-background.md
+      - "18. Style, Java interop, phát hành (K851–K900)": issues/18-style-release.md
   - "Đánh giá & kế hoạch":
       - plan/kmp-review.md
       - "Kotlin làm web": plan/kotlin-web.md
@@ -122,6 +142,7 @@ nav:
       - appendix/index.md
       - "P1 · Unit test cơ bản & test bảng": appendix/unit-basics.md
       - "P1 · Test coroutine & Flow": appendix/unit-coroutines-flow.md
+      - "P1 · Fake, mock, HTTP giả": appendix/unit-fakes-mocks.md
   - "Tra cứu":
       - "Tài nguyên học chính chủ": reference/learning-resources.md
       - "Repo mẫu tham khảo": reference/sample-repos.md

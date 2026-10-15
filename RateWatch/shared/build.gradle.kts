@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.sqldelight)
     alias(libs.plugins.skie)
+    alias(libs.plugins.mokkery) // mock() / every { } / verify { } in commonTest, runs on JVM and iOS
 }
 
 kotlin {
