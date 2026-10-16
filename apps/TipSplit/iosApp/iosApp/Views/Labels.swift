@@ -2,6 +2,7 @@ import Foundation
 import Shared
 
 /// [App 1 · B6] Localised text helpers. Keys match androidApp/src/main/res/values*/strings.xml.
+/// [Bài 7] NSLocalizedString looks the key up in en.lproj or vi.lproj/Localizable.strings.
 func L(_ key: String) -> String { NSLocalizedString(key, comment: "") }
 func L(_ key: String, _ arg: String) -> String { String(format: L(key), arg) }
 

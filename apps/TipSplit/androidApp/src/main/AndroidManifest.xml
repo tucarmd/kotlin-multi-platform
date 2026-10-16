@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- [App 1 · B5] No permissions: Tip Split never leaves the phone. -->
+<!-- [App 1 · B5] No permissions: Tip Split never leaves the phone.
+     [Bài 10 · Xin quyền] An app that reads GPS declares ACCESS_FINE_LOCATION here AND asks at runtime;
+     [Bài 11 · Mạng] one that calls the internet declares INTERNET. Tip Split needs neither. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application

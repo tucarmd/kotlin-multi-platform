@@ -1,4 +1,7 @@
-<!-- [App 1 · B5] English strings. Same keys as values-vi/ and iosApp/*.lproj/Localizable.strings. -->
+<!-- [App 1 · B5] English strings. Same keys as values-vi/ and iosApp/*.lproj/Localizable.strings.
+     [Bài 7 · Resources và đa ngôn ngữ] values/ is the DEFAULT: used for every language without its own folder.
+     Android picks values-vi/ when the phone is in Vietnamese. A key missing there falls back to this file, and Lint
+     warns about it (MissingTranslation). %1$s = first argument, filled by stringResource(R.string.extra, text). -->
 <resources>
     <string name="app_name">Tip Split</string>
     <string name="reset">Reset</string>

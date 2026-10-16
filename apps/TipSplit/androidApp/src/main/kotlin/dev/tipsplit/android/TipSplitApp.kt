@@ -15,6 +15,9 @@ val appModule = module {
 /**
  * [App 1 · B4] Starts Koin once, before any screen exists.
  * Why in Application and not MainActivity: the Activity is recreated on rotation; Koin must start only once.
+ *
+ * [Bài 5 · Koin] `androidContext(this)` is the Android-only extra: koin-android code (and App 2's SQLite driver in
+ * platformModule) gets the Context from here. iOS calls the same initKoin() from Swift as doInitKoin().
  */
 class TipSplitApp : Application() {
     override fun onCreate() {
