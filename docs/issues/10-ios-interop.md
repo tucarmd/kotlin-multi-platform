@@ -22,7 +22,7 @@ core.onTipSelected(percent: percent)          // ❌ percent là Int
 core.onTipSelected(percent: Int32(percent))   // ✅ đổi một lần trong SplitModel
 ```
 
-**Gặp ở:** [`TipSplit/iosApp/iosApp/SplitModel.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/iosApp/iosApp/SplitModel.swift) ·
+**Gặp ở:** [`apps/TipSplit/iosApp/iosApp/SplitModel.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/iosApp/iosApp/SplitModel.swift) ·
 Xem thêm: K452, K453
 
 ### K452 · Chuỗi `%ld` / `%d` hiện số rác khi truyền `Int32` / `Int64`
@@ -42,8 +42,8 @@ L("state_reconnecting", s.attempt, s.maxAttempts)            // ❌ Int32 gặp 
 L("state_reconnecting", Int(s.attempt), Int(s.maxAttempts))  // ✅
 ```
 
-**Gặp ở:** [`ObdLink/iosApp/iosApp/Views/Labels.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/iosApp/iosApp/Views/Labels.swift) ·
-[`RateWatch/iosApp/iosApp/Views/Labels.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/iosApp/iosApp/Views/Labels.swift) (`Long` → `Int64`)
+**Gặp ở:** [`apps/ObdLink/iosApp/iosApp/Views/Labels.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/iosApp/iosApp/Views/Labels.swift) ·
+[`apps/RateWatch/iosApp/iosApp/Views/Labels.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/iosApp/iosApp/Views/Labels.swift) (`Long` → `Int64`)
 
 ### K453 · `List<Int>` sang Swift thành `[KotlinInt]`
 
@@ -62,8 +62,8 @@ self.tipOptions = core.tipOptions                    // ❌ [KotlinInt]
 self.tipOptions = core.tipOptions.map { $0.intValue } // ✅ [Int]
 ```
 
-**Gặp ở:** [`TipSplit/iosApp/iosApp/SplitModel.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/iosApp/iosApp/SplitModel.swift) ·
-[`TripLog/iosApp/iosApp/TripsModel.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/iosApp/iosApp/TripsModel.swift) (`List<Double>` → `[KotlinDouble]`)
+**Gặp ở:** [`apps/TipSplit/iosApp/iosApp/SplitModel.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/iosApp/iosApp/SplitModel.swift) ·
+[`apps/TripLog/iosApp/iosApp/TripsModel.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/iosApp/iosApp/TripsModel.swift) (`List<Double>` → `[KotlinDouble]`)
 
 ### K454 · `Int?` / `Double?` sang Swift thành `KotlinInt?` / `KotlinDouble?`
 
@@ -82,8 +82,8 @@ speedText(trip.currentSpeedMps)                                   // ❌ KotlinD
 trip.currentSpeedMps.map { speedText($0.doubleValue) } ?? "–"     // ✅
 ```
 
-**Gặp ở:** [`TripLog/iosApp/iosApp/Views/RecordView.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/iosApp/iosApp/Views/RecordView.swift) ·
-[`ObdLink/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/README.md) (mục "Kotlin `Int?` sang Swift là `KotlinInt?`")
+**Gặp ở:** [`apps/TripLog/iosApp/iosApp/Views/RecordView.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/iosApp/iosApp/Views/RecordView.swift) ·
+[`apps/ObdLink/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/README.md) (mục "Kotlin `Int?` sang Swift là `KotlinInt?`")
 
 ### K455 · `ByteArray` sang Swift là `KotlinByteArray`, không phải `Data`
 
@@ -140,7 +140,7 @@ class IosLocationStream : LocationStream {
 }
 ```
 
-**Gặp ở:** [`TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt)
 
 ### K458 · Cài delegate iOS trong Kotlin báo "Conflicting overloads"
 
@@ -161,7 +161,7 @@ Objective-C.
 override fun locationManager(manager: CLLocationManager, didFailWithError: NSError) { /* … */ } // ✅
 ```
 
-**Gặp ở:** [`TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt)
 
 ### K459 · `switch` trên enum Kotlin bắt thêm `default` (không có SKIE)
 
@@ -203,7 +203,7 @@ enum class InputError { NotANumber }  // ❌ Swift: .notAnumber
 enum class InputError { NotNumeric }  // ✅ Swift: .notNumeric
 ```
 
-**Gặp ở:** [`TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/model/Models.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/model/Models.kt)
+**Gặp ở:** [`apps/TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/model/Models.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/model/Models.kt)
 
 ### K461 · Tên bắt đầu bằng `init` bị đổi: `InitFailed`, `initKoin()` → `doInitKoin()`
 
@@ -222,8 +222,8 @@ enum class ConnectionError { ScanFailed, ConnectFailed, InitFailed }   // ❌ t�
 enum class ConnectionError { ScanFailed, ConnectFailed, SetupFailed }  // ✅
 ```
 
-**Gặp ở:** [`ObdLink/shared/src/commonMain/kotlin/dev/obdlink/model/ObdState.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/shared/src/commonMain/kotlin/dev/obdlink/model/ObdState.kt) ·
-[`TipSplit/iosApp/iosApp/iOSApp.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/iosApp/iosApp/iOSApp.swift) (`doInitKoin()`)
+**Gặp ở:** [`apps/ObdLink/shared/src/commonMain/kotlin/dev/obdlink/model/ObdState.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/shared/src/commonMain/kotlin/dev/obdlink/model/ObdState.kt) ·
+[`apps/TipSplit/iosApp/iosApp/iOSApp.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/iosApp/iosApp/iOSApp.swift) (`doInitKoin()`)
 
 ### K462 · `newMonitor()` thành `doNewMonitor()`, `copy()` thành `doCopy()`
 
@@ -243,7 +243,7 @@ fun newMonitor(): PulseMonitor     // ❌ Swift: doNewMonitor()
 fun startMonitor(): PulseMonitor   // ✅
 ```
 
-**Gặp ở:** [`DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseCore.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseCore.kt)
+**Gặp ở:** [`apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseCore.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseCore.kt)
 
 ### K463 · Property `description` sang Swift thành `description_`
 
@@ -262,7 +262,7 @@ data class Dtc(val code: String, val description: String?) // ❌ Swift: descrip
 data class Dtc(val code: String, val summary: String?)     // ✅
 ```
 
-**Gặp ở:** [`ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/model/Dtc.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/model/Dtc.kt)
+**Gặp ở:** [`apps/ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/model/Dtc.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/model/Dtc.kt)
 
 ### K464 · Đặt tên `Date`, `Data`, `Error` → Swift lẫn với Foundation
 
@@ -283,7 +283,7 @@ sealed class RelativeTime { data class Date(...) : RelativeTime() }     // ❌
 sealed class RelativeTime { data class OnDate(...) : RelativeTime() }   // ✅
 ```
 
-**Gặp ở:** [`PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/model/Models.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/model/Models.kt)
+**Gặp ở:** [`apps/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/model/Models.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/model/Models.kt)
 
 ### K465 · Hai class cùng tên ở hai package → Swift thấy `Note_`
 
@@ -298,7 +298,7 @@ thứ tự compile, có thể đổi giữa các lần build.
 **Sửa:** giữ tên class public là duy nhất trong cả framework. PocketNotes đặt tên bảng `noteRecord` để SQLDelight sinh
 `NoteRecord`, nhường `Note` cho model. Class chỉ dùng nội bộ thì để `internal` (không xuất sang Swift).
 
-**Gặp ở:** [`PocketNotes/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/README.md) (mục "Tên bảng `noteRecord`")
+**Gặp ở:** [`apps/PocketNotes/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/README.md) (mục "Tên bảng `noteRecord`")
 
 ### K466 · Muốn đặt tên riêng cho Swift hoặc giấu API khỏi Swift
 
@@ -344,7 +344,7 @@ sourceSets.commonMain.dependencies {
 }
 ```
 
-**Gặp ở:** [`ObdLink/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/shared/build.gradle.kts) ·
+**Gặp ở:** [`apps/ObdLink/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/shared/build.gradle.kts) ·
 Xem thêm: K468
 
 ### K468 · `export()` báo dependency chưa phải `api`
@@ -378,7 +378,7 @@ không còn chỗ nào để chép kiểu. Hàm `inline` cũng không có thân 
 fun tipCore(): TipCore = KoinPlatform.getKoin().get()   // ✅ Swift (SKIE): tipCore()
 ```
 
-**Gặp ở:** [`TipSplit/shared/src/iosMain/kotlin/dev/tipsplit/di/KoinIos.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/iosMain/kotlin/dev/tipsplit/di/KoinIos.kt) ·
+**Gặp ở:** [`apps/TipSplit/shared/src/iosMain/kotlin/dev/tipsplit/di/KoinIos.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/iosMain/kotlin/dev/tipsplit/di/KoinIos.kt) ·
 cùng mẫu trong PocketNotes, RateWatch, TripLog, ObdLink
 
 ### K470 · Hàm generic `fun <T> …` sang Swift trả `Any?`
@@ -413,8 +413,8 @@ sealed class Reading<out T : Any> {     // ✅ Swift: Reading<BatteryInfo>
 }
 ```
 
-**Gặp ở:** [`DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/model/Models.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/model/Models.kt) ·
-[`TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/model/Models.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/model/Models.kt)
+**Gặp ở:** [`apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/model/Models.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/model/Models.kt) ·
+[`apps/TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/model/Models.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/model/Models.kt)
 
 ### K472 · `sealed class` trong Swift chỉ có `as?` (không có SKIE)
 
@@ -435,7 +435,7 @@ case .ready(let s): SplitSummary(s.split)
 }
 ```
 
-**Gặp ở:** [`ObdLink/iosApp/iosApp/Views/Labels.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/iosApp/iosApp/Views/Labels.swift)
+**Gặp ở:** [`apps/ObdLink/iosApp/iosApp/Views/Labels.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/iosApp/iosApp/Views/Labels.swift)
 
 ### K473 · Không tìm thấy `object`, `companion`, hàm top-level từ Swift
 
@@ -527,8 +527,8 @@ suspend fun load(tripId: Long): TripDetail? = try {
 }
 ```
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripLibrary.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripLibrary.kt) ·
-[`TripLog/iosApp/iosApp/TripsModel.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/iosApp/iosApp/TripsModel.swift)
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripLibrary.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripLibrary.kt) ·
+[`apps/TripLog/iosApp/iosApp/TripsModel.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/iosApp/iosApp/TripsModel.swift)
 
 ### K478 · Không biết đọc `Flow` / `StateFlow` từ Swift
 
@@ -550,7 +550,7 @@ Task { [weak self] in
 }
 ```
 
-**Gặp ở:** [`PocketNotes/iosApp/iosApp/NotesModel.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/iosApp/iosApp/NotesModel.swift)
+**Gặp ở:** [`apps/PocketNotes/iosApp/iosApp/NotesModel.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/iosApp/iosApp/NotesModel.swift)
 
 ### K479 · `for await` trên `StateFlow` không bao giờ kết thúc
 
@@ -592,7 +592,7 @@ final class ObdModel {
 }
 ```
 
-**Gặp ở:** [`ObdLink/iosApp/iosApp/ObdModel.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/iosApp/iosApp/ObdModel.swift)
+**Gặp ở:** [`apps/ObdLink/iosApp/iosApp/ObdModel.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/iosApp/iosApp/ObdModel.swift)
 
 ### K481 · Core Kotlin bên iOS chạy mãi vì không ai huỷ scope
 
@@ -612,8 +612,8 @@ final class NotesModel {
 }
 ```
 
-**Gặp ở:** [`PocketNotes/iosApp/iosApp/NotesModel.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/iosApp/iosApp/NotesModel.swift) ·
-[`DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseCore.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseCore.kt)
+**Gặp ở:** [`apps/PocketNotes/iosApp/iosApp/NotesModel.swift`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/iosApp/iosApp/NotesModel.swift) ·
+[`apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseCore.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseCore.kt)
 
 ### K482 · Closure Swift đưa cho Kotlin giữ `self` → model không bao giờ `deinit`
 
@@ -667,7 +667,7 @@ thread nên chặn việc chuyển chúng qua actor khác.
 iosTarget.binaries.framework { baseName = "Shared" }   // Swift: import Shared
 ```
 
-**Gặp ở:** [`PocketNotes/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/iosApp/project.yml) (script + search path) ·
+**Gặp ở:** [`apps/PocketNotes/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/iosApp/project.yml) (script + search path) ·
 Xem thêm: [Lỗi hay gặp](../reference/troubleshooting.md)
 
 ### K485 · Run Script Gradle lỗi "Sandbox: … deny(1) file-read-data"
@@ -688,7 +688,7 @@ settings:
     ENABLE_USER_SCRIPT_SANDBOXING: NO   # ✅ project.yml (XcodeGen) hoặc Build Settings
 ```
 
-**Gặp ở:** [`PocketNotes/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/iosApp/project.yml)
+**Gặp ở:** [`apps/PocketNotes/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/iosApp/project.yml)
 
 ### K486 · Build từ Xcode: "Unable to locate a Java Runtime"
 
@@ -747,9 +747,9 @@ settings:
     EXCLUDED_ARCHS[sdk=iphonesimulator*]: x86_64
 ```
 
-**Gặp ở:** [`TripLog/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/iosApp/project.yml) ·
-[`ObdLink/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/README.md) ·
-[`PocketNotes/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/README.md)
+**Gặp ở:** [`apps/TripLog/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/iosApp/project.yml) ·
+[`apps/ObdLink/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/README.md) ·
+[`apps/PocketNotes/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/README.md)
 
 ### K489 · "building for 'iOS-simulator', but linking in object file built for 'iOS'"
 
@@ -793,9 +793,9 @@ iosTarget.binaries.framework { isStatic = true; linkerOpts("-lsqlite3") }
 OTHER_LDFLAGS: ["$(inherited)", "-framework", "Shared", "-lsqlite3"]
 ```
 
-**Gặp ở:** [`PocketNotes/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/build.gradle.kts) ·
-[`PocketNotes/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/iosApp/project.yml) ·
-[`RateWatch/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/README.md)
+**Gặp ở:** [`apps/PocketNotes/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/build.gradle.kts) ·
+[`apps/PocketNotes/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/iosApp/project.yml) ·
+[`apps/RateWatch/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/README.md)
 
 ### K491 · Mở app là crash: "Library not loaded: @rpath/Shared.framework/Shared"
 
@@ -893,8 +893,8 @@ mode trước khi dùng. Thiếu là crash ngay, không có hộp thoại.
 **Sửa:** thêm key vào Info.plist (qua `project.yml`): `NSLocationWhenInUseUsageDescription`,
 `NSBluetoothAlwaysUsageDescription`…, và `UIBackgroundModes: [location]` nếu ghi vị trí khi tắt màn hình.
 
-**Gặp ở:** [`TripLog/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/iosApp/project.yml) ·
-[`TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt)
+**Gặp ở:** [`apps/TripLog/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/iosApp/project.yml) ·
+[`apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt)
 
 ### K498 · Delegate viết bằng Kotlin ngừng nhận callback sau vài giây
 
@@ -918,7 +918,7 @@ awaitClose {
 }
 ```
 
-**Gặp ở:** [`TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt)
 
 ### K499 · `CLLocationManager` tạo trên `Dispatchers.Default` không bao giờ gọi delegate
 
@@ -936,7 +936,7 @@ override fun points(): Flow<TrackPoint> = callbackFlow { /* CLLocationManager() 
     .flowOn(Dispatchers.Main)   // ✅ thread có run loop
 ```
 
-**Gặp ở:** [`TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt)
 
 ### K500 · Tưởng Swift export đã thay được Objective-C export + SKIE
 

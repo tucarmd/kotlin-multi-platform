@@ -282,7 +282,7 @@ val listener = object : LocationListener {                 // ✅
 }
 ```
 
-**Gặp ở:** [`TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt)
 
 ### K215 · `let` trả về kết quả lambda, không trả về object
 
@@ -850,7 +850,7 @@ fun decodePidAnswer(pid: ObdPid, messages: List<List<Int>>): PidReading?   // �
 
 [▶ Chạy thử](../playground/index.html#code=ZnVuIGF2ZXJhZ2UodmFsdWVzOiBMaXN0PEludD4pOiBEb3VibGUgPSB2YWx1ZXMuYXZlcmFnZSgpCmZ1biBhdmVyYWdlKHZhbHVlczogTGlzdDxEb3VibGU-KTogRG91YmxlID0gdmFsdWVzLmF2ZXJhZ2UoKSAgIC8vIOKdjCBjw7luZyBjaOG7ryBrw70gSlZNOiBhdmVyYWdlKExpc3QpCi8vIEBKdm1OYW1lKCJhdmVyYWdlRG91YmxlIikgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8vIOKchSB0aMOqbSBkw7JuZyBuw6B5IHRyw6puIGjDoG0gdGjhu6kgaGFpCi8vIGhv4bq3YyDEkeG6t3QgdMOqbiBraMOhYzogZnVuIGF2ZXJhZ2VPZkRvdWJsZXModmFsdWVzOiBMaXN0PERvdWJsZT4pCgpmdW4gbWFpbigpIHsKICAgIHByaW50bG4oYXZlcmFnZShsaXN0T2YoMSwgMiwgMykpKQp9Cg)
 
-**Gặp ở:** [`ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/rules/Pid.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/rules/Pid.kt)
+**Gặp ở:** [`apps/ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/rules/Pid.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/rules/Pid.kt)
 
 ### K247 · Swift không gọi được hàm `reified` (như `get<T>()` của Koin)
 
@@ -869,7 +869,7 @@ Objective-C, ở đó không có gì để gọi.
 fun tipCore(): TipCore = KoinPlatform.getKoin().get()   // ✅ Swift gọi tipCore()
 ```
 
-**Gặp ở:** [`TipSplit/shared/src/iosMain/kotlin/dev/tipsplit/di/KoinIos.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/iosMain/kotlin/dev/tipsplit/di/KoinIos.kt) ·
+**Gặp ở:** [`apps/TipSplit/shared/src/iosMain/kotlin/dev/tipsplit/di/KoinIos.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/iosMain/kotlin/dev/tipsplit/di/KoinIos.kt) ·
 Xem thêm: K243
 
 ### K248 · `MutableList<Dog>` không truyền được cho `MutableList<Animal>`

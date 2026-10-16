@@ -63,7 +63,7 @@ class App : Application() {
 }
 ```
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt) (mọi lời gọi SQLite đi qua `io { }`)
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt) (mọi lời gọi SQLite đi qua `io { }`)
 
 ### K804 · Chọn sai `Dispatchers.IO` / `Dispatchers.Default`
 
@@ -120,7 +120,7 @@ suspend fun buildReport(trips: List<Trip>): Report =
     withContext(Dispatchers.Default) { /* tính nặng */ }   // ✅ Swift gọi từ main vẫn không đứng UI
 ```
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt) (comment `TRAP: SQLite calls block the thread`)
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt) (comment `TRAP: SQLite calls block the thread`)
 
 ### K807 · Nối chuỗi bằng `+=` trong vòng lặp
 
@@ -347,7 +347,7 @@ fun observe() = callbackFlow {
 }
 ```
 
-**Gặp ở:** [`DevicePulse/shared/src/androidMain/kotlin/dev/devicepulse/sensor/AndroidBatterySensor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/androidMain/kotlin/dev/devicepulse/sensor/AndroidBatterySensor.kt)
+**Gặp ở:** [`apps/DevicePulse/shared/src/androidMain/kotlin/dev/devicepulse/sensor/AndroidBatterySensor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/androidMain/kotlin/dev/devicepulse/sensor/AndroidBatterySensor.kt)
 
 ### K820 · Chuyến đi đã dừng mà GPS vẫn bật
 
@@ -365,7 +365,7 @@ manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1_000L, 0f, listene
 awaitClose { manager.removeUpdates(listener) }   // ✅ tắt GPS khi không còn ai nghe
 ```
 
-**Gặp ở:** [`TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt) · Xem thêm: K819
+**Gặp ở:** [`apps/TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt) · Xem thêm: K819
 
 ### K821 · Xin GPS chính xác nhất, mỗi giây, cho việc không cần
 
@@ -399,7 +399,7 @@ if (pending.size >= 10) {
 }
 ```
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripRecorder.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripRecorder.kt) · [`TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripRecorder.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripRecorder.kt) · [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt)
 
 ### K823 · Collect Flow trong `lifecycleScope.launch` → cảm biến chạy cả khi app ở nền
 
@@ -439,7 +439,7 @@ val state = combine(battery.observe(), location.observe()) { b, l -> Dashboard(b
     .stateIn(scope, SharingStarted.WhileSubscribed(5_000), Dashboard())   // ✅
 ```
 
-**Gặp ở:** [`DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseMonitor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseMonitor.kt)
+**Gặp ở:** [`apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseMonitor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseMonitor.kt)
 
 ### K825 · Vòng lặp nặng không dừng khi đã huỷ
 
@@ -478,7 +478,7 @@ tuyến đường có sẵn trong *Extended Controls → Location → Routes* c�
 adb emu geo fix 105.8542 21.0285   # kinh độ, vĩ độ (Hà Nội)
 ```
 
-**Gặp ở:** [`TripLog/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/README.md) (mục "Mấy cái bẫy")
+**Gặp ở:** [`apps/TripLog/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/README.md) (mục "Mấy cái bẫy")
 
 ### K827 · `Context.startForegroundService() did not then call Service.startForeground()`
 
@@ -502,7 +502,7 @@ override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 }
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt)
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt)
 
 ### K828 · Android 14: `MissingForegroundServiceTypeException`
 
@@ -526,7 +526,7 @@ override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
     android:foregroundServiceType="location" />
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/AndroidManifest.xml) · Xem thêm: K829, K830, K893
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/AndroidManifest.xml) · Xem thêm: K829, K830, K893
 
 ### K829 · Android 14: `SecurityException: Starting FGS with type location … requires permissions`
 
@@ -542,7 +542,7 @@ runtime vị trí **đã được cấp** lúc gọi `startForeground`. Thiếu 
 **Sửa:** thêm quyền vào manifest, và chỉ khởi động service sau khi người dùng đã cấp quyền vị trí (kiểm ngay trước khi
 gọi, vì người dùng có thể thu hồi trong Settings).
 
-**Gặp ở:** [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt) (`TrackingService.start`) · Xem thêm: K529
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt) (`TrackingService.start`) · Xem thêm: K529
 
 ### K830 · `foregroundServiceType 0x00000008 is not a subset of foregroundServiceType attribute`
 
@@ -564,7 +564,7 @@ ServiceCompat.startForeground(
 )
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt)
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt)
 
 ### K831 · Android 12+: `ForegroundServiceStartNotAllowedException`
 
@@ -617,7 +617,7 @@ notification không hiện trong ngăn kéo (nó vẫn có trong *Task Manager* 
 **Sửa:** xin `POST_NOTIFICATIONS` trước khi bắt đầu, và trong app luôn có nút *Dừng* riêng, không chỉ dựa vào nút trên
 notification.
 
-**Gặp ở:** [`TripLog/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/AndroidManifest.xml) · Xem thêm: K538
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/AndroidManifest.xml) · Xem thêm: K538
 
 ### K835 · Android 12+: notification của service hiện chậm 10 giây
 
@@ -637,7 +637,7 @@ NotificationCompat.Builder(this, CHANNEL_ID)
     .build()
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt)
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt)
 
 ### K836 · Service vừa mở đã tự tắt
 
@@ -661,7 +661,7 @@ recorder.state.collect { state ->
 }
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt)
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt)
 
 ### K837 · Ghi chuyến đi trong `viewModelScope` → bấm Back là mất chuyến
 
@@ -682,7 +682,7 @@ val commonModule = module {
 }
 ```
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/kotlin/dev/triplog/di/Koin.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/di/Koin.kt) · [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/RecordViewModel.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/RecordViewModel.kt) · Xem thêm: K511
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/di/Koin.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/di/Koin.kt) · [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/RecordViewModel.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/RecordViewModel.kt) · Xem thêm: K511
 
 ### K838 · `START_STICKY` rồi crash vì `intent!!`
 
@@ -704,7 +704,7 @@ override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 }
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt)
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt)
 
 ### K839 · Doze: `delay`, `Handler`, `Timer` ở nền ngừng chạy khi tắt màn hình lâu
 
@@ -841,7 +841,7 @@ thật sự cần.
 **Sửa:** đa số app chỉ cần vị trí lúc đang dùng, cộng một foreground service loại `location` mở từ UI khi cần ghi lúc tắt
 màn hình (cách TripLog làm). Chỉ xin vị trí nền khi app phải tự lấy vị trí mà người dùng không mở app (geofence…).
 
-**Gặp ở:** [`TripLog/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/AndroidManifest.xml) (không có `ACCESS_BACKGROUND_LOCATION`) · Xem thêm: K537, K832
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/AndroidManifest.xml) (không có `ACCESS_BACKGROUND_LOCATION`) · Xem thêm: K537, K832
 
 ### K847 · Android 15: service `dataSync` bị dừng sau 6 giờ, không mở được từ `BOOT_COMPLETED`
 
@@ -877,7 +877,7 @@ info:
     UIBackgroundModes: [location]
 ```
 
-**Gặp ở:** [`TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt) · [`TripLog/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/iosApp/project.yml) · Xem thêm: K896
+**Gặp ở:** [`apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt) · [`apps/TripLog/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/iosApp/project.yml) · Xem thêm: K896
 
 ### K849 · iOS: dừng đèn đỏ là GPS tắt luôn, không bật lại
 
@@ -896,7 +896,7 @@ manager.pausesLocationUpdatesAutomatically = false   // ✅ không tự tắt kh
 manager.activityType = CLActivityTypeFitness
 ```
 
-**Gặp ở:** [`TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt)
 
 ### K850 · iOS: việc nền không chạy, hoặc `All launch handlers must be registered before application finishes launching`
 

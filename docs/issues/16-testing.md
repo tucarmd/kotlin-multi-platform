@@ -22,7 +22,7 @@ fun `invariants hold for every bill, tip, head count and rounding`() { }    // �
 fun `invariants hold for every bill and tip and head count and rounding`() { }  // ✅
 ```
 
-**Gặp ở:** [`TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/SplitTableTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/SplitTableTest.kt) · [`ObdLink/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/README.md)
+**Gặp ở:** [`apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/SplitTableTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/SplitTableTest.kt) · [`apps/ObdLink/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/README.md)
 (mục bẫy cuối) · Xem thêm: K752, K753, [Unit test cơ bản](../appendix/unit-basics.md#at-ten-test)
 
 ### K752 · Tên test có ngoặc `()`, dấu chấm, hai chấm
@@ -41,7 +41,7 @@ fun `state() emits once`() { }        // ❌ iOS
 fun `state emits once`() { }          // ✅
 ```
 
-**Gặp ở:** [`TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt) · Xem thêm: K751
+**Gặp ở:** [`apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt) · Xem thêm: K751
 
 ### K753 · Chỉ chạy test JVM, không bao giờ biết iOS hỏng
 
@@ -99,7 +99,7 @@ commonTest.dependencies {
 }
 ```
 
-**Gặp ở:** [`RateWatch/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/build.gradle.kts)
+**Gặp ở:** [`apps/RateWatch/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/build.gradle.kts)
 
 ### K756 · `assertEquals` đảo thứ tự: message nói ngược
 
@@ -150,7 +150,7 @@ for (c in cases) assertEquals(c.expected, ceilDiv(c.total, c.people))           
 for (c in cases) assertEquals(c.expected, ceilDiv(c.total, c.people), "case '${c.name}'") // ✅
 ```
 
-**Gặp ở:** [`TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/SplitTableTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/SplitTableTest.kt) ·
+**Gặp ở:** [`apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/SplitTableTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/SplitTableTest.kt) ·
 [▶ Chạy thử](../playground/index.html#code=aW1wb3J0IGtvdGxpbi50ZXN0LioKCmZ1biBjZWlsRGl2KGE6IExvbmcsIGI6IExvbmcpOiBMb25nID0gYSAvIGIgICAvLyBs4buXaSBj4buRIMO9OiBwaOG6o2kgbMOgbSB0csOybiBMw4pOCgpkYXRhIGNsYXNzIENhc2UodmFsIG5hbWU6IFN0cmluZywgdmFsIHRvdGFsOiBMb25nLCB2YWwgcGVvcGxlOiBMb25nLCB2YWwgZXhwZWN0ZWQ6IExvbmcpCgp2YWwgY2FzZXMgPSBsaXN0T2YoCiAgICBDYXNlKCJjaGlhIGjhur90IiwgOTBfMDAwLCAzLCAzMF8wMDApLAogICAgQ2FzZSgiMSBuZ8aw4budaSIsIDUwXzAwMCwgMSwgNTBfMDAwKSwKICAgIENhc2UoImTGsCAxIMSR4buTbmciLCAxMDBfMDAxLCAyLCA1MF8wMDEpLAopCgpmdW4gbWFpbigpIHsKICAgIHRyeSB7CiAgICAgICAgZm9yIChjIGluIGNhc2VzKSBhc3NlcnRFcXVhbHMoYy5leHBlY3RlZCwgY2VpbERpdihjLnRvdGFsLCBjLnBlb3BsZSkpICAgICAgICAgICAgICAgICAgIC8vIOKdjAogICAgfSBjYXRjaCAoZTogQXNzZXJ0aW9uRXJyb3IpIHsgcHJpbnRsbigi4p2MICIgKyBlLm1lc3NhZ2UpIH0KICAgIHRyeSB7CiAgICAgICAgZm9yIChjIGluIGNhc2VzKSBhc3NlcnRFcXVhbHMoYy5leHBlY3RlZCwgY2VpbERpdihjLnRvdGFsLCBjLnBlb3BsZSksICJjYXNlICcke2MubmFtZX0nIikgLy8g4pyFCiAgICB9IGNhdGNoIChlOiBBc3NlcnRpb25FcnJvcikgeyBwcmludGxuKCLinIUgIiArIGUubWVzc2FnZSkgfQp9Cg) · Xem thêm: [Test bảng](../appendix/unit-basics.md#test-bang-mot-test-nhieu-case)
 
 ### K759 · Test chưa từng đỏ
@@ -167,7 +167,7 @@ for (c in cases) assertEquals(c.expected, ceilDiv(c.total, c.people), "case '${c
 internal fun ceilDiv(a: Long, b: Long): Long = a / b   // phá cố ý → SplitTableTest phải đỏ
 ```
 
-**Gặp ở:** [`TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/SplitTableTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/SplitTableTest.kt) ·
+**Gặp ở:** [`apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/SplitTableTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/SplitTableTest.kt) ·
 Xem thêm: [Phá rồi sửa](../appendix/unit-basics.md#pha-roi-sua-test-co-bat-uoc-loi-that-khong)
 
 ### K760 · `@Test suspend fun` không chạy
@@ -247,8 +247,8 @@ private fun TestScope.core(): RatesCore {
 @AfterTest fun stopCore() { coreScope?.cancel() }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreTest.kt) ·
-[`ObdLink/shared/src/commonTest/kotlin/dev/obdlink/ObdCoreTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/shared/src/commonTest/kotlin/dev/obdlink/ObdCoreTest.kt) ·
+**Gặp ở:** [`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreTest.kt) ·
+[`apps/ObdLink/shared/src/commonTest/kotlin/dev/obdlink/ObdCoreTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/shared/src/commonTest/kotlin/dev/obdlink/ObdCoreTest.kt) ·
 [▶ Chạy thử](../playground/index.html#code=aW1wb3J0IGtvdGxpbnguY29yb3V0aW5lcy4qCmltcG9ydCBrb3RsaW54LmNvcm91dGluZXMudGVzdC4qCgpjbGFzcyBDb3JlKHByaXZhdGUgdmFsIHNjb3BlOiBDb3JvdXRpbmVTY29wZSkgewogICAgdmFyIHJlZnJlc2hlZCA9IDAKICAgIGZ1biBzdGFydCgpIHsgc2NvcGUubGF1bmNoIHsgZGVsYXkoMV8wMDApOyByZWZyZXNoZWQrKyB9IH0KfQoKZnVuIG1haW4oKSA9IHJ1blRlc3QgewogICAgdmFsIHdyb25nID0gQ29yZShiYWNrZ3JvdW5kU2NvcGUpICAgICAgICAgICAgICAgICAgICAgIC8vIOKdjCB2aeG7h2MgbuG7gW46IGFkdmFuY2VVbnRpbElkbGUoKSBraMO0bmcgY2jhu50KICAgIHdyb25nLnN0YXJ0KCkKICAgIGFkdmFuY2VVbnRpbElkbGUoKQogICAgcHJpbnRsbigiYmFja2dyb3VuZFNjb3BlOiByZWZyZXNoZWQgPSAke3dyb25nLnJlZnJlc2hlZH0iKQoKICAgIHZhbCBjb3JlU2NvcGUgPSBDb3JvdXRpbmVTY29wZShTdXBlcnZpc29ySm9iKCkgKyBTdGFuZGFyZFRlc3REaXNwYXRjaGVyKHRlc3RTY2hlZHVsZXIpKSAgIC8vIOKchSBuaMawIFJhdGVzQ29yZVRlc3QKICAgIHZhbCByaWdodCA9IENvcmUoY29yZVNjb3BlKQogICAgcmlnaHQuc3RhcnQoKQogICAgYWR2YW5jZVVudGlsSWRsZSgpCiAgICBwcmludGxuKCJzY29wZSByacOqbmcgdHLDqm4gdGVzdFNjaGVkdWxlcjogcmVmcmVzaGVkID0gJHtyaWdodC5yZWZyZXNoZWR9IikKICAgIGNvcmVTY29wZS5jYW5jZWwoKSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvLyBk4buNbiBk4bq5cCwgbmjGsCBAQWZ0ZXJUZXN0Cn0K) · Xem thêm: K764
 
 ### K764 · Vòng lặp vô hạn trong test: "After waiting for 1m, there were active child jobs"
@@ -272,7 +272,7 @@ hoặc truyền scope riêng rồi huỷ trong `@AfterTest` (K763).
 }
 ```
 
-**Gặp ở:** [`ObdLink/shared/src/commonTest/kotlin/dev/obdlink/ObdCoreTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/shared/src/commonTest/kotlin/dev/obdlink/ObdCoreTest.kt) · Xem thêm: K763
+**Gặp ở:** [`apps/ObdLink/shared/src/commonTest/kotlin/dev/obdlink/ObdCoreTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/shared/src/commonTest/kotlin/dev/obdlink/ObdCoreTest.kt) · Xem thêm: K763
 
 ### K765 · `withContext(Dispatchers.Default)` trong code: đồng hồ ảo mất tác dụng
 
@@ -313,8 +313,8 @@ private val clock = object : Clock {
 // test: nowMillis += hour
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreTest.kt) ·
-[`PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/rules/Time.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/rules/Time.kt) · Xem thêm: K750
+**Gặp ở:** [`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreTest.kt) ·
+[`apps/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/rules/Time.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/rules/Time.kt) · Xem thêm: K750
 
 ### K767 · `advanceTimeBy(1000)` mà việc hẹn đúng 1000 ms chưa chạy
 
@@ -407,7 +407,7 @@ core.state.test {
 }
 ```
 
-**Gặp ở:** [`TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt) · Xem thêm: K772, K774
+**Gặp ở:** [`apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt) · Xem thêm: K772, K774
 
 ### K772 · Turbine: quên giá trị đầu tiên của `StateFlow`
 
@@ -427,7 +427,7 @@ core.state.test {
 }
 ```
 
-**Gặp ở:** [`TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt)
+**Gặp ở:** [`apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt)
 
 ### K773 · Turbine: "Unconsumed events found"
 
@@ -467,7 +467,7 @@ core.removePerson()                         // đã là 1: state y hệt
 expectNoEvents()                            // ✅
 ```
 
-**Gặp ở:** [`TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt) (`an action that changes nothing does not emit`)
+**Gặp ở:** [`apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt) (`an action that changes nothing does not emit`)
 
 ### K775 · `launch { collect }` trong test thiếu giá trị ở giữa
 
@@ -488,7 +488,7 @@ advanceUntilIdle()
 assertEquals(listOf("", "100.000"), seen.map { it.input.billText })   // "1" và "10" bị gộp
 ```
 
-**Gặp ở:** [`TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt) ·
+**Gặp ở:** [`apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt) ·
 [▶ Chạy thử](../playground/index.html#code=aW1wb3J0IGtvdGxpbnguY29yb3V0aW5lcy4qCmltcG9ydCBrb3RsaW54LmNvcm91dGluZXMuZmxvdy4qCmltcG9ydCBrb3RsaW54LmNvcm91dGluZXMudGVzdC4qCgpmdW4gbWFpbigpID0gcnVuVGVzdCB7CiAgICB2YWwgc3RhdGUgPSBNdXRhYmxlU3RhdGVGbG93KCIiKQogICAgdmFsIHNlZW4gPSBtdXRhYmxlTGlzdE9mPFN0cmluZz4oKQogICAgdmFsIGpvYiA9IGxhdW5jaCB7IHN0YXRlLnRvTGlzdChzZWVuKSB9ICAgIC8vIG5nxrDhu51pIHRodSBjaOG6oXkgdHLDqm4gU3RhbmRhcmRUZXN0RGlzcGF0Y2hlcgogICAgcnVuQ3VycmVudCgpCgogICAgc3RhdGUudmFsdWUgPSAiMSIgICAgICAgICAgICAgICAgICAgICAgICAgIC8vIGfDtSAzIGzhuqduIGxp4buBbiwga2jDtG5nIG5oxrDhu51uZyBsxrDhu6N0CiAgICBzdGF0ZS52YWx1ZSA9ICIxMCIKICAgIHN0YXRlLnZhbHVlID0gIjEwMC4wMDAiCiAgICBydW5DdXJyZW50KCkKICAgIGpvYi5jYW5jZWwoKQoKICAgIHByaW50bG4oIm5nxrDhu51pIHRodSB0aOG6pXk6ICRzZWVuIikgICAgICAgICAgIC8vICIxIiB2w6AgIjEwIiBi4buLIGfhu5lwIG3huqV0IChjb25mbGF0aW9uKQp9Cg) · Xem thêm: K771
 
 ### K776 · `SharedFlow` phát trước khi test kịp nghe
@@ -531,8 +531,8 @@ verifySuspend(exactly(1)) { repo.refresh("USD", any()) }   // mock: đúng chỗ
 assertEquals(RefreshError.Offline, core.state.value.error) // fake: kiểm kết quả
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreTest.kt) (`FakeRateRepository`) ·
-[`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt) ·
+**Gặp ở:** [`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreTest.kt) (`FakeRateRepository`) ·
+[`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt) ·
 Xem thêm: K783, [Fake & mock](../appendix/unit-fakes-mocks.md#fake-hay-mock)
 
 ### K778 · MockK trong `commonTest`: iOS không build
@@ -551,7 +551,7 @@ MockK chỉ dùng trong `androidUnitTest`.
 plugins { alias(libs.plugins.mokkery) }   // ✅ không cần thêm dependency nào
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt) · Xem thêm: K782
+**Gặp ở:** [`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt) · Xem thêm: K782
 
 ### K779 · Mokkery: "… not mocked!"
 
@@ -574,7 +574,7 @@ private val repo = mock<RateRepository> {
 }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt) · Xem thêm: K780
+**Gặp ở:** [`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt) · Xem thêm: K780
 
 ### K780 · `every { }` với hàm `suspend`
 
@@ -593,7 +593,7 @@ everySuspend { repo.refresh(any(), any()) } returns Result.success(Unit)   // �
 verifySuspend(exactly(1)) { repo.refresh("USD", any()) }                   // ✅
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt)
+**Gặp ở:** [`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt)
 
 ### K781 · Mock một class `final`
 
@@ -611,7 +611,7 @@ class RatesCore(private val repository: SqlRateRepository)   // ❌ khó thay tr
 class RatesCore(private val repository: RateRepository)      // ✅ interface
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt)
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt)
 
 ### K782 · Nâng Kotlin xong, test không build vì Mokkery
 
@@ -630,7 +630,7 @@ kotlin = "2.4.20"
 mokkery = "3.5.1"   # nâng cùng lúc với kotlin
 ```
 
-**Gặp ở:** [`RateWatch/gradle/libs.versions.toml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/gradle/libs.versions.toml) · Xem thêm: K707
+**Gặp ở:** [`apps/RateWatch/gradle/libs.versions.toml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/gradle/libs.versions.toml) · Xem thêm: K707
 
 ### K783 · Test mock đỏ sau khi refactor, dù app vẫn đúng
 
@@ -642,7 +642,7 @@ mokkery = "3.5.1"   # nâng cùng lúc với kotlin
 
 **Sửa:** chỉ `verify` lời gọi khi chính lời gọi là yêu cầu (số lần tải, thứ tự lưu). Còn lại kiểm kết quả bằng fake.
 
-**Gặp ở:** [`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt) · Xem thêm: K777
+**Gặp ở:** [`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreMockTest.kt) · Xem thêm: K777
 
 ### K784 · Fake xanh, app thật hỏng: SQL sai mà không test nào thấy
 
@@ -662,7 +662,7 @@ private fun repository() = SqlRateRepository(
 )
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/SqlRateRepositoryTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/SqlRateRepositoryTest.kt) · Xem thêm: K788
+**Gặp ở:** [`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/SqlRateRepositoryTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/SqlRateRepositoryTest.kt) · Xem thêm: K788
 
 ### K785 · Test gọi server thật
 
@@ -685,7 +685,7 @@ private fun api(handler: suspend MockRequestHandleScope.() -> HttpResponseData) 
 }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt) · Xem thêm: K786, K787
+**Gặp ở:** [`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt) · Xem thêm: K786, K787
 
 ### K786 · `MockEngine` trả JSON mà vẫn `NoTransformationFoundException`
 
@@ -705,7 +705,7 @@ MockEngine { respond(SAMPLE_OK) }                           // ❌
 MockEngine { respond(SAMPLE_OK, HttpStatusCode.OK, json) }  // ✅
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt) · Xem thêm: K720
+**Gặp ở:** [`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt) · Xem thêm: K720
 
 ### K787 · Muốn test timeout và mất mạng bằng `MockEngine`
 
@@ -726,7 +726,7 @@ assertEquals(RefreshError.Timeout, failure(slow))
 assertEquals(RefreshError.Offline, failure(api { throw IOException("Unable to resolve host") }))
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt) · Xem thêm: K728, K733
+**Gặp ở:** [`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt) · Xem thêm: K728, K733
 
 ### K788 · `JdbcSqliteDriver` trong `commonTest`: iOS không build
 
@@ -750,10 +750,10 @@ actual fun inMemoryRateDbDriver(): SqlDriver =
 actual fun inMemoryRateDbDriver(): SqlDriver = inMemoryDriver(RateDb.Schema)
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/TestDriver.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/TestDriver.kt) ·
-[`RateWatch/shared/src/androidUnitTest/kotlin/dev/ratewatch/TestDriver.android.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/androidUnitTest/kotlin/dev/ratewatch/TestDriver.android.kt) ·
-[`RateWatch/shared/src/iosTest/kotlin/dev/ratewatch/TestDriver.ios.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/iosTest/kotlin/dev/ratewatch/TestDriver.ios.kt) ·
-[`PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt) (cách cũ, chỉ JVM)
+**Gặp ở:** [`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/TestDriver.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/TestDriver.kt) ·
+[`apps/RateWatch/shared/src/androidUnitTest/kotlin/dev/ratewatch/TestDriver.android.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/androidUnitTest/kotlin/dev/ratewatch/TestDriver.android.kt) ·
+[`apps/RateWatch/shared/src/iosTest/kotlin/dev/ratewatch/TestDriver.ios.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/iosTest/kotlin/dev/ratewatch/TestDriver.ios.kt) ·
+[`apps/PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt) (cách cũ, chỉ JVM)
 
 ### K789 · Test DB báo "no such table"
 
@@ -771,7 +771,7 @@ val driver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)            // ❌ chư
 val driver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY).also { NotesDb.Schema.create(it) }  // ✅
 ```
 
-**Gặp ở:** [`PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt) (`freshRepository`)
+**Gặp ở:** [`apps/PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt) (`freshRepository`)
 
 ### K790 · Các test DB dính dữ liệu của nhau
 
@@ -791,7 +791,7 @@ class SqlRateRepositoryTest {
 }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/SqlRateRepositoryTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/SqlRateRepositoryTest.kt) · Xem thêm: K791
+**Gặp ở:** [`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/SqlRateRepositoryTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/SqlRateRepositoryTest.kt) · Xem thêm: K791
 
 ### K791 · Test chạy riêng thì xanh, chạy chung thì đỏ
 
@@ -818,7 +818,7 @@ Xem thêm: K769, K790
 **Sửa:** test cần thư viện JVM thì đặt trong `androidUnitTest` (chỉ chạy JVM) và ghi rõ lý do. Phần logic vẫn test ở
 `commonTest` bằng API chung.
 
-**Gặp ở:** [`TripLog/shared/src/androidUnitTest/kotlin/dev/triplog/GpxParseTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/androidUnitTest/kotlin/dev/triplog/GpxParseTest.kt) · Xem thêm: K788
+**Gặp ở:** [`apps/TripLog/shared/src/androidUnitTest/kotlin/dev/triplog/GpxParseTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/androidUnitTest/kotlin/dev/triplog/GpxParseTest.kt) · Xem thêm: K788
 
 ### K793 · "Method … not mocked" khi unit test gọi `android.*`
 
@@ -921,7 +921,7 @@ private fun ceilDiv(a: Long, b: Long): Long = (a + b - 1) / b    // ❌ test kh�
 internal fun ceilDiv(a: Long, b: Long): Long = (a + b - 1) / b   // ✅
 ```
 
-**Gặp ở:** [`TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/rules/Rules.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/rules/Rules.kt)
+**Gặp ở:** [`apps/TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/rules/Rules.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/rules/Rules.kt)
 
 ### K799 · Không có test nào bảo vệ việc huỷ coroutine
 
@@ -940,8 +940,8 @@ internal fun ceilDiv(a: Long, b: Long): Long = (a + b - 1) / b   // ✅
 }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreTest.kt) ·
-[`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt) (`cancellation is passed through and never wrapped`) ·
+**Gặp ở:** [`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RatesCoreTest.kt) ·
+[`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt) (`cancellation is passed through and never wrapped`) ·
 Xem thêm: K731, K733
 
 ### K800 · `assertTrue(x is Ready)` rồi ép kiểu bằng tay
@@ -960,5 +960,5 @@ val ready = assertIs<SplitResult.Ready>(split(100_000, 3)) // ✅
 assertEquals(33_334, ready.perPerson)
 ```
 
-**Gặp ở:** [`TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt) ·
+**Gặp ở:** [`apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt) ·
 [▶ Chạy thử](../playground/index.html#code=aW1wb3J0IGtvdGxpbi50ZXN0LioKCnNlYWxlZCBjbGFzcyBTcGxpdFJlc3VsdCB7CiAgICBkYXRhIG9iamVjdCBXYWl0aW5nIDogU3BsaXRSZXN1bHQoKQogICAgZGF0YSBjbGFzcyBSZWFkeSh2YWwgcGVyUGVyc29uOiBMb25nKSA6IFNwbGl0UmVzdWx0KCkKfQoKZnVuIHNwbGl0KGJpbGw6IExvbmcsIHBlb3BsZTogSW50KTogU3BsaXRSZXN1bHQgPQogICAgaWYgKGJpbGwgPD0gMCkgU3BsaXRSZXN1bHQuV2FpdGluZyBlbHNlIFNwbGl0UmVzdWx0LlJlYWR5KChiaWxsICsgcGVvcGxlIC0gMSkgLyBwZW9wbGUpCgpmdW4gbWFpbigpIHsKICAgIHZhbCByID0gc3BsaXQoMTAwXzAwMCwgMykKICAgIGFzc2VydFRydWUociBpcyBTcGxpdFJlc3VsdC5SZWFkeSkgICAgICAgICAgICAgICAgICAgICAgICAgLy8g4p2MIMSR4buPIHRow6wgY2jhu4kgYsOhbyAiRXhwZWN0ZWQgdmFsdWUgdG8gYmUgdHJ1ZS4iCiAgICBwcmludGxuKChyIGFzIFNwbGl0UmVzdWx0LlJlYWR5KS5wZXJQZXJzb24pICAgICAgICAgICAgICAgIC8vICAgIHLhu5NpIGPDsm4gcGjhuqNpIMOpcCBraeG7g3UgdGF5CgogICAgdmFsIHJlYWR5ID0gYXNzZXJ0SXM8U3BsaXRSZXN1bHQuUmVhZHk-KHNwbGl0KDEwMF8wMDAsIDMpKSAvLyDinIUga2nhu4NtICsgdHLhuqMgduG7gSDEkcO6bmcga2nhu4N1CiAgICBhc3NlcnRFcXVhbHMoMzNfMzM0LCByZWFkeS5wZXJQZXJzb24pCiAgICB0cnkgewogICAgICAgIGFzc2VydElzPFNwbGl0UmVzdWx0LlJlYWR5PihzcGxpdCgwLCAzKSkKICAgIH0gY2F0Y2ggKGU6IEFzc2VydGlvbkVycm9yKSB7CiAgICAgICAgcHJpbnRsbigi4pyFICIgKyBlLm1lc3NhZ2UpCiAgICB9Cn0K) · Xem thêm: K797

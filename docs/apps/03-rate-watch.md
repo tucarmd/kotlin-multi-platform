@@ -9,7 +9,7 @@
 | **Cấp độ** | ⭐⭐⭐ |
 | **Mới học** | Ktor client + `kotlinx.serialization` · engine OkHttp / Darwin · **offline-first** (mạng + cache SQLDelight) · dữ liệu "cũ" (stale) · `MockEngine` |
 | **Cần trước** | App 2 · [bài 11](../lessons/11-network.md) |
-| **Thư mục code** | [`RateWatch/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/RateWatch) · package `dev.ratewatch` · ✅ đã có code |
+| **Thư mục code** | [`apps/RateWatch/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/apps/RateWatch) · package `dev.ratewatch` · ✅ đã có code |
 | **API** | [open.er-api.com](https://www.exchangerate-api.com/docs/free) `GET /v6/latest/{base}`, miễn phí, không cần key, cập nhật 1 lần / ngày |
 | **Thời gian** | 5–6 buổi tối |
 
@@ -62,7 +62,7 @@ Luồng **offline-first**: UI luôn đọc từ database. Mạng chỉ ghi vào 
 ## 6. Bản đồ function
 
 Bảng đầy đủ (20 hàm, có link tới đúng dòng code) nằm trong
-[`RateWatch/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/README.md#ban-o-function). Các hàm chính:
+[`apps/RateWatch/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/README.md#ban-o-function). Các hàm chính:
 
 | Hàm | File | Làm gì | Vì sao |
 |---|---|---|---|
@@ -97,7 +97,7 @@ Bẫy cần ghi `// TRAP:` trong code:
 ## 7. Test
 
 ```bash
-cd RateWatch
+cd apps/RateWatch
 ./gradlew :shared:testDebugUnitTest :shared:iosSimulatorArm64Test
 ```
 

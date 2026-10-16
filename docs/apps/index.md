@@ -37,7 +37,7 @@ Mỗi trang app viết theo cùng mục lục, đọc app nào cũng thấy đú
 8. **Xong khi**: checklist chạy thật trên 2 máy
 9. **Tham khảo**: repo, docs nên mở khi kẹt
 
-Code của mỗi app nằm ở thư mục gốc repo, cạnh `DevicePulse/`: `TipSplit/`, `PocketNotes/`, `RateWatch/`, `TripLog/`, `ObdLink/`.
+Code của mỗi app nằm ở thư mục gốc repo, cạnh `apps/DevicePulse/`: `apps/TipSplit/`, `apps/PocketNotes/`, `apps/RateWatch/`, `apps/TripLog/`, `apps/ObdLink/`.
 
 ## Tiến độ
 

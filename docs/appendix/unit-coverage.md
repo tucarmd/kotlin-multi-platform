@@ -21,12 +21,12 @@ kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 ```
 
 ```kotlin
-// TipSplit/build.gradle.kts (gốc)
+// apps/TipSplit/build.gradle.kts (gốc)
 plugins {
     alias(libs.plugins.kover) apply false
 }
 
-// TipSplit/shared/build.gradle.kts
+// apps/TipSplit/shared/build.gradle.kts
 plugins {
     alias(libs.plugins.kover)
 }
@@ -51,7 +51,7 @@ Tên task có đuôi `Debug` vì Kover lấy theo **build variant** của Androi
 ## Đặt ngưỡng và loại trừ
 
 ```kotlin
-// TipSplit/shared/build.gradle.kts
+// apps/TipSplit/shared/build.gradle.kts
 kover {
     currentProject {
         // A second view of the same debug unit tests that only looks at the rules package.

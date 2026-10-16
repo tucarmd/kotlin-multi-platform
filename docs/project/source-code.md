@@ -1,7 +1,7 @@
 # Code mẫu Device Pulse
 
 Bản code hoàn chỉnh của app nằm trong repo, ở thư mục
-**[`DevicePulse/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/DevicePulse)**. Đây là đáp án sau bài 14:
+**[`apps/DevicePulse/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/apps/DevicePulse)**. Đây là đáp án sau bài 14:
 pin, GPS, mạng, đo độ trễ và lịch sử đều chạy thật trên Android và iOS.
 
 !!! warning "Tự gõ trước, mở đáp án sau"
@@ -12,7 +12,7 @@ pin, GPS, mạng, đo độ trễ và lịch sử đều chạy thật trên And
 
 ```bash
 git clone https://github.com/tucarmd/kotlin-multi-platform.git
-cd kotlin-multi-platform/DevicePulse
+cd kotlin-multi-platform/apps/DevicePulse
 
 ./gradlew :androidApp:installDebug                                  # Android: cài lên emulator / máy đang cắm
 ./gradlew :shared:testDebugUnitTest :shared:iosSimulatorArm64Test   # test core trên JVM + iOS Simulator
@@ -20,15 +20,15 @@ open iosApp/iosApp.xcodeproj                                        # iOS: bấm
 ```
 
 Cần JDK 17+, Android SDK 36, Xcode 16+. Chi tiết và lệnh giả lập cảm biến:
-[`DevicePulse/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/README.md).
+[`apps/DevicePulse/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/README.md).
 
 ## Cây thư mục
 
-Mở `DevicePulse/` trong Android Studio sẽ thấy các mục dưới đây. Mục **[máy]** do Studio/Gradle tự sinh, nằm trong
+Mở `apps/DevicePulse/` trong Android Studio sẽ thấy các mục dưới đây. Mục **[máy]** do Studio/Gradle tự sinh, nằm trong
 `.gitignore`, nên không có trên GitHub. Xoá đi thì lần build sau sẽ được tạo lại.
 
 ```text
-DevicePulse/
+apps/DevicePulse/
 ├── shared/                          [git]  module KMP core: commonMain, androidMain, iosMain, commonTest
 ├── androidApp/                      [git]  app Android, Jetpack Compose
 ├── iosApp/                          [git]  app iOS, SwiftUI + project.yml (XcodeGen)
@@ -49,7 +49,7 @@ DevicePulse/
 ```
 
 Cây bên trong `shared/src/`, `androidApp/src/` và `iosApp/` có ở mục *Cấu trúc* của
-[`DevicePulse/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/README.md#cau-truc).
+[`apps/DevicePulse/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/README.md#cau-truc).
 
 ## Code mẫu khác bài học ở đâu
 
@@ -58,7 +58,7 @@ Cây bên trong `shared/src/`, `androidApp/src/` và `iosApp/` có ở mục *C�
     `shared/` chứa toàn bộ logic, `androidApp/` vẽ bằng Jetpack Compose, `iosApp/` vẽ bằng SwiftUI.
     Phần core và Koin (bài 4–5, 9–13) gần như giữ nguyên; phần UI (bài 6–8) khác bài học.
 
-| Bài | File trong code mẫu (tính từ `DevicePulse/`) |
+| Bài | File trong code mẫu (tính từ `apps/DevicePulse/`) |
 |---|---|
 | [3. Cấu trúc project](../lessons/03-project-structure.md) | `settings.gradle.kts`, `shared/build.gradle.kts`, `androidApp/build.gradle.kts`, `gradle/libs.versions.toml` |
 | [4. Chia sẻ code](../lessons/04-share-code.md) | `shared/.../model/Models.kt`, `shared/.../rules/Rules.kt` |
@@ -74,12 +74,12 @@ Cây bên trong `shared/src/`, `androidApp/src/` và `iosApp/` có ở mục *C�
 | [14. Build và phát hành](../lessons/14-build-publish.md) | `iosApp/project.yml`, `iosApp/iosApp/Info.plist` |
 
 Code mẫu có thể đi trước bài học một chút về phiên bản thư viện. Gặp chỗ khác nhau thì xem mục *Version và vì sao* trong
-README của `DevicePulse/`.
+README của `apps/DevicePulse/`.
 
 ## Mockup giao diện
 
 8 màn (Dashboard, 3 màn chi tiết, Lịch sử, dark mode) có prompt và bảng theo dõi ở
-[`DevicePulse/design/mockups/`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/design/mockups/README-MOCKUPS.md).
+[`apps/DevicePulse/design/mockups/`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/design/mockups/README-MOCKUPS.md).
 Dùng để đối chiếu khi tự vẽ UI ở bài 6 và bài 8.
 
 ## Muốn xem thêm app khác?
@@ -89,7 +89,7 @@ Xem [Repo mẫu tham khảo](../reference/sample-repos.md): template chính ch�
 ## Phụ lục: Kotlin cần nhớ khi đọc code mẫu
 
 Phần này gom lại cú pháp hay gặp nhất, các best practice mà code mẫu đang dùng, và một số mẹo nhỏ. Ví dụ lấy từ
-chính `DevicePulse/` (Kotlin 2.4, coroutines 1.11). Không cần học thuộc. Gặp chỗ lạ trong code mẫu thì quay lại đây tra.
+chính `apps/DevicePulse/` (Kotlin 2.4, coroutines 1.11). Không cần học thuộc. Gặp chỗ lạ trong code mẫu thì quay lại đây tra.
 
 ### Cú pháp cần thiết nhất
 

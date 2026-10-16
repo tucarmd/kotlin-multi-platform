@@ -1,11 +1,11 @@
-"""Sinh jobs.json + README-MOCKUPS.md cho mockup Device Pulse. Chạy: python3 DevicePulse/design/mockups/gen_mockups.py
+"""Sinh jobs.json + README-MOCKUPS.md cho mockup Device Pulse. Chạy: python3 apps/DevicePulse/design/mockups/gen_mockups.py
 
 Prompt Android lấy lại từ jobs.json (giữ nguyên chữ); prompt iOS và bảng trạng thái nằm trong file này."""
 import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-BASE = "DevicePulse/design/mockups"
+BASE = "apps/DevicePulse/design/mockups"
 OUT = ROOT / BASE
 old = json.loads((OUT / "jobs.json").read_text(encoding="utf-8"))
 ANDROID_STYLE = old["style_lock"]["android"] if isinstance(old["style_lock"], dict) else old["style_lock"]
@@ -195,11 +195,11 @@ nhưng control native khác nhau nên mỗi nền tảng một bộ ảnh. Ảnh
 ## Sinh lại một ảnh
 
 ```bash
-cd DevicePulse/design/mockups
+cd apps/DevicePulse/design/mockups
 P=$(python3 -c "import json;print(next(j['prompt'] for j in json.load(open('jobs.json'))['jobs'] if j['id']=='ios-01-dashboard'))")
 codex exec --skip-git-repo-check -s workspace-write "Use your image generation tool to generate exactly ONE image, portrait 1024x1536, \\
   save it to ./raw/ios-01-dashboard.png. PROMPT: $P"
-cd - && python3 {GEN} DevicePulse/design/mockups/jobs.json --apply   # copy raw/ → android/ hoặc ios/
+cd - && python3 {GEN} apps/DevicePulse/design/mockups/jobs.json --apply   # copy raw/ → android/ hoặc ios/
 ```
 
 Soát chữ trong ảnh trước khi commit — generator hay viết sai chữ. Xong thì xoá ảnh trong `raw/`.

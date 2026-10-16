@@ -184,7 +184,7 @@ fun decode(bytes: List<Int>): Int = bytes.sum()
 fun decode(frames: List<List<Int>>): Int = frames.sumOf { it.sum() }   // ✅
 ```
 
-[▶ Chạy thử](../playground/index.html#code=Ly8gTGlzdDxJbnQ-IHbDoCBMaXN0PExpc3Q8SW50Pj4gxJHhu4F1IHRow6BuaCBqYXZhLnV0aWwuTGlzdCBzYXUgdHlwZSBlcmFzdXJlLgovLyBIYWkgaMOgbSBjw7luZyB0w6puLCBjw7luZyAiaMOsbmggZOG6oW5nIiB0csOqbiBKVk0g4oaSICJQbGF0Zm9ybSBkZWNsYXJhdGlvbiBjbGFzaCIuIEBKdm1OYW1lIHTDoWNoIHTDqm4gSlZNLgpmdW4gZGVjb2RlKGJ5dGVzOiBMaXN0PEludD4pOiBJbnQgPSBieXRlcy5zdW0oKQoKQEp2bU5hbWUoImRlY29kZUZyYW1lcyIpCmZ1biBkZWNvZGUoZnJhbWVzOiBMaXN0PExpc3Q8SW50Pj4pOiBJbnQgPSBmcmFtZXMuc3VtT2YgeyBpdC5zdW0oKSB9CgpmdW4gbWFpbigpIHsKICAgIHByaW50bG4oZGVjb2RlKGxpc3RPZigxLCAyLCAzKSkpCiAgICBwcmludGxuKGRlY29kZShsaXN0T2YobGlzdE9mKDEsIDIpLCBsaXN0T2YoMykpKSkKfQo) · **Gặp ở:** [`ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/rules/Pid.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/rules/Pid.kt) (chọn cách đặt tên khác: `decodePidAnswer`)
+[▶ Chạy thử](../playground/index.html#code=Ly8gTGlzdDxJbnQ-IHbDoCBMaXN0PExpc3Q8SW50Pj4gxJHhu4F1IHRow6BuaCBqYXZhLnV0aWwuTGlzdCBzYXUgdHlwZSBlcmFzdXJlLgovLyBIYWkgaMOgbSBjw7luZyB0w6puLCBjw7luZyAiaMOsbmggZOG6oW5nIiB0csOqbiBKVk0g4oaSICJQbGF0Zm9ybSBkZWNsYXJhdGlvbiBjbGFzaCIuIEBKdm1OYW1lIHTDoWNoIHTDqm4gSlZNLgpmdW4gZGVjb2RlKGJ5dGVzOiBMaXN0PEludD4pOiBJbnQgPSBieXRlcy5zdW0oKQoKQEp2bU5hbWUoImRlY29kZUZyYW1lcyIpCmZ1biBkZWNvZGUoZnJhbWVzOiBMaXN0PExpc3Q8SW50Pj4pOiBJbnQgPSBmcmFtZXMuc3VtT2YgeyBpdC5zdW0oKSB9CgpmdW4gbWFpbigpIHsKICAgIHByaW50bG4oZGVjb2RlKGxpc3RPZigxLCAyLCAzKSkpCiAgICBwcmludGxuKGRlY29kZShsaXN0T2YobGlzdE9mKDEsIDIpLCBsaXN0T2YoMykpKSkKfQo) · **Gặp ở:** [`apps/ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/rules/Pid.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/rules/Pid.kt) (chọn cách đặt tên khác: `decodePidAnswer`)
 
 ### K860 · Hàm `internal` hiện ra trong Java với tên lạ `cacheKey$app_debug`
 
@@ -372,7 +372,7 @@ override fun points() = callbackFlow {
 }
 ```
 
-**Gặp ở:** [`TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt) · Xem thêm: K529
+**Gặp ở:** [`apps/TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt) · Xem thêm: K529
 
 ### K871 · `Lint found fatal errors while assembling a release target`
 
@@ -436,7 +436,7 @@ kotlin {
 }
 ```
 
-**Gặp ở:** [`DevicePulse/androidApp/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/androidApp/build.gradle.kts)
+**Gặp ở:** [`apps/DevicePulse/androidApp/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/androidApp/build.gradle.kts)
 
 ### K875 · Vẫn dùng `kapt` với Kotlin 2.x
 
@@ -572,7 +572,7 @@ buildTypes {
 }
 ```
 
-**Gặp ở:** [`DevicePulse/androidApp/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/androidApp/build.gradle.kts) (release đang `isMinifyEnabled = false`)
+**Gặp ở:** [`apps/DevicePulse/androidApp/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/androidApp/build.gradle.kts) (release đang `isMinifyEnabled = false`)
 
 ### K883 · `INSTALL_FAILED_UPDATE_INCOMPATIBLE: … signatures do not match`
 
@@ -728,7 +728,7 @@ thường là video quay màn hình, để chống lạm dụng chạy nền.
 **Sửa:** khai báo đúng loại trong manifest (K828), điền form với mô tả việc người dùng thấy được (ví dụ "ghi lộ trình chuyến
 đi khi màn hình tắt, có notification và nút Dừng") và video ngắn.
 
-**Gặp ở:** [`TripLog/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/AndroidManifest.xml) (`foregroundServiceType="location"`) · Xem thêm: K846
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/AndroidManifest.xml) (`foregroundServiceType="location"`) · Xem thêm: K846
 
 ### K894 · Xcode: `Signing for "iosApp" requires a development team`
 
@@ -761,7 +761,7 @@ Có khi thư viện (không phải code của bạn) tham chiếu API cần quy�
 NSLocationWhenInUseUsageDescription: Trip Log records your route, distance and speed while a trip is running, also with the screen off.
 ```
 
-**Gặp ở:** [`TripLog/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/iosApp/project.yml)
+**Gặp ở:** [`apps/TripLog/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/iosApp/project.yml)
 
 ### K896 · App Review từ chối vì khai background mode `location`
 
@@ -776,7 +776,7 @@ tắt màn hình) và cách bật nó.
 **Sửa:** chỉ khai mode thật sự dùng. Ghi rõ trong *App Review Information → Notes* các bước bật tính năng (bấm *Bắt đầu*, khoá
 màn hình, đi vài bước), kèm video nếu cần.
 
-**Gặp ở:** [`TripLog/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/iosApp/project.yml) (`UIBackgroundModes: [location]`) · Xem thêm: K848
+**Gặp ở:** [`apps/TripLog/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/iosApp/project.yml) (`UIBackgroundModes: [location]`) · Xem thêm: K848
 
 ### K897 · `ITMS-91053: Missing API declaration`
 

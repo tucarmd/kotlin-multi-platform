@@ -74,7 +74,7 @@ var tab by remember { mutableStateOf(Tab.Connect) }          // ❌ về Connect
 var tab by rememberSaveable { mutableStateOf(Tab.Connect) }  // ✅
 ```
 
-**Gặp ở:** [`ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/App.kt) ·
+**Gặp ở:** [`apps/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/App.kt) ·
 Xem thêm: K501, K513
 
 ### K555 · `rememberSaveable` crash: "cannot be saved using the current SaveableStateRegistry"
@@ -131,7 +131,7 @@ val swipe = remember {                          // ✅ mất cùng với dòng
 }
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt) (hàm `SwipeToDelete`) ·
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt) (hàm `SwipeToDelete`) ·
 Xem thêm: K558, K591
 
 ### K558 · `LazyColumn` không có `key`: xoá một dòng, dòng dưới hiện nửa vuốt
@@ -151,8 +151,8 @@ items(items) { item -> SwipeToDelete { NoteRow(item) } }                     // 
 items(items, key = { it.note.id }) { item -> SwipeToDelete { NoteRow(item) } } // ✅
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt) ·
-[`TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/TripsScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/TripsScreen.kt)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt) ·
+[`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/TripsScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/TripsScreen.kt)
 
 ### K559 · "Key … was already used" trong `LazyColumn`
 
@@ -205,7 +205,7 @@ val original = remember { viewModel.find(id) }      // ❌ kẹt ở id đầu t
 val original = remember(id) { viewModel.find(id) }  // ✅ id đổi là tính lại
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt)
 
 ### K562 · `rememberSaveable` lấy giá trị đầu từ dữ liệu chưa tải xong
 
@@ -226,7 +226,7 @@ when (val note = state.note) {
 }
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt) (đọc `find(id)` một lần từ list đã có sẵn)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt) (đọc `find(id)` một lần từ list đã có sẵn)
 
 ### K563 · Ghi state ngay trong thân composable → recompose vô hạn
 
@@ -346,7 +346,7 @@ LaunchedEffect(deleted) {
 }
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt)
 
 ### K570 · `collectAsState()` vẫn chạy khi app ở nền
 
@@ -365,7 +365,7 @@ val state by viewModel.state.collectAsState()               // ❌ chạy cả k
 val state by viewModel.state.collectAsStateWithLifecycle()  // ✅
 ```
 
-**Gặp ở:** [`TipSplit/androidApp/src/main/kotlin/dev/tipsplit/android/ui/SplitScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/androidApp/src/main/kotlin/dev/tipsplit/android/ui/SplitScreen.kt) ·
+**Gặp ở:** [`apps/TipSplit/androidApp/src/main/kotlin/dev/tipsplit/android/ui/SplitScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/androidApp/src/main/kotlin/dev/tipsplit/android/ui/SplitScreen.kt) ·
 cùng mẫu ở cả 6 app
 
 ### K571 · Gọi hàm trả `Flow` ngay trong composable → loading mãi
@@ -439,7 +439,7 @@ NavHost(nav, startDestination = Routes.LIST) {
 }
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt)
 
 ### K575 · Truyền `ViewModel` xuống mọi composable → Preview không chạy
 
@@ -459,7 +459,7 @@ NavHost(nav, startDestination = Routes.LIST) {
 @Composable fun NoteListScreen(state: NotesState, onSearch: (String) -> Unit, …) { … } // ✅ preview được
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt)
 
 ### K576 · `TextField` gõ không lên chữ
 
@@ -665,7 +665,7 @@ val listState = rememberLazyListState()          // ✅ (saveable, sống qua xo
 val snackbar = remember { SnackbarHostState() }  // ✅
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt) (`remember { SnackbarHostState() }`)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt) (`remember { SnackbarHostState() }`)
 
 ### K588 · Lint "AutoboxingStateCreation" với `mutableStateOf(0)`
 
@@ -804,7 +804,7 @@ fun search(text: String) = _state.update { it.copy(query = text) }
 var open by rememberSaveable { mutableStateOf(false) }   // ✅ dialog còn mở sau khi xoay
 ```
 
-**Gặp ở:** [`RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/Components.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/Components.kt)
+**Gặp ở:** [`apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/Components.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/Components.kt)
 
 ### K597 · Bật quyền / Bluetooth trong Settings, quay lại app vẫn hiện "chưa có quyền"
 
@@ -824,7 +824,7 @@ LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
 }
 ```
 
-**Gặp ở:** [`ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/BlePermission.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/BlePermission.kt) ·
+**Gặp ở:** [`apps/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/BlePermission.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/BlePermission.kt) ·
 Xem thêm: K533
 
 ### K598 · "5 phút trước" đứng yên mãi
@@ -844,8 +844,8 @@ LifecycleResumeEffect(Unit) {
 }
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt) ·
-[`RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt) ·
+[`apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt)
 
 ### K599 · Lưu ghi chú trong `onDispose` → tạo ghi chú mới mỗi lần xoay
 
@@ -864,7 +864,7 @@ val leave = { if (!left) { left = true; viewModel.save(id, title, body, pinned);
 BackHandler(onBack = leave)    // ✅ không chạy khi xoay máy
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt)
 
 ### K600 · State để trong class thường: lúc vẽ lại, lúc không
 
@@ -885,4 +885,4 @@ class TrackingPermissions internal constructor(private val context: Context) {
 }
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt)
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt)

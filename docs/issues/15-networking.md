@@ -22,7 +22,7 @@ val RateJson = Json { ignoreUnknownKeys = true }            // ✅ một chỗ c
 install(ContentNegotiation) { json(RateJson) }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt) ·
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt) ·
 [▶ Chạy thử](../playground/index.html#code=aW1wb3J0IGtvdGxpbnguc2VyaWFsaXphdGlvbi4qCmltcG9ydCBrb3RsaW54LnNlcmlhbGl6YXRpb24uanNvbi4qCgpAU2VyaWFsaXphYmxlCmRhdGEgY2xhc3MgUmF0ZVJlc3BvbnNlKHZhbCByZXN1bHQ6IFN0cmluZywgdmFsIHJhdGVzOiBNYXA8U3RyaW5nLCBEb3VibGU-KQoKLy8gU2VydmVyIHbhu6thIHRow6ptIGZpZWxkICJwcm92aWRlciIgbcOgIGFwcCBjaMawYSBraGFpIGLDoW8uCnZhbCBib2R5ID0gIiIieyJyZXN1bHQiOiJzdWNjZXNzIiwicHJvdmlkZXIiOiJleGNoYW5nZXJhdGUtYXBpIiwicmF0ZXMiOnsiVVNEIjoxLCJWTkQiOjI2MzEyLjV9fSIiIgoKZnVuIG1haW4oKSB7CiAgICB0cnkgewogICAgICAgIHByaW50bG4oSnNvbi5kZWNvZGVGcm9tU3RyaW5nPFJhdGVSZXNwb25zZT4oYm9keSkpICAgICAgICAgICAgICAvLyDinYwgSnNvbiBt4bq3YyDEkeG7i25oCiAgICB9IGNhdGNoIChlOiBTZXJpYWxpemF0aW9uRXhjZXB0aW9uKSB7CiAgICAgICAgcHJpbnRsbigi4p2MICIgKyBlLm1lc3NhZ2UpCiAgICB9CiAgICB2YWwganNvbiA9IEpzb24geyBpZ25vcmVVbmtub3duS2V5cyA9IHRydWUgfSAgICAgICAgICAgICAgICAgICAgICAgICAvLyDinIUKICAgIHByaW50bG4oIuKchSAiICsganNvbi5kZWNvZGVGcm9tU3RyaW5nPFJhdGVSZXNwb25zZT4oYm9keSkpCn0K) · Xem thêm: K702, K711
 
 ### K702 · Thiếu một field: "Field 'rates' is required … but it was missing"
@@ -45,7 +45,7 @@ data class RateResponse(
 )
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) ·
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) ·
 [▶ Chạy thử](../playground/index.html#code=aW1wb3J0IGtvdGxpbnguc2VyaWFsaXphdGlvbi4qCmltcG9ydCBrb3RsaW54LnNlcmlhbGl6YXRpb24uanNvbi4qCgpAU2VyaWFsaXphYmxlCmRhdGEgY2xhc3MgV3JvbmcodmFsIHJlc3VsdDogU3RyaW5nLCB2YWwgcmF0ZXM6IE1hcDxTdHJpbmcsIERvdWJsZT4pCgpAU2VyaWFsaXphYmxlCmRhdGEgY2xhc3MgUmlnaHQodmFsIHJlc3VsdDogU3RyaW5nLCB2YWwgcmF0ZXM6IE1hcDxTdHJpbmcsIERvdWJsZT4_ID0gbnVsbCkgICAvLyDinIUgY8OzIGdpw6EgdHLhu4sgbeG6t2MgxJHhu4tuaAoKLy8gQm9keSBs4buXaSBj4bunYSBBUEk6IGtow7RuZyBjw7MgInJhdGVzIi4KdmFsIGVycm9yID0gIiIieyJyZXN1bHQiOiJlcnJvciIsImVycm9yLXR5cGUiOiJ1bnN1cHBvcnRlZC1jb2RlIn0iIiIKdmFsIGpzb24gPSBKc29uIHsgaWdub3JlVW5rbm93bktleXMgPSB0cnVlIH0KCmZ1biBtYWluKCkgewogICAgdHJ5IHsKICAgICAgICBwcmludGxuKGpzb24uZGVjb2RlRnJvbVN0cmluZzxXcm9uZz4oZXJyb3IpKQogICAgfSBjYXRjaCAoZTogU2VyaWFsaXphdGlvbkV4Y2VwdGlvbikgewogICAgICAgIHByaW50bG4oIuKdjCAiICsgZS5tZXNzYWdlKQogICAgfQogICAgcHJpbnRsbigi4pyFICIgKyBqc29uLmRlY29kZUZyb21TdHJpbmc8UmlnaHQ-KGVycm9yKSkKfQo) · Xem thêm: K703, K723
 
 ### K703 · Đã khai báo `String?` mà vẫn báo thiếu field
@@ -101,7 +101,7 @@ val baseCode: String? = null                              // ❌ không bao gi�
 @SerialName("base_code") val baseCode: String? = null     // ✅
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) (`RateResponse`) ·
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) (`RateResponse`) ·
 [▶ Chạy thử](../playground/index.html#code=aW1wb3J0IGtvdGxpbnguc2VyaWFsaXphdGlvbi4qCmltcG9ydCBrb3RsaW54LnNlcmlhbGl6YXRpb24uanNvbi4qCgpAU2VyaWFsaXphYmxlCmRhdGEgY2xhc3MgV3JvbmcodmFsIGJhc2VDb2RlOiBTdHJpbmc_ID0gbnVsbCkgICAgICAgICAgICAgICAgICAgICAgLy8gdMOqbiBLb3RsaW4ga2jDoWMgdMOqbiBKU09OCgpAU2VyaWFsaXphYmxlCmRhdGEgY2xhc3MgUmlnaHQoQFNlcmlhbE5hbWUoImJhc2VfY29kZSIpIHZhbCBiYXNlQ29kZTogU3RyaW5nPyA9IG51bGwpICAgLy8g4pyFCgp2YWwganNvbiA9IEpzb24geyBpZ25vcmVVbmtub3duS2V5cyA9IHRydWUgfQoKZnVuIG1haW4oKSB7CiAgICB2YWwgYm9keSA9ICIiInsicmVzdWx0Ijoic3VjY2VzcyIsImJhc2VfY29kZSI6IlVTRCJ9IiIiCiAgICBwcmludGxuKCLinYwgIiArIGpzb24uZGVjb2RlRnJvbVN0cmluZzxXcm9uZz4oYm9keSkpICAgLy8ga2jDtG5nIGzhu5dpLCBjaOG7iSBpbSBs4bq3bmcgcmEgbnVsbAogICAgcHJpbnRsbigi4pyFICIgKyBqc29uLmRlY29kZUZyb21TdHJpbmc8UmlnaHQ-KGJvZHkpKQp9Cg) · Xem thêm: K750
 
 ### K706 · "Serializer for class 'X' is not found"
@@ -144,7 +144,7 @@ kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", versio
 plugins { alias(libs.plugins.kotlinSerialization) }
 ```
 
-**Gặp ở:** [`RateWatch/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/build.gradle.kts) · Xem thêm: K706, K719
+**Gặp ở:** [`apps/RateWatch/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/build.gradle.kts) · Xem thêm: K706, K719
 
 ### K708 · Server thêm một giá trị enum mới là app cũ crash
 
@@ -221,7 +221,7 @@ val RateJson = Json { ignoreUnknownKeys = true }                                
 fun parse(s: String) = RateJson.decodeFromString<RateResponse>(s)
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt) (`RateJson`)
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt) (`RateJson`)
 
 ### K712 · Sealed class: thiếu `"type"` hoặc `"type"` lạ
 
@@ -375,7 +375,7 @@ commonMain.dependencies {
 // import io.ktor.serialization.kotlinx.json.json
 ```
 
-**Gặp ở:** [`RateWatch/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/build.gradle.kts) · Xem thêm: K707
+**Gặp ở:** [`apps/RateWatch/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/build.gradle.kts) · Xem thêm: K707
 
 ### K720 · `NoTransformationFoundException`: "Expected response body of the type …"
 
@@ -395,7 +395,7 @@ HttpClient(engine) {
 }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt) · Xem thêm: K721, K786
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt) · Xem thêm: K721, K786
 
 ### K721 · Server trả JSON nhưng `Content-Type` là `text/plain` hoặc `text/html`
 
@@ -416,7 +416,7 @@ install(ContentNegotiation) {
 }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) (nhánh `BadResponse`) · Xem thêm: K720, K726
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) (nhánh `BadResponse`) · Xem thêm: K720, K726
 
 ### K722 · POST báo "Fail to prepare request body for sending"
 
@@ -454,8 +454,8 @@ if (body.result != "success") throw RateApiException(RefreshError.ServerError, b
 if (body.rates.isNullOrEmpty()) throw RateApiException(RefreshError.BadResponse, "no rates")
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) ·
-[`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt) (`an error sent with status 200 is not a success`) ·
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) ·
+[`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt) (`an error sent with status 200 is not a success`) ·
 Xem thêm: K702, K724
 
 ### K724 · HTTP 404/500 mà Ktor không ném lỗi
@@ -474,7 +474,7 @@ if (!response.status.isSuccess()) throw RateApiException(RefreshError.ServerErro
 val body = response.body<RateResponse>()
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) · Xem thêm: K725
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) · Xem thêm: K725
 
 ### K725 · Bật `expectSuccess = true` rồi không biết bắt lỗi gì
 
@@ -520,7 +520,7 @@ val body = try {
 }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) · Xem thêm: K721
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) · Xem thêm: K721
 
 ### K727 · Không cài `HttpTimeout`: mất sóng là spinner quay mãi
 
@@ -540,7 +540,7 @@ install(HttpTimeout) {
 }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt) · Xem thêm: K728
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt) · Xem thêm: K728
 
 ### K728 · Ba loại timeout, ba exception khác nhau
 
@@ -562,7 +562,7 @@ bằng `timeout { requestTimeoutMillis = 60_000 }` trong builder của request �
 } catch (e: SocketTimeoutException)      { throw RateApiException(RefreshError.Timeout, e.message, e) }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) · Xem thêm: K729
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) · Xem thêm: K729
 
 ### K729 · Timeout bị báo thành "mất mạng"
 
@@ -583,7 +583,7 @@ trước thì nhánh đó bắt luôn timeout, các nhánh timeout bên dưới 
 } catch (e: IOException) { Offline }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) (hàm `send`) · Xem thêm: K728, K744
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) (hàm `send`) · Xem thêm: K728, K744
 
 ### K730 · `withTimeout` + `catch (CancellationException)`: bấm Stop mà vẫn thử lại
 
@@ -604,7 +604,7 @@ try {
 } catch (e: TimeoutCancellationException) { retry() }   // ✅ chỉ timeout
 ```
 
-**Gặp ở:** [`ObdLink/shared/src/commonMain/kotlin/dev/obdlink/core/CommandQueue.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/shared/src/commonMain/kotlin/dev/obdlink/core/CommandQueue.kt) ·
+**Gặp ở:** [`apps/ObdLink/shared/src/commonMain/kotlin/dev/obdlink/core/CommandQueue.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/shared/src/commonMain/kotlin/dev/obdlink/core/CommandQueue.kt) ·
 [▶ Chạy thử](../playground/index.html#code=aW1wb3J0IGtvdGxpbnguY29yb3V0aW5lcy4qCgovLyBM4buHbmggZ-G7rWkgdOG7m2kgdGhp4bq_dCBi4buLIGtow7RuZyB0cuG6oyBs4budaSAoZ2nhu5FuZyBPYmRMaW5rIGtoaSBkb25nbGUgaW0gbOG6t25nKS4Kc3VzcGVuZCBmdW4gc2lsZW50U2VuZCgpOiBTdHJpbmcgeyBkZWxheSgxMF8wMDApOyByZXR1cm4gIk9LIiB9CgpzdXNwZW5kIGZ1biBzZW5kV3JvbmcoKTogU3RyaW5nIHsKICAgIHJlcGVhdCgzKSB7IGF0dGVtcHQgLT4KICAgICAgICB0cnkgewogICAgICAgICAgICByZXR1cm4gd2l0aFRpbWVvdXQoMTAwKSB7IHNpbGVudFNlbmQoKSB9CiAgICAgICAgfSBjYXRjaCAoZTogQ2FuY2VsbGF0aW9uRXhjZXB0aW9uKSB7ICAgICAgICAgIC8vIOKdjCBi4bqvdCBj4bqjIGzhu4duaCBodeG7tyB0aOG6rXQgY-G7p2EgbmfGsOG7nWkgZMO5bmcKICAgICAgICAgICAgcHJpbnRsbigiICB3cm9uZzogbOG6p24gJGF0dGVtcHQgaOG7j25nICgke2U6OmNsYXNzLnNpbXBsZU5hbWV9KSwgdGjhu60gbOG6oWkiKQogICAgICAgIH0KICAgIH0KICAgIHJldHVybiAixJHDoyB0aOG7rSAzIGzhuqduIgp9CgpzdXNwZW5kIGZ1biBzZW5kUmlnaHQoKTogU3RyaW5nIHsKICAgIHJlcGVhdCgzKSB7IGF0dGVtcHQgLT4KICAgICAgICB0cnkgewogICAgICAgICAgICByZXR1cm4gd2l0aFRpbWVvdXQoMTAwKSB7IHNpbGVudFNlbmQoKSB9CiAgICAgICAgfSBjYXRjaCAoZTogVGltZW91dENhbmNlbGxhdGlvbkV4Y2VwdGlvbikgeyAgIC8vIOKchSBjaOG7iSBi4bqvdCB0aW1lb3V0CiAgICAgICAgICAgIHByaW50bG4oIiAgcmlnaHQ6IGzhuqduICRhdHRlbXB0IHRpbWVvdXQsIHRo4butIGzhuqFpIikKICAgICAgICB9CiAgICB9CiAgICByZXR1cm4gIsSRw6MgdGjhu60gMyBs4bqnbiIKfQoKZnVuIG1haW4oKSA9IHJ1bkJsb2NraW5nIHsKICAgIGZvciAoKG5hbWUsIHNlbmQpIGluIGxpc3RPZigid3JvbmciIHRvIDo6c2VuZFdyb25nLCAicmlnaHQiIHRvIDo6c2VuZFJpZ2h0KSkgewogICAgICAgIHZhbCBqb2IgPSBsYXVuY2ggeyBwcmludGxuKCIgICRuYW1lIHRy4bqjIHbhu4E6ICR7c2VuZCgpfSIpIH0KICAgICAgICBkZWxheSgxNTApICAgICAgICAgIC8vIGzhuqduIDEgdGltZW91dCwgxJFhbmcgY2jhu50gbOG6p24gMiB0aMOsIG5nxrDhu51pIGTDuW5nIGLhuqVtIFN0b3AKICAgICAgICBqb2IuY2FuY2VsKCkKICAgICAgICBqb2Iuam9pbigpCiAgICAgICAgcHJpbnRsbigiJG5hbWUgeG9uZ1xuIikKICAgIH0KfQo) · Xem thêm: K731
 
 ### K731 · `runCatching` nuốt `CancellationException`
@@ -628,7 +628,7 @@ suspend inline fun <T> resultOf(crossinline block: suspend () -> T): Result<T> =
 }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt) (`resultOf`) ·
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt) (`resultOf`) ·
 [▶ Chạy thử](../playground/index.html#code=aW1wb3J0IGtvdGxpbnguY29yb3V0aW5lcy4qCgpzdXNwZW5kIGZ1biBkb3dubG9hZCgpOiBTdHJpbmcgeyBkZWxheSgxXzAwMCk7IHJldHVybiAiZGF0YSIgfQoKZnVuIG1haW4oKSA9IHJ1bkJsb2NraW5nIHsKICAgIHZhbCBqb2IgPSBsYXVuY2ggewogICAgICAgIHZhbCByZXN1bHQgPSBydW5DYXRjaGluZyB7IGRvd25sb2FkKCkgfSAgICAgIC8vIOKdjCBi4bqvdCBsdcO0biBDYW5jZWxsYXRpb25FeGNlcHRpb24KICAgICAgICBwcmludGxuKCJydW5DYXRjaGluZyB0cuG6oyB24buBOiAkcmVzdWx0IikKICAgICAgICBwcmludGxuKCJjb3JvdXRpbmUgduG6q24gY2jhuqF5IHRp4bq_cCBkw7kgxJHDoyBi4buLIGh14bu3LCBpc0FjdGl2ZSA9ICRpc0FjdGl2ZSIpCiAgICB9CiAgICBkZWxheSgxMDApCiAgICBqb2IuY2FuY2VsKCkgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLy8gbmfGsOG7nWkgZMO5bmcgcuG7nWkgbcOgbiBow6xuaAogICAgam9iLmpvaW4oKQoKICAgIC8vIOKchSBIw6BtIG5oxrAgcmVzdWx0T2YgdHJvbmcgUmF0ZVdhdGNoOiBjaG8gQ2FuY2VsbGF0aW9uRXhjZXB0aW9uIMSRaSBxdWEKICAgIHN1c3BlbmQgZnVuIDxUPiByZXN1bHRPZihibG9jazogc3VzcGVuZCAoKSAtPiBUKTogUmVzdWx0PFQ-ID0gdHJ5IHsKICAgICAgICBSZXN1bHQuc3VjY2VzcyhibG9jaygpKQogICAgfSBjYXRjaCAoZTogQ2FuY2VsbGF0aW9uRXhjZXB0aW9uKSB7CiAgICAgICAgdGhyb3cgZQogICAgfSBjYXRjaCAoZTogRXhjZXB0aW9uKSB7CiAgICAgICAgUmVzdWx0LmZhaWx1cmUoZSkKICAgIH0KICAgIHZhbCBqb2IyID0gbGF1bmNoIHsKICAgICAgICB2YWwgcmVzdWx0ID0gcmVzdWx0T2YgeyBkb3dubG9hZCgpIH0KICAgICAgICBwcmludGxuKCJraMO0bmcgYmFvIGdp4budIGluIGTDsm5nIG7DoHk6ICRyZXN1bHQiKQogICAgfQogICAgZGVsYXkoMTAwKQogICAgam9iMi5jYW5jZWwoKQogICAgam9iMi5qb2luKCkKICAgIHByaW50bG4oImpvYjIgZOG7q25nIGjhurNuLCBjYW5jZWxsZWQgPSAke2pvYjIuaXNDYW5jZWxsZWR9IikKfQo) · Xem thêm: K732, K799
 
 ### K732 · `catch (e: Exception)` trong vòng lặp: huỷ rồi mà vẫn chạy
@@ -675,8 +675,8 @@ private suspend fun send(url: String): HttpResponse = try {
 }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) ·
-[`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt) (`cancellation is passed through and never wrapped`)
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) ·
+[`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/RateApiTest.kt) (`cancellation is passed through and never wrapped`)
 
 ### K734 · Gọi API trong `GlobalScope`: request chạy tiếp sau khi đóng màn hình
 
@@ -729,7 +729,7 @@ nên cùng code `commonMain` chạy được ở iOS.
 <uses-permission android:name="android.permission.INTERNET" />   <!-- ✅ trong <manifest>, ngoài <application> -->
 ```
 
-**Gặp ở:** [`RateWatch/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/androidApp/src/main/AndroidManifest.xml)
+**Gặp ở:** [`apps/RateWatch/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/androidApp/src/main/AndroidManifest.xml)
 
 ### K737 · "CLEARTEXT communication … not permitted by network security policy"
 
@@ -811,7 +811,7 @@ iosMain.dependencies     { implementation(libs.ktor.client.darwin) }
 // androidMain: createHttpClient(OkHttp.create())   iosMain: createHttpClient(Darwin.create())
 ```
 
-**Gặp ở:** [`RateWatch/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/build.gradle.kts) · Xem thêm: K741
+**Gặp ở:** [`apps/RateWatch/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/build.gradle.kts) · Xem thêm: K741
 
 ### K741 · Đặt OkHttp trong `commonMain`
 
@@ -831,9 +831,9 @@ fun createHttpClient(engine: HttpClientEngine, timeoutMillis: Long = 10_000): Ht
     HttpClient(engine) { install(ContentNegotiation) { json(RateJson) } /* … */ }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt) ·
-[`RateWatch/shared/src/androidMain/kotlin/dev/ratewatch/di/PlatformModule.android.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/androidMain/kotlin/dev/ratewatch/di/PlatformModule.android.kt) ·
-[`RateWatch/shared/src/iosMain/kotlin/dev/ratewatch/di/PlatformModule.ios.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/iosMain/kotlin/dev/ratewatch/di/PlatformModule.ios.kt)
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/HttpClients.kt) ·
+[`apps/RateWatch/shared/src/androidMain/kotlin/dev/ratewatch/di/PlatformModule.android.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/androidMain/kotlin/dev/ratewatch/di/PlatformModule.android.kt) ·
+[`apps/RateWatch/shared/src/iosMain/kotlin/dev/ratewatch/di/PlatformModule.ios.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/iosMain/kotlin/dev/ratewatch/di/PlatformModule.ios.kt)
 
 ### K742 · Tạo `HttpClient` mới cho mỗi request
 
@@ -851,7 +851,7 @@ suspend fun latest(base: String) = HttpClient(OkHttp).get(url)   // ❌ mỗi l�
 single { createHttpClient(OkHttp.create()) }                     // ✅ một client, Koin giữ
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/androidMain/kotlin/dev/ratewatch/di/PlatformModule.android.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/androidMain/kotlin/dev/ratewatch/di/PlatformModule.android.kt) · Xem thêm: K743
+**Gặp ở:** [`apps/RateWatch/shared/src/androidMain/kotlin/dev/ratewatch/di/PlatformModule.android.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/androidMain/kotlin/dev/ratewatch/di/PlatformModule.android.kt) · Xem thêm: K743
 
 ### K743 · "Client already closed"
 
@@ -888,7 +888,7 @@ Thử offline trên iOS Simulator phải tắt Wi-Fi của **Mac**, vì Simulato
 } catch (e: kotlinx.io.IOException) { Offline }          // ✅ OkHttp và Darwin đều vào đây
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) · Xem thêm: K729
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) · Xem thêm: K729
 
 ### K745 · Ghép query bằng chuỗi: dấu cách, dấu tiếng Việt làm hỏng URL
 
@@ -940,8 +940,8 @@ class RateApiException(val reason: RefreshError, message: String? = null, cause:
     Exception(message ?: reason.name, cause)
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) ·
-[`RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/Labels.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/Labels.kt)
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) ·
+[`apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/Labels.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/Labels.kt)
 
 ### K748 · `HttpRequestRetry` gửi lại cả POST
 
@@ -984,8 +984,8 @@ db.rateQueries.transaction {
 }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt) ·
-[`RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/SqlRateRepositoryTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/SqlRateRepositoryTest.kt) (`a failed refresh leaves the saved table untouched`)
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt) ·
+[`apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/SqlRateRepositoryTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/SqlRateRepositoryTest.kt) (`a failed refresh leaves the saved table untouched`)
 
 ### K750 · Dùng giờ của server để biết dữ liệu "cũ" hay chưa
 
@@ -1004,4 +1004,4 @@ db.rateQueries.upsertTable(base, response.timeLastUpdateUnix!! * 1000)   // ❌ 
 db.rateQueries.upsertTable(base, now)                                    // ✅ giờ app tải về
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt) · Xem thêm: K705
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt) · Xem thêm: K705

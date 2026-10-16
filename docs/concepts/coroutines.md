@@ -237,9 +237,9 @@ Output:
 
 ## Gặp ở đâu trong repo
 
-- [`LatencyProbe.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/sensor/LatencyProbe.kt): `suspend fun measure()` gọi mạng để đo độ trễ.
-- [`PulseMonitor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseMonitor.kt): `scope.launch { latency.value = probe.measure() }`. Bấm nút thì bắt đầu đo, UI không bị đứng.
-- [`CommandQueueTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/shared/src/commonTest/kotlin/dev/obdlink/CommandQueueTest.kt): hai `async` gửi lệnh OBD cùng lúc để kiểm tra hàng đợi.
+- [`LatencyProbe.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/sensor/LatencyProbe.kt): `suspend fun measure()` gọi mạng để đo độ trễ.
+- [`PulseMonitor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseMonitor.kt): `scope.launch { latency.value = probe.measure() }`. Bấm nút thì bắt đầu đo, UI không bị đứng.
+- [`CommandQueueTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/shared/src/commonTest/kotlin/dev/obdlink/CommandQueueTest.kt): hai `async` gửi lệnh OBD cùng lúc để kiểm tra hàng đợi.
 
 ## Nguồn
 

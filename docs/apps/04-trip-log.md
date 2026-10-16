@@ -9,7 +9,7 @@
 | **Cấp độ** | ⭐⭐⭐⭐ |
 | **Mới học** | **Chạy ngầm**: Android Foreground Service (`foregroundServiceType="location"`), iOS background location · `callbackFlow` · core sống ngoài màn hình · bản đồ native · xuất file GPX |
 | **Cần trước** | App 3 · Device Pulse ([bài 10](../lessons/10-location.md) GPS + quyền) |
-| **Thư mục code** | [`TripLog/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/TripLog) · package `dev.triplog` · ✅ đã có code |
+| **Thư mục code** | [`apps/TripLog/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/apps/TripLog) · package `dev.triplog` · ✅ đã có code |
 | **Thời gian** | 7–10 buổi tối |
 
 So với Device Pulse: GPS không chỉ đọc khi màn hình mở, mà phải **sống tiếp** khi app ra nền. Core không còn gắn với
@@ -71,7 +71,7 @@ flowchart TB
 ## 6. Bản đồ function
 
 Bảng đầy đủ (24 hàm, có link tới đúng dòng code) nằm trong
-[`TripLog/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/README.md#ban-o-function). Các hàm chính:
+[`apps/TripLog/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/README.md#ban-o-function). Các hàm chính:
 
 | Hàm | File | Làm gì | Vì sao |
 |---|---|---|---|
@@ -109,7 +109,7 @@ Bẫy cần ghi `// TRAP:` / `// PLATFORM:` trong code:
 ## 7. Test
 
 ```bash
-cd TripLog
+cd apps/TripLog
 ./gradlew :shared:testDebugUnitTest :shared:iosSimulatorArm64Test
 # Giả lập đi đường, Android (bấm Bắt đầu trước): ~11 m mỗi giây, qua được bộ lọc nhiễu
 for i in $(seq 0 60); do adb emu geo fix $(echo "106.7009 + $i*0.0001" | bc) 10.7769; sleep 1; done

@@ -66,7 +66,7 @@ Thay `<App>` bằng tên app (`TipSplit`, `PocketNotes`…) và `<app>` bằng t
 ```
 
 !!! tip "Tạo project mới nhanh"
-    Copy `DevicePulse/` sang tên mới, đổi `rootProject.name`, package `dev.devicepulse` → `dev.<app>`,
+    Copy `apps/DevicePulse/` sang tên mới, đổi `rootProject.name`, package `dev.devicepulse` → `dev.<app>`,
     `bundleId` trong `iosApp/project.yml`, rồi xoá phần code cũ. Giữ nguyên Gradle, Koin, SKIE đã cấu hình chạy được.
 
 ## 3. Cùng 7 bước làm
@@ -164,7 +164,7 @@ Trên trang plan bảng ghi **dự kiến**; khi code xong thì sửa cột *Fil
 
 ## 6. README của mỗi app
 
-Cùng các mục như `DevicePulse/README.md`, đúng thứ tự:
+Cùng các mục như `apps/DevicePulse/README.md`, đúng thứ tự:
 
 1. Một câu app làm gì + sơ đồ mermaid
 2. Bảng Android vs iOS (UI, đọc state, API nền tảng)
@@ -178,4 +178,4 @@ Cùng các mục như `DevicePulse/README.md`, đúng thứ tự:
 
 - Bắt đầu [app 1: Tip Split](01-tip-split.md).
 - Quên cách Swift gọi Kotlin: mục *Swift gọi Kotlin thế nào* trong
-  [`DevicePulse/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/README.md).
+  [`apps/DevicePulse/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/README.md).

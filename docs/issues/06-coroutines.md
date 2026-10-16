@@ -79,7 +79,7 @@ class NotesCore(private val repository: NoteRepository, private val scope: Corou
 }
 ```
 
-**Gặp ở:** [`PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/core/NotesCore.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/core/NotesCore.kt) ·
+**Gặp ở:** [`apps/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/core/NotesCore.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/core/NotesCore.kt) ·
 Xem thêm: K294
 
 ### K255 · `runBlocking` trên main thread Android
@@ -137,7 +137,7 @@ catch (e: IOException) { throw RateApiException(Offline) }
 
 [▶ Chạy thử](../playground/index.html#code=aW1wb3J0IGtvdGxpbnguY29yb3V0aW5lcy4qCgpmdW4gbWFpbigpID0gcnVuQmxvY2tpbmcgewogICAgdmFsIGpvYiA9IGxhdW5jaCB7CiAgICAgICAgcmVwZWF0KDUpIHsgaSAtPgogICAgICAgICAgICB0cnkgewogICAgICAgICAgICAgICAgcHJpbnRsbigidsOybmcgJGkiKQogICAgICAgICAgICAgICAgZGVsYXkoMTAwKQogICAgICAgICAgICB9IGNhdGNoIChlOiBFeGNlcHRpb24pIHsgICAgICAvLyDinYwgYuG6r3QgbHXDtG4gQ2FuY2VsbGF0aW9uRXhjZXB0aW9uCiAgICAgICAgICAgICAgICBwcmludGxuKCJudeG7kXQgJHtlOjpjbGFzcy5zaW1wbGVOYW1lfSIpCiAgICAgICAgICAgIH0KICAgICAgICAgICAgLy8g4pyFIHRow6ptIHRyxrDhu5tjIG5ow6FuaCBFeGNlcHRpb246ICBjYXRjaCAoZTogQ2FuY2VsbGF0aW9uRXhjZXB0aW9uKSB7IHRocm93IGUgfQogICAgICAgIH0KICAgIH0KICAgIGRlbGF5KDE1MCkKICAgIGpvYi5jYW5jZWxBbmRKb2luKCkKICAgIHByaW50bG4oIsSRw6MgaHXhu7ciKQp9Cg)
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) ·
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt) ·
 Xem thêm: [Phụ lục 2.11](../reference/kotlin-pitfalls.md), K258, K259
 
 ### K258 · `runCatching { }` quanh hàm suspend cũng nuốt lệnh huỷ
@@ -163,7 +163,7 @@ suspend inline fun <T> resultOf(crossinline block: suspend () -> T): Result<T> =
 
 [▶ Chạy thử](../playground/index.html#code=aW1wb3J0IGtvdGxpbnguY29yb3V0aW5lcy4qCgpzdXNwZW5kIGZ1biBmZXRjaCgpOiBTdHJpbmcgeyBkZWxheSgxXzAwMCk7IHJldHVybiAiZGF0YSIgfQoKZnVuIG1haW4oKSA9IHJ1bkJsb2NraW5nIHsKICAgIHZhbCBqb2IgPSBsYXVuY2ggewogICAgICAgIHZhbCByID0gcnVuQ2F0Y2hpbmcgeyBmZXRjaCgpIH0gIC8vIOKdjCBydW5DYXRjaGluZyBi4bqvdCBj4bqjIENhbmNlbGxhdGlvbkV4Y2VwdGlvbgogICAgICAgIHByaW50bG4oImvhur90IHF14bqjOiAkciDihpIgduG6q24gY2jhuqF5IHRp4bq_cCBzYXUga2hpIGLhu4sgaHXhu7ciKQogICAgICAgIHByaW50bG4oImhp4buHbiBs4buXaSAnVW5rbm93biBlcnJvcicgY2hvIG5nxrDhu51pIGTDuW5nIikKICAgIH0KICAgIGRlbGF5KDEwMCkKICAgIGpvYi5jYW5jZWxBbmRKb2luKCkKICAgIHByaW50bG4oIsSRw6MgaHXhu7ciKQp9Ci8vIOKchSB2aeG6v3QgaMOgbSByacOqbmcgbsOpbSBs4bqhaSBDYW5jZWxsYXRpb25FeGNlcHRpb24gKHhlbSByZXN1bHRPZiB0cm9uZyBSYXRlV2F0Y2gpCg)
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt) ·
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt) ·
 Xem thêm: K257
 
 ### K259 · Bắt `CancellationException` để xử lý timeout: nút Stop không dừng được
@@ -185,7 +185,7 @@ catch (e: TimeoutCancellationException) { retry() }   // ✅
 
 [▶ Chạy thử](../playground/index.html#code=aW1wb3J0IGtvdGxpbnguY29yb3V0aW5lcy4qCgpzdXNwZW5kIGZ1biBzZW5kQ29tbWFuZCgpOiBTdHJpbmcgeyBkZWxheSg1MDApOyByZXR1cm4gIk9LIiB9CgpmdW4gbWFpbigpID0gcnVuQmxvY2tpbmcgewogICAgdmFsIGpvYiA9IGxhdW5jaCB7CiAgICAgICAgcmVwZWF0KDYpIHsgYXR0ZW1wdCAtPgogICAgICAgICAgICB0cnkgewogICAgICAgICAgICAgICAgcHJpbnRsbih3aXRoVGltZW91dCgyMDApIHsgc2VuZENvbW1hbmQoKSB9KQogICAgICAgICAgICB9IGNhdGNoIChlOiBDYW5jZWxsYXRpb25FeGNlcHRpb24pIHsgICAgICAgICAgIC8vIOKdjCBi4bqvdCBj4bqjIGzhu4duaCBodeG7tyB0aOG6rXQKICAgICAgICAgICAgLy8gfSBjYXRjaCAoZTogVGltZW91dENhbmNlbGxhdGlvbkV4Y2VwdGlvbikgeyAgLy8g4pyFIGNo4buJIGLhuq90IHRpbWVvdXQKICAgICAgICAgICAgICAgIHByaW50bG4oImzhuqduICRhdHRlbXB0OiAke2U6OmNsYXNzLnNpbXBsZU5hbWV9LCB0aOG7rSBs4bqhaSIpCiAgICAgICAgICAgIH0KICAgICAgICB9CiAgICB9CiAgICBkZWxheSgzMDApCiAgICBwcmludGxuKCItLS0gbmfGsOG7nWkgZMO5bmcgYuG6pW0gU3RvcCIpCiAgICBqb2IuY2FuY2VsQW5kSm9pbigpCiAgICBwcmludGxuKCJr4bq_dCB0aMO6YyIpCn0K)
 
-**Gặp ở:** [`ObdLink/shared/src/commonMain/kotlin/dev/obdlink/core/CommandQueue.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/shared/src/commonMain/kotlin/dev/obdlink/core/CommandQueue.kt) ·
+**Gặp ở:** [`apps/ObdLink/shared/src/commonMain/kotlin/dev/obdlink/core/CommandQueue.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/shared/src/commonMain/kotlin/dev/obdlink/core/CommandQueue.kt) ·
 Xem thêm: K260
 
 ### K260 · `TimeoutCancellationException: Timed out waiting for 100 ms`
@@ -327,7 +327,7 @@ single<CoroutineScope> { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
 single { TripRecorder(location = get(), repository = get(), scope = get()) }
 ```
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/kotlin/dev/triplog/di/Koin.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/di/Koin.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/di/Koin.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/di/Koin.kt)
 
 ### K268 · `try/catch` quanh `launch` không bắt được lỗi bên trong
 
@@ -445,7 +445,7 @@ private suspend fun <T> io(block: () -> T): T = withContext(Dispatchers.IO) { bl
 
 [▶ Chạy thử](../playground/index.html#code=aW1wb3J0IGtvdGxpbnguY29yb3V0aW5lcy4qCgpmdW4gcmVhZERiKCk6IFN0cmluZyB7CiAgICBUaHJlYWQuc2xlZXAoMjAwKSAgICAgICAgICAgICAgICAgICAgLy8gZ2nhuqMgbOG6rXAgU1FMaXRlOiBjaOG6t24gdGhyZWFkCiAgICByZXR1cm4gIjMgY2h1eeG6v24gxJFpIgp9CgpzdXNwZW5kIGZ1biBsb2FkVHJpcHMoKTogU3RyaW5nID0KICAgIHdpdGhDb250ZXh0KERpc3BhdGNoZXJzLklPKSB7ICAgICAgICAvLyDinIUgY2h1eeG7g24gdmnhu4djIGNo4bq3biBzYW5nIElPCiAgICAgICAgcHJpbnRsbigixJHhu41jIERCIHRyw6puICR7VGhyZWFkLmN1cnJlbnRUaHJlYWQoKS5uYW1lfSIpCiAgICAgICAgcmVhZERiKCkKICAgIH0KCmZ1biBtYWluKCkgPSBydW5CbG9ja2luZyB7CiAgICBwcmludGxuKCJn4buNaSB04burICR7VGhyZWFkLmN1cnJlbnRUaHJlYWQoKS5uYW1lfSIpCiAgICBwcmludGxuKGxvYWRUcmlwcygpKQp9Cg)
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt) ·
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt) ·
 Xem thêm: [Dispatcher](../concepts/dispatchers.md), K277
 
 ### K275 · `Module with the Main dispatcher is missing`
@@ -496,7 +496,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO        // ✅ cần trong commonMain
 ```
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt)
 
 ### K278 · Nhiều coroutine cùng ghi một biến: kết quả thiếu
 
@@ -575,7 +575,7 @@ private fun write(block: suspend () -> Unit) {
 }
 ```
 
-**Gặp ở:** [`PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/core/NotesCore.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/core/NotesCore.kt) ·
+**Gặp ở:** [`apps/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/core/NotesCore.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/core/NotesCore.kt) ·
 Xem thêm: K278, K288
 
 ### K282 · `launch(Job())` cắt đứt quan hệ cha–con
@@ -688,7 +688,7 @@ fun start() { commands.trySend(Command.Start) }
 
 [▶ Chạy thử](../playground/index.html#code=aW1wb3J0IGtvdGxpbnguY29yb3V0aW5lcy5jaGFubmVscy4qCgpmdW4gbWFpbigpIHsKICAgIHZhbCByZW5kZXp2b3VzID0gQ2hhbm5lbDxTdHJpbmc-KCkgICAgICAgICAgICAgICAgICAgLy8g4p2MIG3hurdjIMSR4buLbmgga2jDtG5nIGPDsyBjaOG7lyBjaOG7qWEKICAgIHByaW50bG4oInRyeVNlbmQgdsOgbyBDaGFubmVsKCk6ICR7cmVuZGV6dm91cy50cnlTZW5kKCJmaXggMSIpLmlzU3VjY2Vzc30iKSAgLy8gZmFsc2U6IGNoxrBhIGFpIG5o4bqtbgoKICAgIHZhbCB1bmxpbWl0ZWQgPSBDaGFubmVsPFN0cmluZz4oQ2hhbm5lbC5VTkxJTUlURUQpICAgLy8g4pyFIGNhbGxiYWNrIEdQUyAvIG7DunQgYuG6pW0gbHXDtG4gZ-G7rWkgxJHGsOG7o2MKICAgIHByaW50bG4oInRyeVNlbmQgdsOgbyBVTkxJTUlURUQ6ICR7dW5saW1pdGVkLnRyeVNlbmQoImZpeCAxIikuaXNTdWNjZXNzfSIpCn0K)
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripRecorder.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripRecorder.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripRecorder.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripRecorder.kt)
 
 ### K289 · Phần tử cũ vẫn nằm trong channel sau khi đã huỷ bên gửi
 
@@ -705,7 +705,7 @@ tạo channel mới cho mỗi phiên.
 is Command.Fix -> if (state is Recording && command.segment == segment) onFix(command.point)  // ✅ bỏ điểm cũ
 ```
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripRecorder.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripRecorder.kt) ·
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripRecorder.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripRecorder.kt) ·
 Xem thêm: K288
 
 ### K290 · `job.join()` không ném lỗi của job
@@ -745,7 +745,7 @@ suspend fun load(tripId: Long): TripDetail? = try {
 }
 ```
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripLibrary.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripLibrary.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripLibrary.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripLibrary.kt)
 
 ### K292 · Lỗi nghiệp vụ kế thừa `CancellationException`: bị bỏ qua im lặng
 
@@ -902,5 +902,5 @@ callbackFlow { /* tạo CLLocationManager, đăng ký delegate */ }
     .flowOn(Dispatchers.Main)   // ✅ delegate cần run loop của main thread
 ```
 
-**Gặp ở:** [`TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt) ·
+**Gặp ở:** [`apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt) ·
 Xem thêm: K279

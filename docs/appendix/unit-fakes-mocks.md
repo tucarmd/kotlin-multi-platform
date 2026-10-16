@@ -183,7 +183,7 @@ fun `a refresh is seen as ONE update thanks to the transaction`() = runTest {
 }
 ```
 
-[`SqlRateRepositoryTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/SqlRateRepositoryTest.kt)
+[`SqlRateRepositoryTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonTest/kotlin/dev/ratewatch/SqlRateRepositoryTest.kt)
 có 4 case: refresh lưu bảng với giờ **của mình** · refresh lỗi không đụng bảng cũ · transaction phát đúng 1 lần ·
 bấm sao 2 lần là bỏ sao. Chạy trên JVM **và** iOS simulator, nên SQL được kiểm trên SQLite của cả 2 nền tảng.
 

@@ -17,19 +17,19 @@ Lộ trình 14 bài, đi theo mục lục docs Kotlin Multiplatform chính chủ
 
 ## Demo mẫu
 
-**[`DevicePulse/`](DevicePulse/)**: bản code hoàn chỉnh của app sau bài 14, chạy Android + iOS. Có pin, GPS, mạng, đo độ trễ,
+**[`apps/DevicePulse/`](apps/DevicePulse/)**: bản code hoàn chỉnh của app sau bài 14, chạy Android + iOS. Có pin, GPS, mạng, đo độ trễ,
 lịch sử (SQLDelight) và test chung.
 Kiến trúc **KMP core + UI native**: logic trong `shared/`, Android vẽ bằng Jetpack Compose, iOS vẽ bằng SwiftUI.
 
 ```bash
-cd DevicePulse
+cd apps/DevicePulse
 ./gradlew :androidApp:installDebug     # Android
 open iosApp/iosApp.xcodeproj           # iOS: bấm Run
 ```
 
-- Cách chạy, version thư viện, lệnh giả lập cảm biến: [DevicePulse/README.md](DevicePulse/README.md)
+- Cách chạy, version thư viện, lệnh giả lập cảm biến: [apps/DevicePulse/README.md](apps/DevicePulse/README.md)
 - Bài nào ứng với file nào: [Code mẫu](https://tucarmd.github.io/kotlin-multi-platform/project/source-code/)
-- Mockup 8 màn: [DevicePulse/design/mockups/](DevicePulse/design/mockups/README-MOCKUPS.md)
+- Mockup 8 màn: [apps/DevicePulse/design/mockups/](apps/DevicePulse/design/mockups/README-MOCKUPS.md)
 
 ## 5 app luyện tập
 
@@ -74,7 +74,7 @@ Push lên `main` → GitHub Actions (`.github/workflows/pages.yml`) build và đ
 
 - `docs/roadmap.md` — lộ trình 4 chặng
 - `docs/lessons/NN-*.md` — 14 bài (thanh "Bài N/14" do `hooks/lesson_bar.py` chèn)
-- `DevicePulse/` — code hoàn chỉnh của app (Android + iOS)
+- `apps/DevicePulse/` — code hoàn chỉnh của app (Android + iOS)
 - `docs/project/` — app Device Pulse, code mẫu, checklist
 - `docs/apps/` — 5 app luyện tập (dễ → khó) + khung chung, quy ước comment
 - `docs/plan/` — đánh giá KMP, kế hoạch học, nghiên cứu Kotlin làm web

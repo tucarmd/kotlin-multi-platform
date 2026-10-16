@@ -239,7 +239,7 @@ val bill = text.toLongOrNull() ?: return Parsed.Error("Không phải số")
 return Parsed.Ok(bill)          // ✅ bill: Long, không cần !!
 ```
 
-**Gặp ở:** [`TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/rules/Rules.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/rules/Rules.kt) (`bill = bill!!` sau `validate()`)
+**Gặp ở:** [`apps/TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/rules/Rules.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/rules/Rules.kt) (`bill = bill!!` sau `validate()`)
 
 [▶ Chạy thử](../playground/index.html#code=c2VhbGVkIGludGVyZmFjZSBQYXJzZWQgewogICAgZGF0YSBjbGFzcyBPayh2YWwgYmlsbDogTG9uZykgOiBQYXJzZWQKICAgIGRhdGEgY2xhc3MgRXJyb3IodmFsIHJlYXNvbjogU3RyaW5nKSA6IFBhcnNlZAp9CgpmdW4gdmFsaWRhdGUoYmlsbDogTG9uZz8pOiBTdHJpbmc_ID0gaWYgKGJpbGwgPT0gbnVsbCkgIktow7RuZyBwaOG6o2kgc-G7kSIgZWxzZSBudWxsCgpmdW4gcGFyc2UodGV4dDogU3RyaW5nKTogUGFyc2VkIHsgICAgICAgICAgICAgICAgICAgICAgLy8g4pyFIHRy4bqjIGx1w7RuIGdpw6EgdHLhu4sgxJHDoyBraeG7g20KICAgIHZhbCBiaWxsID0gdGV4dC50b0xvbmdPck51bGwoKSA_OiByZXR1cm4gUGFyc2VkLkVycm9yKCJLaMO0bmcgcGjhuqNpIHPhu5EiKQogICAgcmV0dXJuIFBhcnNlZC5PayhiaWxsKQp9CgpmdW4gbWFpbigpIHsKICAgIHZhbCBiaWxsID0gIjEyMDAwMCIudG9Mb25nT3JOdWxsKCkKICAgIGlmICh2YWxpZGF0ZShiaWxsKSA9PSBudWxsKSB7CiAgICAgICAgLy8gcHJpbnRsbihiaWxsICsgMSkgICAgICAgICAgIC8vIOKdjCBjb21waWxlciBraMO0bmcgYmnhur90IHZhbGlkYXRlKCk9PW51bGwgbmdoxKlhIGzDoCBiaWxsICE9IG51bGwKICAgICAgICBwcmludGxuKGJpbGwhISArIDEpICAgICAgICAgICAgLy8gY2jhuqF5IMSRxrDhu6NjLCBuaMawbmcgbMOgIGzhu51pIGjhu6lhIGPhu6dhIGLhuqFuLCBraMO0bmcgcGjhuqNpIGNvbXBpbGVyCiAgICB9CiAgICBwcmludGxuKHBhcnNlKCIxMjAwMDAiKSkKfQo) · Xem thêm: K064
 

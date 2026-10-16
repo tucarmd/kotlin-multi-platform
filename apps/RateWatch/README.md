@@ -44,7 +44,7 @@ API: `GET https://open.er-api.com/v6/latest/{base}` (miễn phí, không cần k
 Cần: JDK 17+ (đã thử JDK 21), Android SDK 36, Xcode 16+ (đã thử 26.x), iOS 17+, XcodeGen.
 
 ```bash
-cd RateWatch
+cd apps/RateWatch
 ./gradlew :shared:testDebugUnitTest :shared:iosSimulatorArm64Test   # 44 test trên JVM + iOS Simulator
 ./gradlew :androidApp:installDebug                                  # cài lên emulator / máy đang cắm
 adb shell am start -n dev.ratewatch/dev.ratewatch.android.MainActivity
@@ -66,7 +66,7 @@ Thử offline: Android bật chế độ máy bay. iOS Simulator dùng mạng c�
 ## Cấu trúc
 
 ```text
-RateWatch/
+apps/RateWatch/
 ├── shared/src/
 │   ├── commonMain/kotlin/dev/ratewatch/
 │   │   ├── model/Models.kt        RateTable, RatesState, RefreshError, Freshness, Age, ConvertInput/Result/State   [B1]

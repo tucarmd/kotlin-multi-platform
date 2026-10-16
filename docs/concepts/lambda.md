@@ -93,7 +93,7 @@ Output:
 ## Gặp ở đâu trong repo
 
 - Mọi màn Compose: `onClick = { … }`, `LazyColumn { items(list) { … } }`.
-- [`PulseMonitor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseMonitor.kt): `combine(…) { b, l, n, ms -> DashboardState(b, l, n, ms) }`, một lambda nhận 4 tham số và ghép chúng thành trạng thái màn hình.
+- [`PulseMonitor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseMonitor.kt): `combine(…) { b, l, n, ms -> DashboardState(b, l, n, ms) }`, một lambda nhận 4 tham số và ghép chúng thành trạng thái màn hình.
 
 ## Nguồn
 

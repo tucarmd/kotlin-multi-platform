@@ -227,7 +227,7 @@ transport.link.first { it == LinkStatus.Lost }            // ❌ nếu link đan
 transport.link.drop(1).first { it == LinkStatus.Lost }    // ✅ chỉ lần thay đổi kế tiếp
 ```
 
-**Gặp ở:** [`ObdLink/shared/src/commonMain/kotlin/dev/obdlink/core/ObdCore.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/shared/src/commonMain/kotlin/dev/obdlink/core/ObdCore.kt) (chỉ canh sau khi đã `Connected`) ·
+**Gặp ở:** [`apps/ObdLink/shared/src/commonMain/kotlin/dev/obdlink/core/ObdCore.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/shared/src/commonMain/kotlin/dev/obdlink/core/ObdCore.kt) (chỉ canh sau khi đã `Connected`) ·
 [▶ Chạy thử](../playground/index.html#code=Ly8gSzMxMjogZmlyc3QgeyB9IHRyw6puIFN0YXRlRmxvdyB0cuG6oyB24buBIE5HQVkgbuG6v3UgZ2nDoSB0cuG7iyBoaeG7h24gdOG6oWkgxJHDoyBraOG7m3AuCmltcG9ydCBrb3RsaW54LmNvcm91dGluZXMuKgppbXBvcnQga290bGlueC5jb3JvdXRpbmVzLmZsb3cuKgoKZW51bSBjbGFzcyBMaW5rIHsgQ29ubmVjdGVkLCBMb3N0IH0KCmZ1biBtYWluKCkgPSBydW5CbG9ja2luZzxVbml0PiB7CiAgICB2YWwgbGluayA9IE11dGFibGVTdGF0ZUZsb3coTGluay5Mb3N0KSAgICAgICAgLy8gbOG6p24gcuG7m3QgdHLGsOG7m2MgduG6q24gY8OybiBu4bqxbSDEkcOzCiAgICBsaW5rLnZhbHVlID0gTGluay5Db25uZWN0ZWQgICAgICAgICAgICAgICAgICAgIC8vIG7hu5FpIGzhuqFpIHhvbmcKICAgIGxpbmsudmFsdWUgPSBMaW5rLkxvc3QgICAgICAgICAgICAgICAgICAgICAgICAgLy8gZ2nhuqMgc-G7rSBjaMawYSBhaSDEkeG7lWkgbOG6oWkuLi4KCiAgICB2YWwgd2F0Y2hlciA9IGFzeW5jIHsgbGluay5maXJzdCB7IGl0ID09IExpbmsuTG9zdCB9OyAidGjhuqV5IExvc3QiIH0KICAgIGRlbGF5KDEwMCkKICAgIHByaW50bG4oIuKdjCB3YXRjaGVyOiAke2lmICh3YXRjaGVyLmlzQ29tcGxldGVkKSAieG9uZyBuZ2F5IGzhuq1wIHThu6ljLCBkw7kgY2jGsGEgY8OzIGzhuqduIHLhu5t0IE3hu5pJIiBlbHNlICLEkWFuZyBjaOG7nSJ9IikKCiAgICAvLyDinIUgY2jhu4kgxJHhurd0IHdhdGNoZXIga2hpIGxpbmsgxJFhbmcgQ29ubmVjdGVkLCBob-G6t2MgYuG7jyBnacOhIHRy4buLIGhp4buHbiB04bqhaSBi4bqxbmcgZHJvcCgxKQogICAgbGluay52YWx1ZSA9IExpbmsuQ29ubmVjdGVkCiAgICB2YWwgbmV4dCA9IGFzeW5jIHsgbGluay5kcm9wKDEpLmZpcnN0IHsgaXQgPT0gTGluay5Mb3N0IH07ICJ0aOG6pXkgbOG6p24gcuG7m3QgbeG7m2kiIH0KICAgIGRlbGF5KDEwMCkKICAgIHByaW50bG4oIuKchSDEkWFuZyBjaOG7nTogJHshbmV4dC5pc0NvbXBsZXRlZH0iKQogICAgbGluay52YWx1ZSA9IExpbmsuTG9zdAogICAgcHJpbnRsbigi4pyFICR7bmV4dC5hd2FpdCgpfSIpCn0K)
 
 ### K313 · Collector thấy trạng thái cũ trước, tưởng việc đã xong
@@ -250,7 +250,7 @@ recorder.state.collect { s ->
 }
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt) ·
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/service/TrackingService.kt) ·
 [▶ Chạy thử](../playground/index.html#code=Ly8gSzMxMzogY29sbGVjdG9yIGLhuq90IMSR4bqndSB0aOG6pXkgZ2nDoSB0cuG7iyBDxagsIHbDrCBs4buHbmggc3RhcnQgY2jhuqF5IGLhuqV0IMSR4buTbmcgYuG7mS4KaW1wb3J0IGtvdGxpbnguY29yb3V0aW5lcy4qCmltcG9ydCBrb3RsaW54LmNvcm91dGluZXMuZmxvdy4qCgpzZWFsZWQgaW50ZXJmYWNlIFJlYyB7IGRhdGEgb2JqZWN0IElkbGUgOiBSZWM7IGRhdGEgb2JqZWN0IFJlY29yZGluZyA6IFJlYyB9CgpjbGFzcyBSZWNvcmRlcihzY29wZTogQ29yb3V0aW5lU2NvcGUpIHsKICAgIHByaXZhdGUgdmFsIF9zdGF0ZSA9IE11dGFibGVTdGF0ZUZsb3c8UmVjPihSZWMuSWRsZSkKICAgIHZhbCBzdGF0ZTogU3RhdGVGbG93PFJlYz4gPSBfc3RhdGUKICAgIHByaXZhdGUgdmFsIHNjb3BlID0gc2NvcGUKICAgIGZ1biBzdGFydCgpIHsgc2NvcGUubGF1bmNoIHsgZGVsYXkoMjApOyBfc3RhdGUudmFsdWUgPSBSZWMuUmVjb3JkaW5nIH0gfSAgLy8geOG7rSBsw70gc2F1CiAgICBmdW4gc3RvcCgpIHsgc2NvcGUubGF1bmNoIHsgX3N0YXRlLnZhbHVlID0gUmVjLklkbGUgfSB9Cn0KCmZ1biBtYWluKCkgPSBydW5CbG9ja2luZzxVbml0PiB7CiAgICB2YWwgciA9IFJlY29yZGVyKHRoaXMpCiAgICByLnN0YXJ0KCkKICAgIHZhbCBzZXJ2aWNlID0gbGF1bmNoIHsKICAgICAgICB2YXIgc2VlbkFjdGl2ZSA9IGZhbHNlCiAgICAgICAgci5zdGF0ZS5jb2xsZWN0IHsgcyAtPgogICAgICAgICAgICBwcmludGxuKCIgIHNlcnZpY2UgdGjhuqV5ICRzIikKICAgICAgICAgICAgaWYgKHMgPT0gUmVjLlJlY29yZGluZykgc2VlbkFjdGl2ZSA9IHRydWUKICAgICAgICAgICAgaWYgKHMgPT0gUmVjLklkbGUgJiYgIXNlZW5BY3RpdmUpIHByaW50bG4oIiAg4p2MIG7hur91IGThu6tuZyDhu58gxJHDonk6IHNlcnZpY2UgdOG6r3QgbmdheSBsw7pjIHbhu6thIG3hu58iKQogICAgICAgICAgICBpZiAocyA9PSBSZWMuSWRsZSAmJiBzZWVuQWN0aXZlKSB7IHByaW50bG4oIiAg4pyFIElkbGUgU0FVIFJlY29yZGluZyA9IGNodXnhur9uIHhvbmciKTsgY2FuY2VsKCkgfQogICAgICAgIH0KICAgIH0KICAgIGRlbGF5KDMwMCk7IHIuc3RvcCgpCiAgICBzZXJ2aWNlLmpvaW4oKQp9Cg)
 
 ### K314 · `distinctUntilChanged()` trên `StateFlow` báo lỗi deprecated
@@ -319,7 +319,7 @@ subscribed.await()            // ✅ chắc chắn đã có người nghe
 write("ATZ")
 ```
 
-**Gặp ở:** [`ObdLink/core/ble/src/commonMain/kotlin/dev/obdlink/ble/KableElmTransport.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/core/ble/src/commonMain/kotlin/dev/obdlink/ble/KableElmTransport.kt) ·
+**Gặp ở:** [`apps/ObdLink/core/ble/src/commonMain/kotlin/dev/obdlink/ble/KableElmTransport.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/core/ble/src/commonMain/kotlin/dev/obdlink/ble/KableElmTransport.kt) ·
 [▶ Chạy thử](../playground/index.html#code=Ly8gSzMxNzogbGF1bmNoIHsgY29sbGVjdCB9IHLhu5NpIGVtaXQgbmdheSAtPiBjb2xsZWN0b3IgY2jGsGEga-G7i3AgxJHEg25nIGvDvSwgbeG6pXQgZXZlbnQuCmltcG9ydCBrb3RsaW54LmNvcm91dGluZXMuKgppbXBvcnQga290bGlueC5jb3JvdXRpbmVzLmZsb3cuKgoKZnVuIG1haW4oKSA9IHJ1bkJsb2NraW5nPFVuaXQ-IHsKICAgIHZhbCBhbnN3ZXJzID0gTXV0YWJsZVNoYXJlZEZsb3c8U3RyaW5nPigpCiAgICB2YWwgYSA9IGxhdW5jaCB7IGFuc3dlcnMuY29sbGVjdCB7IHByaW50bG4oIiAg4p2MIG5o4bqtbiAkaXQiKSB9IH0KICAgIGFuc3dlcnMuZW1pdCgiRUxNMzI3IHYxLjUiKSAgICAgICAgICAgICAgICAgLy8gbGF1bmNoIGNoxrBhIGNo4bqheSB04bubaSBjb2xsZWN0IC0-IG3huqV0CiAgICBkZWxheSgxMDApOyBhLmNhbmNlbCgpCiAgICBwcmludGxuKCLinYwga2jDtG5nIG5o4bqtbiDEkcaw4bujYyBnw6wiKQoKICAgIHZhbCBzdWJzY3JpYmVkID0gQ29tcGxldGFibGVEZWZlcnJlZDxVbml0PigpCiAgICB2YWwgYiA9IGxhdW5jaCB7CiAgICAgICAgYW5zd2Vycy5vblN1YnNjcmlwdGlvbiB7IHN1YnNjcmliZWQuY29tcGxldGUoVW5pdCkgfSAgIC8vIOKchSBiw6FvIGtoaSDEkcOjIMSRxINuZyBrw70geG9uZwogICAgICAgICAgICAuY29sbGVjdCB7IHByaW50bG4oIiAg4pyFIG5o4bqtbiAkaXQiKSB9CiAgICB9CiAgICBzdWJzY3JpYmVkLmF3YWl0KCkKICAgIGFuc3dlcnMuZW1pdCgiRUxNMzI3IHYxLjUiKQogICAgZGVsYXkoMTAwKTsgYi5jYW5jZWwoKQp9Cg)
 
 ### K318 · `tryEmit` luôn trả về `false`
@@ -402,7 +402,7 @@ private val commands = Channel<Command>(capacity = 2)          // ❌ đầy là
 private val commands = Channel<Command>(Channel.UNLIMITED)     // ✅
 ```
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripRecorder.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripRecorder.kt) ·
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripRecorder.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/core/TripRecorder.kt) ·
 [▶ Chạy thử](../playground/index.html#code=Ly8gSzMyMjogdHJ5U2VuZCB2w6BvIENoYW5uZWwgxJHhuqd5IHRow6wgdGjhuqV0IGLhuqFpIHRyb25nIGltIGzhurduZyBu4bq_dSBraMO0bmcgxJHhu41jIGvhur90IHF14bqjLgppbXBvcnQga290bGlueC5jb3JvdXRpbmVzLmNoYW5uZWxzLkNoYW5uZWwKCmZ1biBtYWluKCkgewogICAgdmFsIHNtYWxsID0gQ2hhbm5lbDxJbnQ-KGNhcGFjaXR5ID0gMikKICAgIHJlcGVhdCg1KSB7IHNtYWxsLnRyeVNlbmQoaXQpIH0gICAgICAgICAgICAgICAgICAgICAgICAvLyDinYwga2jDtG5nIGtp4buDbSBr4bq_dCBxdeG6owogICAgcHJpbnRsbigi4p2MIGNhcGFjaXR5IDI6IGPDsm4gbOG6oWkgJHtMaXN0KDIpIHsgc21hbGwudHJ5UmVjZWl2ZSgpLmdldE9yTnVsbCgpIH19LCBt4bqldCAyLCAzLCA0IikKCiAgICB2YWwgciA9IENoYW5uZWw8SW50PihjYXBhY2l0eSA9IDEpLmFwcGx5IHsgdHJ5U2VuZCgwKSB9LnRyeVNlbmQoMSkKICAgIHByaW50bG4oImvhur90IHF14bqjIHRyeVNlbmQga2hpIMSR4bqneTogaXNTdWNjZXNzPSR7ci5pc1N1Y2Nlc3N9IikKCiAgICB2YWwgdW5saW1pdGVkID0gQ2hhbm5lbDxJbnQ-KENoYW5uZWwuVU5MSU1JVEVEKSAgICAgICAgICAvLyDinIUga2jDtG5nIGJhbyBnaeG7nSDEkeG6p3kKICAgIHJlcGVhdCg1KSB7IHVubGltaXRlZC50cnlTZW5kKGl0KSB9CiAgICBwcmludGxuKCLinIUgVU5MSU1JVEVEOiAke0xpc3QoNSkgeyB1bmxpbWl0ZWQudHJ5UmVjZWl2ZSgpLmdldE9yTnVsbCgpIH19IikKfQo)
 
 ### K323 · `stateIn(scope)` báo chỉ gọi được trong coroutine
@@ -435,7 +435,7 @@ nghe cuối rời đi, kể cả trong một giây xoay máy. `WhileSubscribed(5
 **Sửa:** nguồn tốn tài nguyên (cảm biến, GPS, socket) → `WhileSubscribed(5_000)`. Dữ liệu rẻ, cần luôn sẵn (đọc DB, state của core
 sống cả app) → `Eagerly` là được.
 
-**Gặp ở:** [`DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseMonitor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseMonitor.kt) (`WhileSubscribed(5_000)`) ·
+**Gặp ở:** [`apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseMonitor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseMonitor.kt) (`WhileSubscribed(5_000)`) ·
 [▶ Chạy thử](../playground/index.html#code=Ly8gSzMyNDogV2hpbGVTdWJzY3JpYmVkKHRpbWVvdXQpIHThuq90IG5ndeG7k24ga2hpIGtow7RuZyBjw7JuIGFpIG5naGU7IEVhZ2VybHkgY2jhuqF5IG3Do2kuCmltcG9ydCBrb3RsaW54LmNvcm91dGluZXMuKgppbXBvcnQga290bGlueC5jb3JvdXRpbmVzLmZsb3cuKgoKZnVuIHNlbnNvcihuYW1lOiBTdHJpbmcpID0gZmxvdyB7CiAgICBwcmludGxuKCIgIFskbmFtZV0gYuG6rXQgY-G6o20gYmnhur9uIikKICAgIHRyeSB7IHZhciBpID0gMDsgd2hpbGUgKHRydWUpIHsgZW1pdChpKyspOyBkZWxheSgyMCkgfSB9CiAgICBmaW5hbGx5IHsgcHJpbnRsbigiICBbJG5hbWVdIFThuq5UIGPhuqNtIGJp4bq_biIpIH0KfQoKZnVuIG1haW4oKSA9IHJ1bkJsb2NraW5nPFVuaXQ-IHsKICAgIHZhbCBlYWdlciA9IHNlbnNvcigiRWFnZXJseSIpLnN0YXRlSW4odGhpcywgU2hhcmluZ1N0YXJ0ZWQuRWFnZXJseSwgLTEpCiAgICB2YWwgbGF6eSA9IHNlbnNvcigiV2hpbGVTdWJzY3JpYmVkIikuc3RhdGVJbih0aGlzLCBTaGFyaW5nU3RhcnRlZC5XaGlsZVN1YnNjcmliZWQoMTAwKSwgLTEpCgogICAgdmFsIHNjcmVlbiA9IGxhdW5jaCB7IGxhenkuY29sbGVjdCB7IH0gfSAgICAgICAvLyBtw6BuIGjDrG5oIG3hu58KICAgIGRlbGF5KDUwKQogICAgc2NyZWVuLmNhbmNlbCgpICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLy8gbcOgbiBow6xuaCDEkcOzbmcKICAgIHByaW50bG4oIm3DoG4gaMOsbmggxJHDs25nLCBjaOG7nSAzMDAgbXPigKYiKQogICAgZGVsYXkoMzAwKQogICAgcHJpbnRsbigiRWFnZXJseSB24bqrbiBjaOG6oXk6IHZhbHVlID0gJHtlYWdlci52YWx1ZX0iKQogICAgY29yb3V0aW5lQ29udGV4dC5jYW5jZWxDaGlsZHJlbigpCn0K) · Xem thêm: K326
 
 ### K325 · `stateIn` trong getter: mỗi lần đọc là một nguồn mới
@@ -596,7 +596,7 @@ trên thread của người collect, tức là main ở cả hai nền tảng.
 queries.selectAll().asFlow().mapToList(dispatcher)   // ✅ ví dụ Dispatchers.Default / IO
 ```
 
-**Gặp ở:** [`PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt)
+**Gặp ở:** [`apps/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt)
 
 ### K334 · iOS: `callbackFlow` bọc `CLLocationManager` không bao giờ nhận vị trí
 
@@ -617,7 +617,7 @@ override fun points(): Flow<TrackPoint> = callbackFlow {
 }.flowOn(Dispatchers.Main)    // ✅ run loop của main
 ```
 
-**Gặp ở:** [`TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt)
 
 ### K335 · `'awaitClose { yourCallbackOrListener.cancel() }' should be used in the end of callbackFlow block`
 
@@ -655,7 +655,7 @@ listener của hệ thống vẫn sống tới khi process chết.
 awaitClose { manager.removeUpdates(listener) }   // ✅
 ```
 
-**Gặp ở:** [`TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt) ·
+**Gặp ở:** [`apps/TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt) ·
 [▶ Chạy thử](../playground/index.html#code=Ly8gSzMzNjogYXdhaXRDbG9zZSB7IH0gbMOgIGNo4buXIERVWSBOSOG6pFQgZ-G7oSBsaXN0ZW5lciBraGkgbmfGsOG7nWkgbmdoZSBk4burbmcuCmltcG9ydCBrb3RsaW54LmNvcm91dGluZXMuKgppbXBvcnQga290bGlueC5jb3JvdXRpbmVzLmNoYW5uZWxzLmF3YWl0Q2xvc2UKaW1wb3J0IGtvdGxpbnguY29yb3V0aW5lcy5mbG93LioKCmZ1biBpbnRlcmZhY2UgTGlzdGVuZXIgeyBmdW4gb25GaXgobWV0ZXJzOiBJbnQpIH0KY2xhc3MgR3BzIHsKICAgIHByaXZhdGUgdmFsIGxpc3RlbmVycyA9IG11dGFibGVMaXN0T2Y8TGlzdGVuZXI-KCkKICAgIGZ1biBhZGQobDogTGlzdGVuZXIpIHsgbGlzdGVuZXJzICs9IGw7IHByaW50bG4oIiAgR1BTIGLhuq10ICgke2xpc3RlbmVycy5zaXplfSBsaXN0ZW5lcikiKSB9CiAgICBmdW4gcmVtb3ZlKGw6IExpc3RlbmVyKSB7IGxpc3RlbmVycyAtPSBsOyBwcmludGxuKCIgIEdQUzogY8OybiAke2xpc3RlbmVycy5zaXplfSBsaXN0ZW5lciIpIH0KICAgIGZ1biB0aWNrKG06IEludCkgPSBsaXN0ZW5lcnMuZm9yRWFjaCB7IGl0Lm9uRml4KG0pIH0KfQoKZnVuIEdwcy5maXhlcygpOiBGbG93PEludD4gPSBjYWxsYmFja0Zsb3cgewogICAgdmFsIGwgPSBMaXN0ZW5lciB7IHRyeVNlbmQoaXQpIH0KICAgIGFkZChsKQogICAgYXdhaXRDbG9zZSB7IHJlbW92ZShsKSB9ICAgICAgICAgIC8vIOKchSBjaOG6oXkga2hpIGNvbGxlY3QgYuG7iyBodeG7tyBob-G6t2MgZmxvdyDEkcOzbmcKfQoKZnVuIG1haW4oKSA9IHJ1bkJsb2NraW5nPFVuaXQ-IHsKICAgIHZhbCBncHMgPSBHcHMoKQogICAgdmFsIHRyaXAgPSBsYXVuY2ggeyBncHMuZml4ZXMoKS5jb2xsZWN0IHsgcHJpbnRsbigiICBuaOG6rW4gxJFp4buDbSBjw6FjaCAkaXQgbSIpIH0gfQogICAgZGVsYXkoMTAwKTsgZ3BzLnRpY2soNSk7IGRlbGF5KDEwMCkKICAgIHRyaXAuY2FuY2VsKCk7IHRyaXAuam9pbigpICAgICAgICAvLyBk4burbmcgY2h1eeG6v24gLT4gYXdhaXRDbG9zZSBn4buhIGxpc3RlbmVyCiAgICBwcmludGxuKCJjaHV54bq_biDEkcOjIGThu6tuZyIpCn0K)
 
 ### K337 · `send` trong callback báo "Suspension functions can only be called within coroutine body"
@@ -689,7 +689,7 @@ listener = Listener { trySend(it) }    // ✅
 fun observe() = callbackFlow { … }.distinctUntilChanged()   // ✅
 ```
 
-**Gặp ở:** [`DevicePulse/shared/src/androidMain/kotlin/dev/devicepulse/sensor/AndroidBatterySensor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/androidMain/kotlin/dev/devicepulse/sensor/AndroidBatterySensor.kt) ·
+**Gặp ở:** [`apps/DevicePulse/shared/src/androidMain/kotlin/dev/devicepulse/sensor/AndroidBatterySensor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/androidMain/kotlin/dev/devicepulse/sensor/AndroidBatterySensor.kt) ·
 [▶ Chạy thử](../playground/index.html#code=Ly8gSzMzODogY2FsbGJhY2sgaOG7hyB0aOG7kW5nIGLDoW8gY8O5bmcgbeG7mXQgZ2nDoSB0cuG7iyBuaGnhu4F1IGzhuqduIC0-IGRpc3RpbmN0VW50aWxDaGFuZ2VkLgppbXBvcnQga290bGlueC5jb3JvdXRpbmVzLioKaW1wb3J0IGtvdGxpbnguY29yb3V0aW5lcy5mbG93LioKCmZ1biBtYWluKCkgPSBydW5CbG9ja2luZzxVbml0PiB7CiAgICB2YWwgYnJvYWRjYXN0cyA9IGZsb3dPZig4MCwgODAsIDgwLCA3OSwgNzksIDc4KSAgIC8vIHBpbjogaOG7hyB0aOG7kW5nIGLDoW8gY-G6oyBraGkgbmhp4buHdCDEkeG7mS_EkWnhu4duIMOhcCDEkeG7lWkKICAgIHByaW50KCLinYwga2jDtG5nIGzhu41jOiIpCiAgICBicm9hZGNhc3RzLmNvbGxlY3QgeyBwcmludCgiICRpdCIpIH0KICAgIHByaW50KCJcbuKchSBkaXN0aW5jdFVudGlsQ2hhbmdlZDoiKQogICAgYnJvYWRjYXN0cy5kaXN0aW5jdFVudGlsQ2hhbmdlZCgpLmNvbGxlY3QgeyBwcmludCgiICRpdCIpIH0KICAgIHByaW50bG4oKQp9Cg)
 
 ### K339 · `combine` không phát gì cả
@@ -739,7 +739,7 @@ combine(base, base.flatMapLatest { repository.observe(it) }) { b, table ->
 }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/core/RatesCore.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/core/RatesCore.kt) ·
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/core/RatesCore.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/core/RatesCore.kt) ·
 [▶ Chạy thử](../playground/index.html#code=Ly8gSzM0MTogxJHhu5VpIGtob8OhIC0-IGNvbWJpbmUoa2V5LCBrZXkuZmxhdE1hcExhdGVzdCB7IOKApiB9KSBjw7MgbeG7mXQgbmjhu4twIGTDuW5nIGThu68gbGnhu4d1IGPhu6dhIGtob8OhIEPFqC4KaW1wb3J0IGtvdGxpbnguY29yb3V0aW5lcy4qCmltcG9ydCBrb3RsaW54LmNvcm91dGluZXMuZmxvdy4qCgpkYXRhIGNsYXNzIFRhYmxlKHZhbCBiYXNlOiBTdHJpbmcsIHZhbCByYXRlOiBEb3VibGUpCgpmdW4gb2JzZXJ2ZShiYXNlOiBTdHJpbmcpOiBGbG93PFRhYmxlPiA9IGZsb3cgewogICAgZGVsYXkoMTApICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvLyDEkeG7jWMgREIgLyBt4bqhbmcKICAgIGVtaXQoVGFibGUoYmFzZSwgaWYgKGJhc2UgPT0gIlVTRCIpIDI1XzAwMC4wIGVsc2UgMjdfMDAwLjApKQp9CgpAT3B0SW4oRXhwZXJpbWVudGFsQ29yb3V0aW5lc0FwaTo6Y2xhc3MpCmZ1biBtYWluKCkgPSBydW5CbG9ja2luZzxVbml0PiB7CiAgICB2YWwgYmFzZSA9IE11dGFibGVTdGF0ZUZsb3coIlVTRCIpCiAgICB2YWwgam9iID0gbGF1bmNoIHsKICAgICAgICBjb21iaW5lKGJhc2UsIGJhc2UuZmxhdE1hcExhdGVzdCB7IG9ic2VydmUoaXQpIH0pIHsgYiwgdCAtPgogICAgICAgICAgICB2YWwgb2sgPSBpZiAodC5iYXNlID09IGIpICLinIUiIGVsc2UgIuKdjCBi4bqjbmcgY-G7p2EgJHt0LmJhc2V9ISIKICAgICAgICAgICAgImJhc2U9JGIgcmF0ZT0ke3QucmF0ZX0gJG9rIgogICAgICAgIH0uY29sbGVjdCB7IHByaW50bG4oIiAgJGl0IikgfQogICAgfQogICAgZGVsYXkoMzAwKQogICAgYmFzZS52YWx1ZSA9ICJFVVIiCiAgICBkZWxheSgzMDApCiAgICBqb2IuY2FuY2VsKCkKfQo)
 
 ### K342 · Ô tìm kiếm hiện kết quả cũ chồng lên kết quả mới
@@ -790,7 +790,7 @@ kotlin {
 }
 ```
 
-**Gặp ở:** [`RateWatch/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/build.gradle.kts)
+**Gặp ở:** [`apps/RateWatch/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/build.gradle.kts)
 
 ### K345 · `collectLatest` không lưu đủ dữ liệu
 

@@ -112,7 +112,7 @@ nav:
           - "7. Scope, huỷ và lỗi": concepts/structured-concurrency.md
           - "8. Dispatcher": concepts/dispatchers.md
           - "9. Flow & StateFlow": concepts/flow.md
-  - "Thực hành":
+  - "Playground":
       - "Playground": playground/index.html
       - "Dự án Device Pulse":
           - project/index.md

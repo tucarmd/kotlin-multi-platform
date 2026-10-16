@@ -144,7 +144,7 @@ androidMain.dependencies { implementation(libs.ktor.client.okhttp) }
 iosMain.dependencies { implementation(libs.ktor.client.darwin) }
 ```
 
-**Gặp ở:** [`DevicePulse/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/build.gradle.kts)
+**Gặp ở:** [`apps/DevicePulse/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/build.gradle.kts)
 
 ### K410 · Thêm thư viện vào `androidMain` rồi gọi từ `commonMain`
 
@@ -357,7 +357,7 @@ actual val platformModule: Module = module {
 }
 ```
 
-**Gặp ở:** [`PocketNotes/shared/src/androidMain/kotlin/dev/pocketnotes/di/PlatformModule.android.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/androidMain/kotlin/dev/pocketnotes/di/PlatformModule.android.kt)
+**Gặp ở:** [`apps/PocketNotes/shared/src/androidMain/kotlin/dev/pocketnotes/di/PlatformModule.android.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/androidMain/kotlin/dev/pocketnotes/di/PlatformModule.android.kt)
 
 ### K424 · Mỗi chỗ khác nhau lại thêm một `expect`
 
@@ -371,7 +371,7 @@ cấp gì".
 **Sửa:** gom về **một** điểm nối: `expect val platformModule: Module` (Koin), mỗi nền tảng khai báo mọi cài đặt của mình trong đó;
 code common chỉ xin interface qua DI.
 
-**Gặp ở:** [`TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/di/Koin.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/di/Koin.kt)
+**Gặp ở:** [`apps/TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/di/Koin.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/di/Koin.kt)
 (cùng một mẫu trong cả 6 app)
 
 ### K425 · Thêm target mới, mọi `expect` đòi `actual` mới
@@ -429,7 +429,7 @@ kiểu phần tử của `List` thì trùng chữ ký JVM. Kotlin/Native không 
 
 **Sửa:** đặt hai tên khác nhau (cách repo làm), hoặc `@JvmName` (K429).
 
-**Gặp ở:** [`ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/rules/Pid.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/rules/Pid.kt) (`decodePidAnswer`) ·
+**Gặp ở:** [`apps/ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/rules/Pid.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/rules/Pid.kt) (`decodePidAnswer`) ·
 [▶ Chạy thử](../playground/index.html#code=Ly8gSzQyOTogaGFpIGjDoG0ga2jDoWMga2nhu4N1IExpc3Q8Li4uPiBjaOG6oXkgxJHGsOG7o2MgdHLDqm4gaU9TIG5oxrBuZyB0csOqbiBKVk0vQW5kcm9pZCB0csO5bmcgY2jhu68ga8O9LgpmdW4gZGVjb2RlKGJ5dGVzOiBMaXN0PEludD4pOiBJbnQgPSBieXRlcy5zdW0oKQpmdW4gZGVjb2RlKG1lc3NhZ2VzOiBMaXN0PExpc3Q8SW50Pj4pOiBJbnQgPSBtZXNzYWdlcy5zdW1PZiB7IGl0LnN1bSgpIH0gICAvLyDinYwgUGxhdGZvcm0gZGVjbGFyYXRpb24gY2xhc2gKCmZ1biBtYWluKCkgewogICAgcHJpbnRsbihkZWNvZGUobGlzdE9mKDEsIDIpKSkKfQo) · Xem thêm: K429
 
 ### K429 · Không biết `@JvmName` dùng được trong `commonMain`
@@ -480,7 +480,7 @@ framework x86_64 để đưa.
 EXCLUDED_ARCHS[sdk=iphonesimulator*]: x86_64
 ```
 
-**Gặp ở:** [`PocketNotes/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/iosApp/project.yml)
+**Gặp ở:** [`apps/PocketNotes/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/iosApp/project.yml)
 (và cả 5 app còn lại) · Xem thêm: K433
 
 ### K432 · "building for 'iOS-simulator', but linking in object file built for 'iOS'"
@@ -543,7 +543,7 @@ iosTarget.binaries.framework {
 }
 ```
 
-**Gặp ở:** [`ObdLink/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/shared/build.gradle.kts) ·
+**Gặp ở:** [`apps/ObdLink/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/shared/build.gradle.kts) ·
 Xem thêm: K368
 
 ### K436 · `export()` báo dependency chưa phải `api`
@@ -675,7 +675,7 @@ chắc iOS xanh.
 ./gradlew :shared:allTests          # mọi target
 ```
 
-**Gặp ở:** [`TipSplit/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/README.md) (mục "Mấy cái bẫy") ·
+**Gặp ở:** [`apps/TipSplit/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/README.md) (mục "Mấy cái bẫy") ·
 Xem thêm: K434
 
 ### K444 · Android: "Module with the Main dispatcher is missing"
@@ -709,7 +709,7 @@ khi code của `shared` dùng `Dispatchers.Main` (hoặc `MainScope()`) trên An
 }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt)
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateApi.kt)
 
 ### K446 · Cùng một field, hai nền tảng cho giá trị khác bản chất
 
@@ -722,7 +722,7 @@ giấu MAC). Model chung chỉ thấy một `String` nên không ai để ý.
 
 **Sửa:** ghi rõ ý nghĩa trong KDoc của model chung (comment `PLATFORM:`), và không xây logic dựa trên giả định của một nền tảng.
 
-**Gặp ở:** [`ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/model/Dongle.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/model/Dongle.kt)
+**Gặp ở:** [`apps/ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/model/Dongle.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/model/Dongle.kt)
 
 ### K447 · Giá trị "không hợp lệ" mỗi nền tảng biểu diễn một kiểu
 
@@ -736,8 +736,8 @@ chung thì "âm" trông như "sai số nhỏ hơn 0 m", tức là hoàn hảo.
 **Sửa:** chuẩn hoá ở code nền tảng trước khi vào common (ví dụ đổi "không hợp lệ" thành một số rất lớn hoặc `null`), để luật chung
 chỉ thấy một kiểu.
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/kotlin/dev/triplog/rules/Geo.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/rules/Geo.kt) ·
-[`IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/rules/Geo.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/rules/Geo.kt) ·
+[`IosLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/iosMain/kotlin/dev/triplog/platform/IosLocationStream.kt)
 
 ### K448 · Code mạng trong `shared` chạy trên iOS, Android thì không
 
@@ -754,7 +754,7 @@ cấu hình app thì không.
 <uses-permission android:name="android.permission.INTERNET" />
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/androidMain/kotlin/dev/ratewatch/di/PlatformModule.android.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/androidMain/kotlin/dev/ratewatch/di/PlatformModule.android.kt) (comment `PLATFORM:`)
+**Gặp ở:** [`apps/RateWatch/shared/src/androidMain/kotlin/dev/ratewatch/di/PlatformModule.android.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/androidMain/kotlin/dev/ratewatch/di/PlatformModule.android.kt) (comment `PLATFORM:`)
 
 ### K449 · Làm theo hướng dẫn cũ: `freeze()`, `InvalidMutabilityException`
 

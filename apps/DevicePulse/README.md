@@ -72,7 +72,7 @@ iOS Simulator: `xcrun simctl location booted set 10.7769,106.7009`.
 Thư mục gốc. Cột phải cho biết file nằm trong git hay do máy tự sinh (đã gitignore, xoá đi sẽ được tạo lại):
 
 ```text
-DevicePulse/
+apps/DevicePulse/
 ├── shared/                       [git]  module KMP core (Kotlin chung + androidMain + iosMain)
 ├── androidApp/                   [git]  app Android, Jetpack Compose
 ├── iosApp/                       [git]  app iOS, SwiftUI + project.yml (XcodeGen)

@@ -95,7 +95,7 @@ assertEquals(listOf("", "100.000"), seen.map { it.input.billText })   // "1" và
 Đây là **tính năng**, không phải lỗi: UI không cần vẽ trạng thái trung gian. Nhưng nó giải thích vì sao test muốn thấy
 **từng bước** phải dùng Turbine (Turbine thu ngay lập tức) chứ không dùng `launch { collect }` thường.
 
-Code đầy đủ: [`TipCoreFlowTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt).
+Code đầy đủ: [`TipCoreFlowTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/TipCoreFlowTest.kt).
 
 ## Thời gian ảo và đồng hồ giả (Rate Watch)
 

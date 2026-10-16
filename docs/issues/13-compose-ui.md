@@ -47,7 +47,7 @@ LaunchedEffect(permission.granted) {                 // ✅ chạy lại khi v�
 }
 ```
 
-**Gặp ở:** [`DevicePulse/androidApp/src/main/kotlin/dev/devicepulse/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/androidApp/src/main/kotlin/dev/devicepulse/android/ui/App.kt)
+**Gặp ở:** [`apps/DevicePulse/androidApp/src/main/kotlin/dev/devicepulse/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/androidApp/src/main/kotlin/dev/devicepulse/android/ui/App.kt)
 
 Xem thêm: K603, K615
 
@@ -147,7 +147,7 @@ LaunchedEffect(deleted) {
 }
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt)
 
 ### K608 · `showSnackbar` trong `onClick` báo đỏ
 
@@ -170,7 +170,7 @@ Button(onClick = {
 }) { Text("Lưu") }
 ```
 
-**Gặp ở:** [`DevicePulse/androidApp/src/main/kotlin/dev/devicepulse/android/ui/DashboardScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/androidApp/src/main/kotlin/dev/devicepulse/android/ui/DashboardScreen.kt)
+**Gặp ở:** [`apps/DevicePulse/androidApp/src/main/kotlin/dev/devicepulse/android/ui/DashboardScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/androidApp/src/main/kotlin/dev/devicepulse/android/ui/DashboardScreen.kt)
 
 ### K609 · Lưu dữ liệu bằng `rememberCoroutineScope` rồi navigate đi → lưu không xong
 
@@ -229,7 +229,7 @@ val leave = { if (!left) { left = true; vm.save(id, title, body); onDone() } }
 BackHandler(onBack = leave)                                         // ✅
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt)
 
 Xem thêm: K646
 
@@ -268,7 +268,7 @@ LifecycleResumeEffect(Unit) {
 }
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt) · [`RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt) · [`apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt)
 
 ### K614 · `collectAsState` vẫn chạy khi app ở nền
 
@@ -287,7 +287,7 @@ val state by viewModel.state.collectAsState()                 // ❌ collect c�
 val state by viewModel.state.collectAsStateWithLifecycle()    // ✅
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt)
 
 ### K615 · `produceState` thiếu key → mở chuyến khác vẫn thấy chuyến cũ
 
@@ -306,7 +306,7 @@ val ui by produceState<DetailUi>(DetailUi.Loading, tripId) {      // ✅ tripId 
 }
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/TripDetailScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/TripDetailScreen.kt)
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/TripDetailScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/TripDetailScreen.kt)
 
 ### K616 · Đọc state Compose trong `LaunchedEffect` mà không thấy nó đổi
 
@@ -349,7 +349,7 @@ LaunchedEffect(state.console.size) {
 LazyColumn(state = listState) { /* ... */ }
 ```
 
-**Gặp ở:** [`ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/ConsoleScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/ConsoleScreen.kt)
+**Gặp ở:** [`apps/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/ConsoleScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/ConsoleScreen.kt)
 
 ### K618 · `LazyColumn` thiếu `key` → xoá một dòng, dòng bên dưới bị "vuốt dở"
 
@@ -368,7 +368,7 @@ items(items) { item -> NoteRow(item) }                      // ❌ state theo v�
 items(items, key = { it.note.id }) { item -> NoteRow(item) } // ✅ state theo id
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt) · [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/TripsScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/TripsScreen.kt)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt) · [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/TripsScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/TripsScreen.kt)
 
 Xem thêm: K619, K621
 
@@ -391,7 +391,7 @@ item(key = "h-all") { SectionHeader("Tất cả") }
 items(others, key = { "a-" + it.code }) { RateLine(it) }      // ✅ không trùng với "f-USD"
 ```
 
-**Gặp ở:** [`RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/RatesScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/RatesScreen.kt)
+**Gặp ở:** [`apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/RatesScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/RatesScreen.kt)
 
 ### K620 · Dùng object làm key → `Type of the key … is not supported`
 
@@ -429,7 +429,7 @@ val swipe = remember {                                             // ✅ mất 
 }
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt)
 
 Xem thêm: K618
 
@@ -495,7 +495,7 @@ lặp lại hàng trăm lần.
 **Sửa:** sắp xếp / lọc trong `ViewModel` hoặc core (kết quả là `List` sẵn để vẽ). Trong composable, việc đắt mà phụ thuộc
 input thì bọc `remember(input) { }`.
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt) (màn hình chỉ vẽ `state.items` đã sắp sẵn)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt) (màn hình chỉ vẽ `state.items` đã sắp sẵn)
 
 ### K626 · Kéo để làm mới không phản ứng khi danh sách rỗng
 
@@ -518,7 +518,7 @@ PullToRefreshBox(isRefreshing = state.refreshing, onRefresh = onRefresh) {
 }
 ```
 
-**Gặp ở:** [`RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/RatesScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/RatesScreen.kt)
+**Gặp ở:** [`apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/RatesScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/RatesScreen.kt)
 
 ### K627 · Thứ tự `Modifier` làm padding, nền, vùng bấm sai
 
@@ -576,7 +576,7 @@ Row { Label("Tổng", Modifier.weight(1f)) }                          // ✅ wei
 fun RowScope.Tab(label: String) = Text(label, Modifier.weight(1f))  // ✅ extension của RowScope
 ```
 
-**Gặp ở:** [`RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt) (`RowScope.Tab`)
+**Gặp ở:** [`apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt) (`RowScope.Tab`)
 
 ### K630 · Nội dung chui dưới `TopAppBar` của `Scaffold`
 
@@ -613,7 +613,7 @@ thì bị che.
 **Sửa:** dùng `Scaffold` + padding của nó (K630); màn tự vẽ thì thêm `Modifier.safeDrawingPadding()` /
 `windowInsetsPadding(WindowInsets.safeDrawing)` cho phần chứa nội dung bấm được.
 
-**Gặp ở:** [`TipSplit/androidApp/src/main/kotlin/dev/tipsplit/android/ui/SplitScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/androidApp/src/main/kotlin/dev/tipsplit/android/ui/SplitScreen.kt) (`MainActivity` gọi `enableEdgeToEdge()`, màn dùng padding của `Scaffold`)
+**Gặp ở:** [`apps/TipSplit/androidApp/src/main/kotlin/dev/tipsplit/android/ui/SplitScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/androidApp/src/main/kotlin/dev/tipsplit/android/ui/SplitScreen.kt) (`MainActivity` gọi `enableEdgeToEdge()`, màn dùng padding của `Scaffold`)
 
 ### K632 · Hai `Scaffold` lồng nhau → khoảng trống thừa ở trên / dưới
 
@@ -633,7 +633,7 @@ NavHost(nav, startDestination = Rates, modifier = Modifier.padding(bottom = padd
 Scaffold(topBar = { TopAppBar(...) }, contentWindowInsets = WindowInsets(0)) { ... }   // ✅
 ```
 
-**Gặp ở:** [`RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/RatesScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/RatesScreen.kt) · [`RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt)
+**Gặp ở:** [`apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/RatesScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/RatesScreen.kt) · [`apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt)
 
 ### K633 · Bàn phím che ô nhập / nút "Lưu"
 
@@ -657,7 +657,7 @@ Column(
 ) { /* các ô nhập */ }
 ```
 
-**Gặp ở:** [`TipSplit/androidApp/src/main/kotlin/dev/tipsplit/android/ui/SplitScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/androidApp/src/main/kotlin/dev/tipsplit/android/ui/SplitScreen.kt) · [`RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/ConvertScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/ConvertScreen.kt)
+**Gặp ở:** [`apps/TipSplit/androidApp/src/main/kotlin/dev/tipsplit/android/ui/SplitScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/androidApp/src/main/kotlin/dev/tipsplit/android/ui/SplitScreen.kt) · [`apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/ConvertScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/ConvertScreen.kt)
 
 Xem thêm: K634
 
@@ -693,7 +693,7 @@ OutlinedTextField(
 )
 ```
 
-**Gặp ở:** [`ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/ConsoleScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/ConsoleScreen.kt)
+**Gặp ở:** [`apps/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/ConsoleScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/ConsoleScreen.kt)
 
 ### K636 · `TextField` mất chữ, con trỏ nhảy về cuối khi gõ nhanh
 
@@ -733,7 +733,7 @@ fun onQueryChange(text: String) {
 Text(note.title, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt)
 
 ### K638 · Cỡ chữ đặt bằng `dp`, hoặc hộp cao cố định cắt chữ khi phóng to
 
@@ -782,7 +782,7 @@ fun NoteListRoute(viewModel: NotesViewModel, onOpen: (Long) -> Unit) {
 }
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt) · [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteListScreen.kt) · [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/NoteEditScreen.kt)
 
 ### K641 · `Navigation destination that matches request NavDeepLinkRequest … cannot be found`
 
@@ -806,7 +806,7 @@ NavHost(nav, startDestination = NoteList) {
 }
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt) (route chuỗi gom trong `object Routes`)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt) (route chuỗi gom trong `object Routes`)
 
 Xem thêm: K642
 
@@ -849,7 +849,7 @@ composable("edit/{id}", arguments = listOf(navArgument("id") { type = NavType.Lo
 }
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt) · [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/App.kt)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt) · [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/App.kt)
 
 ### K644 · Route có field là class tự viết → `could not find any NavType`
 
@@ -881,7 +881,7 @@ nav.navigate(TripDetail(trip))        // ❌ bản sao, nặng
 nav.navigate(TripDetail(trip.id))     // ✅ màn đích load(tripId)
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/App.kt)
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/App.kt)
 
 ### K646 · Bấm Back hai lần nhanh → màn trắng
 
@@ -900,7 +900,7 @@ onBack = { nav.popBackStack() }                                   // ❌ lần 2
 onBack = { nav.popBackStack(Routes.LIST, inclusive = false) }     // ✅ đã ở LIST thì không làm gì
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt)
 
 Xem thêm: K611
 
@@ -942,7 +942,7 @@ private fun NavController.switchTo(route: String) {
 }
 ```
 
-**Gặp ở:** [`RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt)
+**Gặp ở:** [`apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt)
 
 ### K649 · Hai màn gọi `koinViewModel()` → hai `ViewModel` khác nhau
 
@@ -965,7 +965,7 @@ NavHost(nav, startDestination = NoteList) {
 }
 ```
 
-**Gặp ở:** [`PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt) · [`RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt)
+**Gặp ở:** [`apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/androidApp/src/main/kotlin/dev/pocketnotes/android/ui/App.kt) · [`apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/androidApp/src/main/kotlin/dev/ratewatch/android/ui/App.kt)
 
 ### K650 · Truyền `NavController` vào `ViewModel` hoặc xuống tận composable con
 

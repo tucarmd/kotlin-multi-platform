@@ -95,7 +95,7 @@ Output:
 
 ## Gặp ở đâu trong repo
 
-- [`Models.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/model/Models.kt): `Reading` có 5 trạng thái, và mọi cảm biến đều trả về một trong 5 trạng thái đó.
+- [`Models.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/model/Models.kt): `Reading` có 5 trạng thái, và mọi cảm biến đều trả về một trong 5 trạng thái đó.
 - [Tip Split](../apps/01-tip-split.md): `SplitResult` có `Waiting`, `Invalid`, `Ready`.
 - Phía iOS: nhờ SKIE, Swift `switch` qua `onEnum(of:)` cũng được kiểm tra đủ trường hợp (xem comment trong `Models.kt`).
 

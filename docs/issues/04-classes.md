@@ -296,8 +296,8 @@ sealed class ConvertResult {                 // ✅
 }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/model/Models.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/model/Models.kt) ·
-[`TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/model/Models.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/model/Models.kt) ·
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/model/Models.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/model/Models.kt) ·
+[`apps/TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/model/Models.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/commonMain/kotlin/dev/tipsplit/model/Models.kt) ·
 Xem thêm: [Swift ↔ Kotlin, iOS, Xcode](10-ios-interop.md)
 
 ### K171 · Trạng thái không dữ liệu viết bằng `class` → `==` ra `false`

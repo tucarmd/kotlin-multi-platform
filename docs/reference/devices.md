@@ -77,7 +77,7 @@ adb shell svc wifi enable
 **Chạy Device Pulse lên máy:**
 
 ```bash
-cd DevicePulse
+cd apps/DevicePulse
 ./gradlew :androidApp:installDebug                 # build và cài lên máy đang kết nối
 adb shell am start -n dev.devicepulse/.android.MainActivity
 adb logcat --pid=$(adb shell pidof dev.devicepulse) # chỉ xem log của app

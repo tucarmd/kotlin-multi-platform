@@ -57,7 +57,7 @@ flowchart TB
 ## Cấu trúc thư mục cuối cùng
 
 ```text
-DevicePulse/
+apps/DevicePulse/
 ├── composeApp/
 │   └── src/
 │       ├── commonMain/kotlin/dev/devicepulse/
@@ -87,5 +87,5 @@ DevicePulse/
 ## Tiếp theo?
 
 - Xem [checklist hoàn thành](checklist.md) để biết "xong" nghĩa là gì.
-- Kẹt ở bài nào thì so với [code mẫu](source-code.md): bản hoàn chỉnh nằm trong thư mục `DevicePulse/` của repo.
+- Kẹt ở bài nào thì so với [code mẫu](source-code.md): bản hoàn chỉnh nằm trong thư mục `apps/DevicePulse/` của repo.
 - Bắt đầu [bài 1](../lessons/01-what-is-kmp.md).

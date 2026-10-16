@@ -59,7 +59,7 @@ Chương:   Phụ lục P1 · Unit test – cơ bản & test bảng
 App:      TipSplit (shared/commonTest)
 Áp dụng:  test bảng nhiều input + kiểm bất biến trên ~10.000 tổ hợp
 Học được: một test, nhiều case, thông báo lỗi chỉ đúng case hỏng
-Chạy thử: cd TipSplit && ./gradlew :shared:allTests
+Chạy thử: cd apps/TipSplit && ./gradlew :shared:allTests
 ```
 
 Lọc commit theo chương hoặc theo app:

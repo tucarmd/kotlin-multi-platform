@@ -714,7 +714,7 @@ fun decode(messages: List<List<Int>>): Int        // ❌
 fun decodeAll(messages: List<List<Int>>): Int     // ✅
 ```
 
-**Gặp ở:** [`ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/rules/Pid.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/rules/Pid.kt) (`decodePid` / `decodePidAnswer`) ·
+**Gặp ở:** [`apps/ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/rules/Pid.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/core/obd/src/commonMain/kotlin/dev/obdlink/obd/rules/Pid.kt) (`decodePid` / `decodePidAnswer`) ·
 [▶ Chạy thử](../playground/index.html#code=Ly8gSzE0NjogaGFpIG92ZXJsb2FkIGNo4buJIGtow6FjIGtp4buDdSBwaOG6p24gdOG7rSBj4bunYSBMaXN0IOKGkiB0csO5bmcgY2jhu68ga8O9IEpWTQpmdW4gZGVjb2RlKGJ5dGVzOiBMaXN0PEludD4pOiBJbnQgPSBieXRlcy5zdW0oKQpmdW4gZGVjb2RlKG1lc3NhZ2VzOiBMaXN0PExpc3Q8SW50Pj4pOiBJbnQgPSBtZXNzYWdlcy5zdW1PZiB7IGl0LnN1bSgpIH0gIC8vIOKdjCBQbGF0Zm9ybSBkZWNsYXJhdGlvbiBjbGFzaAovLyDinIUgxJHhurd0IHTDqm4ga2jDoWM6IGZ1biBkZWNvZGVBbGwobWVzc2FnZXM6IExpc3Q8TGlzdDxJbnQ-PikgIGhv4bq3YyBASnZtTmFtZSgiZGVjb2RlQWxsIikKZnVuIG1haW4oKSA9IHByaW50bG4oZGVjb2RlKGxpc3RPZigxLCAyKSkpCg) · Xem thêm: K147
 
 ### K147 · `Cannot check for instance of erased type 'List<String>'`

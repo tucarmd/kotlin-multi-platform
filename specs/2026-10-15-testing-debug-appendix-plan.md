@@ -19,7 +19,7 @@ Thêm tab **Phụ lục** trên site, gồm 4 mục: Unit test · Automation tes
 | 6 app (DevicePulse, TipSplit, PocketNotes, RateWatch, TripLog, ObdLink) đều có `commonTest`; 4 app dùng Turbine | Không app nào có UI test (`androidTest`), XCUITest, Maestro |
 | Bài 13 dạy `kotlin.test`, `runTest`, Turbine, `MockEngine` cho Device Pulse | Không có coverage (Kover), lint (detekt/ktlint), lệnh "chạy hết" |
 | kmp-review §7 có bảng tầng automation, mới ở mức liệt kê | Chưa có trang debug, chưa có trang tool |
-| Plugin 3V (`studio-variants-plugin/`) | CI chỉ build site, chưa chạy test của app |
+| Plugin 3V (`tools/studio-variants-plugin/`) | CI chỉ build site, chưa chạy test của app |
 
 Stack đang dùng: Kotlin 2.4.20 · AGP 8.13.2 · coroutines 1.11.0 · Koin 4.2.2 · Turbine 1.2.1 · Ktor 3.5.1 · SQLDelight 2.4.1.
 Kiến trúc app: **KMP core + UI native** (Compose cho Android, SwiftUI cho iOS), nên UI test tách theo từng nền tảng, còn E2E dùng chung bằng Maestro.
@@ -98,7 +98,7 @@ Quy ước then chốt: **một bảng tên id cho mỗi app** (vd `split_bill_i
 ### P4 · Tool hỗ trợ code
 
 **Tìm và cài** (bảng: tool · làm gì · dùng khi · trạng thái):
-- Có sẵn trong IDE: plugin Kotlin Multiplatform, Compose Hot Reload (repo đã có `hot-reload-demo/`), Gemini / Journeys, App Inspection.
+- Có sẵn trong IDE: plugin Kotlin Multiplatform, Compose Hot Reload (repo đã có `tools/hot-reload-demo/`), Gemini / Journeys, App Inspection.
 - Chất lượng code: **detekt**, **ktlint** (Gradle + plugin IDE), Kover, plugin cập nhật version catalog.
 - Tiện ích: ADB Idea, JSON To Kotlin Class, Key Promoter X, String Manipulation.
 - AI: Claude Code trong terminal của Studio, plugin 3V của repo.

@@ -22,7 +22,7 @@ không còn phụ thuộc setting Gradle JDK của từng người.
 cat gradle/gradle-daemon-jvm.properties   # toolchainVersion=21
 ```
 
-**Gặp ở:** [`DevicePulse/gradle/gradle-daemon-jvm.properties`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/gradle/gradle-daemon-jvm.properties) ·
+**Gặp ở:** [`apps/DevicePulse/gradle/gradle-daemon-jvm.properties`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/gradle/gradle-daemon-jvm.properties) ·
 Xem thêm: [Lỗi hay gặp](../reference/troubleshooting.md), K352
 
 ### K352 · Studio build được, `./gradlew` trong terminal thì không
@@ -154,7 +154,7 @@ plugins {
 }
 ```
 
-**Gặp ở:** [`RateWatch/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/build.gradle.kts)
+**Gặp ở:** [`apps/RateWatch/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/build.gradle.kts)
 
 ### K360 · Plugin kotlinx.serialization khác phiên bản Kotlin
 
@@ -172,7 +172,7 @@ kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", versio
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }  # ✅
 ```
 
-**Gặp ở:** [`RateWatch/gradle/libs.versions.toml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/gradle/libs.versions.toml)
+**Gặp ở:** [`apps/RateWatch/gradle/libs.versions.toml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/gradle/libs.versions.toml)
 
 ### K361 · Nâng Kotlin, quên nâng SKIE
 
@@ -190,7 +190,7 @@ kotlin = "2.4.20"
 skie = "0.10.15"   # bản đầu tiên cho Kotlin 2.4.20, đổi Kotlin là phải xem lại dòng này
 ```
 
-**Gặp ở:** [`TipSplit/gradle/libs.versions.toml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/gradle/libs.versions.toml)
+**Gặp ở:** [`apps/TipSplit/gradle/libs.versions.toml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/gradle/libs.versions.toml)
 
 ### K362 · Kotlin 2.x: "the Compose Compiler Gradle plugin is required"
 
@@ -229,7 +229,7 @@ android-compileSdk = "36"
 compose-bom = "2026.06.01"   # bản mới nhất build được với compileSdk 36
 ```
 
-**Gặp ở:** [`DevicePulse/gradle/libs.versions.toml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/gradle/libs.versions.toml)
+**Gặp ở:** [`apps/DevicePulse/gradle/libs.versions.toml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/gradle/libs.versions.toml)
 
 ### K364 · Lẫn `compileSdk`, `targetSdk`, `minSdk`
 
@@ -267,7 +267,7 @@ chính chủ, đừng chỉ nâng số phiên bản.
 agp = "8.13.2"
 ```
 
-**Gặp ở:** [`DevicePulse/gradle/libs.versions.toml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/gradle/libs.versions.toml)
+**Gặp ở:** [`apps/DevicePulse/gradle/libs.versions.toml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/gradle/libs.versions.toml)
 
 ### K366 · Android Studio cũ không mở được project dùng AGP mới
 
@@ -311,7 +311,7 @@ commonMain.dependencies {
 }
 ```
 
-**Gặp ở:** [`ObdLink/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/shared/build.gradle.kts)
+**Gặp ở:** [`apps/ObdLink/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/shared/build.gradle.kts)
 
 ### K369 · Dùng `api` cho mọi thứ "cho chắc"
 
@@ -345,7 +345,7 @@ dependencyResolutionManagement {
 }
 ```
 
-**Gặp ở:** [`ObdLink/settings.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/settings.gradle.kts)
+**Gặp ở:** [`apps/ObdLink/settings.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/settings.gradle.kts)
 
 ### K371 · Thêm `repositories { }` vào module thì build lỗi
 
@@ -385,7 +385,7 @@ kotlinx.serialization 1.11.0 vì Ktor 3.5.1 dùng đúng bản đó.
 ./gradlew :androidApp:dependencyInsight --dependency kotlinx-serialization-json --configuration debugRuntimeClasspath
 ```
 
-**Gặp ở:** [`RateWatch/gradle/libs.versions.toml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/gradle/libs.versions.toml)
+**Gặp ở:** [`apps/RateWatch/gradle/libs.versions.toml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/gradle/libs.versions.toml)
 
 ### K374 · "Duplicate class … found in modules"
 
@@ -420,7 +420,7 @@ implementation(libs.compose.ui)
 implementation(libs.compose.material3)
 ```
 
-**Gặp ở:** [`ObdLink/androidApp/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/androidApp/build.gradle.kts)
+**Gặp ở:** [`apps/ObdLink/androidApp/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/androidApp/build.gradle.kts)
 
 ### K376 · Copy cú pháp Groovy vào `.kts`
 
@@ -470,7 +470,7 @@ compileSdk = libs.versions.android.compileSdk                    // ❌
 compileSdk = libs.versions.android.compileSdk.get().toInt()      // ✅
 ```
 
-**Gặp ở:** [`ObdLink/androidApp/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/androidApp/build.gradle.kts)
+**Gặp ở:** [`apps/ObdLink/androidApp/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/androidApp/build.gradle.kts)
 
 ### K379 · "Inconsistent JVM-target compatibility"
 
@@ -487,7 +487,7 @@ android { compileOptions { sourceCompatibility = JavaVersion.VERSION_11; targetC
 kotlin { compilerOptions { jvmTarget.set(JvmTarget.JVM_11) } }
 ```
 
-**Gặp ở:** [`ObdLink/androidApp/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/androidApp/build.gradle.kts)
+**Gặp ở:** [`apps/ObdLink/androidApp/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/androidApp/build.gradle.kts)
 
 ### K380 · Build hết RAM: `OutOfMemoryError`
 
@@ -504,7 +504,7 @@ org.gradle.jvmargs=-Xmx4096M -Dfile.encoding=UTF-8
 kotlin.daemon.jvmargs=-Xmx3072M
 ```
 
-**Gặp ở:** [`DevicePulse/gradle.properties`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/gradle.properties)
+**Gặp ở:** [`apps/DevicePulse/gradle.properties`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/gradle.properties)
 
 ### K381 · Lần nào build cũng compile lại từ đầu
 
@@ -520,7 +520,7 @@ kotlin.daemon.jvmargs=-Xmx3072M
 org.gradle.caching=true
 ```
 
-**Gặp ở:** [`DevicePulse/gradle.properties`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/gradle.properties)
+**Gặp ở:** [`apps/DevicePulse/gradle.properties`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/gradle.properties)
 
 ### K382 · Bật configuration cache rồi build lỗi
 
@@ -643,7 +643,7 @@ include(":core:ble")
 include(":shared")
 ```
 
-**Gặp ở:** [`ObdLink/settings.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/settings.gradle.kts)
+**Gặp ở:** [`apps/ObdLink/settings.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/settings.gradle.kts)
 
 ### K391 · "Plugin [id: …] was not found in any of the following sources"
 
@@ -678,7 +678,7 @@ android {
 }
 ```
 
-**Gặp ở:** [`ObdLink/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/shared/build.gradle.kts)
+**Gặp ở:** [`apps/ObdLink/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/shared/build.gradle.kts)
 
 ### K393 · `R.string.x` của module khác không còn thấy
 
@@ -695,7 +695,7 @@ import dev.lib.R as LibR
 Text(stringResource(LibR.string.title))   // ✅
 ```
 
-**Gặp ở:** [`DevicePulse/gradle.properties`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/gradle.properties)
+**Gặp ở:** [`apps/DevicePulse/gradle.properties`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/gradle.properties)
 
 ### K394 · `kotlinOptions { jvmTarget = "11" }` không còn dùng được
 
@@ -712,7 +712,7 @@ android { kotlinOptions { jvmTarget = "11" } }              // ❌ cũ
 kotlin { compilerOptions { jvmTarget.set(JvmTarget.JVM_11) } } // ✅
 ```
 
-**Gặp ở:** [`ObdLink/androidApp/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/androidApp/build.gradle.kts)
+**Gặp ở:** [`apps/ObdLink/androidApp/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/androidApp/build.gradle.kts)
 
 ### K395 · `Unresolved reference: BuildConfig`
 
@@ -744,7 +744,7 @@ android {
 android.useAndroidX=true
 ```
 
-**Gặp ở:** [`DevicePulse/gradle.properties`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/gradle.properties)
+**Gặp ở:** [`apps/DevicePulse/gradle.properties`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/gradle.properties)
 
 ### K397 · Lần build iOS đầu tiên rất lâu, hoặc lỗi trong `~/.konan`
 

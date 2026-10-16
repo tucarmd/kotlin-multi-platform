@@ -71,7 +71,7 @@ Cần: JDK 17+ (đã thử JDK 17 và 21), Android SDK 36, Xcode 16+ (đã thử
 **BLE không chạy trên emulator Android hay iOS Simulator**: muốn kết nối thật phải dùng máy thật.
 
 ```bash
-cd ObdLink
+cd apps/ObdLink
 ./gradlew :androidApp:installDebug                       # Android: cài lên máy đang cắm (applicationId dev.obdlink)
 
 # Test: :core:obd chạy JVM + iOS Simulator; :core:ble và :shared chạy Android unit test + iOS Simulator
@@ -100,7 +100,7 @@ nhớ kết thúc bằng `>`. Hoặc dùng ESP32 như `peripheral-setup.md` củ
 ## Cấu trúc
 
 ```text
-ObdLink/
+apps/ObdLink/
 ├── settings.gradle.kts           include :core:obd, :core:ble, :shared, :androidApp                        [git]
 ├── core/obd/                     Kotlin thuần: jvm + iosArm64 + iosSimulatorArm64, KHÔNG có plugin Android  [B1]
 │   └── src/commonMain/kotlin/dev/obdlink/obd/

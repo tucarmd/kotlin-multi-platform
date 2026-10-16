@@ -121,7 +121,7 @@ Output:
 
 ## Gặp ở đâu trong repo
 
-- [`PulseMonitor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseMonitor.kt): nhận `scope: CoroutineScope` từ bên ngoài. Android truyền `viewModelScope`. iOS nhận một scope mới và phải gọi `close()` khi xong, đúng như comment đầu class.
+- [`PulseMonitor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseMonitor.kt): nhận `scope: CoroutineScope` từ bên ngoài. Android truyền `viewModelScope`. iOS nhận một scope mới và phải gọi `close()` khi xong, đúng như comment đầu class.
 
 ## Nguồn
 

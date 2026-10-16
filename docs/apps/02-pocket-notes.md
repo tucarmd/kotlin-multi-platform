@@ -9,7 +9,7 @@
 | **Cấp độ** | ⭐⭐ |
 | **Mới học** | SQLDelight CRUD · `Flow` tự phát khi bảng đổi · điều hướng list → edit · `kotlinx-datetime` · `platformModule` đầu tiên (driver database) |
 | **Cần trước** | App 1 · [bài 8](../lessons/08-viewmodel-navigation.md), [12](../lessons/12-history-sqldelight.md) |
-| **Thư mục code** | [`PocketNotes/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/PocketNotes) · package `dev.pocketnotes` · ✅ đã có code |
+| **Thư mục code** | [`apps/PocketNotes/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/apps/PocketNotes) · package `dev.pocketnotes` · ✅ đã có code |
 | **Thời gian** | 4–5 buổi tối |
 
 So với app 1: thêm `data/` và lần đầu có code ở `androidMain` / `iosMain` (tạo `SqlDriver`).
@@ -58,7 +58,7 @@ flowchart LR
 ## 6. Bản đồ function
 
 Bảng đầy đủ (20 hàm, có link tới đúng dòng code) nằm trong
-[`PocketNotes/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/README.md#ban-o-function). Các hàm chính:
+[`apps/PocketNotes/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/README.md#ban-o-function). Các hàm chính:
 
 | Hàm | File | Làm gì | Vì sao |
 |---|---|---|---|
@@ -92,7 +92,7 @@ Bẫy cần ghi `// TRAP:` trong code:
 ## 7. Test
 
 ```bash
-cd PocketNotes
+cd apps/PocketNotes
 ./gradlew :shared:testDebugUnitTest :shared:iosSimulatorArm64Test
 ```
 

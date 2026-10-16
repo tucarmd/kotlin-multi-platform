@@ -111,7 +111,7 @@ a
 
 ## Gặp ở đâu trong repo
 
-- [`Models.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/model/Models.kt): `sealed class Reading<out T : Any>`, với `Loading : Reading<Nothing>`. Dùng đủ `out`, `T : Any` và `Nothing` trong 5 dòng.
+- [`Models.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/model/Models.kt): `sealed class Reading<out T : Any>`, với `Loading : Reading<Nothing>`. Dùng đủ `out`, `T : Any` và `Nothing` trong 5 dòng.
 - `StateFlow<DashboardState>`, `List<Snapshot>`: mọi collection và Flow đều là generic.
 
 ## Nguồn

@@ -176,8 +176,8 @@ flowchart LR
 
 ## Gặp ở đâu trong repo
 
-- [`PulseMonitor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseMonitor.kt): `combine(battery.observe(), location…, network.observe(), latency) { … }.stateIn(scope, SharingStarted.WhileSubscribed(5_000), DashboardState())`. Đây đúng là demo 2 nhưng với 4 nguồn; `WhileSubscribed(5_000)` tắt cảm biến 5 giây sau khi không còn ai nhìn màn hình.
-- [`IosBatterySensor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/iosMain/kotlin/dev/devicepulse/sensor/IosBatterySensor.kt): `callbackFlow` biến thông báo pin của iOS thành Flow.
+- [`PulseMonitor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseMonitor.kt): `combine(battery.observe(), location…, network.observe(), latency) { … }.stateIn(scope, SharingStarted.WhileSubscribed(5_000), DashboardState())`. Đây đúng là demo 2 nhưng với 4 nguồn; `WhileSubscribed(5_000)` tắt cảm biến 5 giây sau khi không còn ai nhìn màn hình.
+- [`IosBatterySensor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/iosMain/kotlin/dev/devicepulse/sensor/IosBatterySensor.kt): `callbackFlow` biến thông báo pin của iOS thành Flow.
 - `NotesCore.kt` (Pocket Notes), `RatesCore.kt` (Rate Watch), `TipCore.kt` (Tip Split): core nào cũng đưa ra một `StateFlow` duy nhất cho màn hình.
 
 ## Nguồn

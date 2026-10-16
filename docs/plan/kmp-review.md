@@ -330,7 +330,7 @@ Mô hình: một người hoặc team lo `shared` (logic, state), một người
 
 **Vấn đề:** Claude trong Android Studio vẫn là CLI chạy trong tab Terminal (plugin JetBrains chỉ thêm diff viewer), không có panel như bản VS Code. Muốn xem nhiều cách viết cho một function thì phải nhảy qua lại giữa terminal và editor.
 
-**Giải pháp:** plugin nhỏ [`studio-variants-plugin/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/studio-variants-plugin) (code do AI viết, mình chỉ dùng):
+**Giải pháp:** plugin nhỏ [`tools/studio-variants-plugin/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/tools/studio-variants-plugin) (code do AI viết, mình chỉ dùng):
 
 - Cạnh tên mỗi `fun` Kotlin có icon **3V** ở gutter. Bấm icon (hoặc `Ctrl+⌥+⇧+V`, hoặc chuột phải → *Show 3 Variants*) thì plugin gọi `claude -p` chạy ngầm.
 - Khoảng 1 phút sau, file `learn-variants/<File>.<fun>.variants.kt` mở trong một split bên phải, nằm cạnh code gốc. File có 3 variant: **Cơ bản**, **Idiomatic Kotlin** và **Nâng cao**. Mỗi variant có phần *Ý tưởng · Học được · Ưu/Nhược · Dùng khi*, kèm `main()` chạy thử và bảng so sánh.
@@ -357,7 +357,7 @@ Mô hình: một người hoặc team lo `shared` (logic, state), một người
 - [ ] Bài 1–3: dựng project, cài Kermit, dựng CI build cả 2 nền tảng.
 - [ ] Thêm CrashKiOS hoặc Sentry vào bản iOS ngay từ tuần 2.
 - [ ] Viết flow Maestro đầu tiên ở tuần 5.
-- [ ] Cài plugin 3V ([`studio-variants-plugin/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/studio-variants-plugin)) và chạy vòng học "tự viết → 3 variant → TÔI CHỌN/VÌ" mỗi ngày.
+- [ ] Cài plugin 3V ([`tools/studio-variants-plugin/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/tools/studio-variants-plugin)) và chạy vòng học "tự viết → 3 variant → TÔI CHỌN/VÌ" mỗi ngày.
 - [ ] Ghi mọi lỗi build/crash gặp phải vào [Lỗi hay gặp](../reference/troubleshooting.md).
 
 ## Nguồn

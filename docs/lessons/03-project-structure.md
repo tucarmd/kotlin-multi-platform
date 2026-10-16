@@ -11,7 +11,7 @@ Trước khi viết tính năng, đọc hiểu project wizard vừa sinh. KMP ch
 ## Cây thư mục
 
 ```text
-DevicePulse/
+apps/DevicePulse/
 ├── composeApp/
 │   ├── build.gradle.kts        # target + thư viện của module
 │   └── src/

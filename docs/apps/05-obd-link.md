@@ -10,7 +10,7 @@
 | **Cấp độ** | ⭐⭐⭐⭐⭐ Khó nhất |
 | **Mới học** | BLE trong KMP bằng [Kable](https://github.com/JuulLabs/kable) · state machine kết nối · **hàng đợi lệnh** (một lệnh một lúc) với `Mutex` + timeout + retry · parse byte / chuỗi hex · tách **nhiều module** Gradle · thiết bị giả để test |
 | **Cần trước** | App 4 · native-mobile-learning phần BLE (scan → GATT → notify → write) |
-| **Thư mục code** | [`ObdLink/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/ObdLink) · package `dev.obdlink` · ✅ đã có code |
+| **Thư mục code** | [`apps/ObdLink/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/apps/ObdLink) · package `dev.obdlink` · ✅ đã có code |
 | **Phần cứng** | Dongle ELM327 **BLE** (không phải Bluetooth Classic, iOS không dùng được Classic) · hoặc ESP32 / nRF Connect giả lập |
 | **Thời gian** | 10–14 buổi tối |
 
@@ -79,7 +79,7 @@ stateDiagram-v2
 ## 6. Bản đồ function
 
 Bảng đầy đủ (25 hàm, có link tới đúng dòng code) nằm trong
-[`ObdLink/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/README.md#ban-o-function). Các hàm chính:
+[`apps/ObdLink/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/README.md#ban-o-function). Các hàm chính:
 
 | Hàm | File | Làm gì | Vì sao |
 |---|---|---|---|
@@ -118,7 +118,7 @@ Bẫy cần ghi `// TRAP:` / `// PLATFORM:` trong code:
 ## 7. Test
 
 ```bash
-cd ObdLink
+cd apps/ObdLink
 ./gradlew :core:obd:allTests :core:ble:testDebugUnitTest :core:ble:iosSimulatorArm64Test \
           :shared:testDebugUnitTest :shared:iosSimulatorArm64Test
 ```

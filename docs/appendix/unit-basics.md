@@ -13,7 +13,7 @@ Viết test cho hàm luật trong `commonMain`: một test chạy được trên
 `kotlin("test")` trong `commonTest` là đủ, không cần JUnit hay thư viện nào khác:
 
 ```kotlin
-// TipSplit/shared/build.gradle.kts
+// apps/TipSplit/shared/build.gradle.kts
 commonTest.dependencies {
     implementation(kotlin("test"))
 }
@@ -91,7 +91,7 @@ for (bill in bills) for (tip in TIP_OPTIONS + 100) for (people in 1..MAX_PEOPLE)
 ```
 
 4 bất biến × 10.000 tổ hợp, chạy dưới 1 giây. Code đầy đủ:
-[`SplitTableTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/SplitTableTest.kt).
+[`SplitTableTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/shared/src/commonTest/kotlin/dev/tipsplit/SplitTableTest.kt).
 
 ## Phá rồi sửa: test có bắt được lỗi thật không?
 
@@ -138,7 +138,7 @@ Report HTML: `shared/build/reports/tests/<task>/index.html`. File XML (CI đọc
 1. Thêm 2 dòng vào bảng: tip 100% và hoá đơn đúng `MAX_BILL`. Tự tính kết quả bằng tay trước khi chạy.
 2. Viết bảng tương tự cho `parseMoney` của TipSplit (input → số hoặc `null`).
 3. Áp dụng vào Rate Watch: test bảng cho `convert` trong
-   [`rules/Convert.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/rules/Convert.kt),
+   [`rules/Convert.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/rules/Convert.kt),
    kèm một bất biến (đổi A → B rồi B → A thì gần bằng số ban đầu).
 
 Commit của trang này: `git log --grep "test bảng"`. Tiếp theo: Coroutine & Flow.

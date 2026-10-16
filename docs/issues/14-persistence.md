@@ -28,7 +28,7 @@ CREATE TABLE noteRecord (
 ALTER TABLE noteRecord ADD COLUMN pinned INTEGER NOT NULL DEFAULT 0;
 ```
 
-**Gặp ở:** [`PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq) · [`PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/1.sqm`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/1.sqm)
+**Gặp ở:** [`apps/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq) · [`apps/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/1.sqm`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/1.sqm)
 
 Xem thêm: K652, K657
 
@@ -55,7 +55,7 @@ sqldelight {
 }
 ```
 
-**Gặp ở:** [`PocketNotes/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/build.gradle.kts)
+**Gặp ở:** [`apps/PocketNotes/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/build.gradle.kts)
 
 ### K653 · Máy cài mới và máy nâng cấp có schema khác nhau
 
@@ -105,7 +105,7 @@ ALTER TABLE noteRecord ADD COLUMN pinned INTEGER NOT NULL;              -- ❌
 ALTER TABLE noteRecord ADD COLUMN pinned INTEGER NOT NULL DEFAULT 0;    -- ✅
 ```
 
-**Gặp ở:** [`PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/1.sqm`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/1.sqm)
+**Gặp ở:** [`apps/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/1.sqm`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/1.sqm)
 
 ### K656 · Muốn đổi kiểu cột / xoá cột bằng `ALTER TABLE`
 
@@ -148,7 +148,7 @@ fun `migration from schema 1 keeps old notes and adds pinned`() = runTest {
 }
 ```
 
-**Gặp ở:** [`PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt)
+**Gặp ở:** [`apps/PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt)
 
 ### K658 · iOS link lỗi `Undefined symbols … _sqlite3_*`
 
@@ -169,7 +169,7 @@ iosTarget.binaries.framework {
 }
 ```
 
-**Gặp ở:** [`PocketNotes/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/build.gradle.kts)
+**Gặp ở:** [`apps/PocketNotes/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/build.gradle.kts)
 
 Xem thêm: K659
 
@@ -190,7 +190,7 @@ bước link cuối cùng do target app trong Xcode làm, và target đó phải
 OTHER_LDFLAGS: ["$(inherited)", "-framework", "Shared", "-lsqlite3"]
 ```
 
-**Gặp ở:** [`PocketNotes/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/iosApp/project.yml) · [`RateWatch/shared/src/iosMain/kotlin/dev/ratewatch/di/PlatformModule.ios.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/iosMain/kotlin/dev/ratewatch/di/PlatformModule.ios.kt)
+**Gặp ở:** [`apps/PocketNotes/iosApp/project.yml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/iosApp/project.yml) · [`apps/RateWatch/shared/src/iosMain/kotlin/dev/ratewatch/di/PlatformModule.ios.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/iosMain/kotlin/dev/ratewatch/di/PlatformModule.ios.kt)
 
 ### K660 · Tên bảng trùng tên model → Swift thấy `Note_`
 
@@ -209,7 +209,7 @@ CREATE TABLE note (...);          -- ❌ sinh class Note
 CREATE TABLE noteRecord (...);    -- ✅ sinh class NoteRecord
 ```
 
-**Gặp ở:** [`PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq)
+**Gặp ở:** [`apps/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq)
 
 ### K661 · `Unresolved reference: noteRecordQueries`
 
@@ -226,7 +226,7 @@ CREATE TABLE noteRecord (...);    -- ✅ sinh class NoteRecord
 private val queries = NotesDb(driver).noteQueries     // từ Note.sq
 ```
 
-**Gặp ở:** [`PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt)
+**Gặp ở:** [`apps/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt)
 
 ### K662 · `Unresolved reference: NotesDb` (code SQLDelight không được sinh)
 
@@ -272,7 +272,7 @@ tripQueries.selectById(id).executeAsOne()            // ❌ crash nếu đã xo�
 tripQueries.selectById(id).executeAsOneOrNull()      // ✅ null = không có
 ```
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt)
 
 ### K665 · Query chạy trên main thread
 
@@ -293,7 +293,7 @@ override suspend fun loadTrip(tripId: Long): Trip? =
     io { tripQueries.selectById(tripId, ::toTrip).executeAsOneOrNull() }
 ```
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt)
 
 Xem thêm: K666, K687
 
@@ -312,7 +312,7 @@ main (hoặc context rỗng rồi collect trên main) thì query chạy trên ma
 queries.selectAll().asFlow().mapToList(Dispatchers.Default)   // ✅ query chạy trên Default
 ```
 
-**Gặp ở:** [`PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt)
+**Gặp ở:** [`apps/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt)
 
 ### K667 · `Unresolved reference: IO` trong `commonMain`
 
@@ -332,7 +332,7 @@ class SqlNoteRepository(
 ) : NoteRepository
 ```
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt)
 
 ### K668 · `last_insert_rowid()` trả id của dòng khác
 
@@ -355,7 +355,7 @@ val id = tripQueries.transactionWithResult {              // ✅
 }
 ```
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/sqldelight/dev/triplog/db/Trip.sq`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/sqldelight/dev/triplog/db/Trip.sq) · [`PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/sqldelight/dev/triplog/db/Trip.sq`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/sqldelight/dev/triplog/db/Trip.sq) · [`apps/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt)
 
 ### K669 · Chèn từng dòng một → chậm và tốn pin
 
@@ -373,7 +373,7 @@ pointQueries.transaction {
 }
 ```
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt)
 
 ### K670 · Danh sách nháy rỗng khi làm mới dữ liệu
 
@@ -394,7 +394,7 @@ db.rateQueries.transaction {
 }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt)
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt)
 
 ### K671 · Gọi mạng bên trong transaction
 
@@ -413,7 +413,7 @@ withContext(Dispatchers.Default) {
 }
 ```
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt)
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt)
 
 ### K672 · Gọi hàm `suspend` trong `transaction { }` của SQLDelight
 
@@ -445,7 +445,7 @@ override fun observeTrips(): Flow<List<Trip>> =
     tripQueries.selectFinished(::toTrip).asFlow().mapToList(Dispatchers.IO)
 ```
 
-**Gặp ở:** [`TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/commonMain/kotlin/dev/triplog/data/TripRepository.kt)
 
 ### K674 · Thêm `AS Instant` vào cột thì constructor database đòi adapter
 
@@ -483,7 +483,7 @@ thứ tự lạ.
 updatedAtMillis INTEGER NOT NULL    -- ✅ Instant.toEpochMilliseconds()
 ```
 
-**Gặp ở:** [`PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq)
+**Gặp ở:** [`apps/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq)
 
 ### K676 · `Unresolved reference: JdbcSqliteDriver` trong `commonTest`
 
@@ -503,7 +503,7 @@ androidUnitTest.dependencies {
 }
 ```
 
-**Gặp ở:** [`PocketNotes/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/build.gradle.kts) · [`PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt)
+**Gặp ở:** [`apps/PocketNotes/shared/build.gradle.kts`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/build.gradle.kts) · [`apps/PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt)
 
 ### K677 · Test với DB trong bộ nhớ: `no such table: noteRecord`
 
@@ -522,7 +522,7 @@ private val driver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
 @BeforeTest fun setUp() { NotesDb.Schema.create(driver) }       // ✅
 ```
 
-**Gặp ở:** [`PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt)
+**Gặp ở:** [`apps/PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/androidUnitTest/kotlin/dev/pocketnotes/NoteRepositoryTest.kt)
 
 ### K678 · Mở hai driver vào cùng một file DB
 
@@ -541,7 +541,7 @@ actual val platformModule: Module = module {
 }
 ```
 
-**Gặp ở:** [`PocketNotes/shared/src/androidMain/kotlin/dev/pocketnotes/di/PlatformModule.android.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/androidMain/kotlin/dev/pocketnotes/di/PlatformModule.android.kt)
+**Gặp ở:** [`apps/PocketNotes/shared/src/androidMain/kotlin/dev/pocketnotes/di/PlatformModule.android.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/androidMain/kotlin/dev/pocketnotes/di/PlatformModule.android.kt)
 
 ### K679 · Tạo driver SQLDelight trong `commonMain`
 
@@ -562,7 +562,7 @@ fun createDriver(context: Context): SqlDriver = AndroidSqliteDriver(NotesDb.Sche
 fun createDriver(): SqlDriver = NativeSqliteDriver(NotesDb.Schema, "notes.db")
 ```
 
-**Gặp ở:** [`PocketNotes/shared/src/androidMain/kotlin/dev/pocketnotes/di/PlatformModule.android.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/androidMain/kotlin/dev/pocketnotes/di/PlatformModule.android.kt) · [`PocketNotes/shared/src/iosMain/kotlin/dev/pocketnotes/di/PlatformModule.ios.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/iosMain/kotlin/dev/pocketnotes/di/PlatformModule.ios.kt)
+**Gặp ở:** [`apps/PocketNotes/shared/src/androidMain/kotlin/dev/pocketnotes/di/PlatformModule.android.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/androidMain/kotlin/dev/pocketnotes/di/PlatformModule.android.kt) · [`apps/PocketNotes/shared/src/iosMain/kotlin/dev/pocketnotes/di/PlatformModule.ios.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/iosMain/kotlin/dev/pocketnotes/di/PlatformModule.ios.kt)
 
 ### K680 · Sắp xếp vừa bằng `ORDER BY` vừa bằng Kotlin
 
@@ -576,7 +576,7 @@ chỗ kia.
 **Sửa:** chọn **một** nơi giữ luật. Luật nghiệp vụ có test thì để trong Kotlin (`sortNotes`), query trả về không sắp xếp.
 Chỉ dùng `ORDER BY` khi cần cho phân trang / `LIMIT`.
 
-**Gặp ở:** [`PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq)
+**Gặp ở:** [`apps/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq)
 
 ### K681 · `INSERT OR REPLACE` xoá mất dữ liệu liên quan
 
@@ -596,7 +596,7 @@ INSERT INTO noteRecord(id, title, body, updatedAtMillis, pinned) VALUES (?, ?, ?
 ON CONFLICT(id) DO UPDATE SET title = excluded.title, body = excluded.body;
 ```
 
-**Gặp ở:** [`PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq) (`upsert` ghi đủ mọi cột, bảng không có bảng con)
+**Gặp ở:** [`apps/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/commonMain/sqldelight/dev/pocketnotes/db/Note.sq) (`upsert` ghi đủ mọi cột, bảng không có bảng con)
 
 ### K682 · SQLDelight báo lỗi cú pháp với `ON CONFLICT`, `RETURNING`, window function
 
@@ -788,7 +788,7 @@ viết class `@Entity` / `@Dao` (annotation + KSP), quen với người đã là
 Đội đã quen Room trên Android → Room KMP (2.7+). Dù chọn gì, giấu nó sau một interface repository để core test được bằng
 fake.
 
-**Gặp ở:** [`PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt) (interface `NoteRepository`, `FakeNoteRepository` cho test)
+**Gặp ở:** [`apps/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/PocketNotes/shared/src/commonMain/kotlin/dev/pocketnotes/data/NoteRepository.kt) (interface `NoteRepository`, `FakeNoteRepository` cho test)
 
 ### K693 · `There are multiple DataStores active for the same file`
 
@@ -889,7 +889,7 @@ ra rồi parse JSON.
 thể là một bảng key/value trong DB (RateWatch lưu đồng tiền gốc trong bảng `setting`, đồng tiền yêu thích trong bảng
 `favorite`).
 
-**Gặp ở:** [`RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt)
+**Gặp ở:** [`apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/RateWatch/shared/src/commonMain/kotlin/dev/ratewatch/data/RateRepository.kt)
 
 ### K699 · Đổi kiểu key DataStore → `ClassCastException`
 

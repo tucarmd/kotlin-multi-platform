@@ -98,7 +98,7 @@ quay về: runBlocking (thread main @coroutine#1) → hiển thị 7000
 
 ## Gặp ở đâu trong repo
 
-- [`HistoryRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/data/HistoryRepository.kt): `withContext(Dispatchers.Default) { insert(state) }`. Ghi SQLite là việc chặn, nên đẩy khỏi thread UI.
+- [`HistoryRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/data/HistoryRepository.kt): `withContext(Dispatchers.Default) { insert(state) }`. Ghi SQLite là việc chặn, nên đẩy khỏi thread UI.
 
 ## Nguồn
 

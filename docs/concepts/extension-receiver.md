@@ -103,7 +103,7 @@ So sánh hai kiểu lambda:
 ## Gặp ở đâu trong repo
 
 - Mọi file `build.gradle.kts` (`kotlin { sourceSets { … } }`).
-- [`Models.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/model/Models.kt): `fun <T : Any> Reading<T>.valueOrNull()` là extension lấy giá trị khi đã có kết quả.
+- [`Models.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/model/Models.kt): `fun <T : Any> Reading<T>.valueOrNull()` là extension lấy giá trị khi đã có kết quả.
 - Mọi màn Compose: `Column { … }`, `Row { … }`, `LazyColumn { … }`.
 
 ## Nguồn

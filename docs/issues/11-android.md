@@ -66,7 +66,7 @@ class TipSplitApp : Application() {
 }
 ```
 
-**Gặp ở:** [`TipSplit/androidApp/src/main/kotlin/dev/tipsplit/android/TipSplitApp.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TipSplit/androidApp/src/main/kotlin/dev/tipsplit/android/TipSplitApp.kt)
+**Gặp ở:** [`apps/TipSplit/androidApp/src/main/kotlin/dev/tipsplit/android/TipSplitApp.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TipSplit/androidApp/src/main/kotlin/dev/tipsplit/android/TipSplitApp.kt)
 
 ### K504 · Viết class `Application` mà không khai báo trong Manifest
 
@@ -182,7 +182,7 @@ context.startActivity(
 )
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt)
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt)
 
 ### K511 · Việc chạy dài nằm trong `ViewModel` → bấm Back là dừng
 
@@ -203,7 +203,7 @@ class RecordViewModel(private val recorder: TripRecorder) : ViewModel() {
 }
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/RecordViewModel.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/RecordViewModel.kt)
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/RecordViewModel.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/RecordViewModel.kt)
 
 ### K512 · Ngắt kết nối dùng chung trong `onCleared()`
 
@@ -217,7 +217,7 @@ BLE, chuyến đi) không thuộc về một màn hình.
 **Sửa:** tài nguyên dùng chung sống trong singleton; đóng nó bằng hành động rõ ràng (nút "Ngắt kết nối"), không phải
 trong `onCleared()`. `onCleared()` chỉ dọn thứ chính `ViewModel` tạo ra.
 
-**Gặp ở:** [`ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/ObdViewModel.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/ObdViewModel.kt)
+**Gặp ở:** [`apps/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/ObdViewModel.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/ObdViewModel.kt)
 
 ### K513 · Process death: quay lại app thì màn hình còn nhưng dữ liệu mất
 
@@ -359,7 +359,7 @@ override fun onNewIntent(intent: Intent) {
 }
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/AndroidManifest.xml) (`launchMode="singleTop"`)
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/AndroidManifest.xml) (`launchMode="singleTop"`)
 
 ### K521 · `ActivityNotFoundException` khi mở link / email / share
 
@@ -417,7 +417,7 @@ gọi hay không.
 <service android:name=".service.TrackingService" android:exported="false" />
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/AndroidManifest.xml)
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/AndroidManifest.xml)
 
 ### K524 · Cài xong không thấy icon app / "Default Activity not found"
 
@@ -519,7 +519,7 @@ try {
 } catch (_: SecurityException) { close(LocationUnavailableException(PermissionDenied)) }  // ✅
 ```
 
-**Gặp ở:** [`TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt)
 
 ### K530 · `registerForActivityResult` gọi muộn → `IllegalStateException`
 
@@ -558,7 +558,7 @@ fun openSettings() = context.startActivity(
 )
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt) · Xem thêm: K532
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt) · Xem thêm: K532
 
 ### K532 · Không phân biệt được "chưa hỏi lần nào" và "đã bị từ chối vĩnh viễn"
 
@@ -582,7 +582,7 @@ fun state(activity: Activity, perm: String, asked: Boolean) = when {
 }
 ```
 
-**Gặp ở:** [`DevicePulse/androidApp/src/main/kotlin/dev/devicepulse/android/ui/LocationPermission.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/androidApp/src/main/kotlin/dev/devicepulse/android/ui/LocationPermission.kt) (chỉ biết `granted`, chưa phân biệt) · [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt)
+**Gặp ở:** [`apps/DevicePulse/androidApp/src/main/kotlin/dev/devicepulse/android/ui/LocationPermission.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/androidApp/src/main/kotlin/dev/devicepulse/android/ui/LocationPermission.kt) (chỉ biết `granted`, chưa phân biệt) · [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt)
 
 ### K533 · Người dùng thu hồi quyền trong Settings, quay lại app thấy state cũ
 
@@ -603,7 +603,7 @@ LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
 }
 ```
 
-**Gặp ở:** [`ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/BlePermission.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/BlePermission.kt)
+**Gặp ở:** [`apps/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/BlePermission.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/BlePermission.kt)
 
 ### K534 · Quyền "Chỉ lần này" biến mất sau một lúc
 
@@ -634,7 +634,7 @@ launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))                       
 launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)) // ✅
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt)
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt)
 
 ### K536 · Người dùng chỉ cho "vị trí gần đúng" → app ghi được chuyến trống
 
@@ -656,7 +656,7 @@ issue = when {
 }
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt)
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt)
 
 ### K537 · Xin vị trí nền cùng lúc với vị trí thường → bị bỏ qua
 
@@ -689,7 +689,7 @@ if (Build.VERSION.SDK_INT >= 33 && !has(Manifest.permission.POST_NOTIFICATIONS))
 val notifications = Build.VERSION.SDK_INT < 33 || has(Manifest.permission.POST_NOTIFICATIONS)  // ✅
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt)
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/Permissions.kt)
 
 ### K539 · Android ≤ 11: quét BLE ra danh sách rỗng, không lỗi gì
 
@@ -713,7 +713,7 @@ fun blePermissions(sdk: Int = Build.VERSION.SDK_INT): Array<String> =
     }
 ```
 
-**Gặp ở:** [`ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/BlePermission.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/BlePermission.kt)
+**Gặp ở:** [`apps/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/BlePermission.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/BlePermission.kt)
 
 ### K540 · Android 12+ vẫn đòi quyền vị trí cho Bluetooth
 
@@ -735,7 +735,7 @@ kết bằng `neverForLocation`. Quyền cũ cũng nên giới hạn bằng `max
 <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 ```
 
-**Gặp ở:** [`ObdLink/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/androidApp/src/main/AndroidManifest.xml)
+**Gặp ở:** [`apps/ObdLink/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/androidApp/src/main/AndroidManifest.xml)
 
 ### K541 · Nhờ hệ thống bật Bluetooth → `SecurityException` trên Android 12+
 
@@ -755,7 +755,7 @@ askRadioOn = {
 }
 ```
 
-**Gặp ở:** [`ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/BlePermission.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/BlePermission.kt)
+**Gặp ở:** [`apps/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/BlePermission.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/androidApp/src/main/kotlin/dev/obdlink/android/ui/BlePermission.kt)
 
 ### K542 · `LocationListener { }` dạng lambda crash trên Android < 11
 
@@ -780,7 +780,7 @@ val listener = object : LocationListener {                  // ✅
 }
 ```
 
-**Gặp ở:** [`TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt)
+**Gặp ở:** [`apps/TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/shared/src/androidMain/kotlin/dev/triplog/platform/AndroidLocationStream.kt)
 
 ### K543 · Chia sẻ file bằng `file://` → `FileUriExposedException`
 
@@ -797,7 +797,7 @@ val uri = Uri.fromFile(file)                                                    
 val uri = FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)  // ✅
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/GpxShare.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/GpxShare.kt)
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/GpxShare.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/GpxShare.kt)
 
 ### K544 · `FileProvider`: `Failed to find configured root that contains …`
 
@@ -822,7 +822,7 @@ trùng `android:authorities` trong Manifest.
     android:exported="false" android:grantUriPermissions="true"> … </provider>
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/res/xml/file_paths.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/res/xml/file_paths.xml)
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/res/xml/file_paths.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/res/xml/file_paths.xml)
 
 ### K545 · Share qua chooser: app nhận báo "permission denied" trên uri
 
@@ -844,7 +844,7 @@ send.clipData = ClipData.newRawUri(fileName, uri)       // ✅ quyền đi theo 
 context.startActivity(Intent.createChooser(send, chooserTitle))
 ```
 
-**Gặp ở:** [`TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/GpxShare.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/GpxShare.kt)
+**Gặp ở:** [`apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/GpxShare.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/kotlin/dev/triplog/android/ui/GpxShare.kt)
 
 ### K546 · `Call requires API level 26 (current min is 24)`
 
@@ -935,7 +935,7 @@ tính năng phụ, và kiểm lúc chạy bằng `packageManager.hasSystemFeatur
 <uses-feature android:name="android.hardware.location.gps" android:required="false" />  <!-- TripLog -->
 ```
 
-**Gặp ở:** [`ObdLink/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/androidApp/src/main/AndroidManifest.xml) · [`TripLog/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/TripLog/androidApp/src/main/AndroidManifest.xml)
+**Gặp ở:** [`apps/ObdLink/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/ObdLink/androidApp/src/main/AndroidManifest.xml) · [`apps/TripLog/androidApp/src/main/AndroidManifest.xml`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/TripLog/androidApp/src/main/AndroidManifest.xml)
 
 ---
 

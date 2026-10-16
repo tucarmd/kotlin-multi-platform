@@ -42,7 +42,7 @@ flowchart LR
 Cần: JDK 17+ (đã thử JDK 21), Android SDK 36, Xcode 16+ (đã thử 26.5), iOS 17+, XcodeGen.
 
 ```bash
-cd PocketNotes
+cd apps/PocketNotes
 ./gradlew :androidApp:installDebug                                  # Android: cài lên emulator / máy đang cắm
 ./gradlew :shared:testDebugUnitTest :shared:iosSimulatorArm64Test   # 29 test trên JVM (có SQLite thật) + 25 test trên iOS Simulator
 cd iosApp && xcodegen generate && open iosApp.xcodeproj             # iOS: bấm Run
@@ -70,7 +70,7 @@ nên kiểm được `Note.sq`, `1.sqm` và migration mà không cần emulator.
 ## Cấu trúc
 
 ```text
-PocketNotes/
+apps/PocketNotes/
 ├── shared/src/
 │   ├── commonMain/kotlin/dev/pocketnotes/
 │   │   ├── model/Models.kt        Note, NoteDraft, SaveAction, RelativeTime, NoteItem, NotesState (sealed)  [B1]
@@ -134,7 +134,7 @@ Tìm mọi chỗ dễ sai: `grep -rn "TRAP:\|PLATFORM:" shared androidApp/src io
 
 Giống DevicePulse: Kotlin 2.4.20 · SKIE 0.10.15 · Koin 4.2.2 · AGP 8.13.2 · Compose BOM 2026.06.01 · Coroutines 1.11.0 ·
 SQLDelight 2.4.1 · Navigation Compose 2.9.7 · Turbine 1.2.1. Lý do từng cái: mục *Version và vì sao* trong
-[`DevicePulse/README.md`](../DevicePulse/README.md).
+[`apps/DevicePulse/README.md`](../DevicePulse/README.md).
 
 Mới ở app này:
 

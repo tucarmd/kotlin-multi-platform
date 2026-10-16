@@ -103,8 +103,8 @@ không phải số
 
 ## Gặp ở đâu trong repo
 
-- [`PulseMonitor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseMonitor.kt): `MutableStateFlow<Reading<Long>?>(null)`. Chưa đo độ trễ lần nào thì giá trị là `null`.
-- [`HistoryRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/data/HistoryRepository.kt): `row.connection?.let { … }` chuyển cột có thể null trong database thành enum.
+- [`PulseMonitor.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/core/PulseMonitor.kt): `MutableStateFlow<Reading<Long>?>(null)`. Chưa đo độ trễ lần nào thì giá trị là `null`.
+- [`HistoryRepository.kt`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/DevicePulse/shared/src/commonMain/kotlin/dev/devicepulse/data/HistoryRepository.kt): `row.connection?.let { … }` chuyển cột có thể null trong database thành enum.
 - [Tip Split](../apps/01-tip-split.md): `parseMoney()` trả `Long?` khi người dùng gõ sai.
 
 ## Nguồn
