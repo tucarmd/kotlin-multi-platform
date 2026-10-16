@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import com.learn.ndmkmp.core.background.DeviceMonitor
 import com.learn.ndmkmp.core.bluetooth.BleClient
 import com.learn.ndmkmp.core.bluetooth.BluetoothRadioState
@@ -109,6 +110,13 @@ fun App(startTab: String? = null, services: AppServices = remember { AppServices
     // Same rule as PermissionController.isBleGranted, but read from the collected state → recomposes when it changes.
     val bleGranted = listOf(PermissionGroupId.BLE_SCAN, PermissionGroupId.BLE_CONNECT).all { permissionStates[it]?.isGranted == true }
     val readiness = bleReadiness(radio, bleGranted)
+
+    // Back from Settings / another app: no event fires for permission changes → re-read on every resume.
+    // Compose Multiplatform maps this to Activity onResume (Android) and app-did-become-active (iOS).
+    LifecycleResumeEffect(services) {
+        services.permissions.refresh()
+        onPauseOrDispose { }
+    }
 
     // Radio switched off mid-session → scan/GATT give no error by themselves, so tell the client to clean up.
     LaunchedEffect(radio) {

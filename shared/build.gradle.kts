@@ -38,6 +38,12 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.core.ktx)
+            implementation(libs.androidx.work.runtime)        // P7: MonitorWorker every 15′
+            implementation(libs.ktor.client.okhttp)           // P6: Android HTTP engine
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)           // P6: NSURLSession engine
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -49,9 +55,13 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.ktor.client.core)             // P6
+            implementation(libs.kotlinx.io.core)              // P7: FileLogger
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.ktor.client.mock)             // P6: ApiService tests without network
         }
     }
 }

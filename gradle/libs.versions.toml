@@ -16,8 +16,18 @@ kotlinx-coroutines = "1.11.0"
 # 1.11.0 = what Ktor 3.5.1 depends on (P6) → one copy. The compiler plugin is versioned with Kotlin.
 kotlinx-serialization = "1.11.0"
 ktor = "3.5.1"
+# P7: JSONL FileLogger in commonMain (same lib Ktor uses for its I/O)
+kotlinx-io = "0.9.0"
+# P7: Android periodic MonitorWorker + FGS notification helpers — same versions as the old app
+androidx-work = "2.10.2"
+androidx-core = "1.15.0"
 
 [libraries]
+kotlinx-io-core = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlinx-io" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
+androidx-work-runtime = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
