@@ -30,11 +30,18 @@ xcrun simctl install "iPhone 17" "iosApp/build/dd/Build/Products/Debug-iphonesim
 xcrun simctl launch "iPhone 17" com.learn.ndmkmp
 ```
 
+## Test
+
+```bash
+./gradlew :shared:allTests   # commonTest on the Android host JVM + iOS simulator
+```
+
 ## Status
 
 | Phase | Android | iOS |
 |---|:-:|:-:|
 | P0 — project + hello screen from one `App()` | ✅ | ✅ |
+| P1 — shared core (BLE rules, GATT decode, DeviceStatus JSON, media, permission, scanner rules) + 52 tests | ✅ | ✅ |
 
 | Android (Pixel 8 emulator, API 34) | iOS (iPhone 17 Simulator, iOS 26.5) |
 |---|---|

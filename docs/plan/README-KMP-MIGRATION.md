@@ -60,7 +60,7 @@ Library choices (versions from the wizard / lesson 5, not hand-picked):
 | # | Phase | Lesson | Work | Done means |
 |---|---|---|---|---|
 | P0 ✅ | Setup | 2–3 | Wizard layout: Android + iOS, **Share UI**, package `com.learn.ndmkmp` (D4). Hello screen. | Runs on Android emulator **and** iOS simulator, 2 screenshots — [kmp_p0_android.png](../assets/kmp_p0_android.png) · [kmp_p0_ios.png](../assets/kmp_p0_ios.png) |
-| P1 | Shared core | 4–5 | Move the 8 pure files to `commonMain` (GattModel, BluetoothDecoder, BluetoothLookup, BluetoothScanFilter, BluetoothDeviceInfo, DeviceStatus, MediaInfo, PermissionStatus) + ScannerActions; port their tests to `kotlin.test` | `./gradlew :shared:allTests` green on JVM/Android **and** iOS simulator |
+| P1 ✅ | Shared core | 4–5 | Move the 8 pure files to `commonMain` (GattModel, BluetoothDecoder, BluetoothLookup, BluetoothScanFilter, BluetoothDeviceInfo, DeviceStatus, MediaInfo, PermissionStatus) + ScannerActions; port their tests to `kotlin.test` | `./gradlew :shared:allTests` green on JVM/Android **and** iOS simulator — 52/52 on both |
 | P2 | UI shell | 6–8 | Theme tokens + AppCard/AppPrimaryButton/AppHintText, 5-tab bottom bar, strings → resources, every screen on **fake** data | Both platforms show all 5 tabs, screenshots |
 | P3 | Permissions | 9 | `PermissionService` interface; 🤖 ActivityResult (API ≤30 vs 31+ branch kept) · 🍎 CBManager + AVCaptureDevice authorization; open Settings | Deny → retry → Settings path works on both (real devices) |
 | P4 | BLE | — (app #5 "OBD Link") | `BleClient` interface: scan → connect → discover → read → notify → write → MTU → disconnect; platform rules from the README table (Android GATT queue, iOS 15 s connect timeout, radio-off cleanup) | Full Scanner E2E against nRF Connect advertiser on **Samsung A32 + real iPhone** |
@@ -97,7 +97,13 @@ Order matters: P0–P2 can be checked on simulator/emulator only; P3–P5, P7 ne
   Android: `:androidApp:assembleDebug` ✅, runs on Pixel 8 emulator (API 34). iOS: `xcodebuild` ✅, runs on iPhone 17
   Simulator (iOS 26.5).
 - **2026-10-16 · moved to its own private repo** `tucarmd/native-device-monitor-kmp` (was a folder in native-mobile-learning).
+- **2026-10-16 · P1 done.** 9 pure files → `shared/src/commonMain/.../core/` (+ `ui/scanner/ScannerActions.kt`).
+  JVM-only bits replaced: `java.util.UUID` → `String` in `BluetoothDecoder.shortUuid`, `"%02X".format` → own `hex()`,
+  `Charsets` → `decodeToString()` / `encodeToByteArray()`, `"%.1f".format(Locale.US)` → `oneDecimal()`,
+  `org.json` → kotlinx.serialization 1.11.0 (same JSONL: `null` for unmeasured, `source` omitted when null).
+  Tests: 50 old JUnit cases → `kotlin.test` in `commonTest` + 2 new (short line, broken line) = **52 pass on
+  `testAndroidHostTest` and `iosSimulatorArm64Test`**. FileLogger file-I/O tests wait for P7, ApiClient tests for P6.
 
 ## 7. Next step
 
-P1 — shared core + tests, then P2 — UI shell on fake data; stop after P2 for a screenshot review before touching BLE.
+P2 — UI shell on fake data (5 tabs, theme, resources); stop after P2 for a screenshot review before touching BLE.
