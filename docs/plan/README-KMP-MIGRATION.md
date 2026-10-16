@@ -2,7 +2,7 @@
 
 # Plan — Native Device Monitor → one Kotlin app (KMP + Compose Multiplatform)
 
-> Created: 2026-10-16 · Status: **Approved 2026-10-16 (D1–D5 as recommended) · P0 ✅ done 2026-10-16**
+> Created: 2026-10-16 · Status: **Approved 2026-10-16 (D1–D5 as recommended) · P0 ✅ P1 ✅ P2 ✅ done 2026-10-16**
 > Learning path: [Học KMP qua Device Pulse](https://tucarmd.github.io/kotlin-multi-platform/lessons/02-setup/) (14 lessons) +
 > official docs [kotlinlang.org/docs/multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html).
 > Done rule (same as the curriculum): **build OK + run for real + screenshot read**. Code written ≠ done.
@@ -61,7 +61,7 @@ Library choices (versions from the wizard / lesson 5, not hand-picked):
 |---|---|---|---|---|
 | P0 ✅ | Setup | 2–3 | Wizard layout: Android + iOS, **Share UI**, package `com.learn.ndmkmp` (D4). Hello screen. | Runs on Android emulator **and** iOS simulator, 2 screenshots — [kmp_p0_android.png](../assets/kmp_p0_android.png) · [kmp_p0_ios.png](../assets/kmp_p0_ios.png) |
 | P1 ✅ | Shared core | 4–5 | Move the 8 pure files to `commonMain` (GattModel, BluetoothDecoder, BluetoothLookup, BluetoothScanFilter, BluetoothDeviceInfo, DeviceStatus, MediaInfo, PermissionStatus) + ScannerActions; port their tests to `kotlin.test` | `./gradlew :shared:allTests` green on JVM/Android **and** iOS simulator — 52/52 on both |
-| P2 | UI shell | 6–8 | Theme tokens + AppCard/AppPrimaryButton/AppHintText, 5-tab bottom bar, strings → resources, every screen on **fake** data | Both platforms show all 5 tabs, screenshots |
+| P2 ✅ | UI shell | 6–8 | Theme tokens + AppCard/AppPrimaryButton/AppHintText, 5-tab bottom bar, every screen on **fake** data behind 5 interfaces | Both platforms show all 5 tabs — [android](../assets/kmp_p2_android_tabs.png) · [ios](../assets/kmp_p2_ios_tabs.png) · [fake GATT](../assets/kmp_p2_android_gatt_fake.png) |
 | P3 | Permissions | 9 | `PermissionService` interface; 🤖 ActivityResult (API ≤30 vs 31+ branch kept) · 🍎 CBManager + AVCaptureDevice authorization; open Settings | Deny → retry → Settings path works on both (real devices) |
 | P4 | BLE | — (app #5 "OBD Link") | `BleClient` interface: scan → connect → discover → read → notify → write → MTU → disconnect; platform rules from the README table (Android GATT queue, iOS 15 s connect timeout, radio-off cleanup) | Full Scanner E2E against nRF Connect advertiser on **Samsung A32 + real iPhone** |
 | P5 | Media | — | 🤖 TakePicture + PickVisualMedia · 🍎 UIImagePickerController / PHPicker presented from Kotlin; image → `ImageBitmap` + MediaInfo | Capture + pick + cancel on real devices (simulator has no camera) |
@@ -104,6 +104,20 @@ Order matters: P0–P2 can be checked on simulator/emulator only; P3–P5, P7 ne
   Tests: 50 old JUnit cases → `kotlin.test` in `commonTest` + 2 new (short line, broken line) = **52 pass on
   `testAndroidHostTest` and `iosSimulatorArm64Test`**. FileLogger file-I/O tests wait for P7, ApiClient tests for P6.
 
+- **2026-10-16 · P2 done.** All UI → `commonMain/ui/` (theme, common components, 5 screens). Each screen talks to one
+  commonMain interface: `PermissionController` · `BleClient` · `MediaPicker` · `ApiService` · `DeviceMonitor`, wired in
+  one place (`AppServices` in `App.kt`); P2 uses `fake/Fake*` for all five. `App()` = Scaffold + top bar + 5-tab
+  `NavigationBar` (moved out of the old `MainActivity`). JVM-only bits replaced: `SystemClock` → `monotonicMs()`,
+  `SimpleDateFormat` → `clockText()` / `isoLocalTimestamp()` (expect/actual; iOS `NSDateFormatter` en_US_POSIX),
+  `"%02X".format` → `toString(16)`. New dep: `material-icons-core` (tab + search icons).
+  Strings stay as `*Strings.kt` objects next to each screen (old rule 5.3), not Compose resources — moving them is
+  optional later. `--es tab <name>` (Android) / `-tab <name>` (iOS launch arg) opens a tab directly for screenshots.
+  Checked: `:androidApp:assembleDebug` + `xcodebuild` ✅, 52/52 tests on both targets still green, Pixel emulator
+  (API 34) + iPhone 17 Simulator show all 5 tabs; on Android the fake flow request → turn on radio → scan → select →
+  connect → discover (Battery + FFE0 UART, MTU 247) and Pick from library work. Fix found on iOS: "Permissions" tab
+  label wrapped to 2 lines → `maxLines = 1`, 11 sp.
+
 ## 7. Next step
 
-P2 — UI shell on fake data (5 tabs, theme, resources); stop after P2 for a screenshot review before touching BLE.
+P3 — Permissions: real `PermissionController` in androidMain (ActivityResult, API ≤ 30 vs 31+) and iosMain
+(CBManager + AVCaptureDevice); needs real devices for the deny → retry → Settings path.

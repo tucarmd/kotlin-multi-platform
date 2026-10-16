@@ -10,7 +10,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            App()
+            // `adb shell am start -n com.learn.ndmkmp/.MainActivity --es tab monitor` opens a tab directly (screenshots)
+            App(startTab = intent.getStringExtra("tab"))
         }
     }
 }
