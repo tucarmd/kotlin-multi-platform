@@ -3,6 +3,7 @@
 > The same app as `native-device-monitor/` in the private repo [tucarmd/native-mobile-learning](https://github.com/tucarmd/native-mobile-learning/tree/main/native-device-monitor), rebuilt as **one Kotlin codebase**
 > (Kotlin Multiplatform + Compose Multiplatform) for Android and iOS. Swift is only the iOS shell (`iosApp/`).
 > Plan + progress: [docs/plan/README-KMP-MIGRATION.md](docs/plan/README-KMP-MIGRATION.md)
+> How it works (diagrams, function flow, SDK map): [docs/README-KMP-HOW-IT-WORKS.md](docs/README-KMP-HOW-IT-WORKS.md)
 
 Skeleton from the official [Kotlin/KMP-App-Template](https://github.com/Kotlin/KMP-App-Template) layout
 (Kotlin 2.4.10 · Compose Multiplatform 1.11.1 · AGP 9.1 · Gradle 9.6). IDs: Android `com.learn.ndmkmp`, iOS `com.learn.ndmkmp`
