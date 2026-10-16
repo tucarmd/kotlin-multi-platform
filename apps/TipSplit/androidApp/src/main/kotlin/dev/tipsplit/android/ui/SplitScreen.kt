@@ -51,6 +51,9 @@ import org.koin.compose.viewmodel.koinViewModel
  * [App 1 · B5] Entry composable: gets the ViewModel from Koin and turns its StateFlow into Compose state.
  *
  * Why split Route / Screen: SplitScreen takes plain values and lambdas, so @Preview can draw it without Koin.
+ *
+ * [Bài 8 · ViewModel] koinViewModel() asks Koin for SplitViewModel, scoped to this screen, so rotation gets the
+ * same instance back. collectAsStateWithLifecycle() turns the StateFlow into Compose State: a new value redraws.
  */
 @Composable
 fun SplitRoute(viewModel: SplitViewModel = koinViewModel()) {
@@ -68,7 +71,14 @@ fun SplitRoute(viewModel: SplitViewModel = koinViewModel()) {
     )
 }
 
-/** [App 1 · B5] The whole screen. Draws [state] and fires actions; computes nothing itself. */
+/**
+ * [App 1 · B5] The whole screen. Draws [state] and fires actions; computes nothing itself.
+ *
+ * [Bài 6 · Compose cơ bản] A @Composable is a function that describes UI for the given input. When `state` changes,
+ * Compose calls it again and updates only what differs. Layout = Column / Row; size, spacing and test ids =
+ * Modifier, read top to bottom (padding before verticalScroll is not the same as after).
+ * [Bài 7] Every visible text comes from stringResource(R.string.x), never a literal, except symbols ("đ", "%").
+ */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun SplitScreen(
@@ -213,7 +223,12 @@ private fun AmountRow(label: String, amount: Long, tag: String) {
     }
 }
 
-/** Preview with a result computed by the real shared rule, so it matches what the app shows. */
+/**
+ * Preview with a result computed by the real shared rule, so it matches what the app shows.
+ *
+ * [Bài 6 · @Preview] Android Studio draws this in the Split / Design pane without running the app.
+ * It only works on a @Composable with no parameters (or default ones), which is why SplitScreen takes plain values.
+ */
 @Preview(showBackground = true)
 @Composable
 private fun SplitScreenPreview() {

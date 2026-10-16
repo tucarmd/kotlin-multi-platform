@@ -3,6 +3,7 @@ import Shared
 
 /// [App 1 · B6] The whole screen. Draws `model.state` and fires actions; computes nothing itself.
 /// Its Android twin is SplitScreen.kt, with the same sections in the same order.
+/// [Bài 6] SwiftUI plays the role Compose plays on Android: describe the UI for the current state, redraw on change.
 ///
 /// [Phụ lục P2] Every tappable / readable view carries an id from the shared Kotlin `UiIds`, the same strings Android
 /// uses as testTag. XCUITest and the shared Maestro flow (.maestro/) find views by these ids.

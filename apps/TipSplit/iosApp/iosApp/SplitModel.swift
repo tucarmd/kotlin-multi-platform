@@ -9,6 +9,9 @@ import Shared
 /// No logic here: every action forwards to TipCore, which is tested in shared/commonTest.
 ///
 /// Used by: SplitView. Uses: TipCore from `Shared`.
+///
+/// [Bài 8 · ViewModel] iOS has no androidx ViewModel; an @Observable class owned by the App (@State in iOSApp)
+/// plays the same role. [Bài 4] `import Shared` is the framework built from shared/ (baseName = "Shared").
 @MainActor @Observable
 final class SplitModel {
     private(set) var state: SplitState
