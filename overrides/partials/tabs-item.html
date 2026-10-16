@@ -17,7 +17,7 @@
       </a>
       <div class="kd">
         {% for sec in nav_item.children %}
-          <div class="kd__col">
+          <div class="kd__col{% if sec.children and sec.children | length > 12 %} kd__col--long{% endif %}">
             {% if sec.children %}
               <a class="kd__head" href="{{ first_url(sec) | trim }}">{{ sec.title }}</a>
               <ul class="kd__list">
