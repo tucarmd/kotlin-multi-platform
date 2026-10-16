@@ -61,6 +61,10 @@ kotlin {
             implementation(libs.turbine)
             implementation(libs.ktor.client.mock)
         }
+        // In-memory SQLite for SqlRateRepositoryTest: JDBC on the JVM. iosTest uses native-driver (already in iosMain).
+        androidUnitTest.dependencies {
+            implementation(libs.sqldelight.sqlite.driver)
+        }
     }
 }
 

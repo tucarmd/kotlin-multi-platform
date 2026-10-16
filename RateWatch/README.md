@@ -45,7 +45,7 @@ Cần: JDK 17+ (đã thử JDK 21), Android SDK 36, Xcode 16+ (đã thử 26.x),
 
 ```bash
 cd RateWatch
-./gradlew :shared:testDebugUnitTest :shared:iosSimulatorArm64Test   # 37 test trên JVM + iOS Simulator
+./gradlew :shared:testDebugUnitTest :shared:iosSimulatorArm64Test   # 44 test trên JVM + iOS Simulator
 ./gradlew :androidApp:installDebug                                  # cài lên emulator / máy đang cắm
 adb shell am start -n dev.ratewatch/dev.ratewatch.android.MainActivity
 ```
