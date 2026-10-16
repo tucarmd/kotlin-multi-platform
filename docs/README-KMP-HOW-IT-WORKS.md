@@ -18,7 +18,7 @@ Trang này vẽ lại app từ trên xuống dưới: Swift vỏ → UI Compose 
 
 ## 1. Bức tranh tổng: 6 tầng
 
-![Các tầng của app](assets/kmp_arch_layers.png)
+<!-- ảnh chưa sinh, sơ đồ mermaid bên dưới cùng nội dung: ![Các tầng của app](assets/kmp_arch_layers.png) -->
 
 | Tầng | Ở đâu | Viết bằng | Chung / riêng |
 |---|---|---|---|
@@ -77,7 +77,7 @@ flowchart TB
 
 ## 2. App khởi động: ai gọi ai
 
-![App khởi động](assets/kmp_arch_startup.png)
+<!-- ảnh chưa sinh, sơ đồ mermaid bên dưới cùng nội dung: ![App khởi động](assets/kmp_arch_startup.png) -->
 
 ```mermaid
 sequenceDiagram
@@ -114,7 +114,7 @@ sequenceDiagram
 
 ## 3. Bấm "Scan": hàm nào chạy
 
-![Bấm Scan](assets/kmp_arch_scan_flow.png)
+<!-- ảnh chưa sinh, sơ đồ mermaid bên dưới cùng nội dung: ![Bấm Scan](assets/kmp_arch_scan_flow.png) -->
 
 ```mermaid
 sequenceDiagram
@@ -155,7 +155,7 @@ Bước 1–3 và 5–8 là **cùng một đoạn code Kotlin** trên cả hai m
 
 ## 4. KMP gọi SDK nào bên dưới
 
-![Ai nói chuyện với phần cứng](assets/kmp_arch_sdk_map.png)
+<!-- ảnh chưa sinh, sơ đồ mermaid bên dưới cùng nội dung: ![Ai nói chuyện với phần cứng](assets/kmp_arch_sdk_map.png) -->
 
 ### 4.1 Năm interface trong `AppServices`
 

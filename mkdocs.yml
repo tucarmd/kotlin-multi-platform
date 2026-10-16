@@ -10,7 +10,61 @@ site_dir: site
 theme:
   name: material
   language: vi
+  font:
+    text: Figtree
+    code: JetBrains Mono
+  icon:
+    logo: material/language-kotlin
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      accent: orange
+      toggle: { icon: material/weather-night, name: Chế độ tối }
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: orange
+      toggle: { icon: material/weather-sunny, name: Chế độ sáng }
+
+markdown_extensions:
+  - tables
+  - admonition
+  - attr_list
+  - md_in_html
+  # slug giữ dấu tiếng Việt, giống anchor GitHub → link #1-bức-tranh-tổng-6-tầng chạy cả 2 nơi
+  - toc:
+      permalink: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify { kwds: { case: lower } }
+  - pymdownx.highlight: { anchor_linenums: true }
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.details
 
 # Đổi link code ngoài docs/ → GitHub (xem hooks/code_links.py)
 hooks:
   - hooks/code_links.py
+
+plugins:
+  - search
+
+nav:
+  - Trang chủ: index.md
+  - Kế hoạch + tiến độ: plan/README-KMP-MIGRATION.md
+  - App chạy thế nào: README-KMP-HOW-IT-WORKS.md
+  - Site tài liệu:
+      - Spec: plan/README-KMP-DOCS-SITE-SPEC.md
+      - Plan S1–S5: plan/README-KMP-DOCS-SITE-PLAN.md

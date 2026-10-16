@@ -23,4 +23,4 @@ mkdocs build --strict   # giống CI
 
 ## Tiến độ
 
-- [x] S1 · [x] S2 · [x] S3 · [ ] S4 · [ ] S5
+- [x] S1 · [x] S2 · [x] S3 · [x] S4 · [ ] S5
