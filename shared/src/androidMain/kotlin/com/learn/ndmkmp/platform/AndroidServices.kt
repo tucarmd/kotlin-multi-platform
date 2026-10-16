@@ -5,10 +5,10 @@ import com.learn.ndmkmp.AppServices
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.learn.ndmkmp.core.bluetooth.AndroidBleClient
+import com.learn.ndmkmp.core.media.AndroidMediaPicker
 import com.learn.ndmkmp.core.network.KtorApiService
 import com.learn.ndmkmp.core.permission.AndroidPermissionController
 import com.learn.ndmkmp.fake.FakeDeviceMonitor
-import com.learn.ndmkmp.fake.FakeMediaPicker
 
 /**
  * The Android side of [AppServices] — the only place that picks real vs fake on Android.
@@ -25,7 +25,7 @@ fun createAndroidServices(activity: ComponentActivity): AppServices {
     return AppServices(
         permissions = AndroidPermissionController(activity),   // P3 ✅
         ble = ble,                                // P4 ✅
-        media = FakeMediaPicker(),                  // P5
+        media = AndroidMediaPicker(activity),       // P5 ✅
         api = KtorApiService(),                     // P6 ✅
         monitor = FakeDeviceMonitor(supportsForegroundService = true),   // P7
     )

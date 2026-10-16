@@ -30,4 +30,19 @@
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
 
+    <application>
+        <!-- P5 · Day 10: hands a content:// uri to the Camera app to write the photo into (TakePicture). exported=false + grantUriPermissions:
+             only the app handed the uri in the Intent can read/write it, and only that uri.
+             ${applicationId} is filled in when merged into :androidApp → com.learn.ndmkmp.fileprovider. -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+
 </manifest>

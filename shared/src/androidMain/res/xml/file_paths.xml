@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Day 10: FileProvider directory allowed to be shared with the Camera app.
+     cache-path = context.cacheDir · path="images/" must match AndroidMediaPicker.CAPTURE_DIR.
+     Only exposes exactly 1 subdirectory — not the whole cacheDir/filesDir (monitor.jsonl lives in filesDir). -->
+<paths>
+    <cache-path name="captures" path="images/" />
+</paths>
