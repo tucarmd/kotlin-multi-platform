@@ -10,7 +10,7 @@
 | **Cấp độ** | ⭐⭐⭐⭐⭐ Khó nhất |
 | **Mới học** | BLE trong KMP bằng [Kable](https://github.com/JuulLabs/kable) · state machine kết nối · **hàng đợi lệnh** (một lệnh một lúc) với `Mutex` + timeout + retry · parse byte / chuỗi hex · tách **nhiều module** Gradle · thiết bị giả để test |
 | **Cần trước** | App 4 · native-mobile-learning phần BLE (scan → GATT → notify → write) |
-| **Thư mục code** | `ObdLink/` · package `dev.obdlink` |
+| **Thư mục code** | [`ObdLink/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/ObdLink) · package `dev.obdlink` · ✅ đã có code |
 | **Phần cứng** | Dongle ELM327 **BLE** (không phải Bluetooth Classic, iOS không dùng được Classic) · hoặc ESP32 / nRF Connect giả lập |
 | **Thời gian** | 10–14 buổi tối |
 
@@ -76,17 +76,33 @@ stateDiagram-v2
 | **B6** | Info.plist `NSBluetoothAlwaysUsageDescription`. Đồng hồ bằng `Gauge`. `TabView` 4 tab. |
 | **B7** | `ObdParserTest` (bảng response thật thu từ dongle) · `CommandQueueTest` (timeout, retry, không chen lệnh) · `ObdCoreTest` (rớt kết nối → reconnect → error sau 3 lần) · chạy thật trên xe. |
 
-## 6. Bản đồ function (dự kiến)
+## 6. Bản đồ function
+
+Bảng đầy đủ (25 hàm, có link tới đúng dòng code) nằm trong
+[`ObdLink/README.md`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/ObdLink/README.md#ban-o-function). Các hàm chính:
 
 | Hàm | File | Làm gì | Vì sao |
 |---|---|---|---|
-| `parseResponse(raw)` | `:core:obd/Parser.kt` | Làm sạch chuỗi ELM327, trả `ObdResult.Data / NoData / Error` | Dongle rẻ trả đủ kiểu rác: echo, `SEARCHING...`, xuống dòng `\r` |
-| `decodePid(pid, bytes)` | `:core:obd/Pid.kt` | Byte → giá trị có đơn vị theo công thức SAE J1979 | Công thức nằm một chỗ, có test với số đã biết |
-| `decodeDtc(bytes)` | `:core:obd/Dtc.kt` | 2 byte → `P0301`, `C0035`… | 2 bit đầu chọn chữ cái P/C/B/U, dễ sai nhất app |
-| `CommandQueue.send(cmd)` | `core/CommandQueue.kt` | Khoá `Mutex`, gửi, chờ tới `>`, timeout, retry | ELM327 chỉ xử lý **một** lệnh; gửi chồng là nhận câu trả lời của lệnh khác |
-| `ObdCore.connect(device)` | `core/ObdCore.kt` | Chạy state machine Connecting → Initializing → Ready | Mọi trạng thái là sealed class, UI chỉ vẽ |
-| `ObdCore.startLive()` | `core/ObdCore.kt` | Vòng hỏi RPM / tốc độ / nhiệt độ, phát `StateFlow<LiveData>` | Hủy được bằng `stopLive()` hoặc khi rớt kết nối |
-| `KableElmTransport.send(text)` | `:core:ble/KableElmTransport.kt` | Write `text + "\r"`, gom notify tới `>` | BLE chia gói 20 byte, một câu trả lời có thể tới thành nhiều notify |
+| `parseResponse(raw, sent)` | `:core:obd/rules/Parser.kt` | Chuỗi thô → `ObdResult.Data / Ok / Text / NoData / Error` | Dongle trả đủ kiểu rác: echo, `SEARCHING...`, `\r`, nhiều frame CAN |
+| `decodePid(pid, bytes)` | `:core:obd/rules/Pid.kt` | `(256A + B) / 4`, `A`, `A − 40` | Mỗi công thức một chỗ, có test |
+| `decodeDtc(first, second)` / `decodeDtcResponse()` | `:core:obd/rules/Dtc.kt` | 2 byte → `P0301`; cả câu trả lời mode 03 → danh sách mã | 2 bit đầu chọn P/C/B/U; CAN có byte đếm, giao thức cũ thì không |
+| `PromptCollector.feed(chunk)` | `:core:obd/transport/PromptCollector.kt` | Ghép các mảnh notify tới khi gặp `>` | Gói BLE chỉ ~20 byte |
+| `ElmTransport` | `:core:obd/transport/ElmTransport.kt` | Interface: `scan` / `connect` / `disconnect` / `send` + `link` | Test dùng `FakeElmTransport`, không cần thư viện BLE |
+| `CommandQueue.sendText()` | `shared/core/CommandQueue.kt` | `Mutex`, timeout 2 s (10 s cho lệnh đầu sau ATZ/ATSP), thử lại 1 lần | ELM327 chỉ xử lý một lệnh mỗi lần |
+| `ObdCore.connect()` / `initialize()` | `shared/core/ObdCore.kt` | Connecting → Initializing (ATZ/ATE0/ATL0/ATSP0) → Ready, hoặc Error | UI chỉ vẽ state |
+| `ObdCore.startLive()` / `pollLoop()` | `shared/core/ObdCore.kt` | Hỏi RPM → tốc độ → nhiệt độ lần lượt | Huỷ được bằng `stopLive()` hoặc khi rớt kết nối |
+| `ObdCore.linkLost()` / `reconnect()` | `shared/core/ObdCore.kt` | → Reconnecting, tối đa 3 lần rồi Error | Đặt state ngay lập tức để chỉ một vòng reconnect chạy |
+| `requestClearCodes()` / `confirmClearCodes()` | `shared/core/ObdCore.kt` | Mode 04 qua 2 bước, xong đọc lại mã | Xoá mã còn reset readiness monitor |
+| `KableElmTransport.send()` | `:core:ble/KableElmTransport.kt` | Bỏ mảnh cũ, ghi `text + "\r"`, gom tới `>` | Mọi chi tiết BLE nằm trong một module |
+| `ElmProfiles.pick()` | `:core:ble/ElmProfiles.kt` | Chọn characteristic ghi / notify cho họ FFF0, FFE0, 18F0 | Hàm thuần, test không cần điện thoại |
+
+!!! note "Code khác plan ở đâu"
+    - `ElmTransport` nằm ở `:core:obd/transport`, không ở `:core:ble`. Nhờ vậy bản giả không cần thư viện BLE, và `:core:ble` phụ thuộc `:core:obd` đúng chiều mũi tên.
+    - `:core:obd` dùng target `jvm()` (không có plugin Android); module Android nhận bản JVM của nó. Muốn Swift thấy kiểu của `:core:obd` thì framework phải `export(project(":core:obd"))`.
+    - Đổi tên để Swift không đụng tên có sẵn: `Dtc.summary` (không phải `description`), `ObdError.SetupFailed` (không phải `InitFailed`, vì tiền tố `init` của Objective-C), `decodePidAnswer` (tránh trùng chữ ký JVM).
+    - Bước xác nhận xoá mã nằm trong core (`CodesState.ConfirmClear`), và Console từ chối lệnh `04`.
+    - `platformModule` rỗng ở cả 2 bên: Kable che khác biệt BLE; quyền Android xin ở UI (`BlePermission.kt`).
+    - Lệnh poll live không ghi vào Console (sẽ ngập log), chỉ ghi lệnh khởi tạo, đọc mã và lệnh gõ tay.
 
 Bẫy cần ghi `// TRAP:` / `// PLATFORM:` trong code:
 
@@ -95,12 +111,16 @@ Bẫy cần ghi `// TRAP:` / `// PLATFORM:` trong code:
 - `PLATFORM:` iOS không cho thấy địa chỉ MAC, chỉ có UUID riêng của máy: không lưu "dongle quen" bằng MAC.
 - `PLATFORM:` Android ≤ 30 quét BLE cần quyền **vị trí**, API 31+ cần `BLUETOOTH_SCAN`.
 - `TRAP:` *Xoá mã* (mode `04`) tắt đèn check-engine và reset readiness: luôn hỏi xác nhận.
+- `TRAP:` Chờ `onSubscription` của `observe` trong Kable rồi mới ghi lệnh đầu tiên, không thì mất câu trả lời của `ATZ`.
+- `TRAP:` Bắt đúng `TimeoutCancellationException`; bắt `CancellationException` là nuốt luôn lệnh huỷ thật. `Mutex` phải bao cả lần thử lại.
+- `TRAP:` Nhiều dongle không quảng bá service UUID: quét lọc thêm theo tiền tố tên.
 
 ## 7. Test
 
 ```bash
 cd ObdLink
-./gradlew :core:obd:allTests :shared:testDebugUnitTest :shared:iosSimulatorArm64Test
+./gradlew :core:obd:allTests :core:ble:testDebugUnitTest :core:ble:iosSimulatorArm64Test \
+          :shared:testDebugUnitTest :shared:iosSimulatorArm64Test
 ```
 
 Không có xe: dựng thiết bị giả bằng nRF Connect (tạo service `FFF0`, trả lời cố định) hoặc ESP32 như
