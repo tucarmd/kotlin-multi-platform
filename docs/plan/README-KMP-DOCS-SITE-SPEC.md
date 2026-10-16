@@ -29,7 +29,7 @@
   [kotlin-multi-platform](https://tucarmd.github.io/kotlin-multi-platform/) cho quen tay.
 - Mermaid: `pymdownx.superfences` với `custom_fences` cho ` ```mermaid ` (Material tự tải mermaid.js).
 - `docs/index.md`: trang chủ của site, tóm tắt README gốc và link tới các trang.
-- **Hook `docs/hooks/code_links.py`** (hook của MkDocs, `on_page_markdown`): lúc build, link tương đối nào trỏ
+- **Hook `hooks/code_links.py`** (gốc repo, không để trong `docs/` vì sẽ bị chép vào site) (hook của MkDocs, `on_page_markdown`): lúc build, link tương đối nào trỏ
   **ra ngoài** `docs/` thì đổi thành
   `https://github.com/tucarmd/native-device-monitor-kmp/blob/main/<đường dẫn>#Lxx`. File `.md` gốc không đổi.
   Link trong `docs/` giữ nguyên để MkDocs tự kiểm tra.

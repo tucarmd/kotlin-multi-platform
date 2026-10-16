@@ -10,7 +10,7 @@
 |---|---|---|---|---|
 | **S1** | Ghi spec + plan | `docs/plan/README-KMP-DOCS-SITE-SPEC.md`, `README-KMP-DOCS-SITE-PLAN.md` | Plan nằm trong repo, đọc git log là biết phase nào làm gì | 2 file đọc được trên GitHub |
 | **S2** | Cấu hình tối thiểu + trang chủ | `mkdocs.yml`, `docs/index.md`, `.gitignore` (`site/`) | Có khung để `mkdocs serve` lên web | `mkdocs build` chạy; còn warning link code (S3 xử lý) |
-| **S3** | Hook đổi link code → GitHub | `docs/hooks/code_links.py`, `mkdocs.yml` (`hooks:`) | `--strict` không bị chặn mà `.md` vẫn đọc đúng trên GitHub | `mkdocs build --strict` 0 warning; link `#Lxx` mở đúng dòng |
+| **S3** | Hook đổi link code → GitHub | `hooks/code_links.py` (gốc repo, để file .py không bị chép vào site), `mkdocs.yml` (`hooks:`) | `--strict` không bị chặn mà `.md` vẫn đọc đúng trên GitHub | `mkdocs build --strict` 0 warning; link `#Lxx` mở đúng dòng |
 | **S4** | Nav, theme, mermaid | `mkdocs.yml` | Menu theo thứ tự học; 4 sơ đồ vẽ thành hình | `mkdocs serve` + screenshot: 4 sơ đồ hiện |
 | **S5** | Deploy GitHub Pages (nếu gói GitHub cho phép Pages trên repo private) | `.github/workflows/pages.yml` | Push lên `main` là site tự cập nhật | Lần chạy Actions đầu tiên xanh, mở được URL |
 
@@ -23,4 +23,4 @@ mkdocs build --strict   # giống CI
 
 ## Tiến độ
 
-- [x] S1 · [x] S2 · [ ] S3 · [ ] S4 · [ ] S5
+- [x] S1 · [x] S2 · [x] S3 · [ ] S4 · [ ] S5

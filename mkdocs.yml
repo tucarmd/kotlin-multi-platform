@@ -10,3 +10,7 @@ site_dir: site
 theme:
   name: material
   language: vi
+
+# Đổi link code ngoài docs/ → GitHub (xem hooks/code_links.py)
+hooks:
+  - hooks/code_links.py
