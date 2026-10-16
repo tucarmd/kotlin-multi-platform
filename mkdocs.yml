@@ -169,6 +169,7 @@ nav:
       - "Đánh giá & kế hoạch":
           - plan/kmp-review.md
           - "Kotlin làm web": plan/kotlin-web.md
+          - "Android làm được gì với KMP": plan/android-kmp-sdk.md
 
 validation:
   links:

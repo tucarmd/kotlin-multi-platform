@@ -82,6 +82,8 @@ Device Pulse tự viết phần xin quyền và đọc GPS để bạn hiểu t�
 
 ## Tìm thêm
 
+Bảng đầy đủ thư viện KMP free theo từng việc của Android (BLE, camera, thông báo, mua gói…), việc nào phải tự viết, và cách tự build SDK: xem [Android làm được gì với KMP](../plan/android-kmp-sdk.md).
+
 - [terrakok/kmp-awesome](https://github.com/terrakok/kmp-awesome): danh sách thư viện và công cụ KMP được cộng đồng chọn lọc. Muốn có thư viện cho X thì tìm ở đây trước.
 - [KMP samples](https://kotlinlang.org/docs/multiplatform/multiplatform-samples.html): trang JetBrains liệt kê project mẫu, lọc được theo thư viện dùng.
 - [klibs.io](https://klibs.io/): tìm thư viện theo nền tảng hỗ trợ (iOS, Android, JS…).
