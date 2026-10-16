@@ -86,6 +86,7 @@ Bẫy cần ghi `// TRAP:` trong code:
 - Đổi schema mà không viết file `.sqm` → app cũ crash khi cập nhật.
 - `Clock.System.now()` gọi trong luật → test không ổn định. Luôn truyền `now` vào.
 - Build iOS với "Any iOS Simulator" đòi cả x86_64 mà Gradle không build → thêm `EXCLUDED_ARCHS[sdk=iphonesimulator*]: x86_64` vào `project.yml`.
+- **Undo xong ghi chú bị xoá lần nữa**: `rememberSwipeToDismissBoxState()` là *saveable*, `LazyColumn` nhớ state theo `key` nên dòng quay lại vẫn ở trạng thái "đã vuốt" và tự xoá tiếp. Dùng `remember { SwipeToDismissBoxState(...) }`. Chỉ phát hiện khi chạy trên emulator, test core không thấy.
 - `LazyColumn` phải có `key = id`, không thì vuốt xoá một dòng sẽ làm dòng kế tiếp mang trạng thái vuốt của dòng đã xoá.
 
 ## 7. Test

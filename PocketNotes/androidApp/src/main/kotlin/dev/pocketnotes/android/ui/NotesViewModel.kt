@@ -23,9 +23,9 @@ class NotesViewModel(repository: NoteRepository) : ViewModel() {
     fun search(text: String) = core.search(text)
     fun refreshClock() = core.refreshClock()
     fun find(id: Long): Note? = core.find(id)
-    fun save(id: Long, title: String, body: String, pinned: Boolean) { android.util.Log.d("DBG", "save $id [$title]"); core.save(id, title, body, pinned) }
+    fun save(id: Long, title: String, body: String, pinned: Boolean) = core.save(id, title, body, pinned)
     fun togglePin(id: Long) = core.togglePin(id)
-    fun delete(id: Long) { android.util.Log.d("DBG", "delete $id"); core.delete(id) }
-    fun undoDelete() { android.util.Log.d("DBG", "undo"); core.undoDelete() }
-    fun dismissUndo() { android.util.Log.d("DBG", "dismiss"); core.dismissUndo() }
+    fun delete(id: Long) = core.delete(id)
+    fun undoDelete() = core.undoDelete()
+    fun dismissUndo() = core.dismissUndo()
 }

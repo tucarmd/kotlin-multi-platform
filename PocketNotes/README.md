@@ -147,6 +147,10 @@ Mới ở app này:
 
 ## Mấy cái bẫy đã gặp khi làm
 
+- **Undo xong ghi chú lại bị xoá lần nữa (chỉ thấy khi chạy thật).** `rememberSwipeToDismissBoxState()` dùng `rememberSaveable`,
+  và `LazyColumn` giữ state đã lưu theo `key` kể cả khi dòng đã biến mất. Undo trả ghi chú về với **cùng id**, dòng đó khôi phục
+  trạng thái "đã vuốt", `onDismiss` chạy lại và xoá tiếp. Sửa: tạo `SwipeToDismissBoxState` bằng `remember` thường
+  (`NoteListScreen.kt`, hàm `SwipeToDelete`). Test của core không bắt được vì lỗi nằm ở UI.
 - **Quên `-lsqlite3`.** `Shared` là framework tĩnh, nên `NativeSqliteDriver` cần `-lsqlite3` ở **cả hai** chỗ:
   `linkerOpts` trong `shared/build.gradle.kts` và `OTHER_LDFLAGS` trong `iosApp/project.yml`. Thiếu thì link lỗi `_sqlite3_*`.
 - **Đổi schema mà không viết `.sqm`** thì người dùng bản cũ crash khi cập nhật (`no such column: pinned`). `Note.sq` là

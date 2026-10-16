@@ -33,11 +33,13 @@ import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.rememberSwipeToDismissBoxState
+import androidx.compose.material3.SwipeToDismissBoxDefaults
+import androidx.compose.material3.SwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -101,13 +103,9 @@ fun NoteListScreen(
     // The core owns the 5 s timer. When it clears recentlyDeleted, this effect is cancelled
     // and the snackbar disappears with it, so both platforms hide "Undo" at the same moment.
     LaunchedEffect(deleted) {
-        android.util.Log.d("DBG", "effect start deleted=${deleted?.id}")
         if (deleted == null) return@LaunchedEffect
-        try {
         val result = snackbar.showSnackbar(deletedText, actionLabel = undoText, duration = SnackbarDuration.Indefinite)
-        android.util.Log.d("DBG", "result $result")
         if (result == SnackbarResult.ActionPerformed) onUndo() else onDismissUndo()
-        } catch (e: Throwable) { android.util.Log.d("DBG", "effect ended $e"); throw e }
     }
 
     Scaffold(
@@ -155,10 +153,19 @@ private fun NoteList(items: List<NoteItem>, onOpen: (Long) -> Unit, onTogglePin:
     }
 }
 
-/** Swipe right-to-left to delete. The row disappears because the database flow emits without it, not because of the swipe. */
+/**
+ * Swipe right-to-left to delete. The row disappears because the database flow emits without it, not because of the swipe.
+ *
+ * TRAP: plain `remember`, NOT rememberSwipeToDismissBoxState(). That one uses rememberSaveable, and LazyColumn keeps
+ * saved state per item key even after the item is gone. After "Undo" the note comes back with the same id, its row
+ * restores the "swiped away" state, and onDismiss deletes it a second time. Found by running Undo on an emulator;
+ * the core tests cannot see it because it lives in the UI.
+ */
 @Composable
 private fun SwipeToDelete(onDelete: () -> Unit, content: @Composable () -> Unit) {
-    val swipe = rememberSwipeToDismissBoxState()
+    val density = LocalDensity.current
+    val threshold = SwipeToDismissBoxDefaults.positionalThreshold
+    val swipe = remember { SwipeToDismissBoxState(SwipeToDismissBoxValue.Settled, density, positionalThreshold = threshold) }
     SwipeToDismissBox(
         state = swipe,
         enableDismissFromStartToEnd = false,
