@@ -26,11 +26,34 @@
          ⚠️ If you DECLARE it you must REQUEST it: declared but not granted → even opening the camera via Intent throws SecurityException. -->
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <!-- ===== P7 · Week 3 · Day 12: Device providers =====
+         Both are install-time (declared = granted, no dialog). Missing → getNetworkCapabilities / isWifiEnabled
+         throw SecurityException. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- ===== P7 · Week 3 · Day 14: Foreground Service =====
+         FOREGROUND_SERVICE (API 28+) + the per-TYPE permission (API 34+: dataSync) — both install-time.
+         POST_NOTIFICATIONS is RUNTIME from API 33 (NotificationGatedMonitor asks before starting the service):
+         if the user denies it the service STILL runs, only the notification is not shown in the shade
+         (still visible in Task Manager). -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <!-- required="false": devices without BLE/camera can still install; the screen just says "not supported". -->
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
 
     <application>
+        <!-- P7 · Week 3 · Day 14. exported=false: only this app can start it.
+             foregroundServiceType is mandatory from API 34 — missing it throws MissingForegroundServiceTypeException.
+             Full class name: this manifest belongs to the com.learn.ndmkmp.shared namespace, a ".MonitorService" would resolve there. -->
+        <service
+            android:name="com.learn.ndmkmp.core.background.MonitorService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
         <!-- P5 · Day 10: hands a content:// uri to the Camera app to write the photo into (TakePicture). exported=false + grantUriPermissions:
              only the app handed the uri in the Intent can read/write it, and only that uri.
              ${applicationId} is filled in when merged into :androidApp → com.learn.ndmkmp.fileprovider. -->
