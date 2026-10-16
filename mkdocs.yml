@@ -163,6 +163,7 @@ nav:
       - "Từ điển": reference/glossary.md
       - "Lỗi hay gặp": reference/troubleshooting.md
       - "Phụ lục: Kotlin khó gì, bẫy gì": reference/kotlin-pitfalls.md
+      - "Lỗi Kotlin phân loại theo bản chất": reference/kotlin-issue-types.md
 
 validation:
   links:
