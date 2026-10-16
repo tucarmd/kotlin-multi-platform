@@ -166,6 +166,9 @@ Play Services Location: bản đồ Android vẽ bằng `Canvas`, GPS dùng `Loc
 
 ## Mấy cái bẫy đã gặp khi làm
 
+- **Emulator báo tốc độ = 0.** `adb emu geo fix` gửi điểm có `hasSpeed() = true` nhưng `speed = 0`, nên "Tốc độ hiện tại" và
+  "Tốc độ tối đa" hiện 0 km/h dù quãng đường và tốc độ trung bình đúng. Máy thật báo tốc độ thật. `tripStats` chỉ tự tính tốc độ
+  khi chip **không** báo (`speedMps == null`).
 - **Recorder không sống trong ViewModel.** `viewModelScope` chết khi bấm Back, chuyến đang ghi mất theo. `TripRecorder`
   là `single` trong Koin, chạy trong một `CoroutineScope` của cả app; service và màn hình chỉ điều khiển nó.
 - **Android 14+: thiếu `foregroundServiceType` ở manifest hoặc lúc gọi `startForeground` là crash.** Cả hai phải là

@@ -117,6 +117,8 @@ for i in $(seq 0 60); do adb emu geo fix $(echo "106.7009 + $i*0.0001" | bc) 10.
 xcrun simctl location booted start --speed=8 21.0285,105.8542 21.0300,105.8560 21.0320,105.8570
 ```
 
+Trên emulator, `geo fix` báo tốc độ = 0 nên tốc độ hiện tại / tối đa hiện 0 km/h; quãng đường và tốc độ trung bình vẫn đúng. Thử tốc độ trên máy thật.
+
 Case tối thiểu: haversine Hà Nội (21.0285, 105.8542) → TP.HCM (10.7769, 106.7009) = 1.143,5 km · điểm nhảy 500 m trong 1 s bị bỏ · pause không cộng thời gian · GPX parse lại được.
 
 ## 8. Xong khi
