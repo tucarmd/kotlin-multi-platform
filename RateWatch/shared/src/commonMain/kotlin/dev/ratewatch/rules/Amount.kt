@@ -31,7 +31,8 @@ val ZERO_DECIMAL_CURRENCIES = setOf("VND", "JPY", "KRW", "IDR", "CLP", "ISK", "H
  */
 fun parseAmount(text: String): Long? {
     val cleaned = text.trim().filterNot { it == ' ' || it == ' ' || it == '\'' }
-    // TRAP: Char.isDigit() also accepts Arabic-Indic and other Unicode digits, which toLong() then rejects.
+    // TRAP: Char.isDigit() also accepts Arabic-Indic and other Unicode digits, and on the JVM "١٢".toLongOrNull() is 12.
+    // Only ASCII 0–9 is a valid amount here, so check the range explicitly (see K012 in docs/issues/01-basics.md).
     if (cleaned.isEmpty() || !cleaned.all { it in '0'..'9' || it == '.' || it == ',' }) return null
 
     val lastSeparator = cleaned.indexOfLast { it == '.' || it == ',' }
