@@ -1,0 +1,12 @@
+site_name: Native Device Monitor KMP
+site_description: Một app Kotlin Multiplatform + Compose Multiplatform cho Android và iOS — plan, sơ đồ, luồng hàm.
+repo_url: https://github.com/tucarmd/native-device-monitor-kmp
+repo_name: tucarmd/native-device-monitor-kmp
+edit_uri: edit/main/docs/
+# Xem ở máy: mkdocs serve · Build giống CI: mkdocs build --strict
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  language: vi
