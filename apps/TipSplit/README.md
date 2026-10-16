@@ -81,19 +81,41 @@ apps/TipSplit/
 **B3 không có ở app 1**: app không cần database, mạng hay API riêng của máy. Hai file `platformModule` để rỗng cho khuôn
 đủ 7 bước; app 2 sẽ đặt driver SQLite vào đó.
 
+## Học theo bài: bài nào nằm ở file nào
+
+Mỗi chỗ trong code minh hoạ một bài của lộ trình đều có nhãn `[Bài N · …]` trong comment.
+Tìm hết: `grep -rn "\[Bài" shared androidApp iosApp/iosApp *.kts gradle`.
+
+| Bài | Xem ở đâu trong Tip Split | Điều cần thấy |
+|---|---|---|
+| [1. KMP là gì](../../docs/lessons/01-what-is-kmp.md) | `settings.gradle.kts` | Kiểu "chia sẻ logic, UI native": `:shared` + `:androidApp` + `iosApp/` (Xcode) |
+| [2. Cài máy](../../docs/lessons/02-setup.md) | `settings.gradle.kts`, `gradle/gradle-daemon-jvm.properties` | Gradle đọc gì đầu tiên, tải plugin / thư viện từ đâu, JDK nào |
+| [3. Cấu trúc project](../../docs/lessons/03-project-structure.md) | `shared/build.gradle.kts`, `androidApp/build.gradle.kts`, `KoinIos.kt` | 3 target, framework `Shared`, 4 source set, hierarchy `iosMain` |
+| [4. Chia sẻ code](../../docs/lessons/04-share-code.md) | `model/Models.kt`, `rules/Rules.kt`, `di/Koin.kt` + 2 file `PlatformModule.*.kt` | Model + luật viết 1 lần; `expect val platformModule` ↔ 2 `actual` |
+| [5. Thêm thư viện](../../docs/lessons/05-dependencies.md) | `gradle/libs.versions.toml`, `build.gradle.kts`, `di/Koin.kt`, `TipSplitApp.kt`, `iOSApp.swift` | Version catalog, thư viện nào cho source set nào, Koin `commonModule` + `platformModule` |
+| [6. Compose cơ bản](../../docs/lessons/06-compose-basics.md) | `MainActivity.kt`, `ui/SplitScreen.kt`, `Views/SplitView.swift` | Hai điểm khởi động, `@Composable`, `Modifier`, `@Preview` |
+| [7. Resources và đa ngôn ngữ](../../docs/lessons/07-resources.md) | `res/values*/strings.xml`, `*.lproj/Localizable.strings`, `ui/Labels.kt`, `Views/Labels.swift` | Chuỗi theo ngôn ngữ máy, cùng key hai bên; core không chứa chữ hiển thị |
+| [8. ViewModel và điều hướng](../../docs/lessons/08-viewmodel-navigation.md) | `core/TipCore.kt`, `ui/SplitViewModel.kt`, `ui/SplitScreen.kt` (`SplitRoute`), `SplitModel.swift` | State ở core, mỗi UI bọc một lớp mỏng; app 1 màn hình nên chưa có `NavHost` |
+| [9. Đọc pin](../../docs/lessons/09-battery.md) | — | Không có ở app này (không cần API cảm biến). Xem `apps/DevicePulse` |
+| [10. GPS và xin quyền](../../docs/lessons/10-location.md) | `AndroidManifest.xml` | Chỉ để thấy: app không xin quyền nào. GPS thật xem `apps/TripLog` |
+| [11. Mạng](../../docs/lessons/11-network.md) | `AndroidManifest.xml` | Không có `INTERNET`. Ktor xem `apps/RateWatch` |
+| [12. SQLDelight](../../docs/lessons/12-history-sqldelight.md) | 2 file `PlatformModule.*.kt` | Chỗ app 2 (`apps/PocketNotes`) đặt driver SQLite |
+| [13. Test](../../docs/lessons/13-testing.md) | `shared/src/commonTest/*`, `androidApp/src/androidTest/*`, `ui/UiIds.kt` | Test luật chạy trên cả JVM lẫn iOS Simulator; UI test ít và chậm |
+| [14. Build và phát hành](../../docs/lessons/14-build-publish.md) | `androidApp/build.gradle.kts` (`defaultConfig`) | `applicationId`, `versionCode`, `versionName` |
+
 ## Bản đồ function
 
 | Hàm | File | Làm gì | Vì sao |
 |---|---|---|---|
 | `parseMoney(text)` | [`rules/Money.kt#L18`](shared/src/commonMain/kotlin/dev/tipsplit/rules/Money.kt#L18) | `"120.000"` / `"120,000"` / `"120 000"` → `120000`; sai → `null` | Bàn phím mỗi máy, mỗi ngôn ngữ chèn dấu phân cách khác nhau |
 | `formatMoney(amount)` | [`rules/Money.kt#L29`](shared/src/commonMain/kotlin/dev/tipsplit/rules/Money.kt#L29) | `1234567` → `"1.234.567"` | Hai nền tảng in ra giống hệt nhau |
-| `validate(bill, people)` | [`rules/Rules.kt#L32`](shared/src/commonMain/kotlin/dev/tipsplit/rules/Rules.kt#L32) | Trả `InputError?` | UI chỉ việc hiện lỗi, không tự kiểm |
-| `splitBill(bill, tip, people, roundTo)` | [`rules/Rules.kt#L51`](shared/src/commonMain/kotlin/dev/tipsplit/rules/Rules.kt#L50) | Tip làm tròn nửa lên; mỗi phần làm tròn **lên** | Làm tròn xuống thì cả nhóm trả thiếu |
-| `calculate(input)` | [`rules/Rules.kt#L69`](shared/src/commonMain/kotlin/dev/tipsplit/rules/Rules.kt#L69) | Input thô → `Waiting` / `Invalid` / `Ready` | Một cửa vào duy nhất cho TipCore |
-| `TipCore.update(change)` | [`core/TipCore.kt#L49`](shared/src/commonMain/kotlin/dev/tipsplit/core/TipCore.kt#L49) | Đổi input rồi tính lại cả state | Kết quả không bao giờ lệch với input |
-| `tipCore()` | [`iosMain/…/KoinIos.kt#L12`](shared/src/iosMain/kotlin/dev/tipsplit/di/KoinIos.kt#L12) | Lấy `TipCore` từ Koin cho Swift | Swift không gọi được `get<T>()` (`reified`) |
-| `SplitRoute()` | [`ui/SplitScreen.kt#L51`](androidApp/src/main/kotlin/dev/tipsplit/android/ui/SplitScreen.kt#L51) | Lấy ViewModel từ Koin, `collectAsStateWithLifecycle` | Tách khỏi `SplitScreen` để `@Preview` không cần Koin |
-| `SplitModel.init` | [`SplitModel.swift#L18`](iosApp/iosApp/SplitModel.swift#L18) | `for await` StateFlow → `state` | `@Observable` để SwiftUI vẽ lại đúng chỗ |
+| `validate(bill, people)` | [`rules/Rules.kt#L36`](shared/src/commonMain/kotlin/dev/tipsplit/rules/Rules.kt#L36) | Trả `InputError?` | UI chỉ việc hiện lỗi, không tự kiểm |
+| `splitBill(bill, tip, people, roundTo)` | [`rules/Rules.kt#L54`](shared/src/commonMain/kotlin/dev/tipsplit/rules/Rules.kt#L54) | Tip làm tròn nửa lên; mỗi phần làm tròn **lên** | Làm tròn xuống thì cả nhóm trả thiếu |
+| `calculate(input)` | [`rules/Rules.kt#L73`](shared/src/commonMain/kotlin/dev/tipsplit/rules/Rules.kt#L73) | Input thô → `Waiting` / `Invalid` / `Ready` | Một cửa vào duy nhất cho TipCore |
+| `TipCore.update(change)` | [`core/TipCore.kt#L53`](shared/src/commonMain/kotlin/dev/tipsplit/core/TipCore.kt#L53) | Đổi input rồi tính lại cả state | Kết quả không bao giờ lệch với input |
+| `tipCore()` | [`iosMain/…/KoinIos.kt#L15`](shared/src/iosMain/kotlin/dev/tipsplit/di/KoinIos.kt#L15) | Lấy `TipCore` từ Koin cho Swift | Swift không gọi được `get<T>()` (`reified`) |
+| `SplitRoute()` | [`ui/SplitScreen.kt#L59`](androidApp/src/main/kotlin/dev/tipsplit/android/ui/SplitScreen.kt#L59) | Lấy ViewModel từ Koin, `collectAsStateWithLifecycle` | Tách khỏi `SplitScreen` để `@Preview` không cần Koin |
+| `SplitModel.init` | [`SplitModel.swift#L21`](iosApp/iosApp/SplitModel.swift#L21) | `for await` StateFlow → `state` | `@Observable` để SwiftUI vẽ lại đúng chỗ |
 
 Tìm mọi chỗ dễ sai: `grep -rn "TRAP:\|PLATFORM:" shared androidApp/src iosApp/iosApp`.
 
