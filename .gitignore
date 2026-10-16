@@ -20,3 +20,4 @@ node_modules/
 
 # MkDocs output
 site/
+__pycache__/
