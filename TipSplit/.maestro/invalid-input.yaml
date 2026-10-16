@@ -1,0 +1,24 @@
+# [Phụ lục P2 · Maestro] Letters in the bill → error under the field, no result.
+appId: ${APP_ID}
+name: Gõ chữ vào ô tiền → báo lỗi, không có kết quả
+tags: [smoke]
+---
+- launchApp:
+    clearState: true
+# TRAP: the first launch after install (cold start + Koin) can be slower than tapOn's default wait,
+# which made this flow fail only on the first run. Wait for the screen explicitly.
+- extendedWaitUntil:
+    visible:
+      id: split_bill_input
+    timeout: 15000
+- tapOn:
+    id: split_bill_input
+- inputText: "12a"
+- assertVisible:
+    id: split_bill_error
+- assertNotVisible:
+    id: split_result_per_person
+- tapOn:
+    id: split_reset
+- assertVisible:
+    id: split_result_message

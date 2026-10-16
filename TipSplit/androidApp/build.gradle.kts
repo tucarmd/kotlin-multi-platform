@@ -15,6 +15,8 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+        // [Phụ lục P2] Runs src/androidTest on an emulator: ./gradlew :androidApp:connectedDebugAndroidTest
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
         compose = true
@@ -43,4 +45,13 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.compose.viewmodel)
     debugImplementation(libs.compose.ui.tooling)
+
+    // [Phụ lục P2 · Compose UI test]
+    androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.runner)
+    // TRAP: debugImplementation, not androidTestImplementation. It adds the empty Activity that createComposeRule()
+    // launches to the APP's debug manifest; without it the test fails with "No activity found to handle Intent".
+    debugImplementation(libs.compose.ui.test.manifest)
 }

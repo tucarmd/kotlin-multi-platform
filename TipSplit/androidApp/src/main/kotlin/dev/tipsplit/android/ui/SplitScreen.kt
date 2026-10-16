@@ -26,8 +26,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,6 +44,7 @@ import dev.tipsplit.model.SplitResult
 import dev.tipsplit.model.SplitState
 import dev.tipsplit.rules.calculate
 import dev.tipsplit.rules.formatMoney
+import dev.tipsplit.ui.UiIds
 import org.koin.compose.viewmodel.koinViewModel
 
 /**
@@ -64,7 +69,7 @@ fun SplitRoute(viewModel: SplitViewModel = koinViewModel()) {
 }
 
 /** [App 1 · B5] The whole screen. Draws [state] and fires actions; computes nothing itself. */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun SplitScreen(
     state: SplitState,
@@ -79,10 +84,17 @@ fun SplitScreen(
     val input = state.input
     MaterialTheme {
         Scaffold(
+            // [Phụ lục P2] Expose every testTag as an Android resource-id, so Maestro's `id:` finds the same names
+            // as Compose UI test. Without it Maestro only sees text, and the shared .maestro flow breaks on Android.
+            modifier = Modifier.semantics { testTagsAsResourceId = true },
             topBar = {
                 TopAppBar(
                     title = { Text(stringResource(R.string.app_name), fontWeight = FontWeight.SemiBold) },
-                    actions = { TextButton(onClick = onReset) { Text(stringResource(R.string.reset)) } },
+                    actions = {
+                        TextButton(onClick = onReset, modifier = Modifier.testTag(UiIds.RESET)) {
+                            Text(stringResource(R.string.reset))
+                        }
+                    },
                 )
             },
         ) { padding ->
@@ -102,11 +114,11 @@ fun SplitScreen(
                     label = { Text(stringResource(R.string.bill)) },
                     suffix = { Text("đ") },
                     isError = error != null,
-                    supportingText = error?.let { { Text(stringResource(it.label())) } },
+                    supportingText = error?.let { { Text(stringResource(it.label()), Modifier.testTag(UiIds.BILL_ERROR)) } },
                     singleLine = true,
                     // PLATFORM: Number shows a digits-only pad; iOS uses .numberPad for the same thing.
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().testTag(UiIds.BILL_INPUT),
                 )
 
                 Text(stringResource(R.string.tip), style = MaterialTheme.typography.titleSmall)
@@ -116,6 +128,7 @@ fun SplitScreen(
                             selected = input.tipPercent == percent,
                             onClick = { onTipSelected(percent) },
                             shape = SegmentedButtonDefaults.itemShape(index = index, count = tipOptions.size),
+                            modifier = Modifier.testTag(UiIds.tip(percent)),
                         ) { Text("$percent%") }
                     }
                 }
@@ -126,18 +139,30 @@ fun SplitScreen(
                         style = MaterialTheme.typography.titleSmall,
                         modifier = Modifier.weight(1f),
                     )
-                    FilledTonalIconButton(onClick = onRemovePerson, enabled = state.canRemovePerson) { Text("−") }
+                    FilledTonalIconButton(
+                        onClick = onRemovePerson,
+                        enabled = state.canRemovePerson,
+                        modifier = Modifier.testTag(UiIds.PEOPLE_MINUS),
+                    ) { Text("−") }
                     Text(
                         "${input.people}",
                         style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier.padding(horizontal = 16.dp),
+                        modifier = Modifier.padding(horizontal = 16.dp).testTag(UiIds.PEOPLE_COUNT),
                     )
-                    FilledTonalIconButton(onClick = onAddPerson, enabled = state.canAddPerson) { Text("+") }
+                    FilledTonalIconButton(
+                        onClick = onAddPerson,
+                        enabled = state.canAddPerson,
+                        modifier = Modifier.testTag(UiIds.PEOPLE_PLUS),
+                    ) { Text("+") }
                 }
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(stringResource(R.string.round_up), modifier = Modifier.weight(1f))
-                    Switch(checked = input.roundUp, onCheckedChange = { onRoundUpToggled() })
+                    Switch(
+                        checked = input.roundUp,
+                        onCheckedChange = { onRoundUpToggled() },
+                        modifier = Modifier.testTag(UiIds.ROUND_UP),
+                    )
                 }
 
                 ResultCard(state.result)
@@ -152,8 +177,12 @@ private fun ResultCard(result: SplitResult) {
     Card(Modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             when (result) {
-                SplitResult.Waiting -> Text(stringResource(R.string.waiting))
-                is SplitResult.Invalid -> Text(stringResource(R.string.fix_input), color = MaterialTheme.colorScheme.error)
+                SplitResult.Waiting -> Text(stringResource(R.string.waiting), Modifier.testTag(UiIds.RESULT_MESSAGE))
+                is SplitResult.Invalid -> Text(
+                    stringResource(R.string.fix_input),
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.testTag(UiIds.RESULT_MESSAGE),
+                )
                 is SplitResult.Ready -> ReadyResult(result.split)
             }
         }
@@ -163,19 +192,24 @@ private fun ResultCard(result: SplitResult) {
 @Composable
 private fun ReadyResult(split: Split) {
     Text(stringResource(R.string.per_person), style = MaterialTheme.typography.labelLarge)
-    Text("${formatMoney(split.perPerson)} đ", style = MaterialTheme.typography.displaySmall, fontWeight = FontWeight.Bold)
-    AmountRow(stringResource(R.string.tip_amount), split.tip)
-    AmountRow(stringResource(R.string.total), split.total)
+    Text(
+        "${formatMoney(split.perPerson)} đ",
+        style = MaterialTheme.typography.displaySmall,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.testTag(UiIds.RESULT_PER_PERSON),
+    )
+    AmountRow(stringResource(R.string.tip_amount), split.tip, UiIds.RESULT_TIP)
+    AmountRow(stringResource(R.string.total), split.total, UiIds.RESULT_TOTAL)
     if (split.extra > 0) {
         Text(stringResource(R.string.extra, formatMoney(split.extra)), style = MaterialTheme.typography.bodySmall)
     }
 }
 
 @Composable
-private fun AmountRow(label: String, amount: Long) {
+private fun AmountRow(label: String, amount: Long, tag: String) {
     Row(Modifier.fillMaxWidth()) {
         Text(label, modifier = Modifier.weight(1f))
-        Text("${formatMoney(amount)} đ")
+        Text("${formatMoney(amount)} đ", Modifier.testTag(tag))
     }
 }
 

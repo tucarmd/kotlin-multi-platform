@@ -1,0 +1,34 @@
+# [Phụ lục P2 · Maestro] One flow, both platforms. Ids come from shared/.../ui/UiIds.kt:
+# Android exposes them as resource-id (testTagsAsResourceId), iOS as accessibilityIdentifier.
+#   Android: maestro test -e APP_ID=dev.tipsplit     .maestro/
+#   iOS:     maestro test -e APP_ID=dev.tipsplit.ios .maestro/
+appId: ${APP_ID}
+name: Chia 100.000đ, tip 10%, 3 người → 37.000đ mỗi người
+tags: [smoke]
+---
+- launchApp:
+    clearState: true
+# TRAP: the first launch after install (cold start + Koin) can be slower than tapOn's default wait,
+# which made this flow fail only on the first run. Wait for the screen explicitly.
+- extendedWaitUntil:
+    visible:
+      id: split_bill_input
+    timeout: 15000
+- tapOn:
+    id: split_bill_input
+- inputText: "100000"
+- hideKeyboard
+# TRAP: SwiftUI's segmented Picker has no id per segment, so the tip is picked by its text on both platforms.
+- tapOn: "10%"
+- tapOn:
+    id: split_people_plus
+- assertVisible:
+    id: split_people_count
+    text: "3"
+- assertVisible:
+    id: split_result_per_person
+    text: "37.000 đ"
+- assertVisible:
+    id: split_result_total
+    text: "110.000 đ"
+- takeScreenshot: split-bill-ready
