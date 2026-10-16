@@ -19,6 +19,10 @@ import kotlinx.coroutines.flow.update
  * with a pure rule (`calculate`). The result can never get out of sync with the input.
  *
  * Called by: SplitViewModel (Android), SplitModel (iOS). Calls: rules/calculate.
+ *
+ * [Bài 8 · ViewModel] The lesson keeps state in a multiplatform androidx ViewModel inside composeApp, because there
+ * both platforms draw with Compose. Tip Split has a SwiftUI side, so the state lives in this plain class instead,
+ * and each UI wraps it in its own holder: SplitViewModel (Android ViewModel) and SplitModel (Swift @Observable).
  */
 class TipCore {
 

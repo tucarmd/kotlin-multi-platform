@@ -11,6 +11,7 @@ package dev.tipsplit.ui
  * slash-star opens a second comment and the file fails with "Syntax error: Unclosed comment".
  *
  * Why in commonMain: a renamed id breaks the tests of BOTH apps at compile time instead of silently on one.
+ * [Bài 13 · Test] Same idea as the rules: share what both platforms must agree on.
  *
  * TRAP: SwiftUI's segmented Picker has no id per segment, so the tip buttons are found by their text ("10%") on iOS.
  * Android still tags each one with [tip] for Compose UI test.

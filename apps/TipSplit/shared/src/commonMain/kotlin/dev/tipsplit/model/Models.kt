@@ -5,6 +5,10 @@ package dev.tipsplit.model
  *
  * Why money is Long and not Double: every amount is a whole number of đồng, the smallest unit of VND.
  * Integer maths is exact; Double is not (see rules/Rules.kt).
+ *
+ * [Bài 4 · Chia sẻ code: model] Lives in commonMain, so these exact classes exist on Android AND in Swift
+ * (`import Shared`). Neither UI declares its own copy, so the two apps cannot disagree on what a "split" is.
+ * Swift sees: data class → class with the same properties, enum → Swift enum (SKIE), sealed class → `onEnum(of:)`.
  */
 
 /** What the user typed or picked, kept exactly as entered so the text field never jumps while typing. */
