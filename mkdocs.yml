@@ -83,88 +83,92 @@ extra:
 
 nav:
   - "Trang chủ": index.md
-  - "Playground": playground/index.html
-  - "Lộ trình":
-      - roadmap.md
-      - "Sơ đồ lộ trình": roadmap-map.md
-      - "1. KMP là gì, khi nào dùng": lessons/01-what-is-kmp.md
-      - "2. Cài máy, tạo project đầu tiên": lessons/02-setup.md
-      - "3. Cấu trúc project": lessons/03-project-structure.md
-      - "4. Chia sẻ code: model và luật": lessons/04-share-code.md
-      - "5. Thêm thư viện": lessons/05-dependencies.md
-      - "6. Compose Multiplatform cơ bản": lessons/06-compose-basics.md
-      - "7. Resources và đa ngôn ngữ": lessons/07-resources.md
-      - "8. ViewModel và điều hướng": lessons/08-viewmodel-navigation.md
-      - "9. Đọc pin": lessons/09-battery.md
-      - "10. GPS và xin quyền": lessons/10-location.md
-      - "11. Mạng và đo độ trễ": lessons/11-network.md
-      - "12. Lưu lịch sử với SQLDelight": lessons/12-history-sqldelight.md
-      - "13. Test": lessons/13-testing.md
-      - "14. Build và phát hành": lessons/14-build-publish.md
-  - "Khái niệm khó":
-      - concepts/index.md
-      - "1. Lambda & hàm bậc cao": concepts/lambda.md
-      - "2. Extension & receiver": concepts/extension-receiver.md
-      - "3. Null safety": concepts/null-safety.md
-      - "4. Generics": concepts/generics.md
-      - "5. sealed + when": concepts/sealed-when.md
-      - "6. Coroutine & suspend": concepts/coroutines.md
-      - "7. Scope, huỷ và lỗi": concepts/structured-concurrency.md
-      - "8. Dispatcher": concepts/dispatchers.md
-      - "9. Flow & StateFlow": concepts/flow.md
-  - "Dự án Device Pulse":
-      - project/index.md
-      - "Code mẫu": project/source-code.md
-      - "Checklist hoàn thành": project/checklist.md
-  - "5 app luyện tập":
-      - apps/index.md
-      - "Khung chung & quy ước comment": apps/conventions.md
-      - "1. Tip Split": apps/01-tip-split.md
-      - "2. Pocket Notes": apps/02-pocket-notes.md
-      - "3. Rate Watch": apps/03-rate-watch.md
-      - "4. Trip Log": apps/04-trip-log.md
-      - "5. OBD Link": apps/05-obd-link.md
-  - "900 lỗi Kotlin":
-      - issues/index.md
-      - "1. Cú pháp & kiểu cơ bản (K001–K050)": issues/01-basics.md
-      - "2. Null safety (K051–K100)": issues/02-null-safety.md
-      - "3. Collections & Sequence (K101–K150)": issues/03-collections.md
-      - "4. Class, object, sealed, enum (K151–K200)": issues/04-classes.md
-      - "5. Hàm, lambda, generics (K201–K250)": issues/05-functions.md
-      - "6. Coroutines (K251–K300)": issues/06-coroutines.md
-      - "7. Flow, StateFlow, SharedFlow (K301–K350)": issues/07-flow.md
-      - "8. Gradle & build (K351–K400)": issues/08-gradle.md
-      - "9. KMP: source set, expect/actual (K401–K450)": issues/09-kmp.md
-      - "10. Swift ↔ Kotlin, iOS, Xcode (K451–K500)": issues/10-ios-interop.md
-      - "11. Android: lifecycle, quyền, Manifest (K501–K550)": issues/11-android.md
-      - "12. Compose: state & recomposition (K551–K600)": issues/12-compose-state.md
-      - "13. Compose: layout, navigation, side effect (K601–K650)": issues/13-compose-ui.md
-      - "14. Lưu dữ liệu (K651–K700)": issues/14-persistence.md
-      - "15. Mạng & JSON (K701–K750)": issues/15-networking.md
-      - "16. Test (K751–K800)": issues/16-testing.md
-      - "17. Hiệu năng & chạy ngầm (K801–K850)": issues/17-performance-background.md
-      - "18. Style, Java interop, phát hành (K851–K900)": issues/18-style-release.md
-  - "Đánh giá & kế hoạch":
-      - plan/kmp-review.md
-      - "Kotlin làm web": plan/kotlin-web.md
-  - "Mở rộng":
-      - "Học bền & thực chiến": extend/practice.md
-  - "Phụ lục":
-      - appendix/index.md
-      - "P1 · Unit test cơ bản & test bảng": appendix/unit-basics.md
-      - "P1 · Test coroutine & Flow": appendix/unit-coroutines-flow.md
-      - "P1 · Fake, mock, HTTP giả": appendix/unit-fakes-mocks.md
-      - "P1 · Coverage với Kover": appendix/unit-coverage.md
-  - "Tra cứu":
-      - "Tài nguyên học chính chủ": reference/learning-resources.md
-      - "Repo mẫu tham khảo": reference/sample-repos.md
-      - "Bản đồ docs chính chủ": reference/docs-map.md
-      - "Quy ước code Kotlin": reference/kotlin-conventions.md
-      - "Máy thật & máy ảo": reference/devices.md
-      - "Từ điển": reference/glossary.md
-      - "Lỗi hay gặp": reference/troubleshooting.md
-      - "Phụ lục: Kotlin khó gì, bẫy gì": reference/kotlin-pitfalls.md
-      - "Lỗi Kotlin phân loại theo bản chất": reference/kotlin-issue-types.md
+  - "Học":
+      - "Lộ trình":
+          - roadmap.md
+          - "Sơ đồ lộ trình": roadmap-map.md
+          - "1. KMP là gì, khi nào dùng": lessons/01-what-is-kmp.md
+          - "2. Cài máy, tạo project đầu tiên": lessons/02-setup.md
+          - "3. Cấu trúc project": lessons/03-project-structure.md
+          - "4. Chia sẻ code: model và luật": lessons/04-share-code.md
+          - "5. Thêm thư viện": lessons/05-dependencies.md
+          - "6. Compose Multiplatform cơ bản": lessons/06-compose-basics.md
+          - "7. Resources và đa ngôn ngữ": lessons/07-resources.md
+          - "8. ViewModel và điều hướng": lessons/08-viewmodel-navigation.md
+          - "9. Đọc pin": lessons/09-battery.md
+          - "10. GPS và xin quyền": lessons/10-location.md
+          - "11. Mạng và đo độ trễ": lessons/11-network.md
+          - "12. Lưu lịch sử với SQLDelight": lessons/12-history-sqldelight.md
+          - "13. Test": lessons/13-testing.md
+          - "14. Build và phát hành": lessons/14-build-publish.md
+      - "Khái niệm khó":
+          - concepts/index.md
+          - "1. Lambda & hàm bậc cao": concepts/lambda.md
+          - "2. Extension & receiver": concepts/extension-receiver.md
+          - "3. Null safety": concepts/null-safety.md
+          - "4. Generics": concepts/generics.md
+          - "5. sealed + when": concepts/sealed-when.md
+          - "6. Coroutine & suspend": concepts/coroutines.md
+          - "7. Scope, huỷ và lỗi": concepts/structured-concurrency.md
+          - "8. Dispatcher": concepts/dispatchers.md
+          - "9. Flow & StateFlow": concepts/flow.md
+  - "Thực hành":
+      - "Playground": playground/index.html
+      - "Dự án Device Pulse":
+          - project/index.md
+          - "Code mẫu": project/source-code.md
+          - "Checklist hoàn thành": project/checklist.md
+      - "5 app luyện tập":
+          - apps/index.md
+          - "Khung chung & quy ước comment": apps/conventions.md
+          - "1. Tip Split": apps/01-tip-split.md
+          - "2. Pocket Notes": apps/02-pocket-notes.md
+          - "3. Rate Watch": apps/03-rate-watch.md
+          - "4. Trip Log": apps/04-trip-log.md
+          - "5. OBD Link": apps/05-obd-link.md
+  - "Gỡ lỗi & tra cứu":
+      - "900 lỗi Kotlin":
+          - issues/index.md
+          - "1. Cú pháp & kiểu cơ bản (K001–K050)": issues/01-basics.md
+          - "2. Null safety (K051–K100)": issues/02-null-safety.md
+          - "3. Collections & Sequence (K101–K150)": issues/03-collections.md
+          - "4. Class, object, sealed, enum (K151–K200)": issues/04-classes.md
+          - "5. Hàm, lambda, generics (K201–K250)": issues/05-functions.md
+          - "6. Coroutines (K251–K300)": issues/06-coroutines.md
+          - "7. Flow, StateFlow, SharedFlow (K301–K350)": issues/07-flow.md
+          - "8. Gradle & build (K351–K400)": issues/08-gradle.md
+          - "9. KMP: source set, expect/actual (K401–K450)": issues/09-kmp.md
+          - "10. Swift ↔ Kotlin, iOS, Xcode (K451–K500)": issues/10-ios-interop.md
+          - "11. Android: lifecycle, quyền, Manifest (K501–K550)": issues/11-android.md
+          - "12. Compose: state & recomposition (K551–K600)": issues/12-compose-state.md
+          - "13. Compose: layout, navigation, side effect (K601–K650)": issues/13-compose-ui.md
+          - "14. Lưu dữ liệu (K651–K700)": issues/14-persistence.md
+          - "15. Mạng & JSON (K701–K750)": issues/15-networking.md
+          - "16. Test (K751–K800)": issues/16-testing.md
+          - "17. Hiệu năng & chạy ngầm (K801–K850)": issues/17-performance-background.md
+          - "18. Style, Java interop, phát hành (K851–K900)": issues/18-style-release.md
+      - "Tra cứu":
+          - "Tài nguyên học chính chủ": reference/learning-resources.md
+          - "Repo mẫu tham khảo": reference/sample-repos.md
+          - "Bản đồ docs chính chủ": reference/docs-map.md
+          - "Quy ước code Kotlin": reference/kotlin-conventions.md
+          - "Máy thật & máy ảo": reference/devices.md
+          - "Từ điển": reference/glossary.md
+          - "Lỗi hay gặp": reference/troubleshooting.md
+          - "Phụ lục: Kotlin khó gì, bẫy gì": reference/kotlin-pitfalls.md
+          - "Lỗi Kotlin phân loại theo bản chất": reference/kotlin-issue-types.md
+  - "Thêm":
+      - "Phụ lục":
+          - appendix/index.md
+          - "P1 · Unit test cơ bản & test bảng": appendix/unit-basics.md
+          - "P1 · Test coroutine & Flow": appendix/unit-coroutines-flow.md
+          - "P1 · Fake, mock, HTTP giả": appendix/unit-fakes-mocks.md
+          - "P1 · Coverage với Kover": appendix/unit-coverage.md
+      - "Mở rộng":
+          - "Học bền & thực chiến": extend/practice.md
+      - "Đánh giá & kế hoạch":
+          - plan/kmp-review.md
+          - "Kotlin làm web": plan/kotlin-web.md
 
 validation:
   links:

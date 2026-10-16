@@ -11,12 +11,17 @@ def on_page_markdown(markdown, page, config, files):
         return markdown
     lessons = [f for f in files if LESSON.match(f.src_uri)]
     titles = {}
-    for item in config["nav"]:
-        for group in item.values() if isinstance(item, dict) else []:
-            for entry in group if isinstance(group, list) else []:
-                if isinstance(entry, dict):
-                    (title, path), = entry.items()
-                    titles[path] = title
+
+    def walk(items):  # nav lồng nhiều tầng: tab → mục → trang
+        for entry in items:
+            if isinstance(entry, dict):
+                (title, value), = entry.items()
+                if isinstance(value, list):
+                    walk(value)
+                else:
+                    titles[value] = title
+
+    walk(config["nav"])
     n = int(m.group(1))
     steps = []
     for f in sorted(lessons, key=lambda f: f.src_uri):
