@@ -43,7 +43,7 @@ Code của mỗi app nằm ở thư mục gốc repo, cạnh `DevicePulse/`: `Ti
 
 | App | Trang plan | 🤖 Android | 🍎 iOS | Test |
 |---|:-:|:-:|:-:|:-:|
-| Tip Split | ✅ | ✅ | ✅ | ✅ 16 test |
+| Tip Split | ✅ | ✅ | ✅ | ✅ 21 test JVM · 21 iOS · Kover |
 | Pocket Notes | ✅ | ✅ | ✅ | ✅ 29 test JVM · 25 iOS |
 | Rate Watch | ✅ | ✅ | ✅ | ✅ 44 test JVM · 44 iOS |
 | Trip Log | ✅ | ✅ | ✅ | ✅ 32 test JVM · 31 iOS |

@@ -34,7 +34,8 @@ Cần: JDK 17+ (đã thử JDK 21), Android SDK 36, Xcode 16+ (đã thử 26.5),
 ```bash
 cd TipSplit
 ./gradlew :androidApp:installDebug                                  # Android: cài lên emulator / máy đang cắm
-./gradlew :shared:testDebugUnitTest :shared:iosSimulatorArm64Test   # 16 test core trên JVM + iOS Simulator
+./gradlew :shared:testDebugUnitTest :shared:iosSimulatorArm64Test   # 21 test core trên JVM + iOS Simulator
+./gradlew :shared:koverHtmlReportDebug :shared:koverVerifyRules     # coverage: shared/build/reports/kover/htmlDebug
 open iosApp/iosApp.xcodeproj                                        # iOS: bấm Run
 ```
 
@@ -99,6 +100,7 @@ Tìm mọi chỗ dễ sai: `grep -rn "TRAP:\|PLATFORM:" shared androidApp/src io
 ## Version và vì sao
 
 Giống hệt DevicePulse: Kotlin 2.4.20 · SKIE 0.10.15 · Koin 4.2.2 · AGP 8.13.2 · Compose BOM 2026.06.01 · Coroutines 1.11.0.
+Thêm cho Phụ lục P1: Turbine 1.2.1 (test Flow) · Kover 0.9.11 (coverage).
 Lý do chọn từng version: mục *Version và vì sao* trong [`DevicePulse/README.md`](../DevicePulse/README.md).
 
 ## Mấy cái bẫy đã gặp khi làm

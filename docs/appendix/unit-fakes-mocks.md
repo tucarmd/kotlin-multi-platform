@@ -206,4 +206,4 @@ bấm sao 2 lần là bỏ sao. Chạy trên JVM **và** iOS simulator, nên SQL
 3. Thêm case `MockEngine` trả về JSON có `rates` rỗng `{}`. App nên coi là lỗi gì?
 4. Xoá `db.transaction { }` trong `SqlRateRepository.refresh` rồi chạy lại `SqlRateRepositoryTest`. Test nào đỏ, Turbine báo gì?
 
-Commit của trang này: `git log --grep "Fake & mock"` và `git log --grep "DB trong RAM"`.
+Commit của trang này: `git log --grep "Fake & mock"` và `git log --grep "DB trong RAM"`. Tiếp theo: [Coverage với Kover](unit-coverage.md).

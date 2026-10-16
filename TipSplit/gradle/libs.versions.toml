@@ -15,6 +15,8 @@ kotlinx-coroutines = "1.11.0"
 koin = "4.2.2"
 # Phụ lục P1: test Flow. Same versions as RateWatch.
 turbine = "1.2.1"
+# Phụ lục P1: coverage. Kover measures the JVM side (Android unit tests); iOS is not measured.
+kover = "0.9.11"
 
 [libraries]
 # shared/
@@ -42,3 +44,4 @@ kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 skie = { id = "co.touchlab.skie", version.ref = "skie" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }

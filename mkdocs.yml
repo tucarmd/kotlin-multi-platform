@@ -154,6 +154,7 @@ nav:
       - "P1 · Unit test cơ bản & test bảng": appendix/unit-basics.md
       - "P1 · Test coroutine & Flow": appendix/unit-coroutines-flow.md
       - "P1 · Fake, mock, HTTP giả": appendix/unit-fakes-mocks.md
+      - "P1 · Coverage với Kover": appendix/unit-coverage.md
   - "Tra cứu":
       - "Tài nguyên học chính chủ": reference/learning-resources.md
       - "Repo mẫu tham khảo": reference/sample-repos.md
