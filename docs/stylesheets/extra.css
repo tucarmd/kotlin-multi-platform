@@ -445,3 +445,24 @@ body {
   .rmap .st::before { display: none; }
   .md-typeset .rmap-strip a + a::before { display: none; }
 }
+
+/* ---------- menu thả xuống của tab (overrides/partials/tabs-item.html) ---------- */
+.md-tabs, .md-tabs__list { overflow: visible; contain: none; }
+.kd-tab { position: relative; }
+.kd {
+  display: none; position: absolute; top: 100%; left: 0; z-index: 10;
+  gap: .4rem 1.6rem; padding: .8rem 1rem;
+  max-height: 70vh; overflow-y: auto;
+  background: var(--paper); color: var(--ink);
+  border: 2px solid var(--ink); border-radius: 12px;
+  box-shadow: 4px 4px 0 var(--ink);
+  white-space: normal;
+}
+.kd-tab:hover > .kd, .kd-tab:focus-within > .kd { display: flex; }
+.md-tabs__item:last-child > .kd { left: auto; right: 0; }
+.kd__col { min-width: 11rem; max-width: 17rem; }
+.kd__head { display: block; font-weight: 800; font-size: .72rem; color: var(--terra); margin-bottom: .3rem; }
+.kd__list { list-style: none; margin: 0; padding: 0; }
+.kd__link { display: block; font-size: .66rem; line-height: 1.35; padding: .18rem .3rem; border-radius: 6px; color: var(--ink); }
+.kd__head:hover, .kd__link:hover { text-decoration: underline; }
+.kd__link--active { background: var(--sun); color: #1F2A44; font-weight: 700; }

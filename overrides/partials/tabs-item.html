@@ -1,0 +1,42 @@
+{#-
+  Tab trên cùng + menu thả xuống liệt kê mục con và trang con.
+  Bản gốc: material/templates/partials/tabs-item.html (9.7.7) — chỉ có link tới trang đầu tiên.
+-#}
+{% macro first_url(nav_item) -%}
+  {%- if nav_item.children -%}{{ first_url(nav_item.children | first) }}{%- else -%}{{ nav_item.url | url }}{%- endif -%}
+{%- endmacro %}
+{% macro render(nav_item) %}
+  {% set class = "md-tabs__item" %}
+  {% if nav_item.active %}
+    {% set class = class ~ " md-tabs__item--active" %}
+  {% endif %}
+  {% if nav_item.children %}
+    <li class="{{ class }} kd-tab">
+      <a href="{{ first_url(nav_item) | trim }}" class="md-tabs__link" aria-haspopup="true">
+        {{ nav_item.title }}
+      </a>
+      <div class="kd">
+        {% for sec in nav_item.children %}
+          <div class="kd__col">
+            {% if sec.children %}
+              <a class="kd__head" href="{{ first_url(sec) | trim }}">{{ sec.title }}</a>
+              <ul class="kd__list">
+                {% for page in sec.children %}
+                  {% if not page.children and not page.is_index %}
+                    <li><a class="kd__link{% if page.active %} kd__link--active{% endif %}" href="{{ page.url | url }}">{{ page.title }}</a></li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            {% else %}
+              <a class="kd__head" href="{{ sec.url | url }}">{{ sec.title }}</a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </li>
+  {% else %}
+    <li class="{{ class }}">
+      <a href="{{ nav_item.url | url }}" class="md-tabs__link">{{ nav_item.title }}</a>
+    </li>
+  {% endif %}
+{% endmacro %}
