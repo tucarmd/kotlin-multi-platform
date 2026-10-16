@@ -101,6 +101,17 @@ nav:
       - "12. Lưu lịch sử với SQLDelight": lessons/12-history-sqldelight.md
       - "13. Test": lessons/13-testing.md
       - "14. Build và phát hành": lessons/14-build-publish.md
+  - "Khái niệm khó":
+      - concepts/index.md
+      - "1. Lambda & hàm bậc cao": concepts/lambda.md
+      - "2. Extension & receiver": concepts/extension-receiver.md
+      - "3. Null safety": concepts/null-safety.md
+      - "4. Generics": concepts/generics.md
+      - "5. sealed + when": concepts/sealed-when.md
+      - "6. Coroutine & suspend": concepts/coroutines.md
+      - "7. Scope, huỷ và lỗi": concepts/structured-concurrency.md
+      - "8. Dispatcher": concepts/dispatchers.md
+      - "9. Flow & StateFlow": concepts/flow.md
   - "Dự án Device Pulse":
       - project/index.md
       - "Code mẫu": project/source-code.md
