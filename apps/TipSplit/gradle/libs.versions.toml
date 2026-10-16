@@ -1,5 +1,11 @@
 # [App 1] Same versions as DevicePulse/gradle/libs.versions.toml, minus everything Tip Split does not use
 # (no Ktor, no SQLDelight, no Navigation). Later apps add libraries back one at a time.
+#
+# [Bài 5 · Version catalog] One file for every version in the project. Gradle turns each entry into an accessor:
+#   [versions]   koin = "4.2.2"                  → libs.versions.koin
+#   [libraries]  koin-core = { … }               → libs.koin.core          (dashes become dots)
+#   [plugins]    kotlinMultiplatform = { … }     → libs.plugins.kotlinMultiplatform
+# Upgrading Koin = change ONE line here; every module that uses libs.koin.* follows.
 [versions]
 agp = "8.13.2"
 android-compileSdk = "36"
