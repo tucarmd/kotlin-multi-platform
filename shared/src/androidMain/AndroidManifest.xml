@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The :shared library's own manifest. AGP's manifest merger copies everything here into the APK manifest of
+     :androidApp — the permissions live next to the code that needs them (androidMain), the app module only declares
+     the Activity. Check the merged result: `apkanalyzer manifest print androidApp/build/outputs/apk/debug/androidApp-debug.apk`. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ===== P3 · Day 1: BLE permission matrix by API level =====
+         Bluetooth was SPLIT IN TWO in Android 12 (API 31), so both branches must be declared because minSdk = 26.
+
+         OLD branch (API 26–30): BLUETOOTH + BLUETOOTH_ADMIN are install-time (no dialog), but
+         scanning requires RUNTIME ACCESS_FINE_LOCATION — the list of nearby beacons reveals your location.
+         maxSdkVersion="30" = API 31+ devices ignore these 3 lines. -->
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" android:maxSdkVersion="30" />
+
+    <!-- NEW branch (API 31+): 2 separate runtime permissions, no location involved.
+         neverForLocation = promise not to use BLE to derive location → the system doesn't require location.
+         Trade-off: "locatable" advertising packets (some iBeacons) are filtered out. -->
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
+    <!-- Day 1 exercise: also request CAMERA to practise the granted/denied branches on a non-BLE permission.
+         ⚠️ If you DECLARE it you must REQUEST it: declared but not granted → even opening the camera via Intent throws SecurityException. -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- required="false": devices without BLE/camera can still install; the screen just says "not supported". -->
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+</manifest>
