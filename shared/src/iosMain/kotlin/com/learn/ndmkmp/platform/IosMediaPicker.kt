@@ -9,6 +9,7 @@ import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.usePinned
 import kotlinx.coroutines.suspendCancellableCoroutine
 import platform.Foundation.NSData
+import platform.Foundation.create
 import platform.posix.memcpy
 import kotlin.coroutines.resume
 
@@ -74,3 +75,8 @@ internal fun NSData.toByteArray(): ByteArray {
     if (size > 0) out.usePinned { memcpy(it.addressOf(0), bytes, length) }
     return out
 }
+
+/** ByteArray → NSData (copied) — for bytes going to Swift (BLE write). */
+@OptIn(ExperimentalForeignApi::class, kotlinx.cinterop.BetaInteropApi::class)
+internal fun ByteArray.toNSData(): NSData =
+    if (isEmpty()) NSData() else usePinned { NSData.create(bytes = it.addressOf(0), length = size.toULong()) }

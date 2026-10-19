@@ -2,7 +2,6 @@ package com.learn.ndmkmp.platform
 
 import com.learn.ndmkmp.AppServices
 import com.learn.ndmkmp.core.network.KtorApiService
-import com.learn.ndmkmp.fake.FakeBleClient
 
 /**
  * The iOS side of [AppServices] — the only place that picks real vs fake on iOS.
@@ -11,18 +10,24 @@ import com.learn.ndmkmp.fake.FakeBleClient
  *
  * ```
  *  Swift  PermissionNative ──► IosPermissionController ──► PermissionController   (R5a)
+ *  Swift  BleNative        ──► IosBleClient            ──► BleClient              (R5d)
  *  Swift  MediaNative      ──► IosMediaPicker          ──► MediaPicker            (R5b)
  *  Swift  DeviceNative     ──► IosDeviceStatusSource + IosPlatformBackground ──► LoopDeviceMonitor (R5c)
  * ```
  */
-fun createIosServices(permissions: IosPermissionNative, media: IosMediaNative, device: IosDeviceNative): AppServices {
+fun createIosServices(
+    permissions: IosPermissionNative,
+    ble: IosBleNative,
+    media: IosMediaNative,
+    device: IosDeviceNative,
+): AppServices {
     val permissionController = IosPermissionController(permissions)
-    val ble = FakeBleClient()                                    // R5d: Swift (CoreBluetooth)
+    val bleClient = IosBleClient(ble)
     return AppServices(
         permissions = permissionController,                      // R5a ✅
-        ble = ble,
+        ble = bleClient,                                         // R5d ✅
         media = IosMediaPicker(media),                           // R5b ✅
         api = KtorApiService(),                                  // P6 ✅ shared Ktor (Darwin engine)
-        monitor = iosDeviceMonitor(device, permissionController, ble),   // R5c ✅
+        monitor = iosDeviceMonitor(device, permissionController, bleClient),   // R5c ✅
     )
 }

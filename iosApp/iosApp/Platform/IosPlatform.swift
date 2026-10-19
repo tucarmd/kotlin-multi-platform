@@ -9,6 +9,7 @@ import Shared
 ///  IosPlatform.services
 ///   └─ IosServicesKt.createIosServices(
 ///        permissions: PermissionNative()     → Kotlin IosPermissionController   (R5a)
+///        ble: BleNative()                    → Kotlin IosBleClient              (R5d)
 ///        media: MediaNative()                → Kotlin IosMediaPicker            (R5b)
 ///        device: DeviceNative()              → Kotlin LoopDeviceMonitor source + BGAppRefresh (R5c)
 ///      )
@@ -18,6 +19,7 @@ enum IosPlatform {
 
     static let services: AppServices = IosServicesKt.createIosServices(
         permissions: PermissionNative(),
+        ble: BleNative(),
         media: MediaNative(),
         device: device
     )
