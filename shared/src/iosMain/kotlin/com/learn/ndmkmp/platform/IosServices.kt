@@ -5,19 +5,20 @@ import com.learn.ndmkmp.core.network.KtorApiService
 import com.learn.ndmkmp.fake.FakeBleClient
 import com.learn.ndmkmp.fake.FakeDeviceMonitor
 import com.learn.ndmkmp.fake.FakeMediaPicker
-import com.learn.ndmkmp.fake.FakePermissionController
 
 /**
- * One per process: the BG task handler (P7) and the screen must share the same monitor / logger.
- * Swift reads it as `IosServicesKt.iosServices` (`AppModel.swift`).
+ * The iOS side of [AppServices] — the only place that picks real vs fake on iOS.
+ * R5: Swift calls this ONCE at launch (`IosPlatform.swift`) with its native objects (Apple SDK code written in Swift);
+ * each Kotlin adapter keeps the state + rules and implements the `core/` interface.
+ *
+ * ```
+ *  Swift  PermissionNative ──► IosPermissionController ──► PermissionController   (R5a)
+ * ```
  */
-val iosServices: AppServices by lazy { createIosServices() }
-
-/** The iOS side of [AppServices] — the only place that picks real vs fake on iOS. R5 swaps the fakes for Swift classes. */
-fun createIosServices(): AppServices = AppServices(
-    permissions = FakePermissionController(),   // R5: Swift (CBManager + AVCaptureDevice)
-    ble = FakeBleClient(),                      // R5: Swift (CoreBluetooth)
-    media = FakeMediaPicker(),                  // R5: Swift (UIImagePickerController / PHPicker)
-    api = KtorApiService(),                     // P6 ✅ shared Ktor (Darwin engine)
-    monitor = FakeDeviceMonitor(supportsForegroundService = false),  // R5: Swift providers + BGTaskScheduler
+fun createIosServices(permissions: IosPermissionNative): AppServices = AppServices(
+    permissions = IosPermissionController(permissions),          // R5a ✅
+    ble = FakeBleClient(),                                       // R5d: Swift (CoreBluetooth)
+    media = FakeMediaPicker(),                                   // R5b: Swift (UIImagePickerController / PHPicker)
+    api = KtorApiService(),                                      // P6 ✅ shared Ktor (Darwin engine)
+    monitor = FakeDeviceMonitor(supportsForegroundService = false),  // R5c: Swift providers + BGTaskScheduler
 )

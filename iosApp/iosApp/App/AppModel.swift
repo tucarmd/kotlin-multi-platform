@@ -21,7 +21,7 @@ final class AppModel: ObservableObject {
 
     init() {
         // `xcrun simctl launch booted com.learn.ndmkmp -tab monitor` opens a tab directly (screenshots), like `--es tab` on Android.
-        let vm = AppViewModel(services: IosServicesKt.iosServices, startTab: Self.launchArgument("-tab"))
+        let vm = AppViewModel(services: IosPlatform.services, startTab: Self.launchArgument("-tab"))
         self.vm = vm
         tab = vm.tab.value
         task = Task { [weak self] in
