@@ -19,7 +19,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import android.graphics.BitmapFactory
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
@@ -32,7 +34,6 @@ import com.learn.ndmkmp.ui.common.AppPrimaryButton
 import com.learn.ndmkmp.ui.common.AppSecondaryButton
 import com.learn.ndmkmp.ui.theme.AppColor
 import com.learn.ndmkmp.ui.theme.AppSpacing
-import org.jetbrains.compose.resources.decodeToImageBitmap
 
 /**
  * Day 10 — Media tab: Capture / Pick → show the image + info. Draws [MediaViewModel.state].
@@ -47,9 +48,9 @@ import org.jetbrains.compose.resources.decodeToImageBitmap
 @Composable
 fun MediaScreen(vm: MediaViewModel) {
     val state by vm.state.collectAsState()
-    // The ViewModel hands over encoded bytes; decoding them into a bitmap is the View's job (SwiftUI uses UIImage(data:)).
+    // The ViewModel hands over encoded bytes; decoding them into a bitmap is the View's job (Android: BitmapFactory · SwiftUI: UIImage(data:)).
     val preview: ImageBitmap? = remember(state.image) {
-        state.image?.preview?.let { runCatching { it.decodeToImageBitmap() }.getOrNull() }
+        state.image?.preview?.let { BitmapFactory.decodeByteArray(it, 0, it.size)?.asImageBitmap() }
     }
 
     Column(

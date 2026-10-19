@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
+/** R4 — Android app = Jetpack Compose UI (ui/, App.kt) on top of the shared ViewModels in :shared. */
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeCompiler)
@@ -8,8 +9,14 @@ plugins {
 dependencies {
     implementation(projects.shared)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.compose.uiToolingPreview)
-    implementation(libs.compose.foundation)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.lifecycle.runtime.compose.jetpack)   // LifecycleResumeEffect
+    debugImplementation(libs.androidx.compose.ui.tooling)
 }
 
 android {
@@ -22,6 +29,9 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+    }
+    buildFeatures {
+        compose = true
     }
     packaging {
         resources {

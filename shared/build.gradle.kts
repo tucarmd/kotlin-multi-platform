@@ -1,10 +1,13 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
+/**
+ * R4 — the KMP library holds ONLY what both apps share: model, rules, ViewModels, interfaces, Ktor, logger,
+ * monitor loop + the Android implementations (androidMain). No Compose: each platform draws its own UI
+ * (androidApp = Jetpack Compose, iosApp = SwiftUI).
+ */
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidMultiplatformLibrary)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.skie)          // R2: Flow → AsyncSequence for SwiftUI
 }
@@ -29,7 +32,7 @@ kotlin {
             jvmTarget = JvmTarget.JVM_11
         }
         androidResources {
-            enable = true
+            enable = true          // P5: res/xml/file_paths.xml for the camera FileProvider
         }
         // P1: run commonTest on the JVM too (`:shared:testAndroidHostTest`), no emulator needed
         withHostTest {}
@@ -37,24 +40,17 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
-            implementation(libs.compose.uiToolingPreview)
-            implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.activity)                // P3/P5: ComponentActivity + ActivityResult launchers
             implementation(libs.androidx.core.ktx)
             implementation(libs.androidx.work.runtime)        // P7: MonitorWorker every 15′
             implementation(libs.ktor.client.okhttp)           // P6: Android HTTP engine
+            implementation(libs.kotlinx.coroutines.android)   // R4: Dispatchers.Main for the ViewModels
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)           // P6: NSURLSession engine
         }
         commonMain.dependencies {
-            implementation(libs.compose.runtime)
-            implementation(libs.compose.foundation)
-            implementation(libs.compose.material3)
-            implementation(libs.compose.material.icons.core)   // P2: tab bar + search icons
-            implementation(libs.compose.ui)
-            implementation(libs.compose.components.resources)
-            implementation(libs.compose.uiToolingPreview)
-            implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(libs.kotlinx.coroutines.core)      // R1: ViewModel scope + StateFlow
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.ktor.client.core)             // P6
             implementation(libs.kotlinx.io.core)              // P7: FileLogger
@@ -65,8 +61,4 @@ kotlin {
             implementation(libs.ktor.client.mock)             // P6: ApiService tests without network
         }
     }
-}
-
-dependencies {
-    androidRuntimeClasspath(libs.compose.uiTooling)
 }
