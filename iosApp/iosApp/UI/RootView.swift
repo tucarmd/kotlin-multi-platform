@@ -6,11 +6,12 @@ import Shared
 ///
 /// ```
 ///  TabView(selection: model.tab)
-///   ├─ Permissions   (R3)
-///   ├─ Scanner       (R3)
-///   ├─ Media         (R3)
-///   ├─ API           ApiView(vm.api)      ← R2: first tab in SwiftUI
-///   └─ Monitor       (R3)
+///   ├─ Permissions   PermissionView(vm.permissions)
+///   ├─ Scanner       ScannerView(vm.scanner)      [Open Permissions] → select(.permissions)
+///   ├─ Media         MediaView(vm.media)
+///   ├─ API           ApiView(vm.api)
+///   └─ Monitor       MonitorView(vm.monitor)
+///  Each View wraps its ViewModel's `state` in `Observed` (StateFlow → @Published).
 /// ```
 struct RootView: View {
     @ObservedObject var model: AppModel
@@ -36,8 +37,11 @@ struct RootView: View {
     @ViewBuilder
     private func screen(for tab: AppTab) -> some View {
         switch tab {
+        case .permissions: PermissionView(vm: model.vm.permissions)
+        case .scanner: ScannerView(vm: model.vm.scanner, onOpenPermissions: { model.select(.permissions) })
+        case .media: MediaView(vm: model.vm.media)
         case .api: ApiView(vm: model.vm.api)
-        default: PendingTabView(tab: tab)
+        case .monitor: MonitorView(vm: model.vm.monitor)
         }
     }
 
@@ -49,20 +53,5 @@ struct RootView: View {
         case .api: "network"
         case .monitor: "waveform.path.ecg"
         }
-    }
-}
-
-/// R2 placeholder — the SwiftUI version of this tab comes in R3.
-private struct PendingTabView: View {
-    let tab: AppTab
-
-    var body: some View {
-        VStack(spacing: AppSpacing.sm) {
-            Text(tab.label).font(.system(size: 17, weight: .semibold)).foregroundStyle(AppColor.textPrimary)
-            AppHintText(text: "SwiftUI version of this tab comes in R3 (shared ViewModel already done in R1).", showBullet: false)
-        }
-        .padding(AppSpacing.lg)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(AppColor.contentBackground)
     }
 }

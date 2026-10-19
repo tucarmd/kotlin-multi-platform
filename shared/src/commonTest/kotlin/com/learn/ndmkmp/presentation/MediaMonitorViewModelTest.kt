@@ -26,7 +26,7 @@ class MediaMonitorViewModelTest : MainDispatcherTest() {
         assertEquals(MediaStrings.CAPTURE, vm.state.value.captureButtonText)
         val image = assertNotNull(vm.state.value.image)
         assertEquals('B'.code.toByte(), image.preview!![0])       // fake picture is a BMP
-        assertEquals("camera", vm.state.value.infoRows.first().second)
+        assertEquals("camera", vm.state.value.infoRows.first().value)
 
         vm.onPickClick(); advanceUntilIdle()
         vm.onPickClick(); advanceUntilIdle()                        // FakeMediaPicker: every 3rd call = cancel

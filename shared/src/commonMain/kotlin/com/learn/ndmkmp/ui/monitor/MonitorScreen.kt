@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.learn.ndmkmp.presentation.InfoRow
 import com.learn.ndmkmp.presentation.monitor.MonitorStrings
 import com.learn.ndmkmp.presentation.monitor.MonitorViewModel
 import com.learn.ndmkmp.ui.common.AppCard
@@ -109,7 +110,7 @@ fun MonitorScreen(vm: MonitorViewModel) {
 }
 
 @Composable
-private fun KeyValueTable(rows: List<Pair<String, String>>) {
+private fun KeyValueTable(rows: List<InfoRow>) {
     Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
         rows.forEach { (k, v) ->
             Row(Modifier.fillMaxWidth()) {

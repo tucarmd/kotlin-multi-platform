@@ -2,6 +2,7 @@ package com.learn.ndmkmp.presentation.media
 
 import com.learn.ndmkmp.core.media.MediaPicker
 import com.learn.ndmkmp.core.media.PickedImage
+import com.learn.ndmkmp.presentation.InfoRow
 import com.learn.ndmkmp.presentation.SharedViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -29,7 +30,7 @@ data class MediaUiState(
     val captureButtonText: String get() = if (cameraGranted) MediaStrings.CAPTURE else MediaStrings.REQUEST_CAMERA
     val captureEnabled: Boolean get() = hasCamera && !loading
     val showOpenSettings: Boolean get() = cameraDenied
-    val infoRows: List<Pair<String, String>> get() = image?.let { MediaStrings.infoRows(it.info) }.orEmpty()
+    val infoRows: List<InfoRow> get() = image?.let { MediaStrings.infoRows(it.info) }.orEmpty().map { (k, v) -> InfoRow(k, v) }
 }
 
 /** Day 10 — Media tab. Every [MediaPicker] call suspends until the user is done → this file reads top to bottom. */

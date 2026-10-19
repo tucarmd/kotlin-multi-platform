@@ -4,6 +4,7 @@ import com.learn.ndmkmp.core.background.DeviceMonitor
 import com.learn.ndmkmp.core.background.LogReadResult
 import com.learn.ndmkmp.core.background.MonitorStatus
 import com.learn.ndmkmp.core.device.DeviceStatus
+import com.learn.ndmkmp.presentation.InfoRow
 import com.learn.ndmkmp.presentation.SharedViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,7 +24,7 @@ data class MonitorUiState(
     /** Periodic task line: "State: ENQUEUED" / "State: not scheduled". */
     val workStateText: String = MonitorStrings.workState(null),
     /** Rows of the last Refresh (7 fields, `null` written literally), empty = not read yet. */
-    val currentRows: List<Pair<String, String>> = emptyList(),
+    val currentRows: List<InfoRow> = emptyList(),
     val logs: LogReadResult = LogReadResult(emptyList(), 0),
     val message: String = "",
 ) {
@@ -99,14 +100,14 @@ class MonitorViewModel(private val monitor: DeviceMonitor) : SharedViewModel() {
 }
 
 /** The record's 7 fields — `null` shows literally "null" so the learner sees which field wasn't measured. */
-internal fun statusRows(s: DeviceStatus): List<Pair<String, String>> = listOf(
-    "timestamp" to s.timestamp,
-    "battery" to (s.battery?.let { "$it %" } ?: "null"),
-    "wifiEnabled" to s.wifiEnabled.toString(),
-    "wifiConnected" to s.wifiConnected.toString(),
-    "cellularAvailable" to s.cellularAvailable.toString(),
-    "bluetoothEnabled" to s.bluetoothEnabled.toString(),
-    "bluetoothConnected" to s.bluetoothConnected.toString(),
+internal fun statusRows(s: DeviceStatus): List<InfoRow> = listOf(
+    InfoRow("timestamp", s.timestamp),
+    InfoRow("battery", (s.battery?.let { "$it %" } ?: "null")),
+    InfoRow("wifiEnabled", s.wifiEnabled.toString()),
+    InfoRow("wifiConnected", s.wifiConnected.toString()),
+    InfoRow("cellularAvailable", s.cellularAvailable.toString()),
+    InfoRow("bluetoothEnabled", s.bluetoothEnabled.toString()),
+    InfoRow("bluetoothConnected", s.bluetoothConnected.toString()),
 )
 
 private fun logLine(r: DeviceStatus) =
