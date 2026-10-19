@@ -28,6 +28,37 @@ codebase, Swift shrinks to the iOS shell (~20 lines) the KMP wizard generates.
 Phase A–D items of `docs/plan/README-NEXT-PHASES.md` in the old repo, desktop/web targets, store release, new features.
 The old `native-device-monitor/` (repo native-mobile-learning) stays untouched as the reference ("before" version).
 
+### Who writes what: shared KMP vs native
+
+**Short answer:** there is **no hand-written native UI** on either platform. All 5 tabs are Compose Multiplatform in
+`shared/commonMain`, and the same Kotlin code draws the UI on Android and on iOS. "Native" here only means **platform APIs**
+(permissions, BLE, camera, battery, background). Those are also written **in Kotlin**: `androidMain` calls the Android SDK,
+and `iosMain` calls Apple frameworks through Kotlin/Native (`import platform.CoreBluetooth.*`). **Swift is only the iOS
+shell.**
+
+| Layer | Folder | Language | What lives there | Runs on | Lines today |
+|---|---|---|---|---|---|
+| **UI**: 5 tabs, theme, buttons, strings | `shared/src/commonMain/…/ui/` | Kotlin · Compose MP | `PermissionScreen`, `ScannerScreen` + `GattSection`, `MediaScreen`, `ApiScreen`, `MonitorScreen`, `AppCard`… | 🤖 + 🍎 (shared) | ~2.6k |
+| **Logic + interfaces** | `shared/src/commonMain/…/core/` | Kotlin (pure) | models + rules (`GattModel`, `BluetoothDecoder`, `DeviceStatus`…), interfaces (`PermissionController`, `BleClient`, `MediaPicker`, `ApiService`, `DeviceMonitor`), fully shared code (`KtorApiService`, `LoopDeviceMonitor`, `FileLogger`) | 🤖 + 🍎 (shared) | ~2.0k |
+| **Android platform** | `shared/src/androidMain/` | Kotlin · Android SDK | `AndroidPermissionController`, `AndroidBleClient` (BluetoothGatt), `AndroidMediaPicker`, `AndroidDeviceStatusSource`, `MonitorService` (FGS) + `MonitorWorker` (WorkManager) | 🤖 only | ~1.9k |
+| **iOS platform** | `shared/src/iosMain/` | Kotlin/Native · Apple frameworks | `MainViewController`, `IosServices`. **To do (P3–P5, P7 🍎):** CBManager/AVCaptureDevice, CoreBluetooth, PHPicker, UIDevice, BGTaskScheduler. For now it plugs in **fakes** | 🍎 only | ~80 |
+| Android entry | `androidApp/…/MainActivity.kt` | Kotlin | `setContent { App(services) }` | 🤖 | 20 |
+| **iOS shell** | `iosApp/iosApp/` | **Swift** | `iOSApp.swift` + `ContentView.swift` (wraps `MainViewController` in SwiftUI) + `Info.plist`. P7 🍎 adds one BGTaskScheduler register line | 🍎 | 29 |
+
+Per tab, which file does what:
+
+| Tab | UI (shared) | Logic (shared) | 🤖 androidMain | 🍎 iosMain | Swift |
+|---|---|---|---|---|---|
+| Permissions | `PermissionScreen` | `PermissionController`, `PermissionStatus` | `AndroidPermissionController`, `AndroidPermissions`, `AndroidBluetoothRadio` ✅ | CBManager + AVCaptureDevice: *P3, not started* | — |
+| Scanner | `ScannerScreen`, `GattSection` | `BleClient`, `GattModel`, `BluetoothDecoder/Lookup/ScanFilter`, `ScannerActions` | `AndroidBleClient` ✅ | CoreBluetooth: *P4, not started* | — |
+| Media | `MediaScreen` | `MediaPicker`, `MediaInfo` | `AndroidMediaPicker` ✅ | UIImagePickerController / PHPicker: *P5, not started* | — |
+| API | `ApiScreen` | `ApiService`, **`KtorApiService` (100% shared)** | only `NetworkErrorKind.android.kt` (OkHttp engine) | only `NetworkErrorKind.ios.kt` (Darwin engine) ✅ | — |
+| Monitor | `MonitorScreen` | `DeviceMonitor`, `LoopDeviceMonitor`, `DeviceStatus`, `FileLogger` | `AndroidDeviceStatusSource`, `MonitorService`, `MonitorWorker` ✅ | UIDevice + BGTaskScheduler: *P7, not started* | 1 register line (P7) |
+
+Rule of thumb: if it can be written without touching a platform SDK, it goes in `commonMain`. Only the part that must call
+the Android SDK or an Apple framework goes in `androidMain` / `iosMain`, behind an interface from `commonMain`. Each
+platform's real implementations are chosen in one file: `platform/AndroidServices.kt` / `platform/IosServices.kt`.
+
 ## 2. Architecture (follows the lesson site: lesson 2 → "Share UI")
 
 ```

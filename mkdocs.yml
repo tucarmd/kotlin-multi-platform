@@ -59,6 +59,7 @@ markdown_extensions:
 # Đổi link code ngoài docs/ → GitHub (xem hooks/code_links.py)
 hooks:
   - hooks/code_links.py
+  - hooks/site_readme.py   # README.md cho repo public gh-pages
 
 plugins:
   - search
@@ -66,6 +67,9 @@ plugins:
 nav:
   - Trang chủ: index.md
   - Kế hoạch + tiến độ: plan/README-KMP-MIGRATION.md
+  - UI native + KMP core:
+      - Spec: plan/README-KMP-NATIVE-UI-SPEC.md
+      - Plan R1–R6: plan/README-KMP-NATIVE-UI-PLAN.md
   - Từng phase dev làm gì: README-KMP-PHASES.md
   - App chạy thế nào: README-KMP-HOW-IT-WORKS.md
   - Site tài liệu:

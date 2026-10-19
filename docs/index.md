@@ -1,6 +1,14 @@
 # Native Device Monitor KMP
 
-App `native-device-monitor` cũ (repo private [tucarmd/native-mobile-learning](https://github.com/tucarmd/native-mobile-learning/tree/main/native-device-monitor)) viết **hai lần** (Kotlin + Swift), làm lại thành **một codebase Kotlin** bằng Kotlin Multiplatform + Compose Multiplatform cho Android và iOS. Swift chỉ còn là vỏ iOS (`iosApp/`).
+App `native-device-monitor` cũ (repo private [tucarmd/native-mobile-learning](https://github.com/tucarmd/native-mobile-learning/tree/main/native-device-monitor)) đang viết **hai lần toàn bộ** (Kotlin + Swift). Bản này làm lại theo hướng **KMP core + UI native**:
+
+1. **UI vẫn viết riêng từng nền tảng:** Android là Kotlin + Jetpack Compose (`androidApp/`), iOS là Swift + SwiftUI (`iosApp/`).
+2. **Chỉ phần dùng chung mới viết bằng KMP** (`shared/`): model, luật, ViewModel, interface, HTTP (Ktor), logger, vòng lặp monitor.
+
+!!! warning "Đang chuyển hướng"
+    Từ P0 tới P7, UI chạy bằng Compose Multiplatform dùng chung cho cả 2 bên. Hướng mới (UI native riêng) **đã duyệt 2026-10-19**, đang làm theo
+    xem [Spec](plan/README-KMP-NATIVE-UI-SPEC.md) · [Plan R1–R6](plan/README-KMP-NATIVE-UI-PLAN.md).
+    Các trang khác vẫn mô tả code hiện tại (Compose MP) cho tới bước R6.
 
 ## Đọc theo thứ tự
 
