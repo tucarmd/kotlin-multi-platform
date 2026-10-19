@@ -5,6 +5,7 @@
 > everything shared (models, rules, ViewModels, interfaces, Ktor HTTP, logger, monitor loop) lives once in `shared/`.
 > Docs site: **https://tucarmd.github.io/native-device-monitor-kmp-docs/**
 > Plan + progress: [docs/plan/README-KMP-MIGRATION.md](docs/plan/README-KMP-MIGRATION.md) · native-UI switch: [spec](docs/plan/README-KMP-NATIVE-UI-SPEC.md) · [plan R1–R6](docs/plan/README-KMP-NATIVE-UI-PLAN.md)
+> Folder map (every folder and file explained): [docs/README-KMP-FOLDER-MAP.md](docs/README-KMP-FOLDER-MAP.md)
 > How it works (diagrams, function flow, SDK map): [docs/README-KMP-HOW-IT-WORKS.md](docs/README-KMP-HOW-IT-WORKS.md)
 > What the dev did per phase (UI vs shared KMP vs Android/iOS): [docs/README-KMP-PHASES.md](docs/README-KMP-PHASES.md)
 

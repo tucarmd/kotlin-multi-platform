@@ -13,6 +13,7 @@ App `native-device-monitor` cũ (repo private [tucarmd/native-mobile-learning](h
 
 ## Đọc theo thứ tự
 
+0. [Bản đồ thư mục](README-KMP-FOLDER-MAP.md): từng thư mục, từng file làm gì (bản `main` + bản P0), thêm code mới đặt ở đâu.
 1. [Kế hoạch + tiến độ](plan/README-KMP-MIGRATION.md): mục tiêu, kiến trúc, ai viết phần nào (KMP hay native), phase P0–P7.
 2. [UI native + KMP core](plan/README-KMP-NATIVE-UI-PLAN.md): bước R1–R6 đổi sang UI native, mỗi bước 1 commit.
 3. [Từng phase: dev đã làm gì](README-KMP-PHASES.md): P0 → P7 rồi R1 → R4, mỗi bước gắn nhãn 🎨 UI · 🧩 KMP chung · 🤖 Android · 🍎 iOS. **Đọc trang này khi trình bày / review.**

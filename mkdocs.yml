@@ -66,6 +66,7 @@ plugins:
 
 nav:
   - Trang chủ: index.md
+  - Bản đồ thư mục: README-KMP-FOLDER-MAP.md
   - Kế hoạch + tiến độ: plan/README-KMP-MIGRATION.md
   - UI native + KMP core:
       - Spec: plan/README-KMP-NATIVE-UI-SPEC.md
