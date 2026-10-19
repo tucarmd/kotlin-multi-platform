@@ -1,8 +1,9 @@
 [🏠 README](../../README.md) · Old app: [tucarmd/native-mobile-learning](https://github.com/tucarmd/native-mobile-learning) (`native-device-monitor/`)
 
-# Plan — Native Device Monitor → one Kotlin app (KMP + Compose Multiplatform)
+# Plan — Native Device Monitor → KMP core + native UI (Jetpack Compose · SwiftUI)
 
-> Created: 2026-10-16 · Status: **Approved 2026-10-16 (D1–D5 as recommended) · P0 ✅ P1 ✅ P2 ✅ P6 ✅ · P3 P4 P5 P7 ✅ Android only, iOS not started**
+> Created: 2026-10-16 · Status: **Approved 2026-10-16 · P0–P7 ✅ (P3 P4 P5 P7 Android only) · 2026-10-19 D1 changed → native UI, R1–R4 ✅ · R5 (iOS real SDK, Swift) next**
+> Native-UI switch: [spec](README-KMP-NATIVE-UI-SPEC.md) · [plan R1–R6](README-KMP-NATIVE-UI-PLAN.md)
 > Step-by-step per phase (what the dev did, which layer): [Từng phase: dev đã làm gì](../README-KMP-PHASES.md)
 > Learning path: [Học KMP qua Device Pulse](https://tucarmd.github.io/kotlin-multi-platform/lessons/02-setup/) (14 lessons) +
 > official docs [kotlinlang.org/docs/multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html).
@@ -10,9 +11,13 @@
 
 ## 1. Goal · scope · out of scope
 
-**Goal:** rebuild Native Device Monitor as a **new app written only in Kotlin**: one codebase → Android + iOS.
-Today the same app is written twice (Kotlin/Compose ~6.5k lines + Swift/SwiftUI ~5.6k lines). After this: one Kotlin
-codebase, Swift shrinks to the iOS shell (~20 lines) the KMP wizard generates.
+**Goal:** rebuild Native Device Monitor so that **everything that can be shared is written once in Kotlin (KMP)**, while
+each platform keeps its **own native UI**. The old app is written twice end to end (Kotlin/Compose ~6.5k lines +
+Swift/SwiftUI ~5.6k lines). Now: models, rules, ViewModels, HTTP, logger, monitor loop once in `shared/`; UI twice
+(Jetpack Compose + SwiftUI), both reading the same ViewModels.
+
+> Until 2026-10-19 (P0–P7) the goal was "only Kotlin, Compose Multiplatform UI, Swift = 20-line shell". Changed in
+> R1–R4 — see [spec](README-KMP-NATIVE-UI-SPEC.md).
 
 **In scope** — feature parity with tasks 001–006, same 5 tabs:
 
@@ -30,57 +35,57 @@ The old `native-device-monitor/` (repo native-mobile-learning) stays untouched a
 
 ### Who writes what: shared KMP vs native
 
-**Short answer:** there is **no hand-written native UI** on either platform. All 5 tabs are Compose Multiplatform in
-`shared/commonMain`, and the same Kotlin code draws the UI on Android and on iOS. "Native" here only means **platform APIs**
-(permissions, BLE, camera, battery, background). Those are also written **in Kotlin**: `androidMain` calls the Android SDK,
-and `iosMain` calls Apple frameworks through Kotlin/Native (`import platform.CoreBluetooth.*`). **Swift is only the iOS
-shell.**
+**Short answer:** the **UI is native on each platform**: Android draws with **Kotlin + Jetpack Compose** (`androidApp/`),
+iOS with **Swift + SwiftUI** (`iosApp/`). **Only the shared part is KMP** (`shared/`): models, rules, the 5 ViewModels,
+interfaces, Ktor, FileLogger, monitor loop. Both UIs read the **same ViewModel state**, so texts, enabled buttons and
+filters are identical. Platform SDK code: Android in Kotlin (`shared/androidMain`), iOS in **Swift** (R5; fakes today).
 
-| Layer | Folder | Language | What lives there | Runs on | Lines today |
+| Layer | Folder | Language | What lives there | Runs on |
+|---|---|---|---|---|
+| **UI Android** | `androidApp/…/ui/`, `App.kt` | Kotlin · Jetpack Compose | `PermissionScreen`, `ScannerScreen` + `GattSection`, `MediaScreen`, `ApiScreen`, `MonitorScreen`, theme | 🤖 only |
+| **UI iOS** | `iosApp/iosApp/UI/` | Swift · SwiftUI | `PermissionView`, `ScannerView` + `GattSection`, `MediaView`, `ApiView`, `MonitorView`, theme, `RootView` (TabView) | 🍎 only |
+| **ViewModels** | `shared/commonMain/…/presentation/` | Kotlin (KMP) | `AppViewModel` + `Permission/Scanner/Media/Api/MonitorViewModel`: `state: StateFlow<XxxUiState>` + actions · `*Strings` | 🤖 + 🍎 (shared) |
+| **Logic + interfaces** | `shared/commonMain/…/core/` | Kotlin (KMP) | models + rules (`GattModel`, `BluetoothDecoder`, `DeviceStatus`…), interfaces (`PermissionController`, `BleClient`, `MediaPicker`, `ApiService`, `DeviceMonitor`), `KtorApiService`, `LoopDeviceMonitor`, `FileLogger` | 🤖 + 🍎 (shared) |
+| **Android SDK** | `shared/androidMain/` | Kotlin · Android SDK | `AndroidPermissionController`, `AndroidBleClient`, `AndroidMediaPicker`, `AndroidDeviceStatusSource`, `MonitorService` + `MonitorWorker` | 🤖 only |
+| **iOS SDK** | `iosApp/` (R5) | Swift · Apple frameworks | CBManager / AVCaptureDevice, CoreBluetooth, PHPicker, UIDevice, BGTaskScheduler — **fakes today** (`shared/iosMain/platform/IosServices.kt`) | 🍎 only |
+| Bridges | `iosApp/iosApp/App/` | Swift | `AppModel` (owns `AppViewModel`, `clear()` on deinit) · `Observed<T>` (Kotlin `StateFlow` → `@Published`, via SKIE) | 🍎 |
+
+Per tab:
+
+| Tab | 🤖 UI (Compose) | 🍎 UI (SwiftUI) | Shared ViewModel + logic | 🤖 SDK | 🍎 SDK |
 |---|---|---|---|---|---|
-| **UI**: 5 tabs, theme, buttons, strings | `shared/src/commonMain/…/ui/` | Kotlin · Compose MP | `PermissionScreen`, `ScannerScreen` + `GattSection`, `MediaScreen`, `ApiScreen`, `MonitorScreen`, `AppCard`… | 🤖 + 🍎 (shared) | ~2.6k |
-| **Logic + interfaces** | `shared/src/commonMain/…/core/` | Kotlin (pure) | models + rules (`GattModel`, `BluetoothDecoder`, `DeviceStatus`…), interfaces (`PermissionController`, `BleClient`, `MediaPicker`, `ApiService`, `DeviceMonitor`), fully shared code (`KtorApiService`, `LoopDeviceMonitor`, `FileLogger`) | 🤖 + 🍎 (shared) | ~2.0k |
-| **Android platform** | `shared/src/androidMain/` | Kotlin · Android SDK | `AndroidPermissionController`, `AndroidBleClient` (BluetoothGatt), `AndroidMediaPicker`, `AndroidDeviceStatusSource`, `MonitorService` (FGS) + `MonitorWorker` (WorkManager) | 🤖 only | ~1.9k |
-| **iOS platform** | `shared/src/iosMain/` | Kotlin/Native · Apple frameworks | `MainViewController`, `IosServices`. **To do (P3–P5, P7 🍎):** CBManager/AVCaptureDevice, CoreBluetooth, PHPicker, UIDevice, BGTaskScheduler. For now it plugs in **fakes** | 🍎 only | ~80 |
-| Android entry | `androidApp/…/MainActivity.kt` | Kotlin | `setContent { App(services) }` | 🤖 | 20 |
-| **iOS shell** | `iosApp/iosApp/` | **Swift** | `iOSApp.swift` + `ContentView.swift` (wraps `MainViewController` in SwiftUI) + `Info.plist`. P7 🍎 adds one BGTaskScheduler register line | 🍎 | 29 |
+| Permissions | `PermissionScreen` | `PermissionView` | `PermissionViewModel` · `PermissionController` | `AndroidPermissionController` ✅ | fake → R5 |
+| Scanner | `ScannerScreen`, `GattSection` | `ScannerView`, `GattSection` | `ScannerViewModel` · `BleClient`, `GattModel`, `ScannerActions` | `AndroidBleClient` ✅ | fake → R5 |
+| Media | `MediaScreen` | `MediaView` | `MediaViewModel` · `MediaPicker` | `AndroidMediaPicker` ✅ | fake → R5 |
+| API | `ApiScreen` | `ApiView` | `ApiViewModel` · **`KtorApiService` (100% shared)** | OkHttp engine ✅ | Darwin engine ✅ |
+| Monitor | `MonitorScreen` | `MonitorView` | `MonitorViewModel` · `DeviceMonitor`, `LoopDeviceMonitor`, `FileLogger` | `MonitorService` + `MonitorWorker` ✅ | fake → R5 |
 
-Per tab, which file does what:
+Rule of thumb: no platform SDK and no drawing → `shared/commonMain`. Drawing → the platform's UI module. Platform SDK →
+an implementation of a `core/` interface, picked in one file per platform (`AndroidServices.kt` / `IosServices.kt`).
 
-| Tab | UI (shared) | Logic (shared) | 🤖 androidMain | 🍎 iosMain | Swift |
-|---|---|---|---|---|---|
-| Permissions | `PermissionScreen` | `PermissionController`, `PermissionStatus` | `AndroidPermissionController`, `AndroidPermissions`, `AndroidBluetoothRadio` ✅ | CBManager + AVCaptureDevice: *P3, not started* | — |
-| Scanner | `ScannerScreen`, `GattSection` | `BleClient`, `GattModel`, `BluetoothDecoder/Lookup/ScanFilter`, `ScannerActions` | `AndroidBleClient` ✅ | CoreBluetooth: *P4, not started* | — |
-| Media | `MediaScreen` | `MediaPicker`, `MediaInfo` | `AndroidMediaPicker` ✅ | UIImagePickerController / PHPicker: *P5, not started* | — |
-| API | `ApiScreen` | `ApiService`, **`KtorApiService` (100% shared)** | only `NetworkErrorKind.android.kt` (OkHttp engine) | only `NetworkErrorKind.ios.kt` (Darwin engine) ✅ | — |
-| Monitor | `MonitorScreen` | `DeviceMonitor`, `LoopDeviceMonitor`, `DeviceStatus`, `FileLogger` | `AndroidDeviceStatusSource`, `MonitorService`, `MonitorWorker` ✅ | UIDevice + BGTaskScheduler: *P7, not started* | 1 register line (P7) |
-
-Rule of thumb: if it can be written without touching a platform SDK, it goes in `commonMain`. Only the part that must call
-the Android SDK or an Apple framework goes in `androidMain` / `iosMain`, behind an interface from `commonMain`. Each
-platform's real implementations are chosen in one file: `platform/AndroidServices.kt` / `platform/IosServices.kt`.
-
-## 2. Architecture (follows the lesson site: lesson 2 → "Share UI")
+## 2. Architecture (since R4: "Share logic, native UI")
 
 ```
 native-device-monitor-kmp/            ← own private repo tucarmd/native-device-monitor-kmp, KMP-App-Template layout (AGP 9)
-├── androidApp/       Android application module: MainActivity → App()
-├── shared/src/
-│   ├── commonMain/   model · rules · ViewModels · Compose UI (all 5 tabs) · strings (Compose resources)
-│   ├── androidMain/  MainActivity + actual: permissions, BLE*, camera/picker, battery/network, FGS + WorkManager
-│   ├── iosMain/      MainViewController + actual: CoreBluetooth*, AVFoundation/PHPicker, UIDevice, BGTaskScheduler
-│   └── commonTest/   kotlin.test — ported JUnit / Swift Testing tests
-└── iosApp/           Xcode shell: iOSApp.swift + ContentView.swift + Info.plist (usage strings, BG modes)
+├── androidApp/       Kotlin + Jetpack Compose: MainActivity → App(AppViewModel) → ui/ (5 screens, theme)
+├── shared/src/       KMP library, no Compose
+│   ├── commonMain/   core/ (model · rules · interfaces · Ktor · FileLogger · loop) · presentation/ (ViewModels · strings)
+│   ├── androidMain/  Android implementations: permissions, BLE, camera/picker, battery/network, FGS + WorkManager
+│   ├── iosMain/      iosServices (fakes until R5) + IosBridge helpers for Swift
+│   └── commonTest/   kotlin.test — rules + ViewModel tests (78)
+└── iosApp/           Swift + SwiftUI: iOSApp → AppModel → RootView (TabView) → UI/ (5 views, theme) · Info.plist
 ```
 
 Platform code is behind **interfaces in commonMain + one implementation per platform** (the skill's advice: plain interface
-instead of `expect class`). Dependencies one way: `ui → viewmodel → core interfaces`.
+instead of `expect class`). Dependencies one way: `UI (Compose / SwiftUI) → ViewModel (shared) → core interfaces`.
 
 Library choices (versions from the wizard / lesson 5, not hand-picked):
 
 | Need | Old | New |
 |---|---|---|
-| UI | Compose (🤖) + SwiftUI (🍎) | **Compose Multiplatform** + Material 3 |
-| ViewModel / nav | hand-rolled | `androidx.lifecycle` ViewModel (multiplatform) + Navigation Compose (lesson 8) |
+| UI | Compose (🤖) + SwiftUI (🍎) | ~~Compose Multiplatform~~ (P0–P7) → **Jetpack Compose (🤖) + SwiftUI (🍎)** since R4 |
+| ViewModel / nav | hand-rolled | shared `SharedViewModel` (own ~10-line base, see spec §3.3) + plain tab state |
+| Swift ↔ Kotlin Flow | — | **SKIE** (StateFlow → AsyncSequence) + `Observed<T>` |
 | HTTP | HttpURLConnection / URLSession | **Ktor** (OkHttp / Darwin) + `ktor-client-mock` tests (lesson 11) |
 | JSON | org.json / Codable | kotlinx.serialization |
 | Files (logger) | File / FileManager | kotlinx-io (or okio) |
@@ -107,7 +112,7 @@ Order matters: P0–P2 can be checked on simulator/emulator only; P3–P5, P7 ne
 
 | # | Question | Recommended | Alternative |
 |---|---|---|---|
-| D1 | UI | **Compose Multiplatform** — only Kotlin, matches lesson 2 "Share UI" and your request | KMP core + keep SwiftUI (= Device Pulse demo app) — still 2 UI languages |
+| D1 | UI | ~~**Compose Multiplatform** — only Kotlin, matches lesson 2 "Share UI"~~ → **changed 2026-10-19: KMP core + native UI** (Jetpack Compose + SwiftUI) | — |
 | D2 | BLE | **Write our own `BleClient`** in androidMain (reuse current Kotlin) + iosMain (CoreBluetooth in Kotlin/Native) — keeps the platform-difference learning | **Kable** (JuulLabs) — far less code, one API, used in app #5 of the lesson site; hides the GATT queue / CCCD details |
 | D3 | Where | ~~New folder in native-mobile-learning~~ → **changed 2026-10-16: own private repo `tucarmd/native-device-monitor-kmp`** | — |
 | D4 | IDs | `com.learn.ndmkmp` (both platforms) — can be installed next to the old app | reuse `com.learn.nativedevicemonitor` (replaces old app on device) |
@@ -116,7 +121,8 @@ Order matters: P0–P2 can be checked on simulator/emulator only; P3–P5, P7 ne
 ## 5. Risks
 
 - **CoreBluetooth from Kotlin/Native** (if D2 = own code): delegates must subclass `NSObject`; ObjC interop is verbose. Fallback: Kable.
-- **iOS look:** Compose on iOS draws Material, not native iOS controls. Fine for a learning/monitor app; tell testers.
+- ~~**iOS look:** Compose on iOS draws Material~~ — gone since R3: iOS is SwiftUI with native controls.
+- **Two UIs drift apart:** same ViewModel + strings keep texts and rules equal; only drawing can differ. Compare screenshots per tab.
 - **BGTaskScheduler** must be registered before launch finishes → keep that one line in `iOSApp.swift`; Info.plist needs `BGTaskSchedulerPermittedIdentifiers` + background modes.
 - **Gradle/AGP:** wizard may generate AGP 9 (`com.android.kotlin.multiplatform.library`); old app is on AGP 8.13. Follow the wizard; skill `kotlin-tooling-agp9-migration` if it breaks.
 - **iOS build time** (Kotlin/Native link) — skill `kotlin-tooling-native-build-performance`.
@@ -165,7 +171,14 @@ Order matters: P0–P2 can be checked on simulator/emulator only; P3–P5, P7 ne
   FGS keeps writing "fgs" records in background, WorkManager ENQUEUED + first "worker" record. Every `AppServices`
   entry on Android is now real. UI files were not touched in P3–P7.
 
+- **2026-10-19 · D1 changed → KMP core + native UI** ([spec](README-KMP-NATIVE-UI-SPEC.md) · [plan](README-KMP-NATIVE-UI-PLAN.md)).
+  **R1** 5 shared ViewModels + `AppViewModel` (`presentation/`), Compose screens only draw · `PickedImage` carries bytes ·
+  78 tests. **R2** SKIE + `Observed<T>`, SwiftUI shell + API tab, Xcode synchronized folder, iOS 17. **R3** SwiftUI
+  Permissions / Scanner / Media / Monitor, Maestro through all 5 tabs on the simulator. **R4** Compose UI → `androidApp`
+  (Jetpack Compose BOM 2026.06.01), `shared/` without Compose; A32 checked.
+
 ## 7. Next step
 
-iOS side of P3 / P4 / P5 / P7 in `iosMain` (CBManager + AVCaptureDevice, CoreBluetooth, PHPicker, UIDevice +
-BGTaskScheduler), then BLE GATT end-to-end on real phones, then P8.
+**R5** — iOS real SDK in **Swift** (decision N2): Swift classes implementing the `core/` interfaces (CBManager +
+AVCaptureDevice, CoreBluetooth, PHPicker, UIDevice + BGTaskScheduler), ported from the old app's `NativeCore/`, passed into
+`AppServices` from `iOSApp.swift`; checked on a real iPhone. Then BLE GATT end-to-end on real phones, then P8.

@@ -4,23 +4,27 @@
 
 Trang này để **trình bày và review lại**. Mỗi phase đọc từ trên xuống: bước 1 → 2 → 3 là đúng thứ tự dev làm, mỗi bước gắn **một nhãn tầng** để biết đang đụng UI, code KMP dùng chung hay code riêng Android / iOS.
 
-> Cập nhật 2026-10-16. **Android: P0–P7 chạy thật** (trừ BLE connect/GATT cần máy thật). **iOS: mới tới P2 + P6**: các tab còn lại trên iOS vẫn chạy bằng `Fake*`.
+> Cập nhật 2026-10-19. **Android: P0–P7 chạy thật** (trừ BLE connect/GATT cần máy thật). **iOS: UI SwiftUI đủ 5 tab (R3), API thật (P6)**, 4 tab còn lại vẫn chạy `Fake*` (chờ R5).
+>
+> **Đổi hướng 2026-10-19:** P0–P7 dùng Compose Multiplatform (một UI cho cả 2 bên). Từ R1–R4 UI tách riêng: Android = Jetpack Compose, iOS = SwiftUI, cả hai đọc chung ViewModel trong `shared/`. Các mục P0–P7 bên dưới là **lịch sử đúng lúc làm** (đường dẫn `shared/.../ui/` nay đã dời sang `androidApp/`).
 
 ## Đọc nhãn tầng
 
 | Nhãn | Tầng | Thư mục | Chạy ở đâu |
 |---|---|---|---|
-| 🎨 **UI** | Màn hình Compose | `shared/src/commonMain/.../ui/` | **chung** Android + iOS |
+| 🎨 **UI** | Màn hình: Jetpack Compose · SwiftUI (P0–P7: Compose MP trong `shared/`) | `androidApp/…/ui/` · `iosApp/iosApp/UI/` | **riêng**, viết 2 lần |
+| 🧠 **ViewModel** | state + action của từng tab (R1) | `shared/src/commonMain/.../presentation/` | **chung** Android + iOS |
 | 🧩 **KMP chung** | interface, luật, model, Ktor, logger | `shared/src/commonMain/.../core/` · `fake/` | **chung** Android + iOS |
 | 🤖 **Android** | cài đặt interface bằng Android SDK | `shared/src/androidMain/` | chỉ Android |
-| 🍎 **iOS** | cài đặt interface bằng Apple SDK (vẫn viết Kotlin) | `shared/src/iosMain/` | chỉ iOS |
+| 🍎 **iOS** | cài đặt interface bằng Apple SDK (Swift, R5) · cầu nối `AppModel` / `Observed` | `iosApp/` · `shared/src/iosMain/` | chỉ iOS |
 | 📱 **Vỏ app** | `MainActivity` · `iOSApp.swift` · Manifest · Info.plist | `androidApp/` · `iosApp/` | riêng |
 | ✅ **Kiểm tra** | build, test, chạy máy, chụp màn hình | — | — |
 
 ```mermaid
 flowchart LR
-    V["📱 Vỏ app"] --> U["🎨 UI<br/>commonMain/ui"]
-    U --> K["🧩 KMP chung<br/>interface + luật"]
+    V["📱 Vỏ app"] --> U["🎨 UI<br/>Compose · SwiftUI"]
+    U --> M["🧠 ViewModel<br/>presentation"]
+    M --> K["🧩 KMP chung<br/>interface + luật"]
     A["🤖 androidMain"] -- "cài đặt" --> K
     I["🍎 iosMain"] -- "cài đặt" --> K
     A --> AS["Android SDK"]
@@ -28,11 +32,13 @@ flowchart LR
     classDef shell fill:#e5e1d8,stroke:#1F2A44,color:#1F2A44
     classDef ui fill:#7EC8E3,stroke:#1F2A44,color:#1F2A44
     classDef kmp fill:#8FB59A,stroke:#1F2A44,color:#1F2A44
+    classDef vm fill:#C3B1E1,stroke:#1F2A44,color:#1F2A44
     classDef and fill:#F5C451,stroke:#1F2A44,color:#1F2A44
     classDef ios fill:#F08A5D,stroke:#1F2A44,color:#1F2A44
     classDef sdk fill:#C9C1B3,stroke:#1F2A44,color:#1F2A44,stroke-width:3px
     class V shell
     class U ui
+    class M vm
     class K kmp
     class A and
     class I ios
@@ -41,21 +47,26 @@ flowchart LR
 
 ## Bảng tổng: phase nào đụng tầng nào
 
-| Phase | 🎨 UI | 🧩 KMP chung | 🤖 Android | 🍎 iOS | 📱 Vỏ | Trạng thái |
-|---|:-:|:-:|:-:|:-:|:-:|---|
-| [P0 Setup](#p0-setup-khung-kmp) | ● | ● | ● | ● | ● | ✅ 2 máy |
-| [P1 Core](#p1-đưa-luật-thuần-vào-commonmain) | | ● | | | | ✅ 52 test × 2 máy |
-| [P2 UI shell](#p2-5-tab-ui-chạy-bằng-fake) | ● | ● | ● | ● | ● | ✅ 2 máy (data giả) |
-| [P6 API](#p6-api-thật-bằng-ktor) | | ● | ● | ● | ● | ✅ 2 máy |
-| [P3 Permissions](#p3-xin-quyền-thật-android) | | | ● | ○ | | 🤖 ✅ · 🍎 chưa |
-| [P4 BLE](#p4-bluetooth-thật-android) | | | ● | ○ | | 🤖 scan ✅, GATT cần máy thật · 🍎 chưa |
-| [P5 Media](#p5-camera--thư-viện-ảnh-android) | | | ● | ○ | | 🤖 ✅ · 🍎 chưa |
-| [P7 Monitor](#p7-monitor--chạy-nền-android) | | ● | ● | ○ | | 🤖 ✅ · 🍎 chưa |
-| P8 Final | | | | | | chưa |
+| Phase | 🎨 UI | 🧠 VM | 🧩 KMP chung | 🤖 Android | 🍎 iOS | 📱 Vỏ | Trạng thái |
+|---|:-:|:-:|:-:|:-:|:-:|:-:|---|
+| [P0 Setup](#p0--setup-khung-kmp) | ● | | ● | ● | ● | ● | ✅ 2 máy |
+| [P1 Core](#p1--đưa-luật-thuần-vào-commonmain) | | | ● | | | | ✅ 52 test × 2 máy |
+| [P2 UI shell](#p2--5-tab-ui-chạy-bằng-fake) | ● | | ● | ● | ● | ● | ✅ 2 máy (data giả) |
+| [P6 API](#p6--api-thật-bằng-ktor) | | | ● | ● | ● | ● | ✅ 2 máy |
+| [P3 Permissions](#p3--xin-quyền-thật-android) | | | | ● | ○ | | 🤖 ✅ · 🍎 chưa |
+| [P4 BLE](#p4--bluetooth-thật-android) | | | | ● | ○ | | 🤖 scan ✅, GATT cần máy thật · 🍎 chưa |
+| [P5 Media](#p5--camera--thư-viện-ảnh-android) | | | | ● | ○ | | 🤖 ✅ · 🍎 chưa |
+| [P7 Monitor](#p7--monitor--chạy-nền-android) | | | ● | ● | ○ | | 🤖 ✅ · 🍎 chưa |
+| P8 Final | | | | | | | chưa |
+| [R1 ViewModel chung](#r1--viewmodel-dùng-chung-cho-5-tab) | ● | ● | ● | ● | | ● | ✅ 78 test × 2 máy |
+| [R2 SwiftUI + SKIE](#r2--swiftui-đầu-tiên-tab-api) | ● | | | | ● | ● | ✅ iOS |
+| [R3 SwiftUI 4 tab](#r3--swiftui-đủ-5-tab) | ● | ● | | | ● | | ✅ iOS (Maestro) |
+| [R4 Compose → androidApp](#r4--compose-về-androidapp-shared-hết-compose) | ● | | ● | ● | ● | ● | ✅ A32 |
+| R5 iOS SDK thật (Swift) | | | | | ○ | ○ | chưa, cần iPhone thật |
 
 ● = phase này có sửa · ○ = phải làm nhưng chưa làm.
 
-Điều cần thấy khi nhìn bảng: **từ P3 trở đi UI không đổi một dòng**. Màn hình đã viết xong ở P2 trên interface; mỗi phase sau chỉ thay `Fake*` bằng cài đặt thật ở 🤖 / 🍎, rồi đổi **một dòng** trong `createAndroidServices` / `createIosServices`.
+Điều cần thấy khi nhìn bảng: **từ P3 tới P7 UI không đổi một dòng**. Màn hình đã viết xong ở P2 trên interface; mỗi phase sau chỉ thay `Fake*` bằng cài đặt thật ở 🤖 / 🍎, rồi đổi **một dòng** trong `createAndroidServices` / `createIosServices`.
 
 ## P0 · Setup khung KMP
 
@@ -233,10 +244,40 @@ Chọn tab bên dưới để xem từng màn, Android bên trái · iOS bên ph
 5. 📱 **Khai báo**: quyền mạng, `FOREGROUND_SERVICE_DATA_SYNC`, `POST_NOTIFICATIONS`, `<service>` trong manifest.
 6. ✅ **Kiểm tra**: pin đổi theo `adb emu power capacity 42`; app ở nền vẫn ghi bản ghi "fgs"; WorkManager ENQUEUED + bản ghi "worker" đầu tiên. Từ đây **cả 5 interface trên Android đều là code thật**.
 
+## R1 · ViewModel dùng chung cho 5 tab
+
+1. 🧠 **ViewModel**: [SharedViewModel.kt](../shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/SharedViewModel.kt) (lớp nền ~10 dòng: scope trên Main + `clear()`), rồi 5 ViewModel + [AppViewModel.kt](../shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/AppViewModel.kt). Mỗi cái có `state: StateFlow<XxxUiState>` + hàm action. Mọi `if` "hiện gì" (nút nào, chữ gì, dòng nào) dời từ composable vào đây.
+2. 🧠 **ViewModel**: `*Strings` và `ScannerActions` dời từ `ui/` sang `presentation/`, để hai UI dùng chung chữ và luật.
+3. 🧩 **KMP chung**: `PickedImage.preview` đổi từ `ImageBitmap` (Compose) sang `ByteArray`. Fake picker tự vẽ một ảnh BMP.
+4. 🎨 **UI**: 5 màn Compose chỉ còn `vm.state.collectAsState()` + gọi hàm. 📱 `MainActivity` tạo `AppViewModel` và `onDestroy` thì `clear()`.
+5. ✅ **Kiểm tra**: 12 test ViewModel mới, 78/78 trên JVM + iOS simulator. Chạy A32, emulator, iPhone simulator (vẫn Compose).
+
+## R2 · SwiftUI đầu tiên: tab API
+
+1. 🧩 **Gradle**: thêm plugin **SKIE 0.10.15**. Swift thấy `StateFlow` thành `AsyncSequence`, enum Kotlin thành enum Swift.
+2. 🍎 **iOS**: [Observed.swift](../iosApp/iosApp/App/Observed.swift): `for await v in flow { value = v }` → `@Published` (bản Swift của `collectAsState()`). [AppModel.swift](../iosApp/iosApp/App/AppModel.swift) giữ `AppViewModel`, `deinit` gọi `clear()`.
+3. 🎨 **UI iOS**: [RootView.swift](../iosApp/iosApp/UI/RootView.swift) (TabView) + [ApiView.swift](../iosApp/iosApp/UI/Api/ApiView.swift), port từ app cũ, đọc `ApiViewModel.state`.
+4. 📱 **Xcode**: thư mục `iosApp/` chuyển sang *synchronized folder*: thả file `.swift` vào là được build, không phải sửa `project.pbxproj`. Deployment target iOS 17. Xoá `ContentView.swift`.
+5. ✅ **Kiểm tra**: Maestro bấm GET 200 và 500 trên simulator. Tìm ra lỗi có sẵn từ app cũ: nút viền chỉ nhận chạm ở phần chữ → thêm `.contentShape(Capsule())`.
+
+## R3 · SwiftUI đủ 5 tab
+
+1. 🎨 **UI iOS**: [PermissionView](../iosApp/iosApp/UI/Permission/PermissionView.swift), [ScannerView](../iosApp/iosApp/UI/Scanner/ScannerView.swift) + [GattSection](../iosApp/iosApp/UI/Scanner/GattSection.swift), [MediaView](../iosApp/iosApp/UI/Media/MediaView.swift), [MonitorView](../iosApp/iosApp/UI/Monitor/MonitorView.swift), cùng các mảnh dùng chung `AppChip` / `InfoTable` / `TerminalBox`.
+2. 🧠 **ViewModel**: `InfoRow(label, value)` thay cho `Pair<String, String>` (Swift thấy `Pair` thành `KotlinPair` với field optional, khó đọc).
+3. 🍎 **iOS**: [IosBridge.kt](../shared/src/iosMain/kotlin/com/learn/ndmkmp/platform/IosBridge.kt): `ByteArray` → `NSData` cho `UIImage(data:)`.
+4. ✅ **Kiểm tra**: Maestro chạy hết 5 tab: xin quyền → bật BT → scan → connect → notify → write `41 54 5A 0D` → nhận NOTIFY; chụp ảnh fake; refresh monitor.
+
+## R4 · Compose về androidApp, shared hết Compose
+
+1. 🎨 **UI Android**: `ui/` + `App.kt` dời từ `shared/commonMain` sang [androidApp](../androidApp/src/main/kotlin/com/learn/ndmkmp/App.kt), dùng Jetpack Compose thường (BOM 2026.06.01). Ảnh giải mã bằng `BitmapFactory`.
+2. 🧩 **Gradle**: `shared/` bỏ plugin + thư viện Compose Multiplatform. commonMain chỉ còn coroutines, serialization, Ktor, kotlinx-io. androidMain thêm `androidx.activity` + `coroutines-android`.
+3. 📱 **Dọn**: xoá `MainViewController.kt` (lối vào Compose của iOS), `composeResources` của template, các dòng Compose MP trong version catalog.
+4. ✅ **Kiểm tra**: 78/78 JVM + iOS, A32 đủ 5 tab, Maestro refresh monitor thật + API 200; Xcode build không đổi.
+
 ## Còn lại
 
 | Việc | Tầng | Cần gì |
 |---|---|---|
-| P3 / P4 / P5 / P7 bên iOS | 🍎 `iosMain` | `CBManager` + `AVCaptureDevice`, `CoreBluetooth`, `PHPicker`, `UIDevice` + `BGTaskScheduler`; iPhone thật |
+| R5: P3 / P4 / P5 / P7 bên iOS | 🍎 **Swift** trong `iosApp/` | class Swift cài đặt interface `core/` (port `NativeCore/` của app cũ): `CBManager` + `AVCaptureDevice`, `CoreBluetooth`, `PHPicker`, `UIDevice` + `BGTaskScheduler`; iPhone thật |
 | P4 GATT end-to-end | ✅ | Samsung A32 + iPhone + nRF Connect |
-| P8 Final | ✅ | checklist E2E task 006, README "cũ vs mới" |
+| P8 Final | ✅ | | checklist E2E task 006, README "cũ vs mới" |

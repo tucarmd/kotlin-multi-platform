@@ -1,20 +1,25 @@
 # Native Device Monitor — KMP
 
-> The same app as `native-device-monitor/` in the private repo [tucarmd/native-mobile-learning](https://github.com/tucarmd/native-mobile-learning/tree/main/native-device-monitor), rebuilt as **one Kotlin codebase**
-> (Kotlin Multiplatform + Compose Multiplatform) for Android and iOS. Swift is only the iOS shell (`iosApp/`).
-> Plan + progress: [docs/plan/README-KMP-MIGRATION.md](docs/plan/README-KMP-MIGRATION.md)
+> The same app as `native-device-monitor/` in the private repo [tucarmd/native-mobile-learning](https://github.com/tucarmd/native-mobile-learning/tree/main/native-device-monitor), rebuilt as
+> **KMP core + native UI**: the UI is written per platform (Android = Kotlin + Jetpack Compose, iOS = Swift + SwiftUI),
+> everything shared (models, rules, ViewModels, interfaces, Ktor HTTP, logger, monitor loop) lives once in `shared/`.
+> Docs site: **https://tucarmd.github.io/native-device-monitor-kmp-docs/**
+> Plan + progress: [docs/plan/README-KMP-MIGRATION.md](docs/plan/README-KMP-MIGRATION.md) · native-UI switch: [spec](docs/plan/README-KMP-NATIVE-UI-SPEC.md) · [plan R1–R6](docs/plan/README-KMP-NATIVE-UI-PLAN.md)
 > How it works (diagrams, function flow, SDK map): [docs/README-KMP-HOW-IT-WORKS.md](docs/README-KMP-HOW-IT-WORKS.md)
 > What the dev did per phase (UI vs shared KMP vs Android/iOS): [docs/README-KMP-PHASES.md](docs/README-KMP-PHASES.md)
 
-Skeleton from the official [Kotlin/KMP-App-Template](https://github.com/Kotlin/KMP-App-Template) layout
-(Kotlin 2.4.10 · Compose Multiplatform 1.11.1 · AGP 9.1 · Gradle 9.6). IDs: Android `com.learn.ndmkmp`, iOS `com.learn.ndmkmp`
-— installs next to the old app.
+Kotlin 2.4.10 · AGP 9.1 · Gradle 9.6 · Jetpack Compose BOM 2026.06.01 · SKIE 0.10.15 · iOS 17+.
+IDs: Android `com.learn.ndmkmp`, iOS `com.learn.ndmkmp` — installs next to the old app.
 
 ## Modules
 
-- `shared/` — KMP library: `commonMain` (UI, models, rules), `androidMain`, `iosMain` (platform code)
-- `androidApp/` — Android application, `MainActivity` calls `App()`
-- `iosApp/` — Xcode project, embeds the `Shared` framework, `ContentView.swift` shows `MainViewController()`
+| Folder | Language | What |
+|---|---|---|
+| `shared/commonMain` | Kotlin (KMP) | `core/` models · rules · interfaces · Ktor · FileLogger · monitor loop — `presentation/` 5 ViewModels + `AppViewModel` + strings |
+| `shared/androidMain` | Kotlin · Android SDK | permissions, BLE (BluetoothGatt), camera / photo picker, FGS + WorkManager |
+| `shared/iosMain` | Kotlin/Native | `iosServices` (fakes until R5) + small Swift helpers |
+| `androidApp/` | Kotlin · Jetpack Compose | `MainActivity` → `App(AppViewModel)` → 5 screens |
+| `iosApp/` | Swift · SwiftUI | `AppModel` owns `AppViewModel` → `RootView` (TabView) → 5 views; `Observed<T>` turns a Kotlin `StateFlow` into `@Published` |
 
 ## Run
 
@@ -22,29 +27,33 @@ Skeleton from the official [Kotlin/KMP-App-Template](https://github.com/Kotlin/K
 # Android (JDK 17+), from this folder
 ./gradlew :androidApp:assembleDebug
 adb install -r androidApp/build/outputs/apk/debug/androidApp-debug.apk
-adb shell am start -n com.learn.ndmkmp/.MainActivity
+adb shell am start -n com.learn.ndmkmp/.MainActivity --es tab scanner
 ```
 
 ```bash
 # iOS Simulator (or open iosApp/iosApp.xcodeproj in Xcode and press Run)
 xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -destination 'platform=iOS Simulator,name=iPhone 17' -derivedDataPath iosApp/build/dd build
 xcrun simctl install "iPhone 17" "iosApp/build/dd/Build/Products/Debug-iphonesimulator/Device Monitor KMP.app"
-xcrun simctl launch "iPhone 17" com.learn.ndmkmp
+xcrun simctl launch "iPhone 17" com.learn.ndmkmp -tab scanner
 ```
+
+`iosApp/iosApp/` is an Xcode synchronized folder: a new `.swift` file dropped in it is built, no `project.pbxproj` edit.
 
 ## Test
 
 ```bash
-./gradlew :shared:allTests   # commonTest on the Android host JVM + iOS simulator
+./gradlew :shared:allTests   # commonTest (rules + ViewModels, 78 tests) on the Android host JVM + iOS simulator
 ```
 
 ## Status
 
-| Phase | Android | iOS |
+| | Android | iOS |
 |---|:-:|:-:|
-| P0 — project + hello screen from one `App()` | ✅ | ✅ |
-| P1 — shared core (BLE rules, GATT decode, DeviceStatus JSON, media, permission, scanner rules) + 52 tests | ✅ | ✅ |
+| Shared core + ViewModels (P1, R1) | ✅ | ✅ |
+| UI: 5 tabs, native per platform (R3, R4) | ✅ Jetpack Compose | ✅ SwiftUI |
+| API tab (Ktor) | ✅ | ✅ |
+| Permissions · BLE · Camera · Monitor on the real SDK | ✅ (P3 P4 P5 P7) | ⏳ fakes — R5 (Swift) |
 
-| Android (Pixel 8 emulator, API 34) | iOS (iPhone 17 Simulator, iOS 26.5) |
+| Android — Jetpack Compose (Samsung A32) | iOS — SwiftUI (iPhone 17 Simulator) |
 |---|---|
-| <img src="docs/assets/kmp_p0_android.png" width="200"> | <img src="docs/assets/kmp_p0_ios.png" width="200"> |
+| <img src="docs/assets/kmp_r4_android_compose_tabs.png" width="420"> | <img src="docs/assets/kmp_r3_ios_swiftui_tabs.png" width="420"> |
