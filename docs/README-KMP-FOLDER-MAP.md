@@ -158,8 +158,8 @@ androidApp/
 ├── ⚙️ build.gradle.kts         plugin com.android.application · applicationId com.learn.ndmkmp · minSdk 26 ·
 │                              Jetpack Compose (BOM) · phụ thuộc projects.shared
 └── src/main/
-    ├── AndroidManifest.xml     "CMND" app Android: tên, icon, Activity mở đầu tiên (LAUNCHER)
-    ├── res/                    icon launcher (drawable/, mipmap-anydpi-v26/) · values/strings.xml (tên dưới icon)
+    ├── AndroidManifest.xml     "CMND" app Android: tên app ghi thẳng (android:label), icon, Activity mở đầu tiên (LAUNCHER)
+    ├── res/                    CHỈ icon launcher (drawable/, mipmap-anydpi-v26/), không có strings.xml (Rule 5.3)
     └── kotlin/com/learn/ndmkmp/
         ├── ⭐ MainActivity.kt   cửa vào: createAndroidServices(this) → AppViewModel → setContent { App(vm) };
         │                        onDestroy → vm.clear()
@@ -242,6 +242,21 @@ Ví dụ bấm **Scan Bluetooth**:
 | gọi một API Apple mới | Swift: `iosApp/iosApp/Platform/` + thêm hàm vào interface `IosXxxNative` trong `shared/iosMain/` | thêm vào `BleNative.swift` |
 | thêm thư viện | `gradle/libs.versions.toml` rồi `build.gradle.kts` của module cần | — |
 | xin thêm quyền | `shared/androidMain/AndroidManifest.xml` · `iosApp/iosApp/Info.plist` | — |
+| thêm chữ hiển thị (nhãn, nút, thông báo) | `shared/commonMain/.../presentation/xxx/XxxStrings.kt`. **Không** dùng `strings.xml` (xem Rule 5.3 bên dưới) | thêm `const val` vào `ScannerStrings` |
+
+### 1.7 Rule 5.3: chuỗi hiển thị chỉ nằm trong file `.kt` / `.swift`
+
+Quy định mang sang từ app cũ: **mọi chữ trên màn hình nằm trong `object XxxStrings` (Kotlin)**, không dùng `strings.xml` hay `composeResources`.
+Từ R1, các object này nằm trong `shared/commonMain/.../presentation/`, nên Compose và SwiftUI dùng chung **một** bộ chữ (Swift đọc `ScannerStrings.shared.SCAN_BUTTON`).
+Màn hình SwiftUI không tự đặt chữ riêng, trừ ký tự trang trí như "•".
+
+| Chỗ | Có chữ? | Vì sao được phép |
+|---|---|---|
+| `presentation/*Strings.kt` | ✅ toàn bộ chữ UI | đây là chỗ đúng |
+| `AndroidManifest.xml` `android:label` | tên app | Android đọc nhãn launcher từ manifest, ghi thẳng chữ, không qua `@string/` |
+| `iosApp/iosApp/Info.plist` (`NSBluetoothAlwaysUsageDescription`, `NSCameraUsageDescription`) | câu xin quyền | Apple **bắt buộc** đặt trong Info.plist, iOS tự hiện trong hộp thoại hệ thống |
+| `iosApp/Configuration/Config.xcconfig` `APP_NAME` | tên app iOS | cấu hình build của Xcode, không phải chữ UI |
+| ~~`res/values/strings.xml`~~ · ~~`composeResources/values/strings.xml`~~ | ❌ | đã xoá (P0 còn `composeResources`, xoá ở R4; `app_name` xoá 2026-10-19) |
 
 ## 2. Bản đồ P0 (nhánh `notes/p0`)
 
@@ -257,8 +272,8 @@ NativeDeviceMonitorKMP/
 ├── androidApp/                    🤖
 │   ├── build.gradle.kts
 │   └── src/main/
-│       ├── AndroidManifest.xml     chỉ có quyền INTERNET          ➜ main: quyền BLE/Camera/FGS nằm ở shared/androidMain
-│       ├── res/                    icon + strings.xml (app_name)
+│       ├── AndroidManifest.xml     chỉ có quyền INTERNET, label=@string/app_name   ➜ main: quyền BLE/Camera/FGS ở shared/androidMain, label ghi thẳng
+│       ├── res/                    icon + values/strings.xml (app_name)     ➜ main: đã xoá theo Rule 5.3, tên ghi thẳng trong manifest
 │       └── kotlin/…/MainActivity.kt   setContent { App() }        ➜ main: tạo AppServices + AppViewModel, App(vm) bằng Jetpack Compose
 │
 ├── shared/                        🧩
@@ -267,7 +282,7 @@ NativeDeviceMonitorKMP/
 │   └── src/
 │       ├── commonMain/
 │       │   ├── composeResources/values/strings.xml
-│       │   │                       chuỗi của Compose MP (app_title, p0_hint), code gọi Res.string.app_title
+│       │   │                       chuỗi của Compose MP (app_title, p0_hint), code gọi Res.string.app_title, SAI Rule 5.3
 │       │   │                       ➜ main: đã xoá; chuỗi nằm trong presentation/*Strings.kt
 │       │   └── kotlin/…/
 │       │       ├── App.kt          🎨 màn hello bằng Compose Multiplatform, CHUNG cho 2 máy
