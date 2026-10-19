@@ -4,7 +4,6 @@ import com.learn.ndmkmp.AppServices
 import com.learn.ndmkmp.core.network.KtorApiService
 import com.learn.ndmkmp.fake.FakeBleClient
 import com.learn.ndmkmp.fake.FakeDeviceMonitor
-import com.learn.ndmkmp.fake.FakeMediaPicker
 
 /**
  * The iOS side of [AppServices] — the only place that picks real vs fake on iOS.
@@ -13,12 +12,13 @@ import com.learn.ndmkmp.fake.FakeMediaPicker
  *
  * ```
  *  Swift  PermissionNative ──► IosPermissionController ──► PermissionController   (R5a)
+ *  Swift  MediaNative      ──► IosMediaPicker          ──► MediaPicker            (R5b)
  * ```
  */
-fun createIosServices(permissions: IosPermissionNative): AppServices = AppServices(
+fun createIosServices(permissions: IosPermissionNative, media: IosMediaNative): AppServices = AppServices(
     permissions = IosPermissionController(permissions),          // R5a ✅
     ble = FakeBleClient(),                                       // R5d: Swift (CoreBluetooth)
-    media = FakeMediaPicker(),                                   // R5b: Swift (UIImagePickerController / PHPicker)
+    media = IosMediaPicker(media),                               // R5b ✅
     api = KtorApiService(),                                      // P6 ✅ shared Ktor (Darwin engine)
     monitor = FakeDeviceMonitor(supportsForegroundService = false),  // R5c: Swift providers + BGTaskScheduler
 )

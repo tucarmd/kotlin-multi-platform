@@ -8,8 +8,12 @@ import Shared
 ///  IosPlatform.services
 ///   └─ IosServicesKt.createIosServices(
 ///        permissions: PermissionNative()     → Kotlin IosPermissionController   (R5a)
+///        media: MediaNative()                → Kotlin IosMediaPicker            (R5b)
 ///      )
 /// ```
 enum IosPlatform {
-    static let services: AppServices = IosServicesKt.createIosServices(permissions: PermissionNative())
+    static let services: AppServices = IosServicesKt.createIosServices(
+        permissions: PermissionNative(),
+        media: MediaNative()
+    )
 }
