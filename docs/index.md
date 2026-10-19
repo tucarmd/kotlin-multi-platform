@@ -9,7 +9,7 @@ App `native-device-monitor` cũ (repo private [tucarmd/native-mobile-learning](h
     P0–P7 từng dùng **Compose Multiplatform** (một UI Kotlin vẽ cho cả 2 bên). Từ R4, `shared/` không còn Compose:
     Android vẽ bằng Jetpack Compose, iOS vẽ bằng SwiftUI, cả hai đọc **cùng một ViewModel** trong `shared/`.
     Xem [Spec](plan/README-KMP-NATIVE-UI-SPEC.md) · [Plan R1–R6](plan/README-KMP-NATIVE-UI-PLAN.md).
-    Còn lại: **R5**, thay các service fake trên iOS (permission, BLE, camera, monitor) bằng code Swift gọi SDK Apple thật.
+    **R5** (2026-10-19): iOS gọi SDK Apple thật bằng Swift (`iosApp/iosApp/Platform/`), có adapter Kotlin trong `iosMain`. Đã chạy trên simulator, **chưa chạy trên iPhone thật**.
 
 ## Đọc theo thứ tự
 
@@ -25,9 +25,9 @@ App `native-device-monitor` cũ (repo private [tucarmd/native-mobile-learning](h
 |---|---|---|
 | `shared/commonMain` | Kotlin (KMP) | `core/`: model, luật, interface, Ktor, FileLogger, vòng monitor · `presentation/`: 5 ViewModel + `AppViewModel` + chuỗi hiển thị |
 | `shared/androidMain` | Kotlin · Android SDK | xin quyền, BLE (BluetoothGatt), camera / chọn ảnh, FGS + WorkManager |
-| `shared/iosMain` | Kotlin/Native | `iosServices` (đang fake, chờ R5) + hàm nhỏ hỗ trợ Swift |
+| `shared/iosMain` | Kotlin/Native | adapter iOS (`IosPermissionController`, `IosBleClient`, `IosMediaPicker`, `iosDeviceMonitor`) giữ state + luật |
 | `androidApp/` | Kotlin · **Jetpack Compose** | `MainActivity` → `App(AppViewModel)` → 5 màn hình |
-| `iosApp/` | **Swift · SwiftUI** | `AppModel` giữ `AppViewModel` → `RootView` (TabView) → 5 View · `Observed<T>` đổi `StateFlow` Kotlin thành `@Published` |
+| `iosApp/` | **Swift · SwiftUI** | `AppModel` giữ `AppViewModel` → `RootView` (TabView) → 5 View · `Observed<T>` đổi `StateFlow` Kotlin thành `@Published` · `Platform/`: code SDK Apple bằng Swift |
 
 ## Chạy
 
@@ -51,7 +51,7 @@ xcrun simctl launch "iPhone 17" com.learn.ndmkmp -tab scanner
 
 ## Ảnh chạy thật
 
-Chọn tab bên dưới để xem từng màn, Android (Jetpack Compose) bên trái · iOS (SwiftUI) bên phải. Hai UI viết riêng nhưng đọc cùng một ViewModel, nên chữ và trạng thái giống nhau. iOS đang chạy service fake (chờ R5). Bấm vào ảnh để mở ảnh gốc.
+Chọn tab bên dưới để xem từng màn, Android (Jetpack Compose) bên trái · iOS (SwiftUI) bên phải. Hai UI viết riêng nhưng đọc cùng một ViewModel, nên chữ và trạng thái giống nhau. Ảnh iOS chụp trước R5 (lúc đó service còn fake). Bấm vào ảnh để mở ảnh gốc.
 
 === "Permissions"
 

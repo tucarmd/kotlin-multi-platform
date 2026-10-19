@@ -88,7 +88,9 @@ View biến mất.
 | N3 | Compose UI hiện có | **Dời** sang `androidApp/`, gỡ Compose MP khỏi `shared` | Giữ song song cả 2 UI cho iOS (thêm cấu hình, dễ rối) |
 
 Nếu chọn N2 = Swift thì interface trong core phải dễ implement từ Swift: callback hoặc hàm `suspend` thay vì bắt Swift
-tự tạo `MutableStateFlow`. Bước R1 sẽ chỉnh interface cho hợp, còn luật bên trong giữ nguyên.
+tự tạo `MutableStateFlow`. *Cách làm ở R5:* interface `core/` giữ nguyên. Thêm interface nhỏ kiểu callback trong `iosMain`
+(`IosPermissionNative`, `IosBleNative`, `IosMediaNative`, `IosDeviceNative`) cho Swift implement, cùng adapter Kotlin
+(`IosPermissionController`, `IosBleClient`, `IosMediaPicker`, `iosDeviceMonitor`) giữ `StateFlow` và luật.
 
 ## 5. Ảnh hưởng tới plan cũ
 

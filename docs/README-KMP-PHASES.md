@@ -4,7 +4,7 @@
 
 Trang này để **trình bày và review lại**. Mỗi phase đọc từ trên xuống: bước 1 → 2 → 3 là đúng thứ tự dev làm, mỗi bước gắn **một nhãn tầng** để biết đang đụng UI, code KMP dùng chung hay code riêng Android / iOS.
 
-> Cập nhật 2026-10-19. **Android: P0–P7 chạy thật** (trừ BLE connect/GATT cần máy thật). **iOS: UI SwiftUI đủ 5 tab (R3), API thật (P6)**, 4 tab còn lại vẫn chạy `Fake*` (chờ R5).
+> Cập nhật 2026-10-19. **Android: P0–P7 chạy thật** (trừ BLE connect/GATT cần máy thật). **iOS: UI SwiftUI đủ 5 tab (R3), cả 5 interface gọi SDK thật (R5)**, đã chạy trên simulator, chưa chạy trên iPhone thật.
 >
 > **Đổi hướng 2026-10-19:** P0–P7 dùng Compose Multiplatform (một UI cho cả 2 bên). Từ R1–R4 UI tách riêng: Android = Jetpack Compose, iOS = SwiftUI, cả hai đọc chung ViewModel trong `shared/`. Các mục P0–P7 bên dưới là **lịch sử đúng lúc làm** (đường dẫn `shared/.../ui/` nay đã dời sang `androidApp/`).
 
@@ -62,7 +62,7 @@ flowchart LR
 | [R2 SwiftUI + SKIE](#r2--swiftui-đầu-tiên-tab-api) | ● | | | | ● | ● | ✅ iOS |
 | [R3 SwiftUI 4 tab](#r3--swiftui-đủ-5-tab) | ● | ● | | | ● | | ✅ iOS (Maestro) |
 | [R4 Compose → androidApp](#r4--compose-về-androidapp-shared-hết-compose) | ● | | ● | ● | ● | ● | ✅ A32 |
-| R5 iOS SDK thật (Swift) | | | | | ○ | ○ | chưa, cần iPhone thật |
+| [R5 iOS SDK thật (Swift)](#r5--ios-gọi-sdk-apple-thật-bằng-swift) | | | | | ● | ● | ✅ code + simulator · iPhone thật chưa |
 
 ● = phase này có sửa · ○ = phải làm nhưng chưa làm.
 
@@ -294,10 +294,25 @@ Chọn tab bên dưới để xem từng màn, Android bên trái · iOS bên ph
 3. 📱 **Dọn**: xoá `MainViewController.kt` (lối vào Compose của iOS), `composeResources` của template, các dòng Compose MP trong version catalog.
 4. ✅ **Kiểm tra**: 78/78 JVM + iOS, A32 đủ 5 tab, Maestro refresh monitor thật + API 200; Xcode build không đổi.
 
+## R5 · iOS gọi SDK Apple thật bằng Swift
+
+Cách nối: interface `core/` giữ nguyên. Swift implement các interface **callback nhỏ** trong `iosMain`, còn adapter Kotlin giữ `StateFlow` và luật.
+
+```
+ Swift Platform/*Native  ──callback──►  Kotlin iosMain adapter  ──implements──►  core/ interface  ◄── ViewModel chung
+```
+
+1. 🍎 **R5a quyền**: [PermissionNative.swift](../iosApp/iosApp/Platform/PermissionNative.swift) đọc `CBManager.authorization` (static, không bật hộp thoại), xin camera, theo dõi radio. [IosPermissionController.kt](../shared/src/iosMain/kotlin/com/learn/ndmkmp/platform/IosPermissionController.kt) đổi sang 4 trạng thái: DENIED → PERMANENTLY_DENIED vì iOS chỉ hỏi 1 lần, và một hộp thoại Bluetooth dùng chung cho 2 thẻ BLE.
+2. 🍎 **R5b media**: [MediaNative.swift](../iosApp/iosApp/Platform/MediaNative.swift) mở `UIImagePickerController` / `PHPickerViewController` bằng UIKit, thu nhỏ ảnh còn 1024 px. [IosMediaPicker.kt](../shared/src/iosMain/kotlin/com/learn/ndmkmp/platform/IosMediaPicker.kt) đổi callback thành `suspend`.
+3. 🍎 **R5c monitor**: [DeviceNative.swift](../iosApp/iosApp/Platform/DeviceNative.swift) đọc pin, `NWPathMonitor`, `BGTaskScheduler`. [IosMonitor.kt](../shared/src/iosMain/kotlin/com/learn/ndmkmp/platform/IosMonitor.kt) dựng `LoopDeviceMonitor` dùng chung, file `monitor.jsonl` nằm trong Documents. Handler BGAppRefresh đăng ký ở `iOSApp.init`.
+4. 🍎 **R5d BLE**: [BleNative.swift](../iosApp/iosApp/Platform/BleNative.swift) bọc mỏng CoreBluetooth (giữ ref mạnh `CBPeripheral`). [IosBleClient.kt](../shared/src/iosMain/kotlin/com/learn/ndmkmp/platform/IosBleClient.kt) giữ luật của `BluetoothClientService.swift` cũ: lọc, khử trùng lặp, quét 10 s, timeout 15 s, phân biệt read với notify, dọn dẹp khi tắt radio.
+5. 🧠 **ViewModel**: `MonitorUiState` thêm tiêu đề / gợi ý theo nền tảng (iOS: BGAppRefresh, không phải WorkManager).
+6. ✅ **Kiểm tra**: 82/82 test trên iOS (thêm `IosAdaptersTest`). Simulator: xin quyền camera → GRANTED, PHPicker thật chọn được ảnh, loop ghi JSONL và log còn sau khi mở lại app, Schedule báo lỗi 1 đúng như mong đợi. **Chưa chạy trên iPhone thật.**
+
 ## Còn lại
 
 | Việc | Tầng | Cần gì |
 |---|---|---|
-| R5: P3 / P4 / P5 / P7 bên iOS | 🍎 **Swift** trong `iosApp/` | class Swift cài đặt interface `core/` (port `NativeCore/` của app cũ): `CBManager` + `AVCaptureDevice`, `CoreBluetooth`, `PHPicker`, `UIDevice` + `BGTaskScheduler`; iPhone thật |
+| Chạy R5 trên iPhone thật | ✅ | chụp ảnh, BLE scan → GATT với nRF Connect, BGAppRefresh (LLDB `_simulateLaunchForTaskWithIdentifier`) |
 | P4 GATT end-to-end | ✅ | Samsung A32 + iPhone + nRF Connect |
 | P8 Final | ✅ | | checklist E2E task 006, README "cũ vs mới" |

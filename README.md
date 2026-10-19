@@ -17,9 +17,9 @@ IDs: Android `com.learn.ndmkmp`, iOS `com.learn.ndmkmp` — installs next to the
 |---|---|---|
 | `shared/commonMain` | Kotlin (KMP) | `core/` models · rules · interfaces · Ktor · FileLogger · monitor loop — `presentation/` 5 ViewModels + `AppViewModel` + strings |
 | `shared/androidMain` | Kotlin · Android SDK | permissions, BLE (BluetoothGatt), camera / photo picker, FGS + WorkManager |
-| `shared/iosMain` | Kotlin/Native | `iosServices` (fakes until R5) + small Swift helpers |
+| `shared/iosMain` | Kotlin/Native | iOS adapters (`IosPermissionController`, `IosBleClient`, `IosMediaPicker`, `iosDeviceMonitor`): state + rules |
 | `androidApp/` | Kotlin · Jetpack Compose | `MainActivity` → `App(AppViewModel)` → 5 screens |
-| `iosApp/` | Swift · SwiftUI | `AppModel` owns `AppViewModel` → `RootView` (TabView) → 5 views; `Observed<T>` turns a Kotlin `StateFlow` into `@Published` |
+| `iosApp/` | Swift · SwiftUI | `AppModel` owns `AppViewModel` → `RootView` (TabView) → 5 views; `Observed<T>` turns a Kotlin `StateFlow` into `@Published`; `Platform/` = Apple SDK calls in Swift |
 
 ## Run
 
@@ -42,7 +42,7 @@ xcrun simctl launch "iPhone 17" com.learn.ndmkmp -tab scanner
 ## Test
 
 ```bash
-./gradlew :shared:allTests   # commonTest (rules + ViewModels, 78 tests) on the Android host JVM + iOS simulator
+./gradlew :shared:allTests   # commonTest (rules + ViewModels + iOS adapters, 82 tests on iOS) on the Android host JVM + iOS simulator
 ```
 
 ## Status
@@ -52,7 +52,7 @@ xcrun simctl launch "iPhone 17" com.learn.ndmkmp -tab scanner
 | Shared core + ViewModels (P1, R1) | ✅ | ✅ |
 | UI: 5 tabs, native per platform (R3, R4) | ✅ Jetpack Compose | ✅ SwiftUI |
 | API tab (Ktor) | ✅ | ✅ |
-| Permissions · BLE · Camera · Monitor on the real SDK | ✅ (P3 P4 P5 P7) | ⏳ fakes — R5 (Swift) |
+| Permissions · BLE · Camera · Monitor on the real SDK | ✅ (P3 P4 P5 P7) | ✅ R5 in Swift — simulator checked, real iPhone pending |
 
 | Android — Jetpack Compose (Samsung A32) | iOS — SwiftUI (iPhone 17 Simulator) |
 |---|---|

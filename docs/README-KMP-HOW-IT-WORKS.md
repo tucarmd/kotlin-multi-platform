@@ -4,7 +4,7 @@
 
 Trang này vẽ lại app từ trên xuống dưới: **UI native từng nền tảng** (Jetpack Compose / SwiftUI) → **ViewModel dùng chung** → 5 interface → code riêng từng nền tảng → SDK của Android / Apple. Mỗi ô trong sơ đồ có link tới đúng file và dòng code.
 
-> Cập nhật 2026-10-19 (sau bước R4). **Android: cả 5 interface đã là code thật (P3–P7).** **iOS: UI SwiftUI đủ 5 tab, nhưng mới có API (Ktor) là thật**, 4 tab còn lại vẫn chạy `Fake*` cho tới R5. Muốn xem dev làm gì theo thứ tự, đọc [Từng phase: dev đã làm gì](README-KMP-PHASES.md).
+> Cập nhật 2026-10-19 (sau bước R4). **Android: cả 5 interface đã là code thật (P3–P7).** **iOS: UI SwiftUI đủ 5 tab, và từ R5 cả 5 interface đều gọi SDK thật**: Swift (`iosApp/iosApp/Platform/`) cùng adapter Kotlin (`shared/iosMain`). Đã chạy trên simulator, chưa chạy trên iPhone thật. Muốn xem dev làm gì theo thứ tự, đọc [Từng phase: dev đã làm gì](README-KMP-PHASES.md).
 
 Màu trong mọi sơ đồ trang này:
 
@@ -13,7 +13,7 @@ Màu trong mọi sơ đồ trang này:
 | 🟦 xanh dương | 🎨 UI native: Jetpack Compose (`androidApp/`) · SwiftUI (`iosApp/`) | riêng, **viết 2 lần** |
 | 🟪 tím | 🧠 ViewModel (`shared/commonMain/presentation`) | **chung** |
 | 🟩 xanh lá | 🧩 KMP chung: interface + luật (`shared/commonMain/core`) | **chung** |
-| 🟨 vàng | 🤖 `androidMain` (Kotlin) / 🍎 code SDK iOS (Swift, R5) | riêng |
+| 🟨 vàng | 🤖 `androidMain` (Kotlin) / 🍎 `iosApp/Platform` (Swift) + adapter `iosMain` (Kotlin) | riêng |
 | ⬜ xám viền đậm | SDK của Google / Apple | — |
 
 ## Mục lục
@@ -34,7 +34,7 @@ Màu trong mọi sơ đồ trang này:
 | **2. ViewModel** | `shared/commonMain/.../presentation/` | Kotlin | **chung**: `state` + hàm action, mọi `if` "hiện gì" nằm ở đây |
 | **3. Hợp đồng** | `AppServices` gom 5 interface | Kotlin | **chung** |
 | **4. Luật thuần** | `core/` (GattModel, BluetoothDecoder, ScanFilter, DeviceStatus, MediaInfo…) + `ScannerActions` | Kotlin | **chung**; 78 test (luật + ViewModel) chạy cả JVM lẫn iOS Simulator |
-| **5. Cài đặt theo nền tảng** | `shared/androidMain/` · iOS: Swift (R5), đang `Fake*` | Kotlin (Android) · **Swift** (iOS) | riêng |
+| **5. Cài đặt theo nền tảng** | `shared/androidMain/` · iOS: `iosApp/iosApp/Platform/` (Swift) + `shared/iosMain/platform/` (adapter Kotlin) | Kotlin (Android) · **Swift + adapter Kotlin** (iOS) | riêng |
 | **6. SDK hệ điều hành** | Android SDK · Apple SDK | — | của Google / Apple |
 
 Hai câu để nhớ: **chỉ tầng 1 biết vẽ**, **chỉ tầng 5 biết mình đang chạy trên máy nào**. Tầng 2–4 là KMP, dùng chung y nguyên.
@@ -47,7 +47,7 @@ flowchart TB
     CONTRACT["3 · AppServices — 5 interface<br/>PermissionController · BleClient<br/>MediaPicker · ApiService · DeviceMonitor"]
     R["4 · core/ — luật thuần<br/>GattModel · BluetoothDecoder<br/>ScanFilter · DeviceStatus · MediaInfo"]
     AM["5 · androidMain (Kotlin)<br/>createAndroidServices()"]
-    IM["5 · iOS (Swift, R5)<br/>hôm nay: createIosServices() = Fake*"]
+    IM["5 · iOS: Swift Platform/*Native<br/>+ adapter Kotlin (IosBleClient…)"]
     AS["6 · Android SDK"]
     IS["6 · Apple SDK"]
     AUI -- "collectAsState()" --> VM
@@ -97,11 +97,11 @@ sequenceDiagram
 sequenceDiagram
     participant APP as iOSApp (Swift)
     participant AM as AppModel (Swift)
-    participant IS as iosServices (Kotlin)
+    participant IS as IosPlatform (Swift)
     participant VM as AppViewModel (shared)
     participant RV as RootView — SwiftUI
     APP->>AM: @StateObject AppModel()
-    AM->>IS: IosServicesKt.iosServices (lazy, 1 lần)
+    AM->>IS: IosPlatform.services (1 lần: Swift *Native → adapter Kotlin)
     AM->>VM: AppViewModel(services:startTab:)
     APP->>RV: RootView(model) → TabView, 5 View
     Note over AM,VM: deinit → vm.clear()
@@ -114,12 +114,12 @@ sequenceDiagram
 | A3 | `App(vm)` | [App.kt](../androidApp/src/main/kotlin/com/learn/ndmkmp/App.kt) | Scaffold + top bar + `NavigationBar` 5 tab (icon Material), `when (tab)` chọn màn |
 | I1 | `iOSApp` | [iOSApp.swift](../iosApp/iosApp/iOSApp.swift) | `@StateObject AppModel`, `scenePhase == .active` → `vm.onResume()` |
 | I2 | `AppModel` | [AppModel.swift](../iosApp/iosApp/App/AppModel.swift) | giữ `AppViewModel`, đọc launch arg `-tab`, `deinit` → `vm.clear()` |
-| I3 | `iosServices` / `createIosServices()` | [IosServices.kt](../shared/src/iosMain/kotlin/com/learn/ndmkmp/platform/IosServices.kt) | chỗ duy nhất bên iOS chọn fake hay thật (R5 sẽ truyền class Swift vào) |
+| I3 | `IosPlatform.services` → `createIosServices(permissions:ble:media:device:)` | [IosPlatform.swift](../iosApp/iosApp/Platform/IosPlatform.swift) · [IosServices.kt](../shared/src/iosMain/kotlin/com/learn/ndmkmp/platform/IosServices.kt) | Swift tạo 4 object gọi SDK, Kotlin bọc chúng bằng adapter; tạo **một lần** cho cả màn hình lẫn BGAppRefresh |
 | I4 | `RootView` | [RootView.swift](../iosApp/iosApp/UI/RootView.swift) | `TabView` theo `AppTab` dùng chung, icon SF Symbols |
 | C1 | `AppViewModel` | [AppViewModel.kt](../shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/AppViewModel.kt) | tab đang chọn + 5 ViewModel con; radio tắt → `ble.onRadioOff()` |
 | C2 | `AppServices` | [AppServices.kt](../shared/src/commonMain/kotlin/com/learn/ndmkmp/AppServices.kt) | gom 5 interface; `AppServices.fake()` cho preview / test |
 
-> Swift gọi `IosServicesKt.iosServices`: thuộc tính top-level trong file `IosServices.kt` hiện ra bên Swift thành thuộc tính static của class `IosServicesKt`.
+> Swift gọi `IosServicesKt.createIosServices(...)`: hàm top-level trong file `IosServices.kt` hiện ra bên Swift thành hàm static của class `IosServicesKt`.
 
 ## 3. Bấm "Scan": hàm nào chạy
 
@@ -129,7 +129,7 @@ flowchart TB
     S["ScannerScreen (Compose)<br/>/ ScannerView (SwiftUI)"]
     V["ScannerViewModel.onScanClick()<br/>(chung)"]
     B["BleClient<br/>(interface chung)"]
-    I["AndroidBleClient ✅<br/>iOS: FakeBleClient → R5 Swift"]
+    I["AndroidBleClient<br/>/ IosBleClient → BleNative (Swift)"]
     SDK["BluetoothLeScanner<br/>/ CBCentralManager"]
     F["StateFlow devices"]
     ST["ScannerViewModel.rebuild()<br/>→ ScannerUiState"]
@@ -160,7 +160,7 @@ flowchart TB
 | 2 | `ScannerViewModel.onScanClick` | [ScannerViewModel.kt#L190](../shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/scanner/ScannerViewModel.kt#L190) | đang quét → `stopScan()`, không thì `startScan(filter)` (CarMD only hay không) |
 | 3 | `bleReadiness()` | [BleClient.kt#L22](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BleClient.kt#L22) | luật thuần: không phần cứng > thiếu quyền > tắt radio > sẵn sàng; quyết định nút Scan bật hay tắt |
 | 4 | `BleClient.startScan` | [BleClient.kt#L57](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BleClient.kt#L57) | hợp đồng; ViewModel không biết ai cài đặt |
-| 5 | `AndroidBleClient.startScan` · `FakeBleClient.startScan` | [AndroidBleClient.kt](../shared/src/androidMain/kotlin/com/learn/ndmkmp/core/bluetooth/AndroidBleClient.kt) · [FakeBleClient.kt#L51](../shared/src/commonMain/kotlin/com/learn/ndmkmp/fake/FakeBleClient.kt#L51) | 🤖 Android (P4): `BluetoothLeScanner` thật. 🍎 iOS: còn bản giả, có `delay` giống máy thật |
+| 5 | `AndroidBleClient.startScan` · `FakeBleClient.startScan` | [AndroidBleClient.kt](../shared/src/androidMain/kotlin/com/learn/ndmkmp/core/bluetooth/AndroidBleClient.kt) · [FakeBleClient.kt#L51](../shared/src/commonMain/kotlin/com/learn/ndmkmp/fake/FakeBleClient.kt#L51) | 🤖 Android (P4): `BluetoothLeScanner` thật. 🍎 iOS (R5d): [IosBleClient.kt](../shared/src/iosMain/kotlin/com/learn/ndmkmp/platform/IosBleClient.kt) giữ luật → [BleNative.swift](../iosApp/iosApp/Platform/BleNative.swift) gọi `scanForPeripherals` |
 | 6 | `BluetoothScanFilter.matches` | [BluetoothScanFilter.kt#L31](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BluetoothScanFilter.kt#L31) | lọc tên lúc quét (CarMD2 · CMD-*) |
 | 7 | `ScannerViewModel.rebuild` | [ScannerViewModel.kt#L240](../shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/scanner/ScannerViewModel.kt#L240) | bất kỳ flow nào đổi → dựng lại cả `ScannerUiState` từ giá trị hiện tại |
 | 8 | `isDeviceShown` · `scannerButtonsOf` | [ScannerActions.kt#L70](../shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/scanner/ScannerActions.kt#L70) · [#L106](../shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/scanner/ScannerActions.kt#L106) | ô tìm + ẩn thiết bị không tên / âm thanh; nút Connect / Disconnect bật hay tắt |
@@ -180,13 +180,13 @@ Không có sự kiện nào báo "quyền vừa đổi trong Settings", nên m�
 
 ### 4.1 Năm interface trong `AppServices`
 
-| Interface (commonMain) | Tab | Android: SDK bên dưới (Kotlin) | iOS: SDK bên dưới (Swift, R5) | Trạng thái |
+| Interface (commonMain) | Tab | Android: SDK bên dưới (Kotlin) | iOS: SDK bên dưới (Swift `Platform/*Native` + adapter Kotlin) | Trạng thái |
 |---|---|---|---|---|
-| [`PermissionController`](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/permission/PermissionController.kt#L32) | Permissions | `ActivityResultContracts.RequestMultiplePermissions`, `shouldShowRequestPermissionRationale`, `BLUETOOTH_SCAN/CONNECT` (API 31+) hoặc `ACCESS_FINE_LOCATION` (≤ 30), `Settings.ACTION_APPLICATION_DETAILS_SETTINGS` | `CBManager.authorization`, `AVCaptureDevice.authorizationStatus`, `UIApplication.openSettingsURLString` | 🤖 P3 ✅ · 🍎 fake |
-| [`BleClient`](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BleClient.kt#L39) | Scanner | `BluetoothLeScanner`, `BluetoothGatt` (hàng đợi thao tác tự viết, ghi CCCD để bật notify, `requestMtu`) | `CoreBluetooth`: `CBCentralManager`, `CBPeripheral` + delegate, timeout connect 15 s | 🤖 P4 ✅ (GATT cần máy thật) · 🍎 fake |
-| [`MediaPicker`](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/media/MediaPicker.kt#L14) | Media | `ActivityResultContracts.TakePicture`, `PickVisualMedia`, `FileProvider` | `UIImagePickerController` (camera), `PHPickerViewController` (thư viện ảnh) | 🤖 P5 ✅ · 🍎 fake |
+| [`PermissionController`](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/permission/PermissionController.kt#L32) | Permissions | `ActivityResultContracts.RequestMultiplePermissions`, `shouldShowRequestPermissionRationale`, `BLUETOOTH_SCAN/CONNECT` (API 31+) hoặc `ACCESS_FINE_LOCATION` (≤ 30), `Settings.ACTION_APPLICATION_DETAILS_SETTINGS` | `CBManager.authorization`, `AVCaptureDevice.authorizationStatus`, `UIApplication.openSettingsURLString` | 🤖 P3 ✅ · 🍎 R5a ✅ |
+| [`BleClient`](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BleClient.kt#L39) | Scanner | `BluetoothLeScanner`, `BluetoothGatt` (hàng đợi thao tác tự viết, ghi CCCD để bật notify, `requestMtu`) | `CoreBluetooth`: `CBCentralManager`, `CBPeripheral` + delegate, timeout connect 15 s | 🤖 P4 ✅ · 🍎 R5d ✅ (GATT cần máy thật) |
+| [`MediaPicker`](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/media/MediaPicker.kt#L14) | Media | `ActivityResultContracts.TakePicture`, `PickVisualMedia`, `FileProvider` | `UIImagePickerController` (camera), `PHPickerViewController` (thư viện ảnh) | 🤖 P5 ✅ · 🍎 R5b ✅ |
 | [`ApiService`](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/network/ApiService.kt#L22) | API | **Ktor** engine `OkHttp` | **Ktor** engine `Darwin` → `NSURLSession` (vẫn là Kotlin dùng chung) | **P6 ✅ cả 2 máy** (`KtorApiService`) |
-| [`DeviceMonitor`](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/background/DeviceMonitor.kt#L49) | Monitor | `BatteryManager`, `ConnectivityManager`, **Foreground Service**, **WorkManager** (15 phút) | `UIDevice.batteryLevel`, `Network.framework`, **BGTaskScheduler** (`BGAppRefreshTask`); **không có** foreground service | 🤖 P7 ✅ · 🍎 fake |
+| [`DeviceMonitor`](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/background/DeviceMonitor.kt#L49) | Monitor | `BatteryManager`, `ConnectivityManager`, **Foreground Service**, **WorkManager** (15 phút) | `UIDevice.batteryLevel`, `Network.framework`, **BGTaskScheduler** (`BGAppRefreshTask`); **không có** foreground service | 🤖 P7 ✅ · 🍎 R5c ✅ |
 
 ### 4.2 `expect` / `actual` nhỏ (không cần interface)
 
@@ -212,7 +212,8 @@ Không có sự kiện nào báo "quyền vừa đổi trong Settings", nên m�
 | Cách | Dùng khi | Ví dụ |
 |---|---|---|
 | `expect fun` / `actual fun` | 1 hàm nhỏ, không trạng thái | `monotonicMs()` |
-| `interface` + class riêng mỗi bên + `Fake*` | có trạng thái, có callback, cần giả khi chạy simulator / test | `BleClient` ← `FakeBleClient` / `AndroidBleClient` / class Swift (R5) |
+| `interface` + class riêng mỗi bên + `Fake*` | có trạng thái, có callback, cần giả khi chạy simulator / test | `BleClient` ← `FakeBleClient` / `AndroidBleClient` / `IosBleClient` |
+| interface callback nhỏ cho Swift + adapter Kotlin | iOS: code SDK viết bằng Swift nhưng state phải là `StateFlow` | `IosBleNative` (Swift) ← `IosBleClient` (Kotlin) |
 | ViewModel chung | quyết định "màn hình hiện gì" | `ScannerViewModel`: dòng nào hiện, nút nào bật, chữ gì |
 
 ## 5. Tầng UI: hai UI native nối với ViewModel chung thế nào
@@ -262,8 +263,8 @@ Luật một chiều: `UI → ViewModel → interface → (luật thuần)`. Vie
 | UI | Compose (Android) + SwiftUI (iOS), viết 2 lần | Compose 1 lần cho cả 2 | **Compose + SwiftUI, viết 2 lần** |
 | Logic "hiện gì" | viết 2 lần, nằm trong View | 1 lần, nằm trong composable | **1 lần, trong ViewModel chung** (có test) |
 | Luật / model | viết 2 lần (~6.5k + ~5.6k dòng) | 1 lần | 1 lần, 78 test chạy 2 nơi |
-| Swift | toàn bộ app iOS | ~20 dòng vỏ | UI SwiftUI + `AppModel` / `Observed` (+ code SDK ở R5) |
-| Code đụng SDK | Kotlin (Android) + Swift (iOS) | Kotlin cả 2 bên (dự kiến) | Kotlin (Android) + **Swift (iOS, R5)** |
+| Swift | toàn bộ app iOS | ~20 dòng vỏ | UI SwiftUI + `AppModel` / `Observed` + `Platform/*Native` (SDK) |
+| Code đụng SDK | Kotlin (Android) + Swift (iOS) | Kotlin cả 2 bên (dự kiến) | Kotlin (Android) + **Swift (iOS)**, state iOS trong adapter Kotlin |
 | Giao diện iOS | thuần iOS | Material trên iOS | **thuần iOS** |
 
 ## 7. Tự kiểm tra
