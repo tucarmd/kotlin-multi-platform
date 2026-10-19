@@ -9,7 +9,7 @@ import Shared
 ///   └─ ScrollView > VStack
 ///       ├─ AppCard "Device status (now)"   [Refresh status] [Append to log]
 ///       ├─ AppCard "Background monitor"     RUNNING/STOPPED · mode · count · last record · [Start loop] [Stop]
-///       ├─ AppCard "WorkManager"            State… [Schedule] [Cancel]   (iOS: BGAppRefresh, R5)
+///       ├─ AppCard "BGAppRefresh"           State… [Schedule] [Cancel]
 ///       └─ AppCard "Logs"                   N records · [Reload] [Clear] + latest 30 lines
 /// ```
 struct MonitorView: View {
@@ -51,7 +51,7 @@ struct MonitorView: View {
                     if let error = state.status.lastError {
                         Text(error).font(.system(size: 13)).foregroundStyle(AppColor.danger)
                     }
-                    AppHintText(text: strings.LOOP_HINT)
+                    AppHintText(text: state.loopHint)
                     AppPrimaryButton(title: strings.START_LOOP, action: { vm.startLoop() }, isEnabled: !state.isRunning)
                     if state.supportsForegroundService {
                         AppPrimaryButton(title: strings.START_FGS, action: { vm.startForegroundService() }, isEnabled: !state.isRunning)
@@ -59,9 +59,9 @@ struct MonitorView: View {
                     AppSecondaryButton(title: strings.STOP, action: { vm.stop() }, isEnabled: state.isRunning)
                 }
 
-                AppCard(title: strings.WORK_TITLE) {
+                AppCard(title: state.workTitle) {
                     Text(state.workStateText).font(.system(size: 13)).foregroundStyle(AppColor.textPrimary)
-                    AppHintText(text: strings.WORK_HINT)
+                    AppHintText(text: state.workHint)
                     AppPrimaryButton(title: strings.SCHEDULE) { vm.schedulePeriodic() }
                     AppSecondaryButton(title: strings.CANCEL) { vm.cancelPeriodic() }
                 }

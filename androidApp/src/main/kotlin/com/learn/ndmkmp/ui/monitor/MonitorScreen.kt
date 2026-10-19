@@ -75,8 +75,8 @@ fun MonitorScreen(vm: MonitorViewModel) {
                 Text(it, fontSize = 11.sp, fontFamily = FontFamily.Monospace, color = AppColor.textPrimary, lineHeight = 14.sp)
             }
             state.status.lastError?.let { Text(it, color = AppColor.danger, fontSize = 13.sp) }
-            AppHintText(MonitorStrings.LOOP_HINT)
-            AppHintText(MonitorStrings.FGS_HINT)
+            AppHintText(state.loopHint)
+            if (state.supportsForegroundService) AppHintText(MonitorStrings.FGS_HINT)
             AppPrimaryButton(MonitorStrings.START_LOOP, onClick = vm::startLoop, enabled = !state.isRunning)
             if (state.supportsForegroundService) {
                 AppPrimaryButton(MonitorStrings.START_FGS, onClick = vm::startForegroundService, enabled = !state.isRunning)
@@ -84,9 +84,9 @@ fun MonitorScreen(vm: MonitorViewModel) {
             AppPrimaryButton(MonitorStrings.STOP, onClick = vm::stop, enabled = state.isRunning, danger = true)
         }
 
-        AppCard(title = MonitorStrings.WORK_TITLE) {
+        AppCard(title = state.workTitle) {
             Text(state.workStateText, fontSize = 13.sp, color = AppColor.textPrimary)
-            AppHintText(MonitorStrings.WORK_HINT)
+            AppHintText(state.workHint)
             AppPrimaryButton(MonitorStrings.SCHEDULE, onClick = vm::schedulePeriodic)
             AppSecondaryButton(MonitorStrings.CANCEL, onClick = vm::cancelPeriodic)
         }

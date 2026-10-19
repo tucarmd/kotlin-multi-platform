@@ -8,12 +8,18 @@ import Shared
 ///  iOSApp
 ///   └─ WindowGroup
 ///       └─ RootView(model)          TabView, one SwiftUI View per tab
+///   init → IosPlatform.registerBackgroundTasks()   BGAppRefresh → shared monitor.collectAndSave("bgRefresh")
 ///   scenePhase == .active → vm.onResume()   back from Settings: re-read permissions (same as Android onResume)
 /// ```
 @main
 struct iOSApp: App {
     @StateObject private var model = AppModel()
     @Environment(\.scenePhase) private var scenePhase
+
+    init() {
+        // R5c: BGAppRefresh handler — must be registered before launch finishes.
+        IosPlatform.registerBackgroundTasks()
+    }
 
     var body: some Scene {
         WindowGroup {

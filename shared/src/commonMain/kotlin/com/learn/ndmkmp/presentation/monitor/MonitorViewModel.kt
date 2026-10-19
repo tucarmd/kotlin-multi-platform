@@ -29,6 +29,10 @@ data class MonitorUiState(
     val message: String = "",
 ) {
     val isRunning: Boolean get() = status.isRunning
+    /** Android: WorkManager · iOS: BGAppRefresh — the platform is told apart by its foreground-service support. */
+    val workTitle: String get() = if (supportsForegroundService) MonitorStrings.WORK_TITLE else MonitorStrings.WORK_TITLE_IOS
+    val workHint: String get() = if (supportsForegroundService) MonitorStrings.WORK_HINT else MonitorStrings.WORK_HINT_IOS
+    val loopHint: String get() = if (supportsForegroundService) MonitorStrings.LOOP_HINT else MonitorStrings.LOOP_HINT_IOS
     val runningText: String get() = if (status.isRunning) MonitorStrings.RUNNING else MonitorStrings.STOPPED
     val runningLine: String get() =
         MonitorStrings.runningLine(MonitorStrings.modeLabel(status.mode?.name), status.intervalMs / 1000, status.count)
