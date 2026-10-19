@@ -13,12 +13,12 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.core.content.FileProvider
 import com.learn.ndmkmp.core.permission.AndroidPermissions
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 
@@ -114,8 +114,12 @@ class AndroidMediaPicker(private val activity: ComponentActivity) : MediaPicker 
     private suspend fun load(uri: Uri, source: MediaSource): PickedImage = withContext(Dispatchers.IO) {
         val info = getMediaInfo(uri, source)
             ?: MediaInfo(name = null, sizeBytes = null, mimeType = null, width = null, height = null, source = source)
-        PickedImage(preview = loadPreview(uri)?.asImageBitmap(), info = info)
+        PickedImage(preview = loadPreview(uri)?.let(::toJpeg), info = info)
     }
+
+    /** Downscaled + rotated preview → JPEG bytes ([PickedImage] carries bytes, each UI decodes them). */
+    private fun toJpeg(bitmap: Bitmap): ByteArray =
+        ByteArrayOutputStream().use { out -> bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out); out.toByteArray() }
 
     /**
      * Create an empty slot for the Camera app to write the photo into. Must be `content://` via FileProvider — handing `file://`

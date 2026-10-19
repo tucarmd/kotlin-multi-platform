@@ -1,4 +1,4 @@
-package com.learn.ndmkmp.ui.scanner
+package com.learn.ndmkmp.presentation.scanner
 
 /**
  * Day 2 — Scanner screen strings (Rule 4: UI in English · Rule 5.3: Kotlin `object`, no strings.xml).

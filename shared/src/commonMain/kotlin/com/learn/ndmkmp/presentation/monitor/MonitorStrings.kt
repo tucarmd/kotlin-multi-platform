@@ -1,4 +1,4 @@
-package com.learn.ndmkmp.ui.monitor
+package com.learn.ndmkmp.presentation.monitor
 
 /** Monitor screen strings (Week 3). Rule 5.3: UI text in one place, English. Mirrors `UI/Monitor/MonitorStrings.swift`. */
 object MonitorStrings {

@@ -13,12 +13,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -26,22 +23,18 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.learn.ndmkmp.core.network.ApiFormat
-import com.learn.ndmkmp.core.network.ApiService
-import com.learn.ndmkmp.core.network.ApiResult
+import com.learn.ndmkmp.presentation.api.ApiResultUi
+import com.learn.ndmkmp.presentation.api.ApiStrings
+import com.learn.ndmkmp.presentation.api.ApiViewModel
 import com.learn.ndmkmp.ui.common.AppCard
 import com.learn.ndmkmp.ui.common.AppHintText
 import com.learn.ndmkmp.ui.common.AppPrimaryButton
 import com.learn.ndmkmp.ui.common.AppSecondaryButton
 import com.learn.ndmkmp.ui.theme.AppColor
 import com.learn.ndmkmp.ui.theme.AppSpacing
-import kotlinx.coroutines.launch
-
-/** A long body (e.g. /posts returns 10 posts) drawn into one Text stutters — truncate, enough to look at. */
-private const val BODY_PREVIEW = 3000
 
 /**
- * Day 10 — tab API: "simple test interface" theo Word.
+ * Day 10 — tab API. Draws [ApiViewModel.state], every tap calls the ViewModel.
  *
  * ```
  *  ApiScreen
@@ -49,34 +42,15 @@ private const val BODY_PREVIEW = 3000
  *   ├─ AppCard "Custom GET"     URL field + [Send GET]
  *   └─ AppCard "Response"       request · STATUS (green/red) · content-type · indented JSON body
  * ```
- *
- * `scope.launch { client.get(...) }`: the coroutine runs on Main, the [ApiService] does its own I/O off the main thread →
- * the UI doesn't freeze, the result is assigned straight to state. While sending every button is disabled → no overlapping requests.
  */
 @Composable
-fun ApiScreen(client: ApiService) {
-    val scope = rememberCoroutineScope()
+fun ApiScreen(vm: ApiViewModel) {
+    val state by vm.state.collectAsState()
     val scrollState = rememberScrollState()
 
-    var customUrl by rememberSaveable { mutableStateOf("https://jsonplaceholder.typicode.com/users/1") }
-    var lastRequest by remember { mutableStateOf("") }
-    var result by remember { mutableStateOf<ApiResult?>(null) }
-    var sending by remember { mutableStateOf(false) }
-
-    fun send(preset: ApiPreset) {
-        sending = true
-        lastRequest = ApiStrings.request(preset.method, ApiFormat.buildUrl(preset.url, preset.params))
-        result = null
-        // The Response card is at the bottom → scroll to the end to see "Sending…" then the result (a long body keeps growing downward).
-        scope.launch { scrollState.animateScrollTo(scrollState.maxValue) }
-        scope.launch {
-            result = if (preset.method == "POST") {
-                client.post(preset.url, preset.body.orEmpty())
-            } else {
-                client.get(preset.url, preset.params)
-            }
-            sending = false
-        }
+    // The Response card is at the bottom → scroll there to see "Sending…" then the result. Scrolling is a View concern.
+    LaunchedEffect(state.sending) {
+        if (state.sending) scrollState.animateScrollTo(scrollState.maxValue)
     }
 
     Column(
@@ -90,36 +64,31 @@ fun ApiScreen(client: ApiService) {
         AppHintText(ApiStrings.HINT, bullet = false)
 
         AppCard(title = ApiStrings.PRESETS_TITLE) {
-            ApiStrings.PRESETS.forEach { preset ->
-                AppSecondaryButton(preset.label, onClick = { send(preset) }, enabled = !sending)
+            state.presets.forEach { preset ->
+                AppSecondaryButton(preset.label, onClick = { vm.send(preset) }, enabled = !state.sending)
             }
             AppHintText(ApiStrings.AIRPLANE_HINT)
         }
 
         AppCard(title = ApiStrings.CUSTOM_TITLE) {
             OutlinedTextField(
-                value = customUrl,
-                onValueChange = { customUrl = it },
+                value = state.customUrl,
+                onValueChange = vm::onCustomUrlChange,
                 label = { Text(ApiStrings.URL_LABEL) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri, imeAction = ImeAction.Send),
                 modifier = Modifier.fillMaxWidth(),
             )
-            AppPrimaryButton(
-                ApiStrings.SEND_GET,
-                onClick = { send(ApiPreset("custom", "GET", customUrl.trim())) },
-                loading = sending,
-                enabled = customUrl.isNotBlank(),
-            )
+            AppPrimaryButton(ApiStrings.SEND_GET, onClick = vm::sendCustom, loading = state.sending, enabled = state.canSendCustom)
         }
 
         AppCard(title = ApiStrings.RESULT_TITLE) {
-            if (lastRequest.isNotEmpty()) {
-                Text(lastRequest, fontSize = 12.sp, fontFamily = FontFamily.Monospace, color = AppColor.textPrimary)
+            if (state.lastRequest.isNotEmpty()) {
+                Text(state.lastRequest, fontSize = 12.sp, fontFamily = FontFamily.Monospace, color = AppColor.textPrimary)
             }
-            val r = result
+            val r = state.result
             when {
-                sending -> AppHintText(ApiStrings.SENDING)
+                state.sending -> AppHintText(ApiStrings.SENDING)
                 r == null -> AppHintText(ApiStrings.NOTHING_YET)
                 else -> ResultBody(r)
             }
@@ -128,21 +97,12 @@ fun ApiScreen(client: ApiService) {
 }
 
 @Composable
-private fun ResultBody(r: ApiResult) {
-    val (line, ok) = ApiStrings.statusLine(r)
-    Text(line, fontWeight = FontWeight.Bold, fontSize = 14.sp, color = if (ok) AppColor.success else AppColor.danger)
-    if (r is ApiResult.Success && r.contentType != null) {
-        Text("content-type: ${r.contentType}", fontSize = 12.sp, color = AppColor.textSecondary)
-    }
-    val body = when (r) {
-        is ApiResult.Success -> r.body
-        is ApiResult.HttpError -> r.body
-        else -> ""
-    }
-    if (body.isNotBlank()) {
-        val pretty = ApiFormat.prettyJson(body)
+private fun ResultBody(r: ApiResultUi) {
+    Text(r.statusLine, fontWeight = FontWeight.Bold, fontSize = 14.sp, color = if (r.ok) AppColor.success else AppColor.danger)
+    r.contentType?.let { Text(it, fontSize = 12.sp, color = AppColor.textSecondary) }
+    r.body?.let {
         Text(
-            text = if (pretty.length > BODY_PREVIEW) pretty.take(BODY_PREVIEW) + "\n… (${pretty.length} chars)" else pretty,
+            text = it,
             fontSize = 11.sp,
             fontFamily = FontFamily.Monospace,
             color = AppColor.terminalText,

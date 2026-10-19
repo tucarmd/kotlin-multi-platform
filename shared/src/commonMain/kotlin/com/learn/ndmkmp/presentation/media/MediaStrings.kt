@@ -1,4 +1,4 @@
-package com.learn.ndmkmp.ui.media
+package com.learn.ndmkmp.presentation.media
 
 import com.learn.ndmkmp.core.media.MediaInfo
 import com.learn.ndmkmp.core.media.formatBytes

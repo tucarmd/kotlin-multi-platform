@@ -8,7 +8,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.learn.ndmkmp.core.bluetooth.AndroidBluetoothRadio
 import com.learn.ndmkmp.core.bluetooth.BluetoothRadioState
-import com.learn.ndmkmp.ui.permission.PermissionStrings
+import com.learn.ndmkmp.presentation.permission.PermissionStrings
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

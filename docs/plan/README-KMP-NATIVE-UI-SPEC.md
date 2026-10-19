@@ -62,7 +62,11 @@ native-device-monitor-kmp/
 - ViewModel có 2 phần:
   - `state: StateFlow<XxxUiState>`: một data class chứa mọi thứ màn hình cần vẽ.
   - Hàm action (`onScanClick()`, `send(preset)`…): View chỉ gọi hàm, **không có logic trong View**.
-- Dùng `androidx.lifecycle.ViewModel` bản multiplatform, đúng hướng lesson 8.
+- Lớp nền là **`SharedViewModel` tự viết** (~10 dòng: một `CoroutineScope` trên Main + `clear()`), không dùng
+  `androidx.lifecycle.ViewModel`. *Đổi lúc làm R1:* các service mà ViewModel bọc (launcher xin quyền, BLE client) được
+  tạo theo Activity và chết cùng Activity. Nếu ViewModel sống lâu hơn Activity thì nó sẽ giữ service đã chết. Vì vậy
+  ViewModel được tạo cạnh `AppServices` và `clear()` cùng lúc: Android ở `MainActivity.onDestroy`, iOS khi `AppModel`
+  của Swift bị huỷ.
 - Chuỗi hiển thị (`ApiStrings`, `ScannerStrings`…) dời từ `ui/` về `presentation/` để 2 UI dùng chung câu chữ.
   Màu, khoảng cách, font thì mỗi nền tảng tự giữ.
 

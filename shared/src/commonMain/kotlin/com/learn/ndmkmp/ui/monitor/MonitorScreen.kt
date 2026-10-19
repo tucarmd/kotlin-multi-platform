@@ -12,34 +12,24 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.learn.ndmkmp.core.background.DeviceMonitor
-import com.learn.ndmkmp.core.background.LogReadResult
-import com.learn.ndmkmp.core.device.DeviceStatus
+import com.learn.ndmkmp.presentation.monitor.MonitorStrings
+import com.learn.ndmkmp.presentation.monitor.MonitorViewModel
 import com.learn.ndmkmp.ui.common.AppCard
 import com.learn.ndmkmp.ui.common.AppHintText
 import com.learn.ndmkmp.ui.common.AppPrimaryButton
 import com.learn.ndmkmp.ui.common.AppSecondaryButton
 import com.learn.ndmkmp.ui.theme.AppColor
 import com.learn.ndmkmp.ui.theme.AppSpacing
-import kotlinx.coroutines.launch
-
-/** Records shown on screen — the file may have thousands of lines, drawing them all stutters. */
-private const val LOG_PREVIEW = 30
 
 /**
- * Week 3 · Day 12–15 — Monitor tab: drive the providers, FileLogger and BackgroundMonitor from the UI.
+ * Week 3 · Day 12–15 — Monitor tab. Draws [MonitorViewModel.state].
  *
  * ```
  *  MonitorScreen
@@ -50,26 +40,10 @@ private const val LOG_PREVIEW = 30
  *       ├─ AppCard "WorkManager"            State: ENQUEUED…  [Schedule] [Cancel]                   ← Day 14
  *       └─ AppCard "Logs"                   N records · M corrupt  [Reload] [Clear] + latest 30 lines  ← Day 13
  * ```
- *
- * The UI contains NO device logic (Day 11): everything goes through [DeviceMonitor]; its suspend functions do their
- * own I/O off the main thread. The FGS button only shows where the platform has one (Android).
  */
 @Composable
-fun MonitorScreen(monitor: DeviceMonitor) {
-    val scope = rememberCoroutineScope()
-    val status by monitor.status.collectAsState()
-    val workState by monitor.periodicState.collectAsState(initial = null)
-
-    var current by remember { mutableStateOf<DeviceStatus?>(null) }
-    var logs by remember { mutableStateOf(LogReadResult(emptyList(), 0)) }
-    var message by remember { mutableStateOf("") }
-
-    fun reloadLogs() = scope.launch {
-        logs = monitor.getLogs()
-    }
-
-    // First time the tab opens + every loop tick (count changes) → re-read the file so the list updates by itself.
-    LaunchedEffect(status.count) { reloadLogs() }
+fun MonitorScreen(vm: MonitorViewModel) {
+    val state by vm.state.collectAsState()
 
     Column(
         modifier = Modifier
@@ -81,113 +55,61 @@ fun MonitorScreen(monitor: DeviceMonitor) {
     ) {
         AppHintText(MonitorStrings.HINT, bullet = false)
 
-        // ── Day 12: providers ─────────────────────────────────────────────
         AppCard(title = MonitorStrings.STATUS_TITLE) {
-            val shown = current
-            if (shown == null) AppHintText(MonitorStrings.NOT_READ_YET) else StatusTable(shown)
+            if (state.currentRows.isEmpty()) AppHintText(MonitorStrings.NOT_READ_YET) else KeyValueTable(state.currentRows)
             AppHintText(MonitorStrings.NULL_NOTE)
-            AppPrimaryButton(MonitorStrings.REFRESH, onClick = {
-                scope.launch { current = monitor.collect() }
-            })
-            AppSecondaryButton(MonitorStrings.APPEND_NOW, onClick = {
-                scope.launch {
-                    val saved = monitor.collectAndSave(source = "manual")
-                    if (saved != null) current = saved
-                    message = if (saved == null) MonitorStrings.APPEND_FAILED else ""
-                    reloadLogs()
-                }
-            })
+            AppPrimaryButton(MonitorStrings.REFRESH, onClick = vm::refresh)
+            AppSecondaryButton(MonitorStrings.APPEND_NOW, onClick = vm::appendNow)
         }
 
-        // ── Day 13–14: the loop ───────────────────────────────────────────
         AppCard(title = MonitorStrings.MONITOR_TITLE) {
-            StateChip(
-                text = if (status.isRunning) MonitorStrings.RUNNING else MonitorStrings.STOPPED,
-                on = status.isRunning,
-            )
             Text(
-                MonitorStrings.runningLine(
-                    MonitorStrings.modeLabel(status.mode?.name),
-                    status.intervalMs / 1000,
-                    status.count,
-                ),
+                state.runningText,
+                color = if (state.isRunning) AppColor.success else AppColor.textSecondary,
+                fontWeight = FontWeight.Bold,
                 fontSize = 13.sp,
-                color = AppColor.textPrimary,
             )
-            status.lastRecord?.let { Mono("last: ${it.toJson()}") }
-            status.lastError?.let { Text(it, color = AppColor.danger, fontSize = 13.sp) }
+            Text(state.runningLine, fontSize = 13.sp, color = AppColor.textPrimary)
+            state.lastRecordLine?.let {
+                Text(it, fontSize = 11.sp, fontFamily = FontFamily.Monospace, color = AppColor.textPrimary, lineHeight = 14.sp)
+            }
+            state.status.lastError?.let { Text(it, color = AppColor.danger, fontSize = 13.sp) }
             AppHintText(MonitorStrings.LOOP_HINT)
             AppHintText(MonitorStrings.FGS_HINT)
-            AppPrimaryButton(
-                MonitorStrings.START_LOOP,
-                onClick = { monitor.start() },
-                enabled = !status.isRunning,
-            )
-            if (monitor.supportsForegroundService) {
-                AppPrimaryButton(
-                    MonitorStrings.START_FGS,
-                    onClick = { monitor.startForegroundService() },
-                    enabled = !status.isRunning,
-                )
+            AppPrimaryButton(MonitorStrings.START_LOOP, onClick = vm::startLoop, enabled = !state.isRunning)
+            if (state.supportsForegroundService) {
+                AppPrimaryButton(MonitorStrings.START_FGS, onClick = vm::startForegroundService, enabled = !state.isRunning)
             }
-            AppPrimaryButton(
-                MonitorStrings.STOP,
-                onClick = { monitor.stop() },
-                enabled = status.isRunning,
-                danger = true,
-            )
+            AppPrimaryButton(MonitorStrings.STOP, onClick = vm::stop, enabled = state.isRunning, danger = true)
         }
 
-        // ── Day 14: WorkManager ───────────────────────────────────────────
         AppCard(title = MonitorStrings.WORK_TITLE) {
-            Text(MonitorStrings.workState(workState), fontSize = 13.sp, color = AppColor.textPrimary)
+            Text(state.workStateText, fontSize = 13.sp, color = AppColor.textPrimary)
             AppHintText(MonitorStrings.WORK_HINT)
-            AppPrimaryButton(MonitorStrings.SCHEDULE, onClick = { monitor.schedulePeriodic() })
-            AppSecondaryButton(MonitorStrings.CANCEL, onClick = { monitor.cancelPeriodic() })
+            AppPrimaryButton(MonitorStrings.SCHEDULE, onClick = vm::schedulePeriodic)
+            AppSecondaryButton(MonitorStrings.CANCEL, onClick = vm::cancelPeriodic)
         }
 
-        // ── Day 13: logs ──────────────────────────────────────────────────
         AppCard(title = MonitorStrings.LOGS_TITLE) {
-            Text(MonitorStrings.summary(logs.records.size, logs.corruptLines), fontSize = 13.sp, color = AppColor.textPrimary)
-            logs.error?.let { Text(it, color = AppColor.danger, fontSize = 13.sp) }
-            if (message.isNotEmpty()) Text(message, color = AppColor.textSecondary, fontSize = 13.sp)
+            Text(state.logSummary, fontSize = 13.sp, color = AppColor.textPrimary)
+            state.logs.error?.let { Text(it, color = AppColor.danger, fontSize = 13.sp) }
+            if (state.message.isNotEmpty()) Text(state.message, color = AppColor.textSecondary, fontSize = 13.sp)
             Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.sm)) {
-                AppSecondaryButton(MonitorStrings.RELOAD, onClick = { reloadLogs() }, modifier = Modifier.weight(1f))
-                AppPrimaryButton(
-                    MonitorStrings.CLEAR,
-                    onClick = {
-                        scope.launch {
-                            val ok = monitor.clearLogs()
-                            message = if (ok) MonitorStrings.CLEARED else MonitorStrings.CLEAR_FAILED
-                            reloadLogs()
-                        }
-                    },
-                    modifier = Modifier.weight(1f),
-                    danger = true,
-                )
+                AppSecondaryButton(MonitorStrings.RELOAD, onClick = vm::reloadLogs, modifier = Modifier.weight(1f))
+                AppPrimaryButton(MonitorStrings.CLEAR, onClick = vm::clearLogs, modifier = Modifier.weight(1f), danger = true)
             }
-            if (logs.records.isEmpty()) {
+            if (state.logLines.isEmpty()) {
                 AppHintText(MonitorStrings.EMPTY)
             } else {
-                AppHintText(MonitorStrings.showingLast(minOf(LOG_PREVIEW, logs.records.size)), bullet = false)
-                LogTerminal(logs.records.takeLast(LOG_PREVIEW).asReversed())
+                AppHintText(state.showingLastText, bullet = false)
+                LogTerminal(state.logLines)
             }
         }
     }
 }
 
-/** Table of the record's 7 fields — `null` shows literally "null" so the learner sees which field wasn't measured. */
 @Composable
-private fun StatusTable(s: DeviceStatus) {
-    val rows = listOf(
-        "timestamp" to s.timestamp,
-        "battery" to (s.battery?.let { "$it %" } ?: "null"),
-        "wifiEnabled" to s.wifiEnabled.toString(),
-        "wifiConnected" to s.wifiConnected.toString(),
-        "cellularAvailable" to s.cellularAvailable.toString(),
-        "bluetoothEnabled" to s.bluetoothEnabled.toString(),
-        "bluetoothConnected" to s.bluetoothConnected.toString(),
-    )
+private fun KeyValueTable(rows: List<Pair<String, String>>) {
     Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
         rows.forEach { (k, v) ->
             Row(Modifier.fillMaxWidth()) {
@@ -198,24 +120,9 @@ private fun StatusTable(s: DeviceStatus) {
     }
 }
 
-@Composable
-private fun StateChip(text: String, on: Boolean) {
-    Text(
-        text = text,
-        color = if (on) AppColor.success else AppColor.textSecondary,
-        fontWeight = FontWeight.Bold,
-        fontSize = 13.sp,
-    )
-}
-
-@Composable
-private fun Mono(text: String) {
-    Text(text, fontSize = 11.sp, fontFamily = FontFamily.Monospace, color = AppColor.textPrimary, lineHeight = 14.sp)
-}
-
 /** Terminal-style box like *Received Data* on the Scanner — read the raw log by eye. */
 @Composable
-private fun LogTerminal(records: List<DeviceStatus>) {
+private fun LogTerminal(lines: List<String>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -223,16 +130,8 @@ private fun LogTerminal(records: List<DeviceStatus>) {
             .padding(AppSpacing.sm),
         verticalArrangement = Arrangement.spacedBy(AppSpacing.xs),
     ) {
-        records.forEach { r ->
-            Text(
-                "${r.timestamp.substringAfter('T').take(8)} [${r.source ?: "?"}] " +
-                    "bat=${r.battery ?: "-"} wifi=${r.wifiConnected} cell=${r.cellularAvailable} " +
-                    "bt=${r.bluetoothEnabled}/${r.bluetoothConnected}",
-                fontSize = 11.sp,
-                fontFamily = FontFamily.Monospace,
-                color = AppColor.terminalText,
-                lineHeight = 14.sp,
-            )
+        lines.forEach {
+            Text(it, fontSize = 11.sp, fontFamily = FontFamily.Monospace, color = AppColor.terminalText, lineHeight = 14.sp)
         }
     }
 }

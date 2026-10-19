@@ -1,4 +1,4 @@
-package com.learn.ndmkmp.ui.permission
+package com.learn.ndmkmp.presentation.permission
 
 import com.learn.ndmkmp.core.permission.PermissionGroupId
 

@@ -1,4 +1,4 @@
-package com.learn.ndmkmp.ui.scanner
+package com.learn.ndmkmp.presentation.scanner
 
 import com.learn.ndmkmp.core.bluetooth.BluetoothAdvertisement
 import com.learn.ndmkmp.core.bluetooth.BluetoothConnectionState

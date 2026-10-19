@@ -2,7 +2,7 @@
 
 # Plan R1–R6: UI native riêng, KMP chỉ cho phần chung
 
-> Tạo: 2026-10-19 · Trạng thái: **Đã duyệt 2026-10-19** (N1 SKIE · N2 Swift · N3 dời) · R1 ⏳
+> Tạo: 2026-10-19 · Trạng thái: **Đã duyệt 2026-10-19** (N1 SKIE · N2 Swift · N3 dời) · R1 ✅ · R2 ⏳
 > Luật: mỗi phase **1 commit** `refactor(kmp): Rn …`, xong phải **build OK, chạy thật, chụp ảnh**. Không gộp phase.
 
 ## 1. Thứ tự và lý do
@@ -14,7 +14,7 @@ Chỉ khi cả 2 bên đều có UI mới thì mới gỡ Compose khỏi `shared
 
 | # | Làm gì | File chính | Vì sao | Xong khi |
 |---|---|---|---|---|
-| **R1** | Rút state + action từ 5 composable ra **5 ViewModel** + `AppViewModel` trong `commonMain/presentation/`. Dời `*Strings` sang đó. Composable chỉ còn `vm.state.collectAsState()` + gọi hàm. Chỉnh interface cho Swift implement được (nếu N2 = Swift) | `presentation/*ViewModel.kt`, `ui/*/*Screen.kt` (gọn lại), `core/*` (chữ ký interface) | Chuẩn MVVM. Là điều kiện để SwiftUI dùng chung logic | `allTests` xanh + test ViewModel mới. Android **và** iOS (vẫn Compose) chạy đủ 5 tab như trước, có ảnh |
+| **R1** ✅ | Rút state + action từ 5 composable ra **5 ViewModel** + `AppViewModel` trong `commonMain/presentation/`. Dời `*Strings` sang đó. Composable chỉ còn `vm.state.collectAsState()` + gọi hàm. Chỉnh interface cho Swift implement được (nếu N2 = Swift) | `presentation/*ViewModel.kt`, `ui/*/*Screen.kt` (gọn lại), `core/*` (chữ ký interface) | Chuẩn MVVM. Là điều kiện để SwiftUI dùng chung logic | `allTests` xanh + test ViewModel mới. Android **và** iOS (vẫn Compose) chạy đủ 5 tab như trước, có ảnh. **Kết quả:** 78/78 test trên JVM và iOS simulator · [android](../assets/kmp_r1_android_tabs.png) · [ios](../assets/kmp_r1_ios_tabs.png) |
 | **R2** | Cầu nối Swift theo N1 (SKIE hoặc helper). `iOSApp.swift` tạo `AppServices` + ViewModel. Dựng **tab API bằng SwiftUI** đầu tiên (đơn giản nhất, đã thật trên iOS) | `shared/build.gradle.kts`, `iosMain/…/IosBridge.kt`, `iosApp/…/Api/ApiView.swift`, `ApiObservable.swift` | Chứng minh đường đi SwiftUI → ViewModel KMP → Ktor trên 1 tab trước khi nhân ra 5 | iPhone simulator: tab API SwiftUI gọi GET/POST/500/timeout được, có ảnh |
 | **R3** | Port **4 tab còn lại** sang SwiftUI (Permissions, Scanner + GATT, Media, Monitor), dùng service fake cho iOS. Theme SwiftUI (`AppColor`, `AppSpacing`) + `TabView` | `iosApp/iosApp/UI/**` (lấy từ app cũ, đổi nguồn dữ liệu sang ViewModel) | UI iOS đủ 5 tab bằng Swift | Simulator: 5 tab SwiftUI, ảnh từng tab |
 | **R4** | Dời Compose UI sang `androidApp/` (`ui/`, `theme/`, `App()`). Gỡ plugin Compose MP + `MainViewController` khỏi `shared`. `androidApp` thêm Jetpack Compose (BOM) | `androidApp/build.gradle.kts`, `androidApp/src/main/kotlin/…/ui/**`, `shared/build.gradle.kts` | `shared` thành KMP thuần, chỉ còn phần chung | Android: 5 tab như R1, BLE/camera/monitor thật vẫn chạy trên Samsung A32. `shared` build không còn Compose |

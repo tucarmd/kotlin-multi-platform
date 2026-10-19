@@ -1,4 +1,4 @@
-package com.learn.ndmkmp.ui.api
+package com.learn.ndmkmp.presentation.api
 
 import com.learn.ndmkmp.core.network.ApiResult
 
