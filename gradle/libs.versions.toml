@@ -16,6 +16,8 @@ kotlinx-coroutines = "1.11.0"
 # 1.11.0 = what Ktor 3.5.1 depends on (P6) → one copy. The compiler plugin is versioned with Kotlin.
 kotlinx-serialization = "1.11.0"
 ktor = "3.5.1"
+# R2: Swift sees Kotlin Flow as AsyncSequence and sealed classes as enums (touchlab.co/skie)
+skie = "0.10.15"
 # P7: JSONL FileLogger in commonMain (same lib Ktor uses for its I/O)
 kotlinx-io = "0.9.0"
 # P7: Android periodic MonitorWorker + FGS notification helpers — same versions as the old app
@@ -54,6 +56,7 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 
 [plugins]
+skie = { id = "co.touchlab.skie", version.ref = "skie" }
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
