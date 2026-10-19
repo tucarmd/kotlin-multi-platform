@@ -3,7 +3,7 @@ import CoreBluetooth
 import UIKit
 import Shared
 
-/// R5a — the Apple-SDK half of permissions, in Swift. Implements the Kotlin `IosPermissionNative` protocol; the state
+/// P12a — the Apple-SDK half of permissions, in Swift. Implements the Kotlin `IosPermissionNative` protocol; the state
 /// (4 statuses, last result, radio flow) lives in Kotlin `IosPermissionController`. Ported from the old app's
 /// `PermissionService.swift` + `BluetoothService.swift`.
 ///

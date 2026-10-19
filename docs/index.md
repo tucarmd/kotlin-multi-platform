@@ -5,18 +5,19 @@ App `native-device-monitor` cũ (repo private [tucarmd/native-mobile-learning](h
 1. **UI vẫn viết riêng từng nền tảng:** Android là Kotlin + Jetpack Compose (`androidApp/`), iOS là Swift + SwiftUI (`iosApp/`).
 2. **Chỉ phần dùng chung mới viết bằng KMP** (`shared/`): model, luật, ViewModel, interface, HTTP (Ktor), logger, vòng lặp monitor.
 
-!!! info "Đã chuyển hướng (2026-10-19, bước R1–R4)"
-    P0–P7 từng dùng **Compose Multiplatform** (một UI Kotlin vẽ cho cả 2 bên). Từ R4, `shared/` không còn Compose:
+!!! info "Một dãy phase P0–P13"
+    P0–P7 dùng **Compose Multiplatform** (một UI Kotlin vẽ cho cả 2 bên). P8–P11 (2026-10-19) chuyển sang UI native:
     Android vẽ bằng Jetpack Compose, iOS vẽ bằng SwiftUI, cả hai đọc **cùng một ViewModel** trong `shared/`.
-    Xem [Spec](plan/README-KMP-NATIVE-UI-SPEC.md) · [Plan R1–R6](plan/README-KMP-NATIVE-UI-PLAN.md).
-    **R5** (2026-10-19): iOS gọi SDK Apple thật bằng Swift (`iosApp/iosApp/Platform/`), có adapter Kotlin trong `iosMain`. Đã chạy trên simulator, **chưa chạy trên iPhone thật**.
+    P12: iOS gọi SDK Apple thật bằng Swift. Đã chạy trên simulator, **chưa chạy trên iPhone thật**. P13 Final: chưa làm.
+    Bảng đầy đủ: [Kế hoạch + tiến độ §3](plan/README-KMP-MIGRATION.md#3-phases-each-ends-with-something-you-can-run--screenshot) · lý do đổi hướng: [Spec](plan/README-KMP-NATIVE-UI-SPEC.md).
+    Commit của P8–P12 ghi nhãn tạm **R1–R5** (đã nằm trong lịch sử git nên không sửa).
 
 ## Đọc theo thứ tự
 
 0. [Bản đồ thư mục](README-KMP-FOLDER-MAP.md): từng thư mục, từng file làm gì (bản `main` + bản P0), thêm code mới đặt ở đâu.
-1. [Kế hoạch + tiến độ](plan/README-KMP-MIGRATION.md): mục tiêu, kiến trúc, ai viết phần nào (KMP hay native), phase P0–P7.
-2. [UI native + KMP core](plan/README-KMP-NATIVE-UI-PLAN.md): bước R1–R6 đổi sang UI native, mỗi bước 1 commit.
-3. [Từng phase: dev đã làm gì](README-KMP-PHASES.md): P0 → P7 rồi R1 → R4, mỗi bước gắn nhãn 🎨 UI · 🧩 KMP chung · 🤖 Android · 🍎 iOS. **Đọc trang này khi trình bày / review.**
+1. [Kế hoạch + tiến độ](plan/README-KMP-MIGRATION.md): mục tiêu, kiến trúc, ai viết phần nào (KMP hay native), bảng phase P0–P13.
+2. [Vì sao đổi sang UI native](plan/README-KMP-NATIVE-UI-SPEC.md): spec của P8–P12 (quyết định N1–N3).
+3. [Từng phase: dev đã làm gì](README-KMP-PHASES.md): P0 → P12, mỗi bước gắn nhãn 🎨 UI · 🧩 KMP chung · 🤖 Android · 🍎 iOS. **Đọc trang này khi trình bày / review.**
 4. [App chạy thế nào](README-KMP-HOW-IT-WORKS.md): 6 tầng, app khởi động ai gọi ai, bấm "Scan" hàm nào chạy, KMP gọi SDK nào.
 5. [Kế hoạch site này](plan/README-KMP-DOCS-SITE-PLAN.md): site tài liệu được dựng ra sao (S1–S5).
 
@@ -52,7 +53,7 @@ xcrun simctl launch "iPhone 17" com.learn.ndmkmp -tab scanner
 
 ## Ảnh chạy thật
 
-Chọn tab bên dưới để xem từng màn, Android (Jetpack Compose) bên trái · iOS (SwiftUI) bên phải. Hai UI viết riêng nhưng đọc cùng một ViewModel, nên chữ và trạng thái giống nhau. Ảnh iOS chụp trước R5 (lúc đó service còn fake). Bấm vào ảnh để mở ảnh gốc.
+Chọn tab bên dưới để xem từng màn, Android (Jetpack Compose) bên trái · iOS (SwiftUI) bên phải. Hai UI viết riêng nhưng đọc cùng một ViewModel, nên chữ và trạng thái giống nhau. Ảnh iOS chụp trước P12 (lúc đó service còn fake). Bấm vào ảnh để mở ảnh gốc.
 
 === "Permissions"
 

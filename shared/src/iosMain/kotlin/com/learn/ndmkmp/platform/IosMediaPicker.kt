@@ -23,7 +23,7 @@ class NativeImage(
 )
 
 /**
- * R5b — the Swift half of the Media tab (`iosApp/.../Platform/MediaNative.swift`): presents UIKit pickers from the
+ * P12b — the Swift half of the Media tab (`iosApp/.../Platform/MediaNative.swift`): presents UIKit pickers from the
  * top view controller. Callbacks on the main thread; `null` image = user cancelled.
  */
 interface IosMediaNative {
@@ -37,7 +37,7 @@ interface IosMediaNative {
 }
 
 /**
- * R5b — [MediaPicker] for iOS: turns the Swift callbacks into `suspend` calls (Kotlin's `suspendCancellableCoroutine`
+ * P12b — [MediaPicker] for iOS: turns the Swift callbacks into `suspend` calls (Kotlin's `suspendCancellableCoroutine`
  * = Swift's `withCheckedContinuation`), so `MediaViewModel` reads top to bottom exactly like on Android.
  * iOS gives no file name for a picked photo (PHPicker runs out of process) → `name = null`.
  */

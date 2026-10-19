@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
-/** R4 — Android app = Jetpack Compose UI (ui/, App.kt) on top of the shared ViewModels in :shared. */
+/** P11 — Android app = Jetpack Compose UI (ui/, App.kt) on top of the shared ViewModels in :shared. */
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeCompiler)

@@ -2,7 +2,7 @@ import CoreBluetooth
 import Foundation
 import Shared
 
-/// R5d — thin CoreBluetooth wrapper in Swift. Implements Kotlin `IosBleNative`: runs commands, reports raw events to
+/// P12d — thin CoreBluetooth wrapper in Swift. Implements Kotlin `IosBleNative`: runs commands, reports raw events to
 /// Kotlin `IosBleClient` (which keeps the list, timers, read-vs-notify and cleanup rules). Ported from the old app's
 /// `BluetoothClientService.swift` — only the CoreBluetooth-specific part stays here.
 ///

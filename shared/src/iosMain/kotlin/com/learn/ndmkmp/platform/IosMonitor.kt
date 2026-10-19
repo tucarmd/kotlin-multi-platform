@@ -22,7 +22,7 @@ import platform.Foundation.NSUserDomainMask
 import kotlin.time.Clock
 
 /**
- * R5c — the Swift half of the Monitor tab (`iosApp/.../Platform/DeviceNative.swift`).
+ * P12c — the Swift half of the Monitor tab (`iosApp/.../Platform/DeviceNative.swift`).
  * Battery / network need UIKit + NWPathMonitor; BGAppRefresh needs BGTaskScheduler. Called on the main thread.
  */
 interface IosDeviceNative {
@@ -36,7 +36,7 @@ interface IosDeviceNative {
 }
 
 /**
- * R5c — one record from the iPhone. Bluetooth is not read again here: the radio comes from the permission controller
+ * P12c — one record from the iPhone. Bluetooth is not read again here: the radio comes from the permission controller
  * (its `CBCentralManager` already observes it), "connected" from the BLE client — iOS has no API to list what the
  * SYSTEM is connected to.
  */
@@ -66,7 +66,7 @@ class IosDeviceStatusSource(
     }
 }
 
-/** R5c — iOS has no foreground service; the periodic part is BGAppRefresh (iOS decides when, ≥ 15 min, maybe never). */
+/** P12c — iOS has no foreground service; the periodic part is BGAppRefresh (iOS decides when, ≥ 15 min, maybe never). */
 class IosPlatformBackground(private val native: IosDeviceNative) : PlatformBackground {
     override val supportsForegroundService = false
 

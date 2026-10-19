@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.asStateFlow
 enum class NativeAuthorization { NOT_DETERMINED, GRANTED, DENIED, RESTRICTED }
 
 /**
- * R5a — what the Swift side does for permissions (`iosApp/.../Platform/IosPermissionNative.swift`).
+ * P12a — what the Swift side does for permissions (`iosApp/.../Platform/IosPermissionNative.swift`).
  * Plain calls + callbacks, no Flow / suspend: easy to implement in Swift, the state lives in [IosPermissionController].
  * Every callback must arrive on the main thread.
  */
@@ -32,7 +32,7 @@ interface IosPermissionNative {
 }
 
 /**
- * R5a — [PermissionController] for iOS. Same 4 states as Android, mapped from Apple's answer:
+ * P12a — [PermissionController] for iOS. Same 4 states as Android, mapped from Apple's answer:
  *
  * ```
  *  NOT_DETERMINED ─► NOT_REQUESTED        (dialog will show)

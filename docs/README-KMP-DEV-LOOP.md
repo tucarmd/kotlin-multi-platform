@@ -1,4 +1,4 @@
-[🏠 README](../README.md) · Kiến trúc: [App chạy thế nào](README-KMP-HOW-IT-WORKS.md) · Plan: [R1–R6](plan/README-KMP-NATIVE-UI-PLAN.md)
+[🏠 README](../README.md) · Kiến trúc: [App chạy thế nào](README-KMP-HOW-IT-WORKS.md) · Plan: [P0–P13](plan/README-KMP-MIGRATION.md)
 
 # Sửa code và xem kết quả nhanh
 
@@ -31,8 +31,8 @@ build app iOS.
 
 | Cách | Dùng cho | Ghi chú |
 |---|---|---|
-| **Xcode Previews** (Canvas, Cmd+Option+Enter) | SwiftUI | Cần `Shared` build ít nhất 1 lần. Dùng được cho cả 5 tab từ R3; P0–P7 thì không (UI iOS lúc đó là Compose trong `MainViewController`) |
-| **Compose Preview** (`@Preview`) | Compose trên Android | Xem trong khung Design / Split, không cần emulator. UI Android nằm trong `androidApp/` (Jetpack Compose) từ R4 |
+| **Xcode Previews** (Canvas, Cmd+Option+Enter) | SwiftUI | Cần `Shared` build ít nhất 1 lần. Dùng được cho cả 5 tab từ P10; P0–P7 thì không (UI iOS lúc đó là Compose trong `MainViewController`) |
+| **Compose Preview** (`@Preview`) | Compose trên Android | Xem trong khung Design / Split, không cần emulator. UI Android nằm trong `androidApp/` (Jetpack Compose) từ P11 |
 | **Live Edit** | Compose trên Android, app đang chạy (API 30+) | Chỉ sửa UI composable; đổi logic / ViewModel / class mới vẫn phải Run lại |
 | **Apply Changes** (⚡ cạnh nút Run) | Android | Đẩy code đã sửa vào app đang chạy, không cài lại |
 | Compose Hot Reload (JetBrains) | — | Chỉ cho target Desktop; dự án không có Desktop → không dùng được |

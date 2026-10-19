@@ -1,7 +1,7 @@
 import SwiftUI
 import Shared
 
-/// Entry point. Since R2 the UI is SwiftUI (no more Compose `MainViewController`); the logic is the shared Kotlin
+/// Entry point. Since P9 the UI is SwiftUI (no more Compose `MainViewController`); the logic is the shared Kotlin
 /// `AppViewModel` held by `AppModel`.
 ///
 /// ```
@@ -17,7 +17,7 @@ struct iOSApp: App {
     @Environment(\.scenePhase) private var scenePhase
 
     init() {
-        // R5c: BGAppRefresh handler — must be registered before launch finishes.
+        // P12c: BGAppRefresh handler — must be registered before launch finishes.
         IosPlatform.registerBackgroundTasks()
     }
 

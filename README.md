@@ -4,7 +4,7 @@
 > **KMP core + native UI**: the UI is written per platform (Android = Kotlin + Jetpack Compose, iOS = Swift + SwiftUI),
 > everything shared (models, rules, ViewModels, interfaces, Ktor HTTP, logger, monitor loop) lives once in `shared/`.
 > Docs site: **https://tucarmd.github.io/native-device-monitor-kmp-docs/**
-> Plan + progress: [docs/plan/README-KMP-MIGRATION.md](docs/plan/README-KMP-MIGRATION.md) · native-UI switch: [spec](docs/plan/README-KMP-NATIVE-UI-SPEC.md) · [plan R1–R6](docs/plan/README-KMP-NATIVE-UI-PLAN.md)
+> Plan + progress, one phase list P0–P13: [docs/plan/README-KMP-MIGRATION.md](docs/plan/README-KMP-MIGRATION.md) · why the native-UI switch (P8–P12): [spec](docs/plan/README-KMP-NATIVE-UI-SPEC.md)
 > Folder map (every folder and file explained): [docs/README-KMP-FOLDER-MAP.md](docs/README-KMP-FOLDER-MAP.md)
 > How it works (diagrams, function flow, SDK map): [docs/README-KMP-HOW-IT-WORKS.md](docs/README-KMP-HOW-IT-WORKS.md)
 > What the dev did per phase (UI vs shared KMP vs Android/iOS): [docs/README-KMP-PHASES.md](docs/README-KMP-PHASES.md)
@@ -50,10 +50,10 @@ xcrun simctl launch "iPhone 17" com.learn.ndmkmp -tab scanner
 
 | | Android | iOS |
 |---|:-:|:-:|
-| Shared core + ViewModels (P1, R1) | ✅ | ✅ |
-| UI: 5 tabs, native per platform (R3, R4) | ✅ Jetpack Compose | ✅ SwiftUI |
+| Shared core + ViewModels (P1, P8) | ✅ | ✅ |
+| UI: 5 tabs, native per platform (P10, P11) | ✅ Jetpack Compose | ✅ SwiftUI |
 | API tab (Ktor) | ✅ | ✅ |
-| Permissions · BLE · Camera · Monitor on the real SDK | ✅ (P3 P4 P5 P7) | ✅ R5 in Swift — simulator checked, real iPhone pending |
+| Permissions · BLE · Camera · Monitor on the real SDK | ✅ (P3 P4 P5 P7) | ✅ P12 in Swift — simulator checked, real iPhone pending |
 
 | Android — Jetpack Compose (Samsung A32) | iOS — SwiftUI (iPhone 17 Simulator) |
 |---|---|

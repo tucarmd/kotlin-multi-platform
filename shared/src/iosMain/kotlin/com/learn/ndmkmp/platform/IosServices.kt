@@ -5,14 +5,14 @@ import com.learn.ndmkmp.core.network.KtorApiService
 
 /**
  * The iOS side of [AppServices] — the only place that picks real vs fake on iOS.
- * R5: Swift calls this ONCE at launch (`IosPlatform.swift`) with its native objects (Apple SDK code written in Swift);
+ * P12: Swift calls this ONCE at launch (`IosPlatform.swift`) with its native objects (Apple SDK code written in Swift);
  * each Kotlin adapter keeps the state + rules and implements the `core/` interface.
  *
  * ```
- *  Swift  PermissionNative ──► IosPermissionController ──► PermissionController   (R5a)
- *  Swift  BleNative        ──► IosBleClient            ──► BleClient              (R5d)
- *  Swift  MediaNative      ──► IosMediaPicker          ──► MediaPicker            (R5b)
- *  Swift  DeviceNative     ──► IosDeviceStatusSource + IosPlatformBackground ──► LoopDeviceMonitor (R5c)
+ *  Swift  PermissionNative ──► IosPermissionController ──► PermissionController   (P12a)
+ *  Swift  BleNative        ──► IosBleClient            ──► BleClient              (P12d)
+ *  Swift  MediaNative      ──► IosMediaPicker          ──► MediaPicker            (P12b)
+ *  Swift  DeviceNative     ──► IosDeviceStatusSource + IosPlatformBackground ──► LoopDeviceMonitor (P12c)
  * ```
  */
 fun createIosServices(
@@ -24,10 +24,10 @@ fun createIosServices(
     val permissionController = IosPermissionController(permissions)
     val bleClient = IosBleClient(ble)
     return AppServices(
-        permissions = permissionController,                      // R5a ✅
-        ble = bleClient,                                         // R5d ✅
-        media = IosMediaPicker(media),                           // R5b ✅
+        permissions = permissionController,                      // P12a ✅
+        ble = bleClient,                                         // P12d ✅
+        media = IosMediaPicker(media),                           // P12b ✅
         api = KtorApiService(),                                  // P6 ✅ shared Ktor (Darwin engine)
-        monitor = iosDeviceMonitor(device, permissionController, bleClient),   // R5c ✅
+        monitor = iosDeviceMonitor(device, permissionController, bleClient),   // P12c ✅
     )
 }

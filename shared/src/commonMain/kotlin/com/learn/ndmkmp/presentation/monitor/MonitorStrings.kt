@@ -39,7 +39,7 @@ object MonitorStrings {
             "force stop cancels it until the app is opened again."
     fun workState(state: String?) = "State: ${state ?: "not scheduled"}"
 
-    // iOS (R5c): no foreground service, the periodic part is BGAppRefresh
+    // iOS (P12c): no foreground service, the periodic part is BGAppRefresh
     const val LOOP_HINT_IOS = "In-app loop: iOS suspends the app a few seconds after it goes to the background — the loop pauses."
     const val WORK_TITLE_IOS = "BGAppRefresh (≥ 15 min)"
     const val WORK_HINT_IOS =

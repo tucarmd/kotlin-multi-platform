@@ -2,8 +2,8 @@
 
 # Plan — Native Device Monitor → KMP core + native UI (Jetpack Compose · SwiftUI)
 
-> Created: 2026-10-16 · Status: **Approved 2026-10-16 · P0–P7 ✅ (P3 P4 P5 P7 Android only) · 2026-10-19 D1 changed → native UI, R1–R5 ✅ (R5 checked on the simulator, real iPhone pending)**
-> Native-UI switch: [spec](README-KMP-NATIVE-UI-SPEC.md) · [plan R1–R6](README-KMP-NATIVE-UI-PLAN.md)
+> Created: 2026-10-16 · Status: **Approved 2026-10-16 · P0–P7 ✅ (P3 P4 P5 P7 Android only) · 2026-10-19 D1 changed → native UI, P8–P12 ✅ (P12 checked on the simulator, real iPhone pending)**
+> Native-UI switch: [spec](README-KMP-NATIVE-UI-SPEC.md) · [plan P8–P12](README-KMP-MIGRATION.md)
 > Step-by-step per phase (what the dev did, which layer): [Từng phase: dev đã làm gì](../README-KMP-PHASES.md)
 > Learning path: [Học KMP qua Device Pulse](https://tucarmd.github.io/kotlin-multi-platform/lessons/02-setup/) (14 lessons) +
 > official docs [kotlinlang.org/docs/multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html).
@@ -17,7 +17,7 @@ Swift/SwiftUI ~5.6k lines). Now: models, rules, ViewModels, HTTP, logger, monito
 (Jetpack Compose + SwiftUI), both reading the same ViewModels.
 
 > Until 2026-10-19 (P0–P7) the goal was "only Kotlin, Compose Multiplatform UI, Swift = 20-line shell". Changed in
-> R1–R4 — see [spec](README-KMP-NATIVE-UI-SPEC.md).
+> P8–P11 — see [spec](README-KMP-NATIVE-UI-SPEC.md).
 
 **In scope** — feature parity with tasks 001–006, same 5 tabs:
 
@@ -38,7 +38,7 @@ The old `native-device-monitor/` (repo native-mobile-learning) stays untouched a
 **Short answer:** the **UI is native on each platform**: Android draws with **Kotlin + Jetpack Compose** (`androidApp/`),
 iOS with **Swift + SwiftUI** (`iosApp/`). **Only the shared part is KMP** (`shared/`): models, rules, the 5 ViewModels,
 interfaces, Ktor, FileLogger, monitor loop. Both UIs read the **same ViewModel state**, so texts, enabled buttons and
-filters are identical. Platform SDK code: Android in Kotlin (`shared/androidMain`), iOS in **Swift** (`iosApp/iosApp/Platform/`, R5) behind small Kotlin adapters in `shared/iosMain`.
+filters are identical. Platform SDK code: Android in Kotlin (`shared/androidMain`), iOS in **Swift** (`iosApp/iosApp/Platform/`, P12) behind small Kotlin adapters in `shared/iosMain`.
 
 | Layer | Folder | Language | What lives there | Runs on |
 |---|---|---|---|---|
@@ -64,7 +64,7 @@ Per tab:
 Rule of thumb: no platform SDK and no drawing → `shared/commonMain`. Drawing → the platform's UI module. Platform SDK →
 an implementation of a `core/` interface, picked in one file per platform (`AndroidServices.kt` / `IosServices.kt`).
 
-## 2. Architecture (since R4: "Share logic, native UI")
+## 2. Architecture (since P11: "Share logic, native UI")
 
 ```
 native-device-monitor-kmp/            ← own private repo tucarmd/native-device-monitor-kmp, KMP-App-Template layout (AGP 9)
@@ -84,7 +84,7 @@ Library choices (versions from the wizard / lesson 5, not hand-picked):
 
 | Need | Old | New |
 |---|---|---|
-| UI | Compose (🤖) + SwiftUI (🍎) | ~~Compose Multiplatform~~ (P0–P7) → **Jetpack Compose (🤖) + SwiftUI (🍎)** since R4 |
+| UI | Compose (🤖) + SwiftUI (🍎) | ~~Compose Multiplatform~~ (P0–P7) → **Jetpack Compose (🤖) + SwiftUI (🍎)** since P11 |
 | ViewModel / nav | hand-rolled | shared `SharedViewModel` (own ~10-line base, see spec §3.3) + plain tab state |
 | Swift ↔ Kotlin Flow | — | **SKIE** (StateFlow → AsyncSequence) + `Observed<T>` |
 | HTTP | HttpURLConnection / URLSession | **Ktor** (OkHttp / Darwin) + `ktor-client-mock` tests (lesson 11) |
@@ -100,14 +100,21 @@ Library choices (versions from the wizard / lesson 5, not hand-picked):
 | P0 ✅ | Setup | 2–3 | Wizard layout: Android + iOS, **Share UI**, package `com.learn.ndmkmp` (D4). Hello screen. | Runs on Android emulator **and** iOS simulator, 2 screenshots — [kmp_p0_android.png](../assets/kmp_p0_android.png) · [kmp_p0_ios.png](../assets/kmp_p0_ios.png) |
 | P1 ✅ | Shared core | 4–5 | Move the 8 pure files to `commonMain` (GattModel, BluetoothDecoder, BluetoothLookup, BluetoothScanFilter, BluetoothDeviceInfo, DeviceStatus, MediaInfo, PermissionStatus) + ScannerActions; port their tests to `kotlin.test` | `./gradlew :shared:allTests` green on JVM/Android **and** iOS simulator — 52/52 on both |
 | P2 ✅ | UI shell | 6–8 | Theme tokens + AppCard/AppPrimaryButton/AppHintText, 5-tab bottom bar, every screen on **fake** data behind 5 interfaces | Both platforms show all 5 tabs — [android](../assets/kmp_p2_android_tabs.png) · [ios](../assets/kmp_p2_ios_tabs.png) · [fake GATT](../assets/kmp_p2_android_gatt_fake.png) |
-| P3 🤖✅ 🍎— | Permissions | 9 | `PermissionService` interface; 🤖 ActivityResult (API ≤30 vs 31+ branch kept) · 🍎 CBManager + AVCaptureDevice authorization; open Settings | Deny → retry → Settings path works on both (real devices) |
-| P4 🤖✅ 🍎— | BLE | — (app #5 "OBD Link") | `BleClient` interface: scan → connect → discover → read → notify → write → MTU → disconnect; platform rules from the README table (Android GATT queue, iOS 15 s connect timeout, radio-off cleanup) | Full Scanner E2E against nRF Connect advertiser on **Samsung A32 + real iPhone** |
-| P5 🤖✅ 🍎— | Media | — | 🤖 TakePicture + PickVisualMedia · 🍎 UIImagePickerController / PHPicker presented from Kotlin; image → `ImageBitmap` + MediaInfo | Capture + pick + cancel on real devices (simulator has no camera) |
+| P3 🤖✅ 🍎→P12 | Permissions | 9 | `PermissionService` interface; 🤖 ActivityResult (API ≤30 vs 31+ branch kept) · 🍎 CBManager + AVCaptureDevice authorization; open Settings | Deny → retry → Settings path works on both (real devices) |
+| P4 🤖✅ 🍎→P12 | BLE | — (app #5 "OBD Link") | `BleClient` interface: scan → connect → discover → read → notify → write → MTU → disconnect; platform rules from the README table (Android GATT queue, iOS 15 s connect timeout, radio-off cleanup) | Full Scanner E2E against nRF Connect advertiser on **Samsung A32 + real iPhone** |
+| P5 🤖✅ 🍎→P12 | Media | — | 🤖 TakePicture + PickVisualMedia · 🍎 UIImagePickerController / PHPicker presented from Kotlin; image → `ImageBitmap` + MediaInfo | Capture + pick + cancel on real devices (simulator has no camera) |
 | P6 ✅ | API | 11 | Ktor client: GET/POST/500/timeout; MockEngine tests | Tab works both platforms, tests green |
-| P7 🤖✅ 🍎— | Monitor + background | 9, 12 | Providers (battery/network/BT) · FileLogger JSONL · 🤖 FGS + WorkManager in androidMain · 🍎 BGTaskScheduler registered at launch (one call from `iOSApp.swift`) | Logs written while in background on both; screenshot of Monitor logs |
-| P8 | Final | 13–14 | Run task 006 E2E checklist on the new app, lint clean, README + "old vs new" table (lines of code, files, what still needs Swift) | All rows ✅ with screenshots, README updated |
+| P7 🤖✅ 🍎→P12 | Monitor + background | 9, 12 | Providers (battery/network/BT) · FileLogger JSONL · 🤖 FGS + WorkManager in androidMain · 🍎 BGTaskScheduler registered at launch (one call from `iOSApp.swift`) | Logs written while in background on both; screenshot of Monitor logs |
+| P8 ✅ | Shared ViewModels | 8 | State + actions of the 5 tabs move out of the composables into `shared/presentation/` (`AppViewModel` + 5 ViewModels, `*Strings`); `PickedImage` carries bytes | 78/78 tests JVM + iOS, both apps unchanged on screen — [android](../assets/kmp_r1_android_tabs.png) · [ios](../assets/kmp_r1_ios_tabs.png) · commits say **P8** |
+| P9 ✅ | SwiftUI shell + API tab | — | **SKIE** (Flow → AsyncSequence) + `Observed<T>`, `AppModel`, `RootView`; API tab in SwiftUI; Xcode synchronized folder, iOS 17 | Maestro GET 200 + 500 on the simulator — [ảnh](../assets/kmp_r2_ios_swiftui_api.png) · commits say **P9** |
+| P10 ✅ | SwiftUI all 5 tabs | — | Permissions, Scanner + GATT, Media, Monitor in SwiftUI on the shared ViewModels; `InfoRow` for Swift | Maestro through all 5 tabs — [ảnh](../assets/kmp_r3_ios_swiftui_tabs.png) · commits say **P10** |
+| P11 ✅ | Compose → androidApp | — | Compose UI moves to `androidApp/` (Jetpack Compose BOM); `shared/` drops Compose Multiplatform | 78/78 tests, A32 5 tabs + Maestro — [ảnh](../assets/kmp_r4_android_compose_tabs.png) · commits say **P11** |
+| P12 ✅ code · ⏳ iPhone | iOS real SDK in Swift | 9, 12 | = the 🍎 half of P3 P4 P5 P7. P12a permissions · P12b camera/PHPicker · P12c battery, network, BGAppRefresh · P12d CoreBluetooth. Swift `iosApp/Platform/*Native` + Kotlin adapters in `iosMain` | 82/82 tests (+ `IosAdaptersTest`), simulator checked; **real iPhone not yet** · commits say **P12a–P12d** |
+| P13 | Final | 13–14 | Real-device run of P12 (capture, BLE GATT vs nRF Connect, BGAppRefresh), task 006 E2E checklist, lint clean, README + "old vs new" table | All rows ✅ with screenshots, README updated |
 
-Order matters: P0–P2 can be checked on simulator/emulator only; P3–P5, P7 need **real devices** (BLE, camera, background).
+Order matters: P0–P2 can be checked on simulator/emulator only; P3–P5, P7, P12 need **real devices** (BLE, camera, background).
+P8–P12 = the switch to native UI (decision D1 changed 2026-10-19, see [spec](README-KMP-NATIVE-UI-SPEC.md)); their commits were written with the temporary labels **P8–P12**, kept in git history.
+Rule per phase: one commit, build OK + run for real + screenshot read, then stop for an OK.
 
 ## 4. Decisions for you (review these)
 
@@ -117,12 +124,12 @@ Order matters: P0–P2 can be checked on simulator/emulator only; P3–P5, P7 ne
 | D2 | BLE | **Write our own `BleClient`** in androidMain (reuse current Kotlin) + iosMain (CoreBluetooth in Kotlin/Native) — keeps the platform-difference learning | **Kable** (JuulLabs) — far less code, one API, used in app #5 of the lesson site; hides the GATT queue / CCCD details |
 | D3 | Where | ~~New folder in native-mobile-learning~~ → **changed 2026-10-16: own private repo `tucarmd/native-device-monitor-kmp`** | — |
 | D4 | IDs | `com.learn.ndmkmp` (both platforms) — can be installed next to the old app | reuse `com.learn.nativedevicemonitor` (replaces old app on device) |
-| D5 | Pomodoro | backlog, after P8 | port in P2 |
+| D5 | Pomodoro | backlog, after P13 | port in P2 |
 
 ## 5. Risks
 
 - **CoreBluetooth from Kotlin/Native** (if D2 = own code): delegates must subclass `NSObject`; ObjC interop is verbose. Fallback: Kable.
-- ~~**iOS look:** Compose on iOS draws Material~~ — gone since R3: iOS is SwiftUI with native controls.
+- ~~**iOS look:** Compose on iOS draws Material~~ — gone since P10: iOS is SwiftUI with native controls.
 - **Two UIs drift apart:** same ViewModel + strings keep texts and rules equal; only drawing can differ. Compare screenshots per tab.
 - **BGTaskScheduler** must be registered before launch finishes → keep that one line in `iOSApp.swift`; Info.plist needs `BGTaskSchedulerPermittedIdentifiers` + background modes.
 - **Gradle/AGP:** wizard may generate AGP 9 (`com.android.kotlin.multiplatform.library`); old app is on AGP 8.13. Follow the wizard; skill `kotlin-tooling-agp9-migration` if it breaks.
@@ -172,13 +179,13 @@ Order matters: P0–P2 can be checked on simulator/emulator only; P3–P5, P7 ne
   FGS keeps writing "fgs" records in background, WorkManager ENQUEUED + first "worker" record. Every `AppServices`
   entry on Android is now real. UI files were not touched in P3–P7.
 
-- **2026-10-19 · D1 changed → KMP core + native UI** ([spec](README-KMP-NATIVE-UI-SPEC.md) · [plan](README-KMP-NATIVE-UI-PLAN.md)).
-  **R1** 5 shared ViewModels + `AppViewModel` (`presentation/`), Compose screens only draw · `PickedImage` carries bytes ·
-  78 tests. **R2** SKIE + `Observed<T>`, SwiftUI shell + API tab, Xcode synchronized folder, iOS 17. **R3** SwiftUI
-  Permissions / Scanner / Media / Monitor, Maestro through all 5 tabs on the simulator. **R4** Compose UI → `androidApp`
+- **2026-10-19 · D1 changed → KMP core + native UI** ([spec](README-KMP-NATIVE-UI-SPEC.md) · [plan](README-KMP-MIGRATION.md)).
+  **P8** 5 shared ViewModels + `AppViewModel` (`presentation/`), Compose screens only draw · `PickedImage` carries bytes ·
+  78 tests. **P9** SKIE + `Observed<T>`, SwiftUI shell + API tab, Xcode synchronized folder, iOS 17. **P10** SwiftUI
+  Permissions / Scanner / Media / Monitor, Maestro through all 5 tabs on the simulator. **P11** Compose UI → `androidApp`
   (Jetpack Compose BOM 2026.06.01), `shared/` without Compose; A32 checked.
 
-- **2026-10-19 · R5 iOS real SDK (code + simulator).** Swift in `iosApp/iosApp/Platform/` calls the Apple SDK through
+- **2026-10-19 · P12 iOS real SDK (code + simulator).** Swift in `iosApp/iosApp/Platform/` calls the Apple SDK through
   small callback interfaces (`IosPermissionNative`, `IosBleNative`, `IosMediaNative`, `IosDeviceNative`); Kotlin adapters
   in `iosMain` keep the state + rules (the old `BluetoothClientService.swift` rules now live in `IosBleClient`).
   `IosPlatform.services` builds `AppServices` once (screen + BGAppRefresh share the monitor). 82/82 tests (+ `IosAdaptersTest`).
@@ -186,5 +193,5 @@ Order matters: P0–P2 can be checked on simulator/emulator only; P3–P5, P7 ne
 
 ## 7. Next step
 
-Run R5 on a real iPhone (camera capture, BLE scan → GATT against nRF Connect, BGAppRefresh via the LLDB
-`_simulateLaunchForTaskWithIdentifier` trick), then BLE GATT end-to-end on both phones, then P8.
+Run P12 on a real iPhone (camera capture, BLE scan → GATT against nRF Connect, BGAppRefresh via the LLDB
+`_simulateLaunchForTaskWithIdentifier` trick), then BLE GATT end-to-end on both phones, then P13.

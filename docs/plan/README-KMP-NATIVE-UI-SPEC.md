@@ -1,9 +1,9 @@
-[🏠 README](../../README.md) · Plan: [README-KMP-NATIVE-UI-PLAN.md](README-KMP-NATIVE-UI-PLAN.md) · Plan cũ: [README-KMP-MIGRATION.md](README-KMP-MIGRATION.md)
+[🏠 README](../../README.md) · Plan + bảng phase (P0–P13): [README-KMP-MIGRATION.md](README-KMP-MIGRATION.md)
 
 # Spec: UI native riêng từng nền tảng, chỉ phần chung dùng KMP
 
 > Tạo: 2026-10-19 · Trạng thái: **Đã duyệt 2026-10-19** · N1 = SKIE · N2 = Swift · N3 = dời Compose UI sang `androidApp/`
-> Tiến độ: **R1–R4 ✅ · R6 ✅ · R5 ⏳** (iOS UI SwiftUI đủ 5 tab, Android Jetpack Compose trong `androidApp/`, `shared/` hết Compose; iOS platform vẫn `Fake*` trừ API, chờ R5). Chi tiết: [Plan](README-KMP-NATIVE-UI-PLAN.md)
+> Tiến độ: **P8–P11 ✅ · P12 ✅ code + simulator (⏳ iPhone thật) · P13 Final chưa**. Các bước này nằm chung một bảng phase với P0–P7: [Plan §3](README-KMP-MIGRATION.md). Commit của P8–P12 ghi nhãn tạm **R1–R5**.
 > Thay quyết định **D1** của plan cũ (UI chung bằng Compose Multiplatform) bằng phương án thay thế: **KMP core + UI native**.
 
 ## 1. Mục tiêu
@@ -18,7 +18,7 @@ Mục đích là học được cả hai kiểu UI native, đồng thời thấy
 
 ## 2. Hiện trạng lúc bắt đầu (2026-10-19)
 
-> Ảnh chụp **trước R1**, giữ lại làm mốc "trước" để so. Trạng thái hôm nay xem dòng *Tiến độ* ở đầu trang.
+> Ảnh chụp **trước P8**, giữ lại làm mốc "trước" để so. Trạng thái hôm nay xem dòng *Tiến độ* ở đầu trang.
 
 | Phần | Đang ở đâu | Ghi chú |
 |---|---|---|
@@ -66,7 +66,7 @@ native-device-monitor-kmp/
   - `state: StateFlow<XxxUiState>`: một data class chứa mọi thứ màn hình cần vẽ.
   - Hàm action (`onScanClick()`, `send(preset)`…): View chỉ gọi hàm, **không có logic trong View**.
 - Lớp nền là **`SharedViewModel` tự viết** (~10 dòng: một `CoroutineScope` trên Main + `clear()`), không dùng
-  `androidx.lifecycle.ViewModel`. *Đổi lúc làm R1:* các service mà ViewModel bọc (launcher xin quyền, BLE client) được
+  `androidx.lifecycle.ViewModel`. *Đổi lúc làm P8:* các service mà ViewModel bọc (launcher xin quyền, BLE client) được
   tạo theo Activity và chết cùng Activity. Nếu ViewModel sống lâu hơn Activity thì nó sẽ giữ service đã chết. Vì vậy
   ViewModel được tạo cạnh `AppServices` và `clear()` cùng lúc: Android ở `MainActivity.onDestroy`, iOS khi `AppModel`
   của Swift bị huỷ.
@@ -88,7 +88,7 @@ View biến mất.
 | N3 | Compose UI hiện có | **Dời** sang `androidApp/`, gỡ Compose MP khỏi `shared` | Giữ song song cả 2 UI cho iOS (thêm cấu hình, dễ rối) |
 
 Nếu chọn N2 = Swift thì interface trong core phải dễ implement từ Swift: callback hoặc hàm `suspend` thay vì bắt Swift
-tự tạo `MutableStateFlow`. *Cách làm ở R5:* interface `core/` giữ nguyên. Thêm interface nhỏ kiểu callback trong `iosMain`
+tự tạo `MutableStateFlow`. *Cách làm ở P12:* interface `core/` giữ nguyên. Thêm interface nhỏ kiểu callback trong `iosMain`
 (`IosPermissionNative`, `IosBleNative`, `IosMediaNative`, `IosDeviceNative`) cho Swift implement, cùng adapter Kotlin
 (`IosPermissionController`, `IosBleClient`, `IosMediaPicker`, `iosDeviceMonitor`) giữ `StateFlow` và luật.
 
@@ -96,7 +96,7 @@ tự tạo `MutableStateFlow`. *Cách làm ở R5:* interface `core/` giữ nguy
 
 - **D1** đổi thành "KMP core + UI native". Ghi vào mục Log của [README-KMP-MIGRATION.md](README-KMP-MIGRATION.md).
 - P0–P2 vẫn là lịch sử đúng (đã từng chạy Compose MP). P3–P7 phần 🤖 giữ nguyên. Phần 🍎 làm lại theo N2.
-- Các trang doc phải sửa: trang chủ, Migration §1–2, How it works (sơ đồ tầng), Phases (thêm R1–R6).
+- Các trang doc phải sửa: trang chủ, Migration §1–2, How it works (sơ đồ tầng), Phases (thêm P8–P12).
 
 ## 6. Rủi ro
 
@@ -107,5 +107,5 @@ tự tạo `MutableStateFlow`. *Cách làm ở R5:* interface `core/` giữ nguy
 
 ## 7. Ngoài phạm vi
 
-Pomodoro, desktop/web, phát hành lên store, tính năng mới. Phần 🍎 thật của P3/P4/P5/P7 nằm ở plan riêng sau R6
-(xem [plan](README-KMP-NATIVE-UI-PLAN.md) §3).
+Pomodoro, desktop/web, phát hành lên store, tính năng mới. Phần 🍎 thật của P3/P4/P5/P7 là P12
+(xem [plan](README-KMP-MIGRATION.md) §3).

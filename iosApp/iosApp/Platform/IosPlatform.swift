@@ -1,17 +1,17 @@
 import Foundation
 import Shared
 
-/// R5 — the one place iOS builds `AppServices`: Swift objects that call the Apple SDK, handed to Kotlin adapters.
+/// P12 — the one place iOS builds `AppServices`: Swift objects that call the Apple SDK, handed to Kotlin adapters.
 /// One instance per process: the screen (`AppModel`) and the background task (`DeviceNative.registerRefreshTask`)
 /// must share the same monitor and log file.
 ///
 /// ```
 ///  IosPlatform.services
 ///   └─ IosServicesKt.createIosServices(
-///        permissions: PermissionNative()     → Kotlin IosPermissionController   (R5a)
-///        ble: BleNative()                    → Kotlin IosBleClient              (R5d)
-///        media: MediaNative()                → Kotlin IosMediaPicker            (R5b)
-///        device: DeviceNative()              → Kotlin LoopDeviceMonitor source + BGAppRefresh (R5c)
+///        permissions: PermissionNative()     → Kotlin IosPermissionController   (P12a)
+///        ble: BleNative()                    → Kotlin IosBleClient              (P12d)
+///        media: MediaNative()                → Kotlin IosMediaPicker            (P12b)
+///        device: DeviceNative()              → Kotlin LoopDeviceMonitor source + BGAppRefresh (P12c)
 ///      )
 /// ```
 enum IosPlatform {

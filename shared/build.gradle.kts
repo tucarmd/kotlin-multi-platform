@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 /**
- * R4 — the KMP library holds ONLY what both apps share: model, rules, ViewModels, interfaces, Ktor, logger,
+ * P11 — the KMP library holds ONLY what both apps share: model, rules, ViewModels, interfaces, Ktor, logger,
  * monitor loop + the Android implementations (androidMain). No Compose: each platform draws its own UI
  * (androidApp = Jetpack Compose, iosApp = SwiftUI).
  */
@@ -9,7 +9,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidMultiplatformLibrary)
     alias(libs.plugins.kotlinxSerialization)
-    alias(libs.plugins.skie)          // R2: Flow → AsyncSequence for SwiftUI
+    alias(libs.plugins.skie)          // P9: Flow → AsyncSequence for SwiftUI
 }
 
 kotlin {
@@ -44,13 +44,13 @@ kotlin {
             implementation(libs.androidx.core.ktx)
             implementation(libs.androidx.work.runtime)        // P7: MonitorWorker every 15′
             implementation(libs.ktor.client.okhttp)           // P6: Android HTTP engine
-            implementation(libs.kotlinx.coroutines.android)   // R4: Dispatchers.Main for the ViewModels
+            implementation(libs.kotlinx.coroutines.android)   // P11: Dispatchers.Main for the ViewModels
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)           // P6: NSURLSession engine
         }
         commonMain.dependencies {
-            implementation(libs.kotlinx.coroutines.core)      // R1: ViewModel scope + StateFlow
+            implementation(libs.kotlinx.coroutines.core)      // P8: ViewModel scope + StateFlow
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.ktor.client.core)             // P6
             implementation(libs.kotlinx.io.core)              // P7: FileLogger

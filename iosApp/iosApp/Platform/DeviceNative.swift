@@ -3,7 +3,7 @@ import Network
 import UIKit
 import Shared
 
-/// R5c — the Apple-SDK half of the Monitor tab, in Swift. Implements Kotlin `IosDeviceNative`; the loop, the JSONL file
+/// P12c — the Apple-SDK half of the Monitor tab, in Swift. Implements Kotlin `IosDeviceNative`; the loop, the JSONL file
 /// and the status live in the shared Kotlin `LoopDeviceMonitor`. Ported from the old app's `DeviceProviders.swift` +
 /// `BackgroundMonitor.swift`.
 ///

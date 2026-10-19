@@ -19,7 +19,7 @@ import kotlin.test.assertIs
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
-/** R5 — the iOS adapters' rules, with the Swift side replaced by recording fakes (no CoreBluetooth needed). */
+/** P12 — the iOS adapters' rules, with the Swift side replaced by recording fakes (no CoreBluetooth needed). */
 class IosAdaptersTest : MainDispatcherTest() {
 
     private class FakeBleNative : IosBleNative {

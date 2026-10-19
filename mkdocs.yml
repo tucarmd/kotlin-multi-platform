@@ -67,10 +67,8 @@ plugins:
 nav:
   - Trang chủ: index.md
   - Bản đồ thư mục: README-KMP-FOLDER-MAP.md
-  - Kế hoạch + tiến độ: plan/README-KMP-MIGRATION.md
-  - UI native + KMP core:
-      - Spec: plan/README-KMP-NATIVE-UI-SPEC.md
-      - Plan R1–R6: plan/README-KMP-NATIVE-UI-PLAN.md
+  - Kế hoạch + tiến độ (P0–P13): plan/README-KMP-MIGRATION.md
+  - Vì sao đổi sang UI native (spec P8–P12): plan/README-KMP-NATIVE-UI-SPEC.md
   - Từng phase dev làm gì: README-KMP-PHASES.md
   - App chạy thế nào: README-KMP-HOW-IT-WORKS.md
   - Sửa code + xem nhanh: README-KMP-DEV-LOOP.md

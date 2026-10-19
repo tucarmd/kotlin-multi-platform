@@ -26,7 +26,7 @@ import platform.Foundation.NSData
 import kotlin.time.Clock
 
 /**
- * R5d — the thin Swift wrapper around CoreBluetooth (`iosApp/.../Platform/BleNative.swift`). Commands only; everything
+ * P12d — the thin Swift wrapper around CoreBluetooth (`iosApp/.../Platform/BleNative.swift`). Commands only; everything
  * that happens comes back through [IosBleEvents]. All calls and events on the main thread.
  * Devices are identified by `CBPeripheral.identifier.uuidString` (iOS has no MAC).
  */
@@ -84,7 +84,7 @@ interface IosBleEvents {
 }
 
 /**
- * R5d — [BleClient] for iOS. Holds the state + rules of the old app's `BluetoothClientService.swift` (dedupe, filter,
+ * P12d — [BleClient] for iOS. Holds the state + rules of the old app's `BluetoothClientService.swift` (dedupe, filter,
  * 10 s scan, 15 s connect timeout, read vs notify, cleanup), in Kotlin; CoreBluetooth calls stay in Swift.
  *
  * ```

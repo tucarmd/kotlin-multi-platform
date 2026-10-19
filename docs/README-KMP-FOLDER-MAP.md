@@ -247,7 +247,7 @@ Ví dụ bấm **Scan Bluetooth**:
 ### 1.7 Rule 5.3: chuỗi hiển thị chỉ nằm trong file `.kt` / `.swift`
 
 Quy định mang sang từ app cũ: **mọi chữ trên màn hình nằm trong `object XxxStrings` (Kotlin)**, không dùng `strings.xml` hay `composeResources`.
-Từ R1, các object này nằm trong `shared/commonMain/.../presentation/`, nên Compose và SwiftUI dùng chung **một** bộ chữ (Swift đọc `ScannerStrings.shared.SCAN_BUTTON`).
+Từ P8, các object này nằm trong `shared/commonMain/.../presentation/`, nên Compose và SwiftUI dùng chung **một** bộ chữ (Swift đọc `ScannerStrings.shared.SCAN_BUTTON`).
 Màn hình SwiftUI không tự đặt chữ riêng, trừ ký tự trang trí như "•".
 
 | Chỗ | Có chữ? | Vì sao được phép |
@@ -256,7 +256,7 @@ Màn hình SwiftUI không tự đặt chữ riêng, trừ ký tự trang trí nh
 | `AndroidManifest.xml` `android:label` | tên app | Android đọc nhãn launcher từ manifest, ghi thẳng chữ, không qua `@string/` |
 | `iosApp/iosApp/Info.plist` (`NSBluetoothAlwaysUsageDescription`, `NSCameraUsageDescription`) | câu xin quyền | Apple **bắt buộc** đặt trong Info.plist, iOS tự hiện trong hộp thoại hệ thống |
 | `iosApp/Configuration/Config.xcconfig` `APP_NAME` | tên app iOS | cấu hình build của Xcode, không phải chữ UI |
-| ~~`res/values/strings.xml`~~ · ~~`composeResources/values/strings.xml`~~ | ❌ | đã xoá (P0 còn `composeResources`, xoá ở R4; `app_name` xoá 2026-10-19) |
+| ~~`res/values/strings.xml`~~ · ~~`composeResources/values/strings.xml`~~ | ❌ | đã xoá (P0 còn `composeResources`, xoá ở P11; `app_name` xoá 2026-10-19) |
 
 ## 2. Bản đồ P0 (nhánh `notes/p0`)
 
@@ -323,4 +323,4 @@ Luồng gọi ở P0: hai máy cùng vẽ **một** `App()`:
                                                        actual  Platform.ios.kt     (UIDevice)
 ```
 
-So với `main`: từ R1 tới R4, UI tách thành 2 (Compose trong `androidApp`, SwiftUI trong `iosApp`), còn logic "hiện gì" dời vào ViewModel dùng chung trong `shared/presentation`. Từ R5, iOS gọi SDK thật qua `iosApp/Platform` (Swift) + adapter `shared/iosMain`. Chi tiết từng bước xem [Từng phase](README-KMP-PHASES.md).
+So với `main`: từ P8 tới P11, UI tách thành 2 (Compose trong `androidApp`, SwiftUI trong `iosApp`), còn logic "hiện gì" dời vào ViewModel dùng chung trong `shared/presentation`. Từ P12, iOS gọi SDK thật qua `iosApp/Platform` (Swift) + adapter `shared/iosMain`. Chi tiết từng bước xem [Từng phase](README-KMP-PHASES.md).

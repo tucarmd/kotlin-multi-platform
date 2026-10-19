@@ -6,7 +6,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 
 /**
- * R1 — base of the 5 tab ViewModels. MVVM: the View (Compose on Android, SwiftUI on iOS) reads `state` and calls
+ * P8 — base of the 5 tab ViewModels. MVVM: the View (Compose on Android, SwiftUI on iOS) reads `state` and calls
  * action functions; every `if` about what to show lives in the ViewModel → written once, used by both UIs.
  *
  * Why not `androidx.lifecycle.ViewModel`: the services the ViewModels wrap (permission launchers, BLE client) are

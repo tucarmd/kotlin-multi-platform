@@ -19,7 +19,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
-/** R1 — what ScannerScreen used to compute while drawing, now checked without a UI. */
+/** P8 — what ScannerScreen used to compute while drawing, now checked without a UI. */
 class ScannerViewModelTest : MainDispatcherTest() {
 
     private val readiness = MutableStateFlow(BleReadiness.READY)

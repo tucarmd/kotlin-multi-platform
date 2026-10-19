@@ -13,7 +13,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
-/** R1 — the card / readiness rules that used to sit inside PermissionScreen's `when`. */
+/** P8 — the card / readiness rules that used to sit inside PermissionScreen's `when`. */
 class PermissionViewModelTest : MainDispatcherTest() {
 
     private val controller = FakePermissionController()

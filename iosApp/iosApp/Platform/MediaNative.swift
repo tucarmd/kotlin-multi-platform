@@ -4,7 +4,7 @@ import UIKit
 import UniformTypeIdentifiers
 import Shared
 
-/// R5b — the Apple-SDK half of the Media tab, in Swift. Implements Kotlin `IosMediaNative`; Kotlin `IosMediaPicker`
+/// P12b — the Apple-SDK half of the Media tab, in Swift. Implements Kotlin `IosMediaNative`; Kotlin `IosMediaPicker`
 /// turns the callbacks into `suspend` for `MediaViewModel`.
 ///
 /// ```
