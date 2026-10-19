@@ -7,6 +7,11 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import kotlin.test.Test
 
+/*
+ * 📍 P1 note: commonTest = tests for commonMain. Only `kotlin.test` here (no JUnit `@Test`, no Android/iOS APIs),
+ * so Gradle compiles this file for the JVM AND for iOS. Ported 1:1 from the old app's JUnit tests: same cases,
+ * only the imports changed (org.junit.* → kotlin.test.*).
+ */
 /** Day 3 + Day 4 + task 004 (write/MTU) — same cases as `ios/NativeDeviceMonitorTests/GattModelTests.swift`. */
 class GattModelTest {
 

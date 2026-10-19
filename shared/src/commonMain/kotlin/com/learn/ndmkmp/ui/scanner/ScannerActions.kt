@@ -1,5 +1,8 @@
 package com.learn.ndmkmp.ui.scanner
 
+// 📍 P1 note: pure rules (no Compose import) even though the folder says ui/ — they were the Scanner screen's helpers
+// in the old app. In P8 they move to presentation/scanner/ next to ScannerViewModel. Tests: commonTest/ui/scanner/.
+
 import com.learn.ndmkmp.core.bluetooth.BluetoothAdvertisement
 import com.learn.ndmkmp.core.bluetooth.BluetoothConnectionState
 import com.learn.ndmkmp.core.bluetooth.BluetoothDeviceInfo

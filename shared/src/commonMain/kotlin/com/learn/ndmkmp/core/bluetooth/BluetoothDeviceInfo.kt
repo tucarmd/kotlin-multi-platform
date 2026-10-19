@@ -16,6 +16,8 @@ package com.learn.ndmkmp.core.bluetooth
  *
  * *Compared to TS:* this is a plain DTO; `data class` gives `equals`/`copy` that TS has to hand-write.
  */
+// 📍 P1 note: `address` is a plain String on purpose. The old Android class held `android.bluetooth.BluetoothDevice`,
+// which commonMain can't see. Android puts the MAC here, iOS (P12) the CBPeripheral UUID — same field, both platforms.
 data class BluetoothDeviceInfo(
     val address: String,
     /** null when the device doesn't advertise a name — UI shows "Unknown device", does NOT skip the row. */
