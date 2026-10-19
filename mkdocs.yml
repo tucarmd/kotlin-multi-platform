@@ -72,6 +72,7 @@ nav:
       - Plan R1–R6: plan/README-KMP-NATIVE-UI-PLAN.md
   - Từng phase dev làm gì: README-KMP-PHASES.md
   - App chạy thế nào: README-KMP-HOW-IT-WORKS.md
+  - Sửa code + xem nhanh: README-KMP-DEV-LOOP.md
   - Site tài liệu:
       - Spec: plan/README-KMP-DOCS-SITE-SPEC.md
       - Plan S1–S5: plan/README-KMP-DOCS-SITE-PLAN.md
