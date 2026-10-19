@@ -2,7 +2,7 @@
 
 # Plan R1–R6: UI native riêng, KMP chỉ cho phần chung
 
-> Tạo: 2026-10-19 · Trạng thái: **Đã duyệt 2026-10-19** (N1 SKIE · N2 Swift · N3 dời) · R1 ✅ · R2 🟡 (iOS: tab API đã là SwiftUI + SKIE, 4 tab còn lại chờ R3) · R3–R6 ⏳
+> Tạo: 2026-10-19 · Trạng thái: **Đã duyệt 2026-10-19** (N1 SKIE · N2 Swift · N3 dời) · R1–R4 ✅ · R6 ✅ · **R5 ⏳ (tiếp theo)**
 > Luật: mỗi phase **1 commit** `refactor(kmp): Rn …`, xong phải **build OK, chạy thật, chụp ảnh**. Không gộp phase.
 
 ## 1. Thứ tự và lý do

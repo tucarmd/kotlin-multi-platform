@@ -73,11 +73,31 @@ flowchart LR
 **Mục tiêu:** một màn hình "Hello" chạy được trên cả Android và iOS từ một codebase.
 
 1. 📱 **Vỏ app**: tạo layout chuẩn KMP-App-Template (`shared/` + `androidApp/` + `iosApp/`), package `com.learn.ndmkmp`, AGP 9.1, Kotlin 2.4.10, Compose Multiplatform 1.11.1.
-2. 🎨 **UI**: một hàm `App()` trong [App.kt](../shared/src/commonMain/kotlin/com/learn/ndmkmp/App.kt).
-3. 🧩 **KMP chung**: `expect fun platformName()` trong [Platform.kt](../shared/src/commonMain/kotlin/com/learn/ndmkmp/Platform.kt).
-4. 🤖 / 🍎: hai `actual`: [Platform.android.kt](../shared/src/androidMain/kotlin/com/learn/ndmkmp/Platform.android.kt) · [Platform.ios.kt](../shared/src/iosMain/kotlin/com/learn/ndmkmp/Platform.ios.kt).
-5. 📱 **Vỏ app**: [MainActivity.kt](../androidApp/src/main/kotlin/com/learn/ndmkmp/MainActivity.kt) gọi `App()`; [ContentView.swift](../iosApp/iosApp/ContentView.swift) bọc `MainViewController()`.
+2. 🎨 **UI**: một hàm `App()` trong [App.kt](https://github.com/tucarmd/native-device-monitor-kmp/blob/b93e618/shared/src/commonMain/kotlin/com/learn/ndmkmp/App.kt) (Compose Multiplatform, 3 dòng chữ: tên app, `platformName()`, gợi ý).
+3. 🧩 **KMP chung**: `expect fun platformName()` trong [Platform.kt](https://github.com/tucarmd/native-device-monitor-kmp/blob/b93e618/shared/src/commonMain/kotlin/com/learn/ndmkmp/Platform.kt).
+4. 🤖 / 🍎: hai `actual`: [Platform.android.kt](https://github.com/tucarmd/native-device-monitor-kmp/blob/b93e618/shared/src/androidMain/kotlin/com/learn/ndmkmp/Platform.android.kt) (`Build.VERSION`) · [Platform.ios.kt](https://github.com/tucarmd/native-device-monitor-kmp/blob/b93e618/shared/src/iosMain/kotlin/com/learn/ndmkmp/Platform.ios.kt) (`UIDevice`, Kotlin/Native gọi thẳng UIKit).
+5. 📱 **Vỏ app**: [MainActivity.kt](https://github.com/tucarmd/native-device-monitor-kmp/blob/b93e618/androidApp/src/main/kotlin/com/learn/ndmkmp/MainActivity.kt) gọi `App()`; [ContentView.swift](https://github.com/tucarmd/native-device-monitor-kmp/blob/b93e618/iosApp/iosApp/ContentView.swift) bọc [MainViewController()](https://github.com/tucarmd/native-device-monitor-kmp/blob/b93e618/shared/src/iosMain/kotlin/com/learn/ndmkmp/MainViewController.kt) cho SwiftUI.
 6. ✅ **Kiểm tra**: Pixel 8 emulator + iPhone 17 Simulator.
+
+Link file ở mục này trỏ vào **commit P0** (`b93e618`), không phải `main`, vì sau đó code đã đổi:
+
+| File lúc P0 | Bây giờ (`main`) |
+|---|---|
+| `shared/commonMain/.../App.kt` (Compose MP) | dời sang [androidApp/.../App.kt](../androidApp/src/main/kotlin/com/learn/ndmkmp/App.kt) ở R4, Jetpack Compose thường |
+| `shared/iosMain/.../MainViewController.kt` | xoá ở R4: iOS không còn vẽ Compose |
+| `iosApp/iosApp/ContentView.swift` | xoá ở R2, thay bằng [RootView.swift](../iosApp/iosApp/UI/RootView.swift) (SwiftUI `TabView`) |
+| `MainActivity.kt` | còn, từ R1 tạo `AppViewModel` rồi `setContent { App(vm) }` |
+| `Platform.kt` + 2 `actual` | còn nguyên |
+
+**Mở lại P0 để đọc code** (không đụng `main`): một folder phụ dùng chung kho git, đổi phase bằng `checkout`.
+
+```bash
+git worktree add ../native-device-monitor-kmp-phase-view phase-p0   # 1 lần; tag phase-p0 = b93e618
+git -C ../native-device-monitor-kmp-phase-view checkout notes/p0     # bản P0 có thêm comment giải thích (chỉ ở máy local)
+```
+
+Mở folder đó bằng Android Studio; muốn thấy `iosApp/` thì đổi chế độ xem cây thư mục từ **Android** sang **Project**
+(`iosApp` không phải module Gradle). Chạy iOS: mở `iosApp/iosApp.xcodeproj` bằng Xcode.
 
 <div class="shots shots--pair" markdown>
 

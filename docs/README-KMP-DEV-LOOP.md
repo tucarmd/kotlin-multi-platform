@@ -10,7 +10,7 @@
 | Sửa gì | Mở bằng | Chạy / xem |
 |---|---|---|
 | Kotlin: `shared/` (logic, ViewModel), `androidApp/` | Android Studio | Android: run config **androidApp** → ▶ |
-| Swift: `iosApp/` (vỏ app, SwiftUI từ R2) | Xcode, mở `iosApp/iosApp.xcodeproj` | iOS: chọn iPhone Simulator → ▶ (Cmd+R) |
+| Swift: `iosApp/` (vỏ app + UI SwiftUI 5 tab) | Xcode, mở `iosApp/iosApp.xcodeproj` | iOS: chọn iPhone Simulator → ▶ (Cmd+R) |
 
 Hai IDE cùng đọc **một bộ file trên đĩa**: sửa ở đâu thì lần build sau bên kia cũng thấy.
 Xcode có build phase `./gradlew :shared:embedAndSignAppleFrameworkForXcode`, nên mỗi lần ▶ nó tự build lại framework
@@ -31,8 +31,8 @@ build app iOS.
 
 | Cách | Dùng cho | Ghi chú |
 |---|---|---|
-| **Xcode Previews** (Canvas, Cmd+Option+Enter) | SwiftUI | Cần `Shared` build ít nhất 1 lần. P0–P7 chưa dùng được (UI iOS là Compose trong `MainViewController`), từ R2 có `ApiView.swift`, đủ 5 tab sau R3 |
-| **Compose Preview** (`@Preview`) | Compose trên Android | Xem trong khung Design / Split, không cần emulator. Chắc nhất sau R4 (UI Android vào `androidApp/`) |
+| **Xcode Previews** (Canvas, Cmd+Option+Enter) | SwiftUI | Cần `Shared` build ít nhất 1 lần. Dùng được cho cả 5 tab từ R3; P0–P7 thì không (UI iOS lúc đó là Compose trong `MainViewController`) |
+| **Compose Preview** (`@Preview`) | Compose trên Android | Xem trong khung Design / Split, không cần emulator. UI Android nằm trong `androidApp/` (Jetpack Compose) từ R4 |
 | **Live Edit** | Compose trên Android, app đang chạy (API 30+) | Chỉ sửa UI composable; đổi logic / ViewModel / class mới vẫn phải Run lại |
 | **Apply Changes** (⚡ cạnh nút Run) | Android | Đẩy code đã sửa vào app đang chạy, không cài lại |
 | Compose Hot Reload (JetBrains) | — | Chỉ cho target Desktop; dự án không có Desktop → không dùng được |
