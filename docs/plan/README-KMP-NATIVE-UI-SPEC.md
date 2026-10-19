@@ -3,6 +3,7 @@
 # Spec: UI native riêng từng nền tảng, chỉ phần chung dùng KMP
 
 > Tạo: 2026-10-19 · Trạng thái: **Đã duyệt 2026-10-19** · N1 = SKIE · N2 = Swift · N3 = dời Compose UI sang `androidApp/`
+> Tiến độ: **R1 ✅ · R2 🟡** (iOS: tab API đã là SwiftUI, 4 tab còn lại chờ R3) **· R3–R6 ⏳** · Android vẫn vẽ bằng Compose trong `shared` tới R4. Chi tiết: [Plan](README-KMP-NATIVE-UI-PLAN.md)
 > Thay quyết định **D1** của plan cũ (UI chung bằng Compose Multiplatform) bằng phương án thay thế: **KMP core + UI native**.
 
 ## 1. Mục tiêu
@@ -15,7 +16,9 @@ Thay đổi 2 điều:
 Mục đích là học được cả hai kiểu UI native, đồng thời thấy rõ ranh giới: cái gì share được, cái gì phải viết riêng.
 Đây cũng là cách nhiều team KMP thật đang dùng (UI native, logic chung).
 
-## 2. Hiện trạng (2026-10-19)
+## 2. Hiện trạng lúc bắt đầu (2026-10-19)
+
+> Ảnh chụp **trước R1**, giữ lại làm mốc "trước" để so. Trạng thái hôm nay xem dòng *Tiến độ* ở đầu trang.
 
 | Phần | Đang ở đâu | Ghi chú |
 |---|---|---|
