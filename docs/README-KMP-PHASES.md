@@ -119,10 +119,41 @@ Mở folder đó bằng Android Studio; muốn thấy `iosApp/` thì đổi ch�
 
 **Mục tiêu:** phần không đụng phần cứng chỉ viết **một lần**, test chạy trên cả 2 máy. **Chỉ đụng 🧩.**
 
-1. 🧩 **KMP chung**: chép 9 file thuần từ app Android cũ sang `commonMain/core/`: `GattModel`, `BluetoothDecoder`, `BluetoothLookup`, `BluetoothScanFilter`, `BluetoothDeviceInfo`, `DeviceStatus`, `MediaInfo`, `PermissionStatus`, `ScannerActions`.
-2. 🧩 **KMP chung**: thay API chỉ có trên JVM: `java.util.UUID` → `String`, `"%02X".format` → `hex()`, `Charsets` → `decodeToString()`, `org.json` → kotlinx.serialization.
-3. 🧩 **KMP chung**: chuyển 50 test JUnit sang `kotlin.test` trong `commonTest`, thêm 2 test.
-4. ✅ **Kiểm tra**: `./gradlew :shared:allTests`: **52/52** trên Android host **và** iOS Simulator.
+1. 🧩 **KMP chung**: chép 9 file thuần từ app Android cũ sang `commonMain/core/`: [GattModel](https://github.com/tucarmd/native-device-monitor-kmp/blob/9535496/shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/GattModel.kt), [BluetoothDecoder](https://github.com/tucarmd/native-device-monitor-kmp/blob/9535496/shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BluetoothDecoder.kt), [BluetoothLookup](https://github.com/tucarmd/native-device-monitor-kmp/blob/9535496/shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BluetoothLookup.kt), [BluetoothScanFilter](https://github.com/tucarmd/native-device-monitor-kmp/blob/9535496/shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BluetoothScanFilter.kt), [BluetoothDeviceInfo](https://github.com/tucarmd/native-device-monitor-kmp/blob/9535496/shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BluetoothDeviceInfo.kt), [DeviceStatus](https://github.com/tucarmd/native-device-monitor-kmp/blob/9535496/shared/src/commonMain/kotlin/com/learn/ndmkmp/core/device/DeviceStatus.kt), [MediaInfo](https://github.com/tucarmd/native-device-monitor-kmp/blob/9535496/shared/src/commonMain/kotlin/com/learn/ndmkmp/core/media/MediaInfo.kt), [PermissionStatus](https://github.com/tucarmd/native-device-monitor-kmp/blob/9535496/shared/src/commonMain/kotlin/com/learn/ndmkmp/core/permission/PermissionStatus.kt), [ScannerActions](https://github.com/tucarmd/native-device-monitor-kmp/blob/9535496/shared/src/commonMain/kotlin/com/learn/ndmkmp/ui/scanner/ScannerActions.kt).
+2. 🧩 **KMP chung**: thay API chỉ có trên JVM (commonMain không có JVM):
+
+    | App Android cũ | P1 trong commonMain | Vì sao |
+    |---|---|---|
+    | `java.util.UUID` | `String` | iOS không có `java.util`; Android đưa `uuid.toString()`, iOS đưa `CBUUID.uuidString` |
+    | `"%02X".format(b)` | hàm `hex()` tự viết | `String.format` là của JVM |
+    | `Charsets.UTF_8` | `decodeToString()` / `encodeToByteArray()` | có sẵn trong Kotlin chung |
+    | `"%.1f".format(Locale.US)` | `oneDecimal()` | như trên |
+    | `org.json.JSONObject` | `@Serializable` + kotlinx.serialization | `org.json` chỉ có trên Android |
+    | `BluetoothDevice` (Android) | `address: String` | commonMain không thấy class của Android |
+
+3. 🧩 **Gradle**: thêm plugin `kotlinxSerialization` + thư viện `kotlinx-serialization-json`, `kotlin-test` cho `commonTest`, và `withHostTest {}` để test chạy cả trên JVM.
+4. 🧩 **KMP chung**: chuyển 50 test JUnit sang `kotlin.test` trong `commonTest` (chỉ đổi import `org.junit.*` → `kotlin.test.*`), thêm 2 test.
+5. ✅ **Kiểm tra**: `./gradlew :shared:allTests`: **52/52** trên Android host (`testAndroidHostTest`) **và** iOS Simulator (`iosSimulatorArm64Test`). Cùng một file test, chạy 2 nơi = bằng chứng code thật sự dùng chung.
+
+Link file ở mục này trỏ vào **commit P1** (`9535496`). Sau đó:
+
+| File lúc P1 | Bây giờ (`main`) |
+|---|---|
+| `commonMain/core/**` (9 file) | còn nguyên, thêm interface + Ktor + logger ở P2–P7 |
+| `commonMain/ui/scanner/ScannerActions.kt` | dời sang [presentation/scanner/](../shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/scanner/ScannerActions.kt) ở P8, cạnh `ScannerViewModel` |
+| 52 test `commonTest` | còn, thêm test ViewModel (P8) + `iosTest` (P12) → 78 JVM / 82 iOS |
+| `shared/build.gradle.kts` (có Compose MP) | P11 bỏ Compose, P9 thêm SKIE |
+
+**Mở P1 để đọc code** (nhánh `notes/p1` = P1 + comment `📍 P1 note` giải thích, chỉ ở máy local):
+
+```bash
+git -C ../native-device-monitor-kmp-phase-view checkout notes/p1
+cd ../native-device-monitor-kmp-phase-view && ./gradlew :shared:allTests   # 52/52 × 2
+```
+
+Tìm `📍 P1 note` trong Android Studio (Cmd+Shift+F) để đi qua 5 chỗ có ghi chú: `shared/build.gradle.kts`,
+`gradle/libs.versions.toml`, `GattModelTest.kt`, `BluetoothDeviceInfo.kt`, `ScannerActions.kt`. P1 chưa có màn hình mới:
+app vẫn là màn hello của P0, cái cần xem là code + test.
 
 ## P2 · 5 tab UI chạy bằng fake
 
