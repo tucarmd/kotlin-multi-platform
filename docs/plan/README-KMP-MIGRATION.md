@@ -2,7 +2,8 @@
 
 # Plan — Native Device Monitor → one Kotlin app (KMP + Compose Multiplatform)
 
-> Created: 2026-10-16 · Status: **Approved 2026-10-16 (D1–D5 as recommended) · P0 ✅ P1 ✅ P2 ✅ done 2026-10-16**
+> Created: 2026-10-16 · Status: **Approved 2026-10-16 (D1–D5 as recommended) · P0 ✅ P1 ✅ P2 ✅ P6 ✅ · P3 P4 P5 P7 ✅ Android only, iOS not started**
+> Step-by-step per phase (what the dev did, which layer): [Từng phase: dev đã làm gì](../README-KMP-PHASES.md)
 > Learning path: [Học KMP qua Device Pulse](https://tucarmd.github.io/kotlin-multi-platform/lessons/02-setup/) (14 lessons) +
 > official docs [kotlinlang.org/docs/multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html).
 > Done rule (same as the curriculum): **build OK + run for real + screenshot read**. Code written ≠ done.
@@ -62,11 +63,11 @@ Library choices (versions from the wizard / lesson 5, not hand-picked):
 | P0 ✅ | Setup | 2–3 | Wizard layout: Android + iOS, **Share UI**, package `com.learn.ndmkmp` (D4). Hello screen. | Runs on Android emulator **and** iOS simulator, 2 screenshots — [kmp_p0_android.png](../assets/kmp_p0_android.png) · [kmp_p0_ios.png](../assets/kmp_p0_ios.png) |
 | P1 ✅ | Shared core | 4–5 | Move the 8 pure files to `commonMain` (GattModel, BluetoothDecoder, BluetoothLookup, BluetoothScanFilter, BluetoothDeviceInfo, DeviceStatus, MediaInfo, PermissionStatus) + ScannerActions; port their tests to `kotlin.test` | `./gradlew :shared:allTests` green on JVM/Android **and** iOS simulator — 52/52 on both |
 | P2 ✅ | UI shell | 6–8 | Theme tokens + AppCard/AppPrimaryButton/AppHintText, 5-tab bottom bar, every screen on **fake** data behind 5 interfaces | Both platforms show all 5 tabs — [android](../assets/kmp_p2_android_tabs.png) · [ios](../assets/kmp_p2_ios_tabs.png) · [fake GATT](../assets/kmp_p2_android_gatt_fake.png) |
-| P3 | Permissions | 9 | `PermissionService` interface; 🤖 ActivityResult (API ≤30 vs 31+ branch kept) · 🍎 CBManager + AVCaptureDevice authorization; open Settings | Deny → retry → Settings path works on both (real devices) |
-| P4 | BLE | — (app #5 "OBD Link") | `BleClient` interface: scan → connect → discover → read → notify → write → MTU → disconnect; platform rules from the README table (Android GATT queue, iOS 15 s connect timeout, radio-off cleanup) | Full Scanner E2E against nRF Connect advertiser on **Samsung A32 + real iPhone** |
-| P5 | Media | — | 🤖 TakePicture + PickVisualMedia · 🍎 UIImagePickerController / PHPicker presented from Kotlin; image → `ImageBitmap` + MediaInfo | Capture + pick + cancel on real devices (simulator has no camera) |
-| P6 | API | 11 | Ktor client: GET/POST/500/timeout; MockEngine tests | Tab works both platforms, tests green |
-| P7 | Monitor + background | 9, 12 | Providers (battery/network/BT) · FileLogger JSONL · 🤖 FGS + WorkManager in androidMain · 🍎 BGTaskScheduler registered at launch (one call from `iOSApp.swift`) | Logs written while in background on both; screenshot of Monitor logs |
+| P3 🤖✅ 🍎— | Permissions | 9 | `PermissionService` interface; 🤖 ActivityResult (API ≤30 vs 31+ branch kept) · 🍎 CBManager + AVCaptureDevice authorization; open Settings | Deny → retry → Settings path works on both (real devices) |
+| P4 🤖✅ 🍎— | BLE | — (app #5 "OBD Link") | `BleClient` interface: scan → connect → discover → read → notify → write → MTU → disconnect; platform rules from the README table (Android GATT queue, iOS 15 s connect timeout, radio-off cleanup) | Full Scanner E2E against nRF Connect advertiser on **Samsung A32 + real iPhone** |
+| P5 🤖✅ 🍎— | Media | — | 🤖 TakePicture + PickVisualMedia · 🍎 UIImagePickerController / PHPicker presented from Kotlin; image → `ImageBitmap` + MediaInfo | Capture + pick + cancel on real devices (simulator has no camera) |
+| P6 ✅ | API | 11 | Ktor client: GET/POST/500/timeout; MockEngine tests | Tab works both platforms, tests green |
+| P7 🤖✅ 🍎— | Monitor + background | 9, 12 | Providers (battery/network/BT) · FileLogger JSONL · 🤖 FGS + WorkManager in androidMain · 🍎 BGTaskScheduler registered at launch (one call from `iOSApp.swift`) | Logs written while in background on both; screenshot of Monitor logs |
 | P8 | Final | 13–14 | Run task 006 E2E checklist on the new app, lint clean, README + "old vs new" table (lines of code, files, what still needs Swift) | All rows ✅ with screenshots, README updated |
 
 Order matters: P0–P2 can be checked on simulator/emulator only; P3–P5, P7 need **real devices** (BLE, camera, background).
@@ -117,7 +118,23 @@ Order matters: P0–P2 can be checked on simulator/emulator only; P3–P5, P7 ne
   connect → discover (Battery + FFE0 UART, MTU 247) and Pick from library work. Fix found on iOS: "Permissions" tab
   label wrapped to 2 lines → `maxLines = 1`, 11 sp.
 
+- **2026-10-16 · P6 done (both platforms).** `KtorApiService` in commonMain (OkHttp / Darwin engines), 5-branch
+  `ApiResult`, "no network" detected per platform (expect/actual). Prepared for P7: `FileLogger` (kotlinx-io) +
+  `LoopDeviceMonitor`. `createAndroidServices` / `createIosServices` = the one place per platform that picks real vs
+  fake. 67 tests per target green. Emulator against the real network: GET 200, POST 201, HTTP 500, timeout 8 s.
+- **2026-10-16 · P3 Android done.** `AndroidPermissions` + `AndroidPermissionController` + `AndroidBluetoothRadio`,
+  BLE/CAMERA matrix in the shared manifest. Pixel 8 API 34: NOT REQUESTED → DENIED → PERMANENTLY DENIED → Settings,
+  radio card follows `cmd bluetooth_manager disable`.
+- **2026-10-16 · P4 Android scan done.** `AndroidBleClient` (port of the 777-line `BluetoothClientService`). Emulator:
+  scan auto-stops after 10 s, radio off clears the list, revoked permission → Not ready. **Not verified:** connect /
+  discover / read / notify / write / MTU (needs a real phone + nRF Connect).
+- **2026-10-16 · P5 Android done.** `AndroidMediaPicker` (TakePicture + PickVisualMedia, FileProvider). Emulator:
+  capture, cancel, pick, deny → Settings. Known limit: photo lost if Android kills the process while Camera is open.
+- **2026-10-16 · P7 Android done.** Device providers, Foreground Service + WorkManager on the common loop. Emulator:
+  FGS keeps writing "fgs" records in background, WorkManager ENQUEUED + first "worker" record. Every `AppServices`
+  entry on Android is now real. UI files were not touched in P3–P7.
+
 ## 7. Next step
 
-P3 — Permissions: real `PermissionController` in androidMain (ActivityResult, API ≤ 30 vs 31+) and iosMain
-(CBManager + AVCaptureDevice); needs real devices for the deny → retry → Settings path.
+iOS side of P3 / P4 / P5 / P7 in `iosMain` (CBManager + AVCaptureDevice, CoreBluetooth, PHPicker, UIDevice +
+BGTaskScheduler), then BLE GATT end-to-end on real phones, then P8.

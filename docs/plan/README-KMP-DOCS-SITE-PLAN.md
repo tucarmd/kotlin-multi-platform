@@ -12,15 +12,16 @@
 | **S2** | Cấu hình tối thiểu + trang chủ | `mkdocs.yml`, `docs/index.md`, `.gitignore` (`site/`) | Có khung để `mkdocs serve` lên web | `mkdocs build` chạy; còn warning link code (S3 xử lý) |
 | **S3** | Hook đổi link code → GitHub | `hooks/code_links.py` (gốc repo, để file .py không bị chép vào site), `mkdocs.yml` (`hooks:`) | `--strict` không bị chặn mà `.md` vẫn đọc đúng trên GitHub | `mkdocs build --strict` 0 warning; link `#Lxx` mở đúng dòng |
 | **S4** | Nav, theme, mermaid | `mkdocs.yml` | Menu theo thứ tự học; 4 sơ đồ vẽ thành hình | `mkdocs serve` + screenshot: 4 sơ đồ hiện |
-| **S5** | Deploy GitHub Pages (nếu gói GitHub cho phép Pages trên repo private) | `.github/workflows/pages.yml` | Push lên `main` là site tự cập nhật | Lần chạy Actions đầu tiên xanh, mở được URL |
+| **S5** | Deploy GitHub Pages — repo code private (GitHub Free không bật Pages) nên chỉ đẩy **HTML đã build** lên repo public [`tucarmd/native-device-monitor-kmp-docs`](https://github.com/tucarmd/native-device-monitor-kmp-docs) nhánh `gh-pages` | `scripts/deploy-site.sh`, `mkdocs.yml` (`site_url`) | Code vẫn private, site đọc được ở [tucarmd.github.io/native-device-monitor-kmp-docs](https://tucarmd.github.io/native-device-monitor-kmp-docs/). Link "mở file code" trỏ về repo private → người ngoài thấy 404 | `./scripts/deploy-site.sh` chạy xong, mở được URL |
 
 ## Chạy thử
 
 ```bash
 mkdocs serve            # http://127.0.0.1:8000
 mkdocs build --strict   # giống CI
+./scripts/deploy-site.sh   # build + đẩy lên GitHub Pages
 ```
 
 ## Tiến độ
 
-- [x] S1 · [x] S2 · [x] S3 · [x] S4 · [ ] S5
+- [x] S1 · [x] S2 · [x] S3 · [x] S4 · [x] S5

@@ -5,8 +5,9 @@ App `native-device-monitor` cũ (repo private [tucarmd/native-mobile-learning](h
 ## Đọc theo thứ tự
 
 1. [Kế hoạch + tiến độ](plan/README-KMP-MIGRATION.md): mục tiêu, kiến trúc, phase P0–P7, cái gì đã chạy thật.
-2. [App chạy thế nào](README-KMP-HOW-IT-WORKS.md): 6 tầng, app khởi động ai gọi ai, bấm "Scan" hàm nào chạy, KMP gọi SDK nào.
-3. [Kế hoạch site này](plan/README-KMP-DOCS-SITE-PLAN.md): site tài liệu được dựng ra sao (S1–S5).
+2. [Từng phase: dev đã làm gì](README-KMP-PHASES.md): P0 → P7, mỗi bước gắn nhãn 🎨 UI · 🧩 KMP chung · 🤖 Android · 🍎 iOS. **Đọc trang này khi trình bày / review.**
+3. [App chạy thế nào](README-KMP-HOW-IT-WORKS.md): 6 tầng, app khởi động ai gọi ai, bấm "Scan" hàm nào chạy, KMP gọi SDK nào.
+4. [Kế hoạch site này](plan/README-KMP-DOCS-SITE-PLAN.md): site tài liệu được dựng ra sao (S1–S5).
 
 ## Module
 
@@ -36,6 +37,69 @@ xcrun simctl launch "iPhone 17" com.learn.ndmkmp
 
 ## Ảnh chạy thật
 
-| Android (Pixel 8 emulator, API 34) | iOS (iPhone 17 Simulator, iOS 26.5) |
-|---|---|
-| ![P2 Android](assets/kmp_p2_android_tabs.png){ width="200" } | ![P2 iOS](assets/kmp_p2_ios_tabs.png){ width="200" } |
+Chọn tab bên dưới để xem từng màn, Android bên trái · iOS bên phải. Bấm vào ảnh để mở ảnh gốc.
+
+=== "Permissions"
+
+    <div class="shots shots--pair" markdown>
+    <figure markdown>
+    [![Permissions Android](assets/kmp_tab_android_1_permissions.png)](assets/kmp_tab_android_1_permissions.png)
+    <figcaption>Android — Pixel 8, API 34</figcaption>
+    </figure>
+    <figure markdown>
+    [![Permissions iOS](assets/kmp_tab_ios_1_permissions.png)](assets/kmp_tab_ios_1_permissions.png)
+    <figcaption>iOS — iPhone 17, iOS 26.5</figcaption>
+    </figure>
+    </div>
+
+=== "Scanner"
+
+    <div class="shots shots--pair" markdown>
+    <figure markdown>
+    [![Scanner Android](assets/kmp_tab_android_2_scanner.png)](assets/kmp_tab_android_2_scanner.png)
+    <figcaption>Android — Pixel 8, API 34</figcaption>
+    </figure>
+    <figure markdown>
+    [![Scanner iOS](assets/kmp_tab_ios_2_scanner.png)](assets/kmp_tab_ios_2_scanner.png)
+    <figcaption>iOS — iPhone 17, iOS 26.5</figcaption>
+    </figure>
+    </div>
+
+=== "Media"
+
+    <div class="shots shots--pair" markdown>
+    <figure markdown>
+    [![Media Android](assets/kmp_tab_android_3_media.png)](assets/kmp_tab_android_3_media.png)
+    <figcaption>Android — Pixel 8, API 34</figcaption>
+    </figure>
+    <figure markdown>
+    [![Media iOS](assets/kmp_tab_ios_3_media.png)](assets/kmp_tab_ios_3_media.png)
+    <figcaption>iOS — iPhone 17, iOS 26.5</figcaption>
+    </figure>
+    </div>
+
+=== "API"
+
+    <div class="shots shots--pair" markdown>
+    <figure markdown>
+    [![API Android](assets/kmp_tab_android_4_api.png)](assets/kmp_tab_android_4_api.png)
+    <figcaption>Android — Pixel 8, API 34</figcaption>
+    </figure>
+    <figure markdown>
+    [![API iOS](assets/kmp_tab_ios_4_api.png)](assets/kmp_tab_ios_4_api.png)
+    <figcaption>iOS — iPhone 17, iOS 26.5</figcaption>
+    </figure>
+    </div>
+
+=== "Monitor"
+
+    <div class="shots shots--pair" markdown>
+    <figure markdown>
+    [![Monitor Android](assets/kmp_tab_android_5_monitor.png)](assets/kmp_tab_android_5_monitor.png)
+    <figcaption>Android — Pixel 8, API 34</figcaption>
+    </figure>
+    <figure markdown>
+    [![Monitor iOS](assets/kmp_tab_ios_5_monitor.png)](assets/kmp_tab_ios_5_monitor.png)
+    <figcaption>iOS — iPhone 17, iOS 26.5</figcaption>
+    </figure>
+    </div>

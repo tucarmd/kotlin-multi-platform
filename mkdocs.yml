@@ -1,4 +1,5 @@
 site_name: Native Device Monitor KMP
+site_url: https://tucarmd.github.io/native-device-monitor-kmp-docs/
 site_description: Một app Kotlin Multiplatform + Compose Multiplatform cho Android và iOS — plan, sơ đồ, luồng hàm.
 repo_url: https://github.com/tucarmd/native-device-monitor-kmp
 repo_name: tucarmd/native-device-monitor-kmp
@@ -27,13 +28,13 @@ theme:
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: deep purple
-      accent: orange
+      primary: custom
+      accent: custom
       toggle: { icon: material/weather-night, name: Chế độ tối }
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: deep purple
-      accent: orange
+      primary: custom
+      accent: custom
       toggle: { icon: material/weather-sunny, name: Chế độ sáng }
 
 markdown_extensions:
@@ -53,6 +54,7 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.details
+  - pymdownx.tabbed: { alternate_style: true }
 
 # Đổi link code ngoài docs/ → GitHub (xem hooks/code_links.py)
 hooks:
@@ -64,7 +66,11 @@ plugins:
 nav:
   - Trang chủ: index.md
   - Kế hoạch + tiến độ: plan/README-KMP-MIGRATION.md
+  - Từng phase dev làm gì: README-KMP-PHASES.md
   - App chạy thế nào: README-KMP-HOW-IT-WORKS.md
   - Site tài liệu:
       - Spec: plan/README-KMP-DOCS-SITE-SPEC.md
       - Plan S1–S5: plan/README-KMP-DOCS-SITE-PLAN.md
+
+extra_css:
+  - stylesheets/extra.css
