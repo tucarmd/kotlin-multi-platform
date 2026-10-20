@@ -21,7 +21,7 @@ enum AppColor {
 
     // --- Header ---
     /// Title + bar buttons on the blue `primary` nav bar of every screen (set once in `AppHeader.apply()`).
-    static let headerText = Color.black
+    static let headerText = Color.white
 
     // --- Text ---
     /// `--ion-text-color`

@@ -27,7 +27,7 @@ object AppColor {
 
     // --- Header ---
     /** Title on the blue `primary` TopAppBar (`MainActivity`). iOS: `AppHeader.swift`. */
-    val headerText = Color(0xFF000000)
+    val headerText = Color(0xFFFFFFFF)
 
     // --- Text ---
     /** `--ion-text-color` — primary text. */

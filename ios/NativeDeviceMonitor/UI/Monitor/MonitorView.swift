@@ -44,9 +44,12 @@ struct MonitorView: View {
         .navigationTitle(MonitorStrings.title)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            Button { showPomodoro = true } label: { Image(systemName: "timer") }
-                .tint(AppColor.headerText)   // the app tint is blue → invisible on the blue header
-                .accessibilityLabel(PomodoroStrings.openButton)
+            ToolbarItem(placement: .topBarTrailing) {
+                Button { showPomodoro = true } label: { Image(systemName: "timer") }
+                    .tint(AppColor.headerText)   // the app tint is blue → invisible on the blue header
+                    .accessibilityLabel(PomodoroStrings.openButton)
+            }
+            .withoutGlassBackground()
         }
         .navigationDestination(isPresented: $showPomodoro) { PomodoroView(viewModel: pomodoro) }
         // First time + every tick (count changes) → re-read the file so the list updates by itself. Like LaunchedEffect(status.count).

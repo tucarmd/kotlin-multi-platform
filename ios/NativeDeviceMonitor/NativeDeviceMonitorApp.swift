@@ -38,7 +38,7 @@ struct NativeDeviceMonitorApp: App {
     /// Refresh, the first read was always `wifiConnected = false` (seen on the Simulator).
     init() {
         _ = NetworkProvider.shared
-        AppHeader.apply()   // blue header + black text on every screen, before the first View is drawn
+        AppHeader.apply()   // blue header + white text on every screen, before the first View is drawn
     }
 
     var body: some Scene {
