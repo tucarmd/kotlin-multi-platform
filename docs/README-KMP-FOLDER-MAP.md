@@ -63,7 +63,8 @@ native-device-monitor-kmp/
 │   ├── index.md · README-KMP-*.md  các trang · plan/ = spec + plan từng giai đoạn
 │   ├── assets/                    ảnh chụp màn hình
 │   └── stylesheets/extra.css      màu riêng cho site
-├── hooks/                         plugin nhỏ của MkDocs: đổi link code thành link GitHub, sinh README cho repo site
+├── hooks/                         plugin nhỏ của MkDocs: đổi link code thành link GitHub, sinh README cho repo site,
+│                                  kotlin_docs.py lấy site repo kotlin-multi-platform vào tab Học Kotlin (docs/kotlin = symlink)
 ├── scripts/deploy-site.sh         build site rồi đẩy lên repo public native-device-monitor-kmp-docs
 ├── 🟠 build/ · 🟠 site/            sinh ra khi build (Gradle / MkDocs)
 ```

@@ -17,6 +17,9 @@ theme:
   icon:
     logo: material/language-kotlin
   features:
+    - navigation.tabs          # 2 tab trên cùng: Native Device Monitor · Học Kotlin
+    - navigation.tabs.sticky
+    - navigation.indexes
     - navigation.instant
     - navigation.tracking
     - navigation.sections
@@ -55,9 +58,15 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.details
   - pymdownx.tabbed: { alternate_style: true }
+  # 2 cái dưới cho trang của tab Học Kotlin
+  - pymdownx.tasklist: { custom_checkbox: true }
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 # Đổi link code ngoài docs/ → GitHub (xem hooks/code_links.py)
 hooks:
+  - hooks/kotlin_docs.py   # tab Học Kotlin: lấy site repo kotlin-multi-platform (đứng đầu: đổi link trước code_links)
   - hooks/code_links.py
   - hooks/site_readme.py   # README.md cho repo public gh-pages
 
@@ -65,16 +74,20 @@ plugins:
   - search
 
 nav:
-  - Trang chủ: index.md
-  - Bản đồ thư mục: README-KMP-FOLDER-MAP.md
-  - Kế hoạch + tiến độ (P0–P13): plan/README-KMP-MIGRATION.md
-  - Vì sao đổi sang UI native (spec P8–P12): plan/README-KMP-NATIVE-UI-SPEC.md
-  - Từng phase dev làm gì: README-KMP-PHASES.md
-  - App chạy thế nào: README-KMP-HOW-IT-WORKS.md
-  - Sửa code + xem nhanh: README-KMP-DEV-LOOP.md
-  - Site tài liệu:
-      - Spec: plan/README-KMP-DOCS-SITE-SPEC.md
-      - Plan S1–S5: plan/README-KMP-DOCS-SITE-PLAN.md
+  - Native Device Monitor:
+      - Trang chủ: index.md
+      - Bản đồ thư mục: README-KMP-FOLDER-MAP.md
+      - Kế hoạch + tiến độ (P0–P13): plan/README-KMP-MIGRATION.md
+      - Vì sao đổi sang UI native (spec P8–P12): plan/README-KMP-NATIVE-UI-SPEC.md
+      - Từng phase dev làm gì: README-KMP-PHASES.md
+      - App chạy thế nào: README-KMP-HOW-IT-WORKS.md
+      - Sửa code + xem nhanh: README-KMP-DEV-LOOP.md
+      - Site tài liệu:
+          - Spec: plan/README-KMP-DOCS-SITE-SPEC.md
+          - Plan S1–S5: plan/README-KMP-DOCS-SITE-PLAN.md
+  - Học Kotlin:
+      # hooks/kotlin_docs.py thêm "Trang chủ" Kotlin lên đầu và toàn bộ nav site kotlin-multi-platform xuống dưới
+      - Android qua code app này: README-KMP-ANDROID-BASICS.md
 
 extra_css:
   - stylesheets/extra.css

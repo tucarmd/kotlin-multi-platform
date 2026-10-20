@@ -19,7 +19,9 @@ App `native-device-monitor` cũ (repo private [tucarmd/native-mobile-learning](h
 2. [Vì sao đổi sang UI native](plan/README-KMP-NATIVE-UI-SPEC.md): spec của P8–P12 (quyết định N1–N3).
 3. [Từng phase: dev đã làm gì](README-KMP-PHASES.md): P0 → P12, mỗi bước gắn nhãn 🎨 UI · 🧩 KMP chung · 🤖 Android · 🍎 iOS. **Đọc trang này khi trình bày / review.**
 4. [App chạy thế nào](README-KMP-HOW-IT-WORKS.md): 6 tầng, app khởi động ai gọi ai, bấm "Scan" hàm nào chạy, KMP gọi SDK nào.
-5. [Kế hoạch site này](plan/README-KMP-DOCS-SITE-PLAN.md): site tài liệu được dựng ra sao (S1–S5).
+5. [Android cơ bản qua code](README-KMP-ANDROID-BASICS.md) (tab **Học Kotlin**): `onCreate` chạy khi nào, app có mấy Activity, `Bundle` và `savedInstanceState`, dấu `?` (null safety), xoay màn hình mất gì, `enum class AppTab`.
+   Cùng tab đó là toàn bộ lộ trình [Học Kotlin Multiplatform](kotlin/index.md): 14 bài, khái niệm khó, 900 lỗi Kotlin, tra cứu.
+6. [Kế hoạch site này](plan/README-KMP-DOCS-SITE-PLAN.md): site tài liệu được dựng ra sao (S1–S5).
 
 ## Module
 

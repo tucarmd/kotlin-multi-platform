@@ -21,3 +21,6 @@ node_modules/
 # MkDocs output
 site/
 __pycache__/
+
+# Tab Học Kotlin: symlink tới docs/ của repo kotlin-multi-platform (hooks/kotlin_docs.py tự tạo)
+docs/kotlin

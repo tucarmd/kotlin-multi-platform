@@ -8,6 +8,8 @@ import posixpath
 
 def _url(site_url, src):
     # plan/README-KMP-MIGRATION.md → <site>/plan/README-KMP-MIGRATION/ ; index.md → <site>/
+    if not src.endswith(".md"):
+        return site_url + src  # trang tĩnh, vd kotlin/playground/index.html
     path = src[:-3]
     if path == "index" or path.endswith("/index"):
         path = path[: -len("index")]
@@ -18,6 +20,9 @@ def _url(site_url, src):
 
 def _lines(nav, site_url, depth=0):
     for item in nav:
+        if isinstance(item, str):  # trang không ghi tiêu đề (trang mục lục của một nhóm)
+            yield f"{'  ' * depth}- [{item}]({_url(site_url, item)})"
+            continue
         for title, value in item.items():
             pad = "  " * depth
             if isinstance(value, list):
