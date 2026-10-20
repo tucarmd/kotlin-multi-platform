@@ -4,7 +4,7 @@ Nguồn duy nhất vẫn là repo kotlin-multi-platform → sửa bài ở đó,
 
     docs/kotlin  ──symlink──►  <repo kotlin-multi-platform>/docs        (gitignore, hook tự tạo)
     nav "Học Kotlin"         ◄─ nav trong mkdocs.yml của repo đó, thêm tiền tố kotlin/
-    home.html, tabs-item     ◄─ overrides/ của repo đó → build/kotlin-overrides (đổi url sang kotlin/)
+    home.html                ◄─ overrides/ của repo đó → build/kotlin-overrides (đổi url sang kotlin/)
     lesson_bar.py            ◄─ hook "Bài N/14" của repo đó, chỉ đổi đường dẫn bài
     link ra code apps/…      ─► link GitHub của repo đó
 
@@ -64,15 +64,14 @@ def _link_docs():
 
 
 def _overrides():
-    """home.html dùng url gốc site ('roadmap/') → thêm kotlin/ ; tabs-item.html (menu thả xuống) giữ nguyên."""
+    """home.html dùng url gốc site ('roadmap/') → thêm kotlin/. Dropdown tab dùng bản gọn của site này (overrides/)."""
     out = os.path.join(ROOT, "build", "kotlin-overrides")
     shutil.rmtree(out, ignore_errors=True)
-    os.makedirs(os.path.join(out, "partials"))
+    os.makedirs(out)
     with open(os.path.join(REPO, "overrides", "home.html"), encoding="utf-8") as f:
         home = URL_IN_TEMPLATE.sub(lambda m: "{{ '" + PREFIX + m.group(1) + "' | url }}", f.read())
     with open(os.path.join(out, "home.html"), "w", encoding="utf-8") as f:
         f.write(home)
-    shutil.copy(os.path.join(REPO, "overrides", "partials", "tabs-item.html"), os.path.join(out, "partials"))
     return out
 
 

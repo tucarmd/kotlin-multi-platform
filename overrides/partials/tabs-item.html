@@ -1,0 +1,30 @@
+{#-
+  Tab trên cùng + dropdown gọn: rê chuột (hoặc tab bằng bàn phím) vào tab → danh sách link chữ.
+  Trang → 1 link. Nhóm → tiêu đề nhỏ + link các mục con (mục con là nhóm thì link tới trang đầu của nó).
+  Bản gốc: material/templates/partials/tabs-item.html (9.7.7) — chỉ có link tới trang đầu tiên.
+-#}
+{% macro first_url(nav_item) -%}
+  {%- if nav_item.children -%}{{ first_url(nav_item.children | first) }}{%- else -%}{{ nav_item.url | url }}{%- endif -%}
+{%- endmacro %}
+{% macro link(item) -%}
+  <a class="dd__link{% if item.active %} dd__link--active{% endif %}" href="{{ first_url(item) | trim }}">{{ item.title }}</a>
+{%- endmacro %}
+{% macro render(nav_item) %}
+  {% set class = "md-tabs__item" %}
+  {% if nav_item.active %}{% set class = class ~ " md-tabs__item--active" %}{% endif %}
+  <li class="{{ class }}{% if nav_item.children %} dd-tab{% endif %}">
+    <a href="{{ first_url(nav_item) | trim }}" class="md-tabs__link"{% if nav_item.children %} aria-haspopup="true"{% endif %}>{{ nav_item.title }}</a>
+    {% if nav_item.children %}
+      <div class="dd" role="menu">
+        {% for item in nav_item.children %}
+          {% if item.children %}
+            <p class="dd__head">{{ item.title }}</p>
+            {% for sub in item.children %}{{ link(sub) }}{% endfor %}
+          {% else %}
+            {{ link(item) }}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </li>
+{% endmacro %}

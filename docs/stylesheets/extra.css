@@ -561,3 +561,25 @@ body { background: var(--md-default-bg-color); }
 .md-typeset .shots figcaption { margin-top: .7em; font-weight: 650; color: var(--ink); max-width: none; }
 .md-typeset .tabbed-set .shots { margin-top: .6em; }
 .md-typeset .tabbed-labels > label { font-weight: 650; font-size: .8rem; }
+
+/* ── Dropdown gọn dưới tab trên cùng (overrides/partials/tabs-item.html) ── */
+.md-tabs { overflow: visible; }
+.md-tabs__list { overflow: visible; }
+.dd-tab { position: relative; }
+.dd {
+  display: none; position: absolute; top: 100%; left: -.6rem; z-index: 10;
+  min-width: 15rem; max-width: 22rem; max-height: 70vh; overflow-y: auto;
+  padding: .4rem 0; background: var(--md-default-bg-color); border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: .3rem; box-shadow: 0 .4rem 1.2rem rgba(0, 0, 0, .18);
+}
+.dd-tab:hover > .dd, .dd-tab:focus-within > .dd { display: block; }
+.md-tabs .dd__head {
+  margin: .5rem .9rem .15rem; font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em;
+  color: var(--md-default-fg-color--light);
+}
+.md-tabs .dd__link {
+  display: block; padding: .28rem .9rem; font-size: .72rem; line-height: 1.35; white-space: normal;
+  color: var(--md-default-fg-color); opacity: 1;
+}
+.md-tabs .dd__link:hover, .md-tabs .dd__link:focus-visible { background: var(--md-default-fg-color--lightest); color: var(--md-accent-fg-color); }
+.md-tabs .dd__link--active { font-weight: 700; color: var(--md-accent-fg-color); }
