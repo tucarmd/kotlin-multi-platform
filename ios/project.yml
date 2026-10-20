@@ -43,6 +43,8 @@ targets:
         INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
         TARGETED_DEVICE_FAMILY: "1"
         CODE_SIGN_STYLE: Automatic
+        # Kept here (not only hand-edited in the .pbxproj) so `xcodegen generate` doesn't drop it.
+        DEVELOPMENT_TEAM: FCVAGS6GVB
 
   # Unit tests for pure rules (rowActionOf, BluetoothLookup) — Swift Testing, run on the Simulator, no BLE needed.
   # Same cases as android/app/src/test/. Run: see docs/tasks/001-scanner-row-connect.md §6.

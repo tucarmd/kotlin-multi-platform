@@ -23,6 +23,12 @@ struct MonitorView: View {
 
     private let preview = 30
 
+    /// MVVM lesson 01: the Pomodoro screen is pushed from here. Its ViewModel lives in THIS view's `@State`
+    /// (created once, with the real UserDefaults store) so the timer survives going back to Monitor and in again.
+    @State private var pomodoro = PomodoroViewModel(store: UserDefaultsPomodoroSessionStore())
+    /// `-openPomodoro` pushes it on launch — `simctl` can't tap, same trick as `-openMonitor`.
+    @State private var showPomodoro = ProcessInfo.processInfo.arguments.contains("-openPomodoro")
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: AppSpacing.md) {
@@ -37,6 +43,11 @@ struct MonitorView: View {
         .background(AppColor.contentBackground)
         .navigationTitle(MonitorStrings.title)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            Button { showPomodoro = true } label: { Image(systemName: "timer") }
+                .accessibilityLabel(PomodoroStrings.openButton)
+        }
+        .navigationDestination(isPresented: $showPomodoro) { PomodoroView(viewModel: pomodoro) }
         // First time + every tick (count changes) → re-read the file so the list updates by itself. Like LaunchedEffect(status.count).
         .task(id: monitor.count) { await reloadLogs() }
     }

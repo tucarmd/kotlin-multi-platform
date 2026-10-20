@@ -26,7 +26,7 @@ struct NativeDeviceMonitorApp: App {
     /// this flag is for taking acceptance screenshots from the command line.
     @State private var tab: Tab = {
         let args = ProcessInfo.processInfo.arguments
-        if args.contains("-openMonitor") { return .monitor }
+        if args.contains("-openMonitor") || args.contains("-openPomodoro") { return .monitor }
         if args.contains("-openMedia") { return .media }
         if args.contains("-openApi") { return .api }
         return args.contains("-openScanner") ? .scanner : .permissions
