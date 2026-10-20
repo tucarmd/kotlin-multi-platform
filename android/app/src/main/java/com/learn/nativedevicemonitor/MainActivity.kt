@@ -31,7 +31,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.learn.nativedevicemonitor.nativecore.background.BackgroundMonitor
 import com.learn.nativedevicemonitor.nativecore.bluetooth.BluetoothClientService
 import com.learn.nativedevicemonitor.nativecore.bluetooth.BluetoothRadioState
@@ -148,7 +147,7 @@ class MainActivity : ComponentActivity() {
                     title = { Text(AppStrings.APP_TITLE) },
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = AppColor.primary,
-                        titleContentColor = Color.White,
+                        titleContentColor = AppColor.headerText,
                     ),
                 )
             },

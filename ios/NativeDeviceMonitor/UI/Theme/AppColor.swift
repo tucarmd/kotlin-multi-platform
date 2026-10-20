@@ -19,6 +19,10 @@ enum AppColor {
     static let contentBackground = Color(hex: 0xEFF5FF)
     static let surface = Color.white
 
+    // --- Header ---
+    /// Title + bar buttons on the blue `primary` nav bar of every screen (set once in `AppHeader.apply()`).
+    static let headerText = Color.black
+
     // --- Text ---
     /// `--ion-text-color`
     static let textPrimary = Color(hex: 0x2F3134)

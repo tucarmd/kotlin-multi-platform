@@ -45,6 +45,7 @@ struct MonitorView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             Button { showPomodoro = true } label: { Image(systemName: "timer") }
+                .tint(AppColor.headerText)   // the app tint is blue → invisible on the blue header
                 .accessibilityLabel(PomodoroStrings.openButton)
         }
         .navigationDestination(isPresented: $showPomodoro) { PomodoroView(viewModel: pomodoro) }

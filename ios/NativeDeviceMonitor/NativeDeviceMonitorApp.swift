@@ -36,7 +36,10 @@ struct NativeDeviceMonitorApp: App {
 
     /// Week 3: start `NWPathMonitor` as soon as the app opens — the first path arrives tens of ms later; created lazily on
     /// Refresh, the first read was always `wifiConnected = false` (seen on the Simulator).
-    init() { _ = NetworkProvider.shared }
+    init() {
+        _ = NetworkProvider.shared
+        AppHeader.apply()   // blue header + black text on every screen, before the first View is drawn
+    }
 
     var body: some Scene {
         WindowGroup {

@@ -25,6 +25,10 @@ object AppColor {
     /** Background of cards / drawer / top bar. */
     val surface = Color(0xFFFFFFFF)
 
+    // --- Header ---
+    /** Title on the blue `primary` TopAppBar (`MainActivity`). iOS: `AppHeader.swift`. */
+    val headerText = Color(0xFF000000)
+
     // --- Text ---
     /** `--ion-text-color` — primary text. */
     val textPrimary = Color(0xFF2F3134)

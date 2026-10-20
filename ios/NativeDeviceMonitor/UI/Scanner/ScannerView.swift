@@ -120,10 +120,7 @@ struct ScannerView: View {
         .background(AppColor.surface)
         .navigationTitle(ScannerStrings.screenTitle)
         .navigationBarTitleDisplayMode(.inline)
-        // Blue nav bar with white text like the mockup header (Android: TopAppBar in MainActivity)
-        .toolbarBackground(AppColor.primary, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
-        .toolbarColorScheme(.dark, for: .navigationBar)
+        // Blue header + black text: set for the whole app in `AppHeader.apply()` (Android: TopAppBar in MainActivity)
         // Create the CBCentralManager when the tab OPENS, not at app launch — see `start()` in the service.
         .task { await permissions.refreshAll(); radio.start(); service.start() }
         .onChange(of: scenePhase) { _, phase in
