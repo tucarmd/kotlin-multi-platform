@@ -15,6 +15,7 @@ enum ApiStrings {
     static let title = "API"
     static let hint = "Day 10 — GET / POST JSON with headers, query params, HTTP status, timeout (8 s) and no-network handling."
 
+    static let backendTitle = "Connect with"
     static let presetsTitle = "Test requests"
     static let customTitle = "Custom GET"
     static let urlPlaceholder = "https://…"
@@ -35,6 +36,14 @@ enum ApiStrings {
         ApiPreset(label: "GET /status/500 → HTTP error", method: "GET", url: "https://httpbin.org/status/500"),
         ApiPreset(label: "GET /delay/10 → Timeout", method: "GET", url: "https://httpbin.org/delay/10"),
     ]
+
+    /// One line under the Picker: what the selected backend actually is.
+    static func backendHint(_ b: ApiBackend) -> String {
+        switch b {
+        case .urlSession: "Own code · Apple URLSession — no dependency, status code checked by hand."
+        case .alamofire: "Library · Alamofire 5 (SPM) — wraps URLSession, errors come as AFError."
+        }
+    }
 
     /// Bold status line. `ok` = green, otherwise red.
     static func statusLine(_ r: ApiResult) -> (text: String, ok: Bool) {

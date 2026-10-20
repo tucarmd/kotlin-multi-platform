@@ -17,7 +17,7 @@
   - **Notify / Stop** writes the CCCD (`2902`); notifications stream into *Received Data* (last 50, **Clear**). Manual disconnect unsubscribes first; an unexpected disconnect / Bluetooth-off shows a red state and cleans up GATT state.
   - **Write** (Text / Hex + ELM327 presets) and **MTU** (`MTU 247 · max 244 bytes per packet`).
 - **Media** — camera capture + photo picker, shows the image + info (source · name · size · MIME · dimensions), cancel handled.
-- **API** — GET / POST / HTTP 500 / timeout against jsonplaceholder + httpbin; buttons locked while a request is in flight.
+- **API** — GET / POST / HTTP 500 / timeout against jsonplaceholder + httpbin; buttons locked while a request is in flight; 🍎 switch between own `URLSession` code and Alamofire.
 - **Monitor** — battery / network / Bluetooth providers, a JSONL `FileLogger` (append · read · clear, corrupt lines skipped) and a `BackgroundMonitor` (`start(interval)` · `stop()` · `getStatus()` · `getLogs()` · `clearLogs()`) running as an in-app loop, an Android **Foreground Service** / **WorkManager** job, or an iOS **BGAppRefresh** task.
 
 > Code walkthrough (what the code does, why, how to test): [docs/README-HOW-TO-IMPLEMENT.md](../docs/README-HOW-TO-IMPLEMENT.md)
@@ -35,6 +35,7 @@
 | Notify stream → UI · manual / unexpected disconnect · cleanup · error states — [task 003](../docs/tasks/003-gatt-read-notify.md) | ✅ | ✅ |
 | Write characteristic (Text / Hex + ELM327 presets) · MTU — [task 004](../docs/tasks/004-write-mtu.md) | ✅ | ✅ |
 | Media (capture + picker) · API client (GET / POST / error / timeout) — Day 10 | ✅ | ✅ |
+| API client: 2 ways to connect, own `URLSession` code vs **Alamofire**, with a Picker on the API tab — [task 007](../docs/tasks/007-api-two-backends.md) | — | ✅ |
 | Week 3 — device providers · FileLogger JSONL · BackgroundMonitor · 🤖 FGS + WorkManager · 🍎 BGAppRefresh · tab Monitor — [task 005](../docs/tasks/005-week3-nativecore-background.md) | ✅ | ✅ |
 | Final — E2E checklist + refactor checklist + clean build (Lint / Analyze) — [task 006](../docs/tasks/006-final-e2e-cleanup.md) | ✅ | ✅ |
 
