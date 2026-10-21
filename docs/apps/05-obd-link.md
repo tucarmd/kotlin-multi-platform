@@ -3,6 +3,76 @@
 > Cắm dongle ELM327 Bluetooth LE vào cổng OBD-II của xe → app kết nối, hiện vòng tua, tốc độ, nhiệt độ nước làm mát theo
 > thời gian thực, đọc và xoá mã lỗi (DTC).
 
+## Demo: làm xong trông thế nào
+
+Ảnh chụp **app thật trong repo** (không phải mockup), chạy bằng Maestro trên emulator Pixel 8 (Android 14) và Simulator iPhone 17 (iOS 26.5), ngày 2026-10-21.
+Cùng một core KMP, mỗi bên một UI native: so hai tab là thấy **logic giống hệt, giao diện theo chuẩn từng nền tảng**.
+
+=== "🤖 Android · Jetpack Compose"
+
+    <div class="phones phones--demo" markdown>
+    <figure markdown>
+    ![1. Kết nối: quyền + Bluetooth + tìm dongle](assets/obdlink/android-1-connect.jpg)
+    <figcaption>1. Kết nối: quyền + Bluetooth + tìm dongle</figcaption>
+    </figure>
+    <figure markdown>
+    ![2. Mã lỗi: chờ kết nối](assets/obdlink/android-3-codes.jpg)
+    <figcaption>2. Mã lỗi: chờ kết nối</figcaption>
+    </figure>
+    <figure markdown>
+    ![3. Console: gõ lệnh AT / PID tay](assets/obdlink/android-4-console.jpg)
+    <figcaption>3. Console: gõ lệnh AT / PID tay</figcaption>
+    </figure>
+    </div>
+
+=== "🍎 iOS · SwiftUI"
+
+    <div class="phones phones--demo" markdown>
+    <figure markdown>
+    ![1. Kết nối: quyền + Bluetooth + tìm dongle](assets/obdlink/ios-1-connect.jpg)
+    <figcaption>1. Kết nối: quyền + Bluetooth + tìm dongle</figcaption>
+    </figure>
+    <figure markdown>
+    ![2. Mã lỗi: chờ kết nối](assets/obdlink/ios-3-codes.jpg)
+    <figcaption>2. Mã lỗi: chờ kết nối</figcaption>
+    </figure>
+    <figure markdown>
+    ![3. Console: gõ lệnh AT / PID tay](assets/obdlink/ios-4-console.jpg)
+    <figcaption>3. Console: gõ lệnh AT / PID tay</figcaption>
+    </figure>
+    </div>
+
+!!! note "Ảnh chụp không có xe"
+    Emulator và Simulator **không có Bluetooth LE**, nên ảnh dừng ở trạng thái "Chưa kết nối". Tab Trực tiếp
+    (3 đồng hồ vòng tua · tốc độ · nhiệt độ) và danh sách mã lỗi chỉ có số khi nối dongle ELM327 thật hoặc thiết bị giả
+    (mục 10.4). Có dongle rồi thì chụp thêm 2 màn đó vào `docs/apps/assets/obdlink/`.
+
+## Ước lượng thời gian
+
+Cho người **đã học xong 14 bài** (hoặc app trước), gõ lại từ đầu theo 7 bước, mỗi buổi tối khoảng 2–3 giờ.
+Lần đầu làm KMP thì nhân 1,5.
+
+| Việc | Thời gian người làm |
+|---|---|
+| Đọc trang + OBD-II PIDs + datasheet ELM327, mua / dựng dongle giả | 2 giờ |
+| B1 parse PID, DTC, chuỗi hex + test (module `:core:obd` thuần Kotlin) | 4 giờ |
+| B2 hàng đợi lệnh (`Mutex` + timeout + retry), state machine kết nối | 5 giờ |
+| B3 BLE bằng Kable (`:core:ble`), quyền Bluetooth 2 nền tảng | 6 giờ |
+| B4 tách module Gradle, Koin | 1 giờ |
+| B5 UI Android (4 tab) | 4 giờ |
+| B6 UI iOS (4 tab) | 4 giờ |
+| B7 test, README + sơ đồ state machine | 3 giờ |
+| **Chạy + test trên 2 máy** (mục [10](#10-how-to-test)) | 3–4 giờ (dựng thiết bị giả ~1 giờ, test trên xe) |
+| **Tổng** | **≈ 32 giờ · 11–14 buổi tối** |
+
+Thời gian **máy chạy**, đo trên MacBook Pro M1 Pro 16 GB, Xcode 26.5, JDK 17:
+
+| Việc | Đo được |
+|---|---|
+| Build app iOS cho Simulator (`xcodebuild`, Gradle đã có cache) | 2 phút 46 giây |
+| Máy chạy toàn bộ unit test (JVM + iOS Simulator, build lại từ đầu bằng `--rerun-tasks`) | **33 giây** · 132 test (JVM + iOS cộng lại), 0 lỗi |
+| Build + cài Android khi đã build 1 lần (`installDebug`) | dưới 30 giây |
+
 ## 1. Tóm tắt
 
 | | |
@@ -12,7 +82,7 @@
 | **Cần trước** | App 4 · native-mobile-learning phần BLE (scan → GATT → notify → write) |
 | **Thư mục code** | [`apps/ObdLink/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/apps/ObdLink) · package `dev.obdlink` · ✅ đã có code |
 | **Phần cứng** | Dongle ELM327 **BLE** (không phải Bluetooth Classic, iOS không dùng được Classic) · hoặc ESP32 / nRF Connect giả lập |
-| **Thời gian** | 10–14 buổi tối |
+| **Thời gian** | 10–14 buổi tối · [chi tiết](#uoc-luong-thoi-gian) |
 
 So với app 4: không chỉ *đọc* luồng dữ liệu, mà phải **hỏi – chờ – trả lời** qua một kênh chậm, hay rớt, và chỉ xử lý được một lệnh mỗi lần.
 
@@ -142,5 +212,68 @@ notify · hai lệnh gửi cùng lúc vẫn ra đúng thứ tự · timeout → 
 - [OBD-II PIDs (Wikipedia)](https://en.wikipedia.org/wiki/OBD-II_PIDs): công thức từng PID, cách mã hoá DTC
 - [ELM327 datasheet](https://www.elmelectronics.com/wp-content/uploads/2016/07/ELM327DS.pdf): lệnh AT
 - native-mobile-learning: `BluetoothClientService`, task 003 (GATT read / notify), task 004 (write + MTU), `peripheral-setup.md`
+
+
+## 10. How to test
+
+### 10.1 Unit test (tự động, không cần Bluetooth)
+
+```bash
+cd apps/ObdLink
+./gradlew :core:obd:allTests :core:ble:testDebugUnitTest :core:ble:iosSimulatorArm64Test \
+          :shared:testDebugUnitTest :shared:iosSimulatorArm64Test
+```
+
+Toàn bộ logic OBD test bằng `FakeElmTransport` (trả lời cố định như một ELM327), nên phần khó nhất test được mà không cần xe.
+
+### 10.2 Chạy trên máy (cần máy THẬT để kết nối)
+
+```bash
+./gradlew :androidApp:installDebug                 # cắm điện thoại Android thật
+open iosApp/iosApp.xcodeproj                       # chọn iPhone thật, bấm Run
+```
+
+Trên emulator / Simulator vẫn mở được app, xem được màn Kết nối, Console (như ảnh demo), nhưng không quét thấy gì.
+
+### 10.3 Kịch bản test tay (máy thật + dongle hoặc thiết bị giả)
+
+| # | Làm gì | Kết quả đúng |
+|:-:|---|---|
+| 1 | Mở app lần đầu | Thẻ quyền Bluetooth "Chưa cho phép" + nút **Cho phép** |
+| 2 | Cho phép, bấm **Tìm dongle** | "Đang tìm…", dongle hiện trong danh sách kèm dBm |
+| 3 | Chọn dongle | "Đang kết nối…" → "Đang khởi tạo… (ATZ, ATE0, ATL0, ATSP0)" → "Đã kết nối" |
+| 4 | Tab **Trực tiếp**, **Bắt đầu đọc** | RPM / km/h / °C đổi, "≥ 2 lần cập nhật mỗi giây" |
+| 5 | Tab **Mã lỗi**, **Đọc mã** | Thiết bị giả trả `43 01 03 01` → hiện `P0301` + mô tả |
+| 6 | **Xoá mã** | Hỏi xác nhận, xoá xong đọc lại ra rỗng |
+| 7 | Tab **Console**: gửi `ATRV`, `010C` | Log hiện lệnh gửi và câu trả lời thô |
+
+### 10.4 Thiết bị giả và cố làm hư
+
+**Không có xe:** app **nRF Connect** trên một điện thoại khác → *Advertiser* tên `OBDII` + *GATT Server* service `FFF0`,
+characteristic `FFF1` (notify) và `FFF2` (write). Trả lời tay theo `FakeElmTransport.defaultAnswers()`, nhớ kết thúc bằng `>`.
+Hoặc ESP32 theo [Test peripheral setup](native-device-monitor/legacy/peripheral-setup.md).
+
+| Thử | Cách giả lập | Mong đợi |
+|---|---|---|
+| Tắt Bluetooth giữa lúc đọc | Settings › Bluetooth (iOS: không dùng Control Center) | "Bluetooth đang tắt…", không treo ở "Đang đọc" |
+| Rút dongle / tắt thiết bị giả | Tắt Advertiser trong nRF Connect | "Mất kết nối. Đang nối lại 1/3…", cắm lại tự nối |
+| Dongle không phải ELM327 | Trả lời `ATZ` bằng chuỗi lạ | "Dongle không trả lời như một ELM327." |
+| Trả lời cắt nhiều mảnh | Gửi `41 0C` rồi `1A F8>` ở 2 notify | Vẫn ra 1726 rpm (có test trong `PromptCollectorTest`) |
+| Từ chối quyền | Android `adb shell pm revoke dev.obdlink android.permission.BLUETOOTH_SCAN` | Thẻ quyền đỏ, nút Cho phép / Cài đặt ([Platform API › Bluetooth](native-device-monitor/platform-api/02-bluetooth.md)) |
+| Bấm Tìm liên tục (Android 7+) | Bấm 6 lần trong 30 giây | Hệ thống chặn scan im lặng: app không được báo "không có dongle" sai |
+
+## 11. Achievement: xong app này bạn có gì
+
+| 🏅 | Đạt được | Bằng chứng |
+|:-:|---|---|
+| 📡 | BLE trong KMP bằng Kable: scan, connect, notify, write trên cả 2 nền tảng | Kết nối dongle thật trên 2 máy |
+| 🚦 | **State machine** kết nối có reconnect, vẽ được sơ đồ | README, test rớt kết nối |
+| 📬 | Hàng đợi lệnh một-lệnh-một-lúc với `Mutex`, timeout, retry | `CommandQueueTest` |
+| 🔢 | Parse byte / hex theo chuẩn OBD-II (PID, DTC) | `41 0C 1A F8` → 1726 rpm |
+| 🧱 | Tách **nhiều module Gradle** phụ thuộc một chiều; `:core:obd` không biết gì về BLE | `settings.gradle.kts`, không import chéo |
+| 🧪 | Test phần cứng **không cần phần cứng** bằng transport giả | `FakeElmTransport` |
+| 🎓 | Đủ nền để đọc / sửa app BLE thật (như [Native Device Monitor](native-device-monitor/index.md)) | Hoàn thành cả 5 app |
+
+**Về:** [Danh sách 5 app](index.md) · Đọc tiếp app demo lớn: [Native Device Monitor](native-device-monitor/index.md)
 
 **Trước:** [App 4 · Trip Log](04-trip-log.md) · **Về:** [Danh sách 5 app](index.md)

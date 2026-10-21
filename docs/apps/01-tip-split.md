@@ -2,6 +2,71 @@
 
 > Nhập tiền hóa đơn, % tip, số người → mỗi người trả bao nhiêu. Một màn, không mạng, không database, không quyền.
 
+## Demo: làm xong trông thế nào
+
+Ảnh chụp **app thật trong repo** (không phải mockup), chạy bằng Maestro trên emulator Pixel 8 (Android 14) và Simulator iPhone 17 (iOS 26.5), ngày 2026-10-21.
+Cùng một core KMP, mỗi bên một UI native: so hai tab là thấy **logic giống hệt, giao diện theo chuẩn từng nền tảng**.
+
+=== "🤖 Android · Jetpack Compose"
+
+    <div class="phones phones--demo" markdown>
+    <figure markdown>
+    ![1. Mở app: chưa nhập gì](assets/tipsplit/android-1-empty.jpg)
+    <figcaption>1. Mở app: chưa nhập gì</figcaption>
+    </figure>
+    <figure markdown>
+    ![2. 100.000đ · tip 10% · 3 người → 37.000đ](assets/tipsplit/android-2-result.jpg)
+    <figcaption>2. 100.000đ · tip 10% · 3 người → 37.000đ</figcaption>
+    </figure>
+    <figure markdown>
+    ![3. Nhập 0 → báo lỗi, không crash](assets/tipsplit/android-3-error.jpg)
+    <figcaption>3. Nhập 0 → báo lỗi, không crash</figcaption>
+    </figure>
+    </div>
+
+=== "🍎 iOS · SwiftUI"
+
+    <div class="phones phones--demo" markdown>
+    <figure markdown>
+    ![1. Mở app: chưa nhập gì](assets/tipsplit/ios-1-empty.jpg)
+    <figcaption>1. Mở app: chưa nhập gì</figcaption>
+    </figure>
+    <figure markdown>
+    ![2. 100.000đ · tip 10% · 3 người → 37.000đ](assets/tipsplit/ios-2-result.jpg)
+    <figcaption>2. 100.000đ · tip 10% · 3 người → 37.000đ</figcaption>
+    </figure>
+    <figure markdown>
+    ![3. Nhập 0 → báo lỗi, không crash](assets/tipsplit/ios-3-error.jpg)
+    <figcaption>3. Nhập 0 → báo lỗi, không crash</figcaption>
+    </figure>
+    </div>
+
+Hai bên ra **cùng 37.000 đ / người**, tip 10.000 đ, tổng 110.000 đ, dư 1.000 đ do làm tròn: đó là dấu hiệu core chung chạy đúng.
+
+## Ước lượng thời gian
+
+Cho người **đã học xong 14 bài** (hoặc app trước), gõ lại từ đầu theo 7 bước, mỗi buổi tối khoảng 2–3 giờ.
+Lần đầu làm KMP thì nhân 1,5.
+
+| Việc | Thời gian người làm |
+|---|---|
+| Đọc trang này + README, tạo project từ khuôn | 30 phút |
+| B1 model + luật + test viết trước | 2 giờ |
+| B2 `TipCore` · B4 Koin | 1,5 giờ |
+| B5 UI Android (Compose) | 1,5 giờ |
+| B6 UI iOS (SwiftUI) | 1,5 giờ |
+| B7 test thêm, README, KDoc, `TRAP:` | 1 giờ |
+| **Chạy + test trên 2 máy** (mục [10](#10-how-to-test)) | 30–60 phút |
+| **Tổng** | **≈ 8–9 giờ · 3 buổi tối** |
+
+Thời gian **máy chạy**, đo trên MacBook Pro M1 Pro 16 GB, Xcode 26.5, JDK 17:
+
+| Việc | Đo được |
+|---|---|
+| Build app iOS cho Simulator (`xcodebuild`, Gradle đã có cache) | 27 giây |
+| Máy chạy toàn bộ unit test (JVM + iOS Simulator, build lại từ đầu bằng `--rerun-tasks`) | **31 giây** · 42 test (JVM + iOS cộng lại), 0 lỗi |
+| Build + cài Android khi đã build 1 lần (`installDebug`) | dưới 30 giây |
+
 ## 1. Tóm tắt
 
 | | |
@@ -10,7 +75,7 @@
 | **Mới học** | Hàm thuần ở `commonMain` · tiền là `Long` chứ không phải `Double` · `StateFlow` · Koin chỉ một module · `commonTest` |
 | **Cần trước** | [Bài 2](../lessons/02-setup.md) – [4](../lessons/04-share-code.md) |
 | **Thư mục code** | [`apps/TipSplit/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/apps/TipSplit) · package `dev.tipsplit` · ✅ đã có code |
-| **Thời gian** | 2–3 buổi tối |
+| **Thời gian** | 2–3 buổi tối · [chi tiết](#uoc-luong-thoi-gian) |
 
 App này cố tình **không** đụng API nền tảng. Mục tiêu là gõ trọn một vòng 7 bước, làm quen đường đi
 `commonMain → Koin → ViewModel / @Observable → UI` khi chưa có gì phức tạp.
@@ -108,5 +173,81 @@ Case tối thiểu: 0 % tip · 3 người chia 100.000 · làm tròn lên · nh�
 - [Kotlin/kmp-basic-sample](https://github.com/Kotlin/kmp-basic-sample): project KMP nhỏ nhất
 - [Kotlin/KMP-App-Template-Native](https://github.com/Kotlin/KMP-App-Template-Native): cách nối core với Compose + SwiftUI
 - Device Pulse: `shared/.../rules/Rules.kt`, `core/PulseMonitor.kt`, `iosMain/di/KoinIos.kt`
+
+
+## 10. How to test
+
+### 10.1 Unit test (tự động)
+
+```bash
+cd apps/TipSplit
+./gradlew :shared:testDebugUnitTest :shared:iosSimulatorArm64Test   # luật + core, JVM và iOS Simulator
+./gradlew :shared:koverHtmlReportDebug :shared:koverVerifyRules     # coverage: shared/build/reports/kover/htmlDebug
+```
+
+Xanh hết = luật chia tiền đúng trên **cả hai** nền tảng (cùng một file test chạy 2 lần).
+
+### 10.2 Chạy trên 2 máy
+
+```bash
+./gradlew :androidApp:installDebug && adb shell monkey -p dev.tipsplit 1
+cd iosApp && xcodebuild -project iosApp.xcodeproj -scheme iosApp -destination 'platform=iOS Simulator,name=iPhone 17' \
+  -derivedDataPath build/dd CODE_SIGNING_ALLOWED=NO build && \
+  xcrun simctl install booted build/dd/Build/Products/Debug-iphonesimulator/TipSplit.app && xcrun simctl launch booted dev.tipsplit.ios
+# Xem app bằng tiếng Việt: Android `adb shell cmd locale set-app-locales dev.tipsplit --locales vi-VN`
+#                          iOS     `xcrun simctl launch booted dev.tipsplit.ios -AppleLanguages "(vi)"`
+```
+
+### 10.3 Kịch bản test tay (làm trên cả 2 máy, kết quả phải giống nhau)
+
+| # | Làm gì | Kết quả đúng |
+|:-:|---|---|
+| 1 | Mở app | Ô tiền trống, tip 10 %, 2 người, công tắc làm tròn bật, dòng "Nhập tiền hóa đơn…" |
+| 2 | Gõ `100000`, giữ tip 10 %, bấm **+** lên 3 người | **37.000 đ** mỗi người · tip 10.000 đ · tổng 110.000 đ · "Dư 1.000 đ do làm tròn" |
+| 3 | Tắt công tắc làm tròn | 36.667 đ mỗi người, không còn dòng "dư" |
+| 4 | Gõ `120.000`, rồi `120,000`, rồi `120 000` | Cả 3 cùng hiểu là 120.000 |
+| 5 | Gõ `0` / `abc` / số 20 chữ số | Lỗi đỏ dưới ô ("Hóa đơn phải lớn hơn 0"…), không crash |
+| 6 | Bấm **−** về 1 người, bấm tiếp | Không xuống dưới 1 |
+| 7 | Bấm **Làm lại** | Về đúng trạng thái bước 1 |
+
+### 10.4 Cố làm hư
+
+| Thử | Mong đợi | Nếu sai thì nghi |
+|---|---|---|
+| Xoay màn hình khi đã có kết quả (Android) | Số vẫn còn | State nằm trong Composable thay vì `TipCore` / ViewModel |
+| Đổi máy sang tiếng Anh | Chữ đổi, **số không đổi** | Chuỗi cứng trong code (vi phạm quy ước) |
+| Dán số rất dài vào ô tiền | Báo `TooLarge` | Nhân tip trước khi kiểm tra → tràn `Long` |
+
+### 10.5 Maestro (cùng 1 file cho 2 nền tảng)
+
+Repo có sẵn 2 flow ở [`apps/TipSplit/.maestro/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/apps/TipSplit/.maestro), id lấy từ `UiIds.kt`:
+
+```bash
+maestro test -e APP_ID=dev.tipsplit     .maestro/    # Android
+maestro test -e APP_ID=dev.tipsplit.ios .maestro/    # iOS
+```
+
+!!! warning "Bẫy khi chạy trên iOS"
+    Bàn phím `.numberPad` của iOS **không có nút ẩn**, nên lệnh `hideKeyboard` báo *Couldn't hide the keyboard*.
+    Màn hình dùng `.scrollDismissesKeyboard(.interactively)`, nên trên iOS thay `hideKeyboard` bằng một cái vuốt xuống:
+
+    ```yaml
+    - runFlow:
+        when: { platform: iOS }
+        commands:
+          - swipe: { start: "50%, 45%", end: "50%, 80%" }
+    ```
+
+## 11. Achievement: xong app này bạn có gì
+
+| 🏅 | Đạt được | Bằng chứng |
+|:-:|---|---|
+| 🧮 | Viết **logic thuần** trong `commonMain`, chạy y hệt trên Android và iOS | Ảnh demo 2 bên cùng ra 37.000 đ |
+| 💰 | Biết vì sao tiền là `Long` chứ không phải `Double`, làm tròn **lên** cho đúng | `RulesTest`, 3 dòng `TRAP:` |
+| 🔁 | Đi trọn đường `commonMain → Koin → ViewModel / @Observable → Compose / SwiftUI` | `TipCore`, `SplitViewModel`, `SplitModel` |
+| 🧪 | Viết test **trước**, chạy một bộ test trên JVM và iOS Simulator | `:shared:iosSimulatorArm64Test` xanh |
+| 🤖 | (Thêm) Test UI tự động 1 file chạy 2 nền tảng bằng Maestro | `.maestro/split-bill.yaml` |
+
+**Mở khoá:** [App 2 · Pocket Notes](02-pocket-notes.md): thêm database.
 
 **Tiếp:** [App 2 · Pocket Notes](02-pocket-notes.md)

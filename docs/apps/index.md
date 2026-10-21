@@ -11,12 +11,39 @@ Học xong 14 bài với Device Pulse, cách nhanh nhất để nhớ là **làm
 
 | # | App | Làm gì | Mới học thêm | Thời gian |
 |:-:|---|---|---|---|
-| 1 | [🧾 Tip Split](01-tip-split.md) | Chia tiền hóa đơn, tính tiền tip | Hàm thuần ở `commonMain`, `StateFlow`, Koin tối giản, `commonTest`. **Không** gọi API nền tảng | 2–3 buổi |
-| 2 | [📝 Pocket Notes](02-pocket-notes.md) | Ghi chú offline, tìm kiếm, ghim | SQLDelight CRUD, `Flow` từ database, điều hướng list → edit, `kotlinx-datetime` | 4–5 buổi |
-| 3 | [💱 Rate Watch](03-rate-watch.md) | Tỷ giá ngoại tệ, đổi tiền, xem offline | Ktor + `kotlinx.serialization`, offline-first (mạng + cache), `MockEngine` | 5–6 buổi |
+| 1 | [🧾 Tip Split](01-tip-split.md) | Chia tiền hóa đơn, tính tiền tip | Hàm thuần ở `commonMain`, `StateFlow`, Koin tối giản, `commonTest`. **Không** gọi API nền tảng | 2–3 buổi · [≈ 9 giờ](01-tip-split.md#uoc-luong-thoi-gian) |
+| 2 | [📝 Pocket Notes](02-pocket-notes.md) | Ghi chú offline, tìm kiếm, ghim | SQLDelight CRUD, `Flow` từ database, điều hướng list → edit, `kotlinx-datetime` | 4–5 buổi · [≈ 14 giờ](02-pocket-notes.md#uoc-luong-thoi-gian) |
+| 3 | [💱 Rate Watch](03-rate-watch.md) | Tỷ giá ngoại tệ, đổi tiền, xem offline | Ktor + `kotlinx.serialization`, offline-first (mạng + cache), `MockEngine` | 5–6 buổi · [≈ 17 giờ](03-rate-watch.md#uoc-luong-thoi-gian) |
 | — | [📟 Device Pulse](../project/index.md) | *(đã có)* pin, GPS, mạng | `expect/actual` qua interface, xin quyền, cảm biến thật | 14 bài |
-| 4 | [🗺️ Trip Log](04-trip-log.md) | Ghi hành trình GPS khi tắt màn hình | Chạy ngầm (Foreground Service / iOS background location), `callbackFlow`, bản đồ, xuất file | 7–10 buổi |
-| 5 | [🚗 OBD Link](05-obd-link.md) | Đọc RPM, tốc độ, mã lỗi qua dongle OBD-II Bluetooth | BLE bằng Kable, state machine kết nối, hàng đợi lệnh, parse byte, tách nhiều module | 10–14 buổi |
+| 4 | [🗺️ Trip Log](04-trip-log.md) | Ghi hành trình GPS khi tắt màn hình | Chạy ngầm (Foreground Service / iOS background location), `callbackFlow`, bản đồ, xuất file | 7–10 buổi · [≈ 23 giờ](04-trip-log.md#uoc-luong-thoi-gian) |
+| 5 | [🚗 OBD Link](05-obd-link.md) | Đọc RPM, tốc độ, mã lỗi qua dongle OBD-II Bluetooth | BLE bằng Kable, state machine kết nối, hàng đợi lệnh, parse byte, tách nhiều module | 10–14 buổi · [≈ 32 giờ](05-obd-link.md#uoc-luong-thoi-gian) |
+
+## Nhìn trước 5 app
+
+Ảnh chụp app thật trong repo (Android, Jetpack Compose). Mỗi trang app có đủ ảnh **Android + iOS** theo từng bước dùng.
+
+<div class="phones phones--demo phones--index" markdown>
+<figure markdown>
+[![Tip Split](assets/tipsplit/android-2-result.jpg)](01-tip-split.md#demo-lam-xong-trong-the-nao)
+<figcaption>1 · Tip Split</figcaption>
+</figure>
+<figure markdown>
+[![Pocket Notes](assets/pocketnotes/android-2-list.jpg)](02-pocket-notes.md#demo-lam-xong-trong-the-nao)
+<figcaption>2 · Pocket Notes</figcaption>
+</figure>
+<figure markdown>
+[![Rate Watch](assets/ratewatch/android-1-rates.jpg)](03-rate-watch.md#demo-lam-xong-trong-the-nao)
+<figcaption>3 · Rate Watch</figcaption>
+</figure>
+<figure markdown>
+[![Trip Log](assets/triplog/android-2-recording.jpg)](04-trip-log.md#demo-lam-xong-trong-the-nao)
+<figcaption>4 · Trip Log</figcaption>
+</figure>
+<figure markdown>
+[![OBD Link](assets/obdlink/android-1-connect.jpg)](05-obd-link.md#demo-lam-xong-trong-the-nao)
+<figcaption>5 · OBD Link</figcaption>
+</figure>
+</div>
 
 !!! example "App demo: Native Device Monitor"
     Ngoài 5 app luyện tập còn một **app demo** làm xong theo từng phase: [📡 Native Device Monitor](native-device-monitor/index.md).
@@ -33,6 +60,9 @@ Học xong 14 bài với Device Pulse, cách nhanh nhất để nhớ là **làm
 
 Mỗi trang app viết theo cùng mục lục, đọc app nào cũng thấy đúng thứ tự:
 
+- **Demo**: ảnh app thật Android + iOS theo từng bước dùng, để biết sẽ làm ra cái gì
+- **Ước lượng thời gian**: giờ người làm cho từng bước B1–B7 + thời gian máy build / chạy test (đo thật)
+
 1. **Tóm tắt**: cấp độ, mới học gì, cần biết gì trước
 2. **Màn hình**: các màn và việc mỗi màn làm
 3. **Phạm vi**: làm gì / để sau
@@ -42,6 +72,8 @@ Mỗi trang app viết theo cùng mục lục, đọc app nào cũng thấy đú
 7. **Test**: test gì, chạy thế nào
 8. **Xong khi**: checklist chạy thật trên 2 máy
 9. **Tham khảo**: repo, docs nên mở khi kẹt
+10. **How to test**: unit test, lệnh chạy 2 máy, kịch bản test tay (bước → kết quả đúng), cách cố làm app hư, flow Maestro
+11. **Achievement**: làm xong có kỹ năng gì, bằng chứng nằm ở file / test / ảnh nào
 
 Code của mỗi app nằm ở thư mục gốc repo, cạnh `apps/DevicePulse/`: `apps/TipSplit/`, `apps/PocketNotes/`, `apps/RateWatch/`, `apps/TripLog/`, `apps/ObdLink/`.
 

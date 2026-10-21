@@ -18,3 +18,9 @@
 .md-typeset .phones { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin: 1em 0 1.6em; }
 .md-typeset .phones figure { margin: 0; width: 150px; text-align: center; font-size: .72rem; }
 .md-typeset .phones img { width: 100%; border: 3px solid var(--line, #d8d2c4); border-radius: 22px; box-shadow: var(--shadow, 0 6px 18px rgba(0, 0, 0, .12)); background: #000; }
+
+/* 5 app luyện tập (apps/0N-*.md): hàng ảnh demo theo luồng 1 → 4, mỗi tab một nền tảng */
+.md-typeset .phones--demo { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 1rem; align-items: start; }
+.md-typeset .phones--demo figure { width: auto; max-width: 190px; font-size: .74rem; }
+.md-typeset .phones--demo img { background: #fff; border-radius: 16px; }
+@media (max-width: 480px) { .md-typeset .phones--demo { grid-template-columns: repeat(2, 1fr); } }
