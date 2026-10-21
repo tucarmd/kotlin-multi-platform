@@ -27,17 +27,20 @@ flowchart LR
   SC --> F["9 · Flow & StateFlow<br/>dữ liệu chảy theo thời gian"]
   D --> F
   S --> F
+  F --> K["10 · Viết code shared<br/>luật KMP + Ktor service"]
   classDef base fill:#8FB59A,stroke:#1F2A44,color:#1F2A44
   classDef co fill:#7EC8E3,stroke:#1F2A44,color:#1F2A44
   classDef end1 fill:#F5C451,stroke:#1F2A44,color:#1F2A44
   class L,R,N,G,S base
   class C,SC,D co
   class F end1
+  class K end1
 ```
 
 - **Màu xanh lá** là nền cú pháp. Nên đọc trước [bài 4](../lessons/04-share-code.md).
 - **Màu xanh dương** là coroutine. Nên đọc trước [bài 8](../lessons/08-viewmodel-navigation.md) và [bài 11](../lessons/11-network.md).
 - **Màu vàng** là Flow, chỗ mọi thứ gặp nhau. ViewModel của mọi app trong repo đều đưa trạng thái lên UI bằng `StateFlow`.
+- **[10 · Viết code shared](kmp-shared-code.md)** gom mọi thứ lại: luật của `commonMain`, `expect`/`actual`, Swift nhìn Kotlin ra sao, và một Ktor service viết từ đầu, gọi từ Compose lẫn SwiftUI, test chạy cả 2 nền tảng.
 
 ## 9 khái niệm
 
@@ -52,5 +55,6 @@ flowchart LR
 | 7 | [Scope, huỷ và lỗi](structured-concurrency.md) | Coroutine con sống trong cha: huỷ cha thì huỷ hết con |
 | 8 | [Dispatcher](dispatchers.md) | Chọn nhóm thread để chạy: UI, chờ mạng/file, hay tính toán nặng |
 | 9 | [Flow & StateFlow](flow.md) | Dòng giá trị theo thời gian; StateFlow là bảng tỉ số luôn hiện số mới nhất |
+| 10 | [Viết code shared + Ktor service](kmp-shared-code.md) | `commonMain` là ổ cắm chuẩn: viết một lần, Kotlin và Swift cắm vào theo hai kiểu khác nhau |
 
 Bẫy đã gặp khi dùng các khái niệm này (tràn số, `!!`, nuốt lệnh huỷ…) nằm ở [Phụ lục: Kotlin khó gì, bẫy gì](../reference/kotlin-pitfalls.md).

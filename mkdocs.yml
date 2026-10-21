@@ -113,6 +113,7 @@ nav:
           - "7. Scope, huỷ và lỗi": concepts/structured-concurrency.md
           - "8. Dispatcher": concepts/dispatchers.md
           - "9. Flow & StateFlow": concepts/flow.md
+          - "10. Viết code shared + Ktor service": concepts/kmp-shared-code.md
   - "Playground":
       - "Playground": playground/index.html
       - "Dự án Device Pulse":
