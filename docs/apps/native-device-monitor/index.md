@@ -27,7 +27,8 @@ App gốc trước KMP ([app gốc, đọc docs](legacy/index.md) · [code](http
 4. [Từng phase: dev đã làm gì](README-KMP-PHASES.md): P0 → P12, mỗi bước gắn nhãn 🎨 UI · 🧩 KMP chung · 🤖 Android · 🍎 iOS. **Đọc trang này khi trình bày / review.**
 5. [App chạy thế nào](README-KMP-HOW-IT-WORKS.md): 6 tầng, app khởi động ai gọi ai, bấm "Scan" hàm nào chạy, KMP gọi SDK nào.
 6. [Android cơ bản qua code](README-KMP-ANDROID-BASICS.md): `onCreate` chạy khi nào, app có mấy Activity, `Bundle` và `savedInstanceState`, dấu `?` (null safety), xoay màn hình mất gì, `enum class AppTab`.
-7. Học nền trước: [lộ trình 14 bài](../../roadmap.md), [khái niệm khó](../../concepts/index.md), [900 lỗi Kotlin](../../issues/index.md), [5 app luyện tập](../index.md).
+7. [Platform API: quyền & vòng đời](platform-api/index.md): Location, Bluetooth, Notification, Thư viện ảnh, Picker, Camera, Lifecycle. Mỗi trang so Android ↔ iOS, bảng "khởi động lại / kill / crash", danh sách lỗi có mã (`L01`, `B03`…) kèm lệnh giả lập để cố tình làm app hư.
+8. Học nền trước: [lộ trình 14 bài](../../roadmap.md), [khái niệm khó](../../concepts/index.md), [900 lỗi Kotlin](../../issues/index.md), [5 app luyện tập](../index.md).
 
 ## Module
 

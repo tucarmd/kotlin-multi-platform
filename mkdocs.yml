@@ -137,6 +137,15 @@ nav:
           - "App chạy thế nào": apps/native-device-monitor/README-KMP-HOW-IT-WORKS.md
           - "Sửa code + xem nhanh": apps/native-device-monitor/README-KMP-DEV-LOOP.md
           - "Android cơ bản qua code": apps/native-device-monitor/README-KMP-ANDROID-BASICS.md
+      - "Platform API: quyền & vòng đời":
+          - apps/native-device-monitor/platform-api/index.md
+          - "01 · Location": apps/native-device-monitor/platform-api/01-location.md
+          - "02 · Bluetooth": apps/native-device-monitor/platform-api/02-bluetooth.md
+          - "03 · Notification": apps/native-device-monitor/platform-api/03-notification.md
+          - "04 · Thư viện ảnh (Library)": apps/native-device-monitor/platform-api/04-library.md
+          - "05 · Picker": apps/native-device-monitor/platform-api/05-picker.md
+          - "06 · Camera": apps/native-device-monitor/platform-api/06-camera.md
+          - "07 · Vòng đời (Life Cycle)": apps/native-device-monitor/platform-api/07-lifecycle.md
       - "App gốc (trước KMP)":
           - apps/native-device-monitor/legacy/index.md
           - "How it is implemented": apps/native-device-monitor/legacy/README-HOW-TO-IMPLEMENT.md
