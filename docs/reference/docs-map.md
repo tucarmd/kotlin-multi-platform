@@ -31,11 +31,13 @@ Trang không có bài là phần đọc thêm khi cần — không bắt buộc 
 
 ## Compose Multiplatform UI framework
 
-- [Get started with Compose Multiplatform](https://kotlinlang.org/docs/multiplatform/compose-multiplatform.html) → [bài 6](../lessons/06-compose-basics.md)
+> Lộ trình dùng **UI native** (Jetpack Compose + SwiftUI, [bài 6](../lessons/06-compose-basics.md)); mục này để đọc thêm khi muốn thử UI chung.
+
+- [Get started with Compose Multiplatform](https://kotlinlang.org/docs/multiplatform/compose-multiplatform.html)
 
 ### Compose Multiplatform and Jetpack Compose
 
-- [Relationship between frameworks](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-and-jetpack-compose.html) → [bài 6](../lessons/06-compose-basics.md)
+- [Relationship between frameworks](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-and-jetpack-compose.html)
 - [Multiplatform artifacts for Compose libraries](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-jetpack-libraries.html)
 
 - [Platform differences](https://kotlinlang.org/docs/multiplatform/compose-platform-specifics.html) → [bài 6](../lessons/06-compose-basics.md)

@@ -12,22 +12,27 @@ Trước khi viết tính năng, đọc hiểu project wizard vừa sinh. KMP ch
 
 ```text
 apps/DevicePulse/
-├── composeApp/
-│   ├── build.gradle.kts        # target + thư viện của module
+├── shared/                      # 🧩 Kotlin Multiplatform — KHÔNG có UI
+│   ├── build.gradle.kts        # target + thư viện của module, framework "Shared" cho iOS
 │   └── src/
-│       ├── commonMain/          # code chung: model, rules, UI, ViewModel
-│       ├── androidMain/         # MainActivity + code gọi Android SDK
-│       ├── iosMain/             # MainViewController + code gọi API Apple
+│       ├── commonMain/          # code chung: model, rules, interface cảm biến, PulseMonitor (state)
+│       ├── androidMain/         # cài đặt cảm biến bằng Android SDK
+│       ├── iosMain/             # cài đặt cảm biến bằng API Apple (Kotlin/Native)
 │       └── commonTest/          # test chạy trên mọi target
-├── iosApp/                      # project Xcode, chỉ là vỏ gọi framework ComposeApp
+├── androidApp/                  # 🤖 Kotlin + Jetpack Compose: MainActivity, màn hình, strings.xml
+├── iosApp/                      # 🍎 Swift + SwiftUI: project Xcode, View, Localizable.strings — import Shared
 ├── gradle/libs.versions.toml    # version catalog: phiên bản thư viện, plugin
 ├── build.gradle.kts             # cấu hình gốc (khai báo plugin)
-└── settings.gradle.kts          # danh sách module
+└── settings.gradle.kts          # danh sách module: include(":shared", ":androidApp")
 ```
 
-!!! note "Code mẫu chia module khác"
-    Cây trên là project wizard sinh ra. Code mẫu đã tách thành `shared/` + `androidApp/` + `iosApp/`, kèm giải thích
-    các thư mục `.gradle`, `.idea`, `.kotlin`, `build`, `local.properties`: xem [Cây thư mục của code mẫu](../project/source-code.md#cay-thu-muc).
+Quy tắc đặt file: **không gọi SDK và không vẽ** → `shared/commonMain`. **Gọi SDK** → `shared/androidMain` / `iosMain`.
+**Vẽ màn hình, xin quyền, chuỗi hiển thị** → `androidApp` / `iosApp`.
+
+!!! note "Wizard cũ đặt tên khác"
+    Wizard bản cũ đặt app Android là `composeApp/`. Đổi tên thành `androidApp/` cho giống code mẫu, hoặc giữ nguyên rồi
+    đọc `composeApp` thay cho `androidApp` trong các bài. Giải thích các thư mục `.gradle`, `.idea`, `.kotlin`, `build`,
+    `local.properties`: xem [Cây thư mục của code mẫu](../project/source-code.md#cay-thu-muc).
 
 ## Target — "build ra cho máy nào"
 
@@ -37,7 +42,7 @@ Target là một nền tảng đích. Device Pulse có ba:
 - `iosArm64()` — iPhone thật.
 - `iosSimulatorArm64()` — simulator trên Mac chip Apple.
 
-Khai báo trong khối `kotlin { }` của `composeApp/build.gradle.kts`.
+Khai báo trong khối `kotlin { }` của `shared/build.gradle.kts`. `androidApp` là app Android thường (plugin `com.android.application`), không có target KMP.
 
 ## Source set — "code này dùng cho máy nào"
 
@@ -72,7 +77,7 @@ kotlin {
 
     listOf(iosArm64(), iosSimulatorArm64()).forEach { target ->
         target.binaries.framework {
-            baseName = "ComposeApp"   // tên framework Xcode import
+            baseName = "Shared"       // Swift: import Shared
             isStatic = true
         }
     }
@@ -90,15 +95,17 @@ kotlin {
 
 ## Làm trên Device Pulse
 
-Tạo sẵn các package trong `composeApp/src/commonMain/kotlin/dev/devicepulse/`:
+Tạo sẵn các package trong `shared/src/commonMain/kotlin/dev/devicepulse/`:
 
 | Package | Chứa gì | Bài |
 |---|---|---|
 | `model/` | `BatteryInfo`, `LocationFix`, `NetworkStatus`, `Reading`, `SensorKind` | 4 |
 | `rules/` | hàm thuần `batteryLevel`, `fixQuality`, `latencyGrade` | 4 |
 | `sensor/` | interface `BatterySensor`, `LocationSensor`, `NetworkSensor` | 4 |
-| `ui/` | Dashboard, Detail, `DashboardViewModel` | 6–8 |
+| `core/` | `PulseMonitor` (state chung cho 2 UI), `PulseCore` | 8 |
 | `data/` | `LatencyProbe`, `HistoryRepository` | 11–12 |
+
+Màn hình **không** nằm trong `shared/`: Compose ở `androidApp/src/main/kotlin/dev/devicepulse/android/ui/`, SwiftUI ở `iosApp/iosApp/Views/` (bài 6).
 
 Code cài đặt cảm biến thật sẽ nằm trong `androidMain/kotlin/dev/devicepulse/sensor/` và `iosMain/kotlin/dev/devicepulse/sensor/`.
 

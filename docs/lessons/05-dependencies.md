@@ -58,7 +58,7 @@ Tìm thư viện multiplatform: [klibs.io](https://kotlinlang.org/docs/multiplat
 
 ## Koin: commonModule + platformModule
 
-Cảm biến cài đặt khác nhau trên mỗi nền tảng, nhưng ViewModel chỉ biết interface. Koin nối hai đầu:
+Cảm biến cài đặt khác nhau trên mỗi nền tảng, nhưng state chung (`PulseMonitor`, bài 8) chỉ biết interface. Koin nối hai đầu:
 
 === "commonMain · di/Koin.kt"
 
@@ -69,7 +69,7 @@ Cảm biến cài đặt khác nhau trên mỗi nền tảng, nhưng ViewModel c
     import org.koin.dsl.module
 
     val commonModule = module {
-        // bài 8: viewModelOf(::DashboardViewModel)
+        // bài 8: single { PulseCore(get(), get(), get()) }
     }
 
     expect val platformModule: Module
@@ -104,7 +104,7 @@ Cảm biến cài đặt khác nhau trên mỗi nền tảng, nhưng ViewModel c
     ```
 
 Android: khai báo `android:name=".DevicePulseApp"` trong `AndroidManifest.xml`.
-iOS: trong `iosApp/iosApp/iOSApp.swift`, thêm `init() { KoinKt.doInitKoin() }` (file `Koin.kt` → class `KoinKt`; hàm bắt đầu bằng `init` được Swift thấy là `doInitKoin`).
+iOS: trong `iosApp/iosApp/iOSApp.swift`, thêm `init() { KoinKt.doInitKoin() }` (file `Koin.kt` → class `KoinKt`; hàm bắt đầu bằng `init` được Swift thấy là `doInitKoin`). Từ bài 6 bật SKIE thì gọi gọn `doInitKoin()`.
 
 ## Kermit: log chung
 
@@ -144,7 +144,7 @@ log.i { "Device Pulse khởi động lúc $now" }
 
 ## Tiếp theo?
 
-- [Bài 6: Compose Multiplatform cơ bản](06-compose-basics.md) — dựng Dashboard ba thẻ với dữ liệu giả.
+- [Bài 6: UI native — Jetpack Compose + SwiftUI](06-compose-basics.md) — dựng Dashboard ba thẻ hai lần trên cùng dữ liệu giả.
 - Đọc thêm: [Android dependencies](https://kotlinlang.org/docs/multiplatform/multiplatform-android-dependencies.html) · [iOS dependencies](https://kotlinlang.org/docs/multiplatform/multiplatform-ios-dependencies.html).
 
 ## Docs gốc

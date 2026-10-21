@@ -4,7 +4,7 @@
 [![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin-Multiplatform-7F52FF)](https://kotlinlang.org/docs/multiplatform/get-started.html)
 
 Lộ trình 14 bài, đi theo mục lục docs Kotlin Multiplatform chính chủ. Mỗi bài thêm một mảnh vào cùng một app:
-**Device Pulse**, app đo pin, GPS và mạng của điện thoại, chạy Android và iOS với UI viết chung bằng Compose Multiplatform.
+**Device Pulse**, app đo pin, GPS và mạng của điện thoại, chạy Android và iOS: logic viết một lần bằng Kotlin (KMP), UI viết riêng — Android bằng Kotlin + Jetpack Compose, iOS bằng Swift + SwiftUI.
 
 ```
  Nền (1–5)          Giao diện (6–8)      Cảm biến thật (9–12)        Ra mắt (13–14)

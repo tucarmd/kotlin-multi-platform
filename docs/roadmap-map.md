@@ -15,7 +15,7 @@ Một trang để **nhìn là biết làm gì**: đang ở trạm nào, trạm �
 ```mermaid
 flowchart TB
   Z["0 · Kotlin nền — 1–2 tuần<br/>cú pháp, Koans, Exercism"] --> A["A · Nền KMP — bài 1–5<br/>project chạy 2 nền tảng, code chung"]
-  A --> B["B · Giao diện — bài 6–8<br/>Compose, đa ngôn ngữ, ViewModel"]
+  A --> B["B · Giao diện native — bài 6–8<br/>Jetpack Compose + SwiftUI, đa ngôn ngữ, state chung"]
   B --> C["C · Cảm biến thật — bài 9–12<br/>pin, GPS, mạng, SQLDelight"]
   C --> D["D · Ra mắt — bài 13–14<br/>test, build, CI, crash report"]
   D --> P["5 app luyện tập<br/>Tip Split → OBD Link"]
@@ -55,7 +55,7 @@ flowchart TB
 |---|---|
 | Chưa viết Kotlin bao giờ, chưa rõ `val` / `var`, lambda | [Chặng 0](#chang-0) |
 | Biết Kotlin/Android, chưa đụng KMP | [Chặng A, bài 1](#chang-a) |
-| Đã có project KMP chạy 2 nền tảng, chưa có UI chung | [Chặng B](#chang-b) |
+| Đã có project KMP chạy 2 nền tảng, chưa có màn hình thật | [Chặng B](#chang-b) |
 | UI chạy với dữ liệu giả, chưa đọc cảm biến thật | [Chặng C](#chang-c) |
 | App chạy đủ, chưa có test / bản phát hành | [Chặng D](#chang-d) |
 | Xong 14 bài | [5 app luyện tập](#luyen-tap) + [thực chiến](#thuc-chien) |
@@ -123,26 +123,29 @@ flowchart TB
 <div class="gate"><b>🚦 Cổng A</b> Project chạy 2 nền tảng; tự giải thích được vì sao <code>BatterySensor</code> là interface.
 <a href="../project/checklist/#chang-a-nen">Tick checklist A</a></div>
 
-## Chặng B · Giao diện { #chang-b }
+## Chặng B · Giao diện native { #chang-b }
+
+Mỗi màn viết **hai lần**: Kotlin + Jetpack Compose cho Android, Swift + SwiftUI cho iOS. Cả hai đọc cùng state trong `shared/`.
+Chưa quen Swift: dành 2–3 buổi cho [Swift tour](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/guidedtour/) trước bài 6.
 
 <div class="rmap" style="--zc: var(--sun)">
 <div class="st">
-  <div class="st__top"><span class="st__n">6</span><a class="st__t" href="../lessons/06-compose-basics/">Compose cơ bản</a></div>
-  <p class="st__row"><b class="lg lg--do">Làm</b> Dashboard 3 thẻ với dữ liệu giả, <code>@Preview</code></p>
+  <div class="st__top"><span class="st__n">6</span><a class="st__t" href="../lessons/06-compose-basics/">UI native: Compose + SwiftUI</a></div>
+  <p class="st__row"><b class="lg lg--do">Làm</b> Bật SKIE; Dashboard 3 thẻ vẽ 2 lần (Compose · SwiftUI) trên state giả ở <code>shared/</code></p>
   <p class="st__row"><b class="lg lg--ok">Xong khi</b> Vẽ đủ 5 trạng thái <code>Reading</code> trên 2 nền tảng</p>
-  <p class="st__row"><b class="lg lg--trap">Hay vấp</b> Tai thỏ iOS che tiêu đề (thiếu safe area) · Preview không hiện</p>
+  <p class="st__row"><b class="lg lg--trap">Hay vấp</b> <code>No such module 'Shared'</code> · sửa Kotlin mà iOS không đổi → <a href="../lessons/06-compose-basics/#loi-hay-gap">bài 6</a></p>
 </div>
 <div class="st">
-  <div class="st__top"><span class="st__n">7</span><a class="st__t" href="../lessons/07-resources/">Resources, đa ngôn ngữ</a></div>
-  <p class="st__row"><b class="lg lg--do">Làm</b> Chuỗi vi/en, icon, định dạng khoảng cách</p>
+  <div class="st__top"><span class="st__n">7</span><a class="st__t" href="../lessons/07-resources/">Chuỗi, đa ngôn ngữ</a></div>
+  <p class="st__row"><b class="lg lg--do">Làm</b> <code>strings.xml</code> + <code>Localizable.strings</code> cùng key, enum/luật → chữ + màu ở từng UI</p>
   <p class="st__row"><b class="lg lg--ok">Xong khi</b> Đổi ngôn ngữ máy, app đổi theo cả 2 bên</p>
-  <p class="st__row"><b class="lg lg--trap">Hay vấp</b> <a href="../lessons/07-resources/#loi-hay-gap"><code>Res</code> thiếu chuỗi · iOS không ra tiếng Việt</a></p>
+  <p class="st__row"><b class="lg lg--trap">Hay vấp</b> <a href="../lessons/07-resources/#loi-hay-gap">iOS hiện nguyên key · iOS không ra tiếng Việt</a></p>
 </div>
 <div class="st">
-  <div class="st__top"><span class="st__n">8</span><a class="st__t" href="../lessons/08-viewmodel-navigation/">ViewModel, điều hướng</a></div>
-  <p class="st__row"><b class="lg lg--do">Làm</b> <code>DashboardViewModel</code> + sensor giả + route type-safe</p>
+  <div class="st__top"><span class="st__n">8</span><a class="st__t" href="../lessons/08-viewmodel-navigation/">State chung, điều hướng</a></div>
+  <p class="st__row"><b class="lg lg--do">Làm</b> <code>PulseMonitor</code> + sensor giả; bọc bằng <code>PulseViewModel</code> / <code>PulseModel</code>; NavHost · NavigationStack</p>
   <p class="st__row"><b class="lg lg--ok">Xong khi</b> Xoay màn không mất state; Dashboard → Detail → Back</p>
-  <p class="st__row"><b class="lg lg--trap">Hay vấp</b> <code>Serializer for class 'DetailRoute' is not found</code> → thiếu plugin serialization</p>
+  <p class="st__row"><b class="lg lg--trap">Hay vấp</b> iOS <code>KoinApplication has not been started</code> · UI iOS không vẽ lại → <a href="../lessons/08-viewmodel-navigation/#loi-hay-gap">bài 8</a></p>
 </div>
 </div>
 

@@ -23,7 +23,7 @@ Bài này dựng project Device Pulse bằng wizard và chạy nó trên Android
     - Cài extension **Kotlin by JetBrains** (`JetBrains.kotlin-server`, bản Alpha) — completion, báo lỗi, điều hướng, format, import Gradle.
       Docs ghi rõ: *hỗ trợ Kotlin Multiplatform đang được phát triển*.
     - Máy vẫn cần **JDK 17+**, **Android SDK**, **Xcode** — VS Code không thay được các thứ này.
-    - Build/chạy bằng terminal: `./gradlew :composeApp:assembleDebug` (Android), `./gradlew :composeApp:allTests` (test); iOS mở `iosApp/` bằng Xcode.
+    - Build/chạy bằng terminal: `./gradlew :androidApp:assembleDebug` (Android), `./gradlew :shared:allTests` (test); iOS mở `iosApp/` bằng Xcode.
 
     Khuyên dùng: tạo project + chạy app bằng IntelliJ IDEA / Android Studio, VS Code chỉ là editor phụ.
 
@@ -33,7 +33,8 @@ Dùng wizard trong IDE (*New Project → Kotlin Multiplatform*) hoặc trang web
 
 - **Tên:** `DevicePulse` · **package:** `dev.devicepulse`
 - **Nền tảng:** Android, iOS
-- **iOS UI:** chọn **Share UI** (Compose Multiplatform)
+- **iOS UI:** chọn **Do not share UI** (dùng SwiftUI). Android vẫn là Jetpack Compose.
+- Wizard sinh 3 phần: `shared/` (Kotlin chung), app Android (`androidApp/` — wizard cũ đặt tên `composeApp/`, đổi tên cho giống code mẫu cũng được), `iosApp/` (Xcode, SwiftUI).
 - Bỏ trống các nền tảng còn lại (Web, Server)
 
 Wizard sinh sẵn Gradle, version catalog, project Xcode `iosApp/` và một màn mẫu. **Đừng tự gõ Gradle từ đầu** — dùng file wizard sinh rồi đọc hiểu nó (bài 3).
@@ -42,7 +43,7 @@ Wizard sinh sẵn Gradle, version catalog, project Xcode `iosApp/` và một mà
 
 | Nền tảng | Cách chạy |
 |---|---|
-| Android | chọn cấu hình `composeApp` trong IDE → chọn emulator → chạy (hoặc `./gradlew :composeApp:installDebug`) |
+| Android | chọn cấu hình `androidApp` trong IDE → chọn emulator → chạy (hoặc `./gradlew :androidApp:installDebug`) |
 | iOS | chọn cấu hình `iosApp` → chọn simulator → chạy (lần đầu build lâu vài phút); hoặc mở `iosApp/iosApp.xcodeproj` bằng Xcode rồi Run |
 
 Tên task và cấu hình có thể khác chút tuỳ phiên bản wizard; xem tab Gradle trong IDE.
@@ -61,15 +62,17 @@ Muốn đo pin thật trên iOS thì cần iPhone thật — không bắt buộc
 
 ## Làm trên Device Pulse
 
-1. Mở `App.kt` trong `commonMain`, đổi chữ trên nút mẫu thành **"Device Pulse"**.
-2. Chạy lại trên emulator và simulator. Một chỗ sửa, hai nơi đổi — đó là cảm giác của KMP.
-3. Mở thử *Extended Controls* của emulator và menu *Features → Location* của simulator để biết chúng nằm đâu.
+1. Mở `Greeting.kt` trong `shared/src/commonMain`, đổi chuỗi trả về thành **"Device Pulse trên ${platform.name}"**.
+2. Chạy lại trên emulator và simulator. Một chỗ sửa ở `shared/`, hai app đổi — dù màn Android vẽ bằng Compose
+   (`androidApp/.../App.kt`) còn màn iOS vẽ bằng SwiftUI (`iosApp/iosApp/ContentView.swift`). Đó là cảm giác của KMP.
+3. Ngược lại, đổi màu nút trong `App.kt` chỉ Android đổi; đổi trong `ContentView.swift` chỉ iOS đổi. Ranh giới nằm ở đó.
+4. Mở thử *Extended Controls* của emulator và menu *Features → Location* của simulator để biết chúng nằm đâu.
 
 ## Kiểm tra
 
 - [ ] App chạy trên **Android** emulator, chụp được màn hình.
 - [ ] App chạy trên **iOS** simulator, chụp được màn hình.
-- [ ] Sửa `App.kt` một lần, cả hai nền tảng đổi theo.
+- [ ] Sửa `Greeting.kt` (shared) một lần, cả hai app đổi theo; sửa `App.kt` / `ContentView.swift` thì chỉ một bên đổi.
 - [ ] Tìm được chỗ chỉnh pin/vị trí trên emulator và chỗ chỉnh vị trí trên simulator.
 
 ## Lỗi hay gặp
@@ -86,4 +89,4 @@ Muốn đo pin thật trên iOS thì cần iPhone thật — không bắt buộc
 
 ## Docs gốc
 
-[Get started](https://kotlinlang.org/docs/multiplatform/get-started.html) · [Create app with shared UI](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-new-project.html)
+[Get started](https://kotlinlang.org/docs/multiplatform/get-started.html) · [Create an app with native UI](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)

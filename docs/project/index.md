@@ -33,10 +33,14 @@ trên iOS Simulator), `Error`. UI chỉ cần vẽ 5 trạng thái đó, không 
 
 ```mermaid
 flowchart TB
-  subgraph UI["commonMain — Compose Multiplatform (chung)"]
-    S[Dashboard · Detail · History] --> VM[DashboardViewModel]
+  subgraph UI["UI native — viết 2 lần"]
+    SA["androidApp · Jetpack Compose<br/>Dashboard · Detail · History"] --> PVM[PulseViewModel]
+    SI["iosApp · SwiftUI<br/>Dashboard · Detail · History"] --> PM[PulseModel]
   end
-  subgraph SHARED["commonMain — logic chung"]
+  subgraph SHARED["shared/commonMain — logic chung"]
+    VM["PulseMonitor<br/>StateFlow&lt;DashboardState&gt;"]
+    PVM --> VM
+    PM --> VM
     VM --> RULES[rules: batteryLevel · fixQuality · latencyGrade]
     VM --> SENS[interface: BatterySensor · LocationSensor · NetworkSensor]
     VM --> PROBE[LatencyProbe · Ktor]
@@ -50,7 +54,8 @@ flowchart TB
   SENS -.-> I
 ```
 
-- **UI + ViewModel + luật đánh giá + đo độ trễ + lịch sử**: viết một lần ở `commonMain`.
+- **State màn hình (`PulseMonitor`) + luật đánh giá + đo độ trễ + lịch sử**: viết một lần ở `shared/commonMain`.
+- **UI**: viết riêng — Android bằng Kotlin + Jetpack Compose, iOS bằng Swift + SwiftUI. Cả hai chỉ đọc `state` và gọi action, không tự gộp cảm biến.
 - **3 cảm biến**: mỗi cái là một `interface` ở `commonMain`, có 2 bản cài đặt ở `androidMain` và `iosMain`, gắn vào bằng Koin.
 - Không exception nào được chạy qua ranh giới cảm biến: lỗi nào cũng thành `Reading.Error` / `PermissionDenied` / `Unsupported`.
 
@@ -58,21 +63,21 @@ flowchart TB
 
 ```text
 apps/DevicePulse/
-├── composeApp/
+├── shared/                   # 🧩 Kotlin Multiplatform, không có UI
 │   └── src/
 │       ├── commonMain/kotlin/dev/devicepulse/
 │       │   ├── model/        # BatteryInfo, LocationFix, NetworkStatus, Reading
 │       │   ├── rules/        # batteryLevel, fixQuality, latencyGrade
-│       │   ├── sensor/       # interface cảm biến, LatencyProbe, permission
+│       │   ├── sensor/       # interface cảm biến, LatencyProbe
+│       │   ├── core/         # PulseMonitor (state chung), PulseCore
 │       │   ├── data/         # HistoryRepository (SQLDelight)
-│       │   ├── di/           # Koin modules
-│       │   └── ui/           # Dashboard, Detail, History, ViewModel
+│       │   └── di/           # Koin modules
 │       ├── commonMain/sqldelight/…       # PulseDb .sq
-│       ├── commonMain/composeResources/  # strings vi/en, icon
-│       ├── androidMain/…     # MainActivity, cảm biến Android
-│       ├── iosMain/…         # MainViewController, cảm biến iOS
-│       └── commonTest/…      # test luật, ViewModel, LatencyProbe
-├── iosApp/                   # project Xcode bọc app (Info.plist: quyền vị trí)
+│       ├── androidMain/…     # cảm biến Android
+│       ├── iosMain/…         # cảm biến iOS, pulseCore() cho Swift
+│       └── commonTest/…      # test luật, PulseMonitor, LatencyProbe
+├── androidApp/               # 🤖 Kotlin + Jetpack Compose: MainActivity, ui/ (màn hình, PulseViewModel, quyền), res/values*/strings.xml
+├── iosApp/                   # 🍎 Swift + SwiftUI: iOSApp, PulseModel, Views/, *.lproj/Localizable.strings, Info.plist
 └── gradle/libs.versions.toml
 ```
 

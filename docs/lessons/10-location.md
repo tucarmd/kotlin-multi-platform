@@ -1,75 +1,117 @@
 # Vị trí GPS và quyền truy cập
 
-Pin ở [bài 9](09-battery.md) đọc được ngay, còn vị trí thì phải **xin quyền** trước. Bài này viết luồng xin quyền
-dùng chung cho cả hai nền tảng, rồi đọc GPS thật bằng API gốc của Android và iOS — không cần Google Play Services.
+Pin ở [bài 9](09-battery.md) đọc được ngay, còn vị trí thì phải **xin quyền** trước. Bài này viết phần xin quyền
+ở UI của từng app, rồi đọc GPS thật bằng API gốc của Android và iOS — không cần Google Play Services.
 
 ## Mục tiêu
 
-- Một hàm `rememberLocationPermission()` dùng trong Compose chung, mỗi nền tảng tự cài đặt.
+- Xin quyền ở tầng UI của từng app: `rememberLocationPermission()` (Compose) và `LocationPermission` (Swift).
 - `AndroidLocationSensor` và `IosLocationSensor` phát `Reading<LocationFix>`; bị từ chối quyền thì ra `Reading.PermissionDenied`.
 - Màn Detail hiện độ chính xác và `fixQuality`.
 
-## Quyền: `expect` composable
+## Quyền: việc của UI, viết ở từng app
 
-Xin quyền là việc của UI, nên khai báo một composable `expect` trong `commonMain`:
+Hộp thoại xin quyền gắn với màn hình (Activity bên Android, view đang hiện bên iOS), nên phần **hỏi quyền** nằm ở
+`androidApp` / `iosApp`, viết bằng ngôn ngữ của từng bên. Phần **đọc vị trí** vẫn ở `shared/` (Kotlin, `androidMain` /
+`iosMain`): cảm biến tự kiểm tra quyền và phát `Reading.PermissionDenied` khi chưa có.
 
-```kotlin
-// commonMain
-interface PermissionRequester { val granted: Boolean; fun request() }
+=== "Android · Kotlin + Compose"
 
-@Composable
-expect fun rememberLocationPermission(): PermissionRequester
-```
+    ```kotlin
+    // androidApp/.../ui/LocationPermission.kt
+    private val LOCATION_PERMISSIONS = arrayOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+    )
 
-**Android** dùng Activity Result API:
-
-```kotlin
-// androidMain
-@Composable
-actual fun rememberLocationPermission(): PermissionRequester {
-    val context = LocalContext.current
-    var granted by remember {
-        mutableStateOf(
-            ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED
-        )
+    class LocationPermission internal constructor(
+        private val isGranted: () -> Boolean,
+        private val launch: () -> Unit,
+    ) {
+        val granted: Boolean get() = isGranted()      // đọc trong composable → tự vẽ lại khi người dùng trả lời
+        fun request() = launch()
     }
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted = it }
-    val current = granted
-    return remember(current) {
-        object : PermissionRequester {
-            override val granted = current
-            override fun request() = launcher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+
+    @Composable
+    fun rememberLocationPermission(): LocationPermission {
+        val context = LocalContext.current
+        var isGranted by remember {
+            mutableStateOf(LOCATION_PERMISSIONS.any { context.checkSelfPermission(it) == PackageManager.PERMISSION_GRANTED })
         }
+        val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
+            isGranted = result.values.any { it }
+        }
+        return remember(launcher) { LocationPermission({ isGranted }, { launcher.launch(LOCATION_PERMISSIONS) }) }
     }
-}
-```
+    ```
 
-Khai báo trong `androidMain/AndroidManifest.xml`: `<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />`
-và `ACCESS_COARSE_LOCATION` (Android 12+ cho người dùng chọn vị trí gần đúng).
+    Khai báo trong `androidApp/src/main/AndroidManifest.xml`: `ACCESS_FINE_LOCATION` và `ACCESS_COARSE_LOCATION`
+    (Android 12+ cho người dùng chọn vị trí gần đúng).
 
-**iOS** hỏi qua `CLLocationManager`. Kết quả về qua delegate, nên giữ trạng thái trong một `mutableStateOf`:
+=== "iOS · Swift"
 
-```kotlin
-// iosMain
-@Composable
-actual fun rememberLocationPermission(): PermissionRequester = remember { IosPermissionHolder() }
+    ```swift
+    // iosApp/iosApp/LocationPermission.swift
+    import CoreLocation
+    import Observation
+    import UIKit
 
-private class IosPermissionHolder : PermissionRequester {
-    private val manager = CLLocationManager()
-    private var status by mutableStateOf(manager.authorizationStatus)
-    private val delegate = object : NSObject(), CLLocationManagerDelegateProtocol {
-        override fun locationManagerDidChangeAuthorization(manager: CLLocationManager) {
+    @MainActor @Observable
+    final class LocationPermission: NSObject, CLLocationManagerDelegate {
+        private let manager = CLLocationManager()
+        private(set) var status: CLAuthorizationStatus = .notDetermined
+
+        override init() {
+            super.init()
             status = manager.authorizationStatus
+            manager.delegate = self
+        }
+
+        var granted: Bool { status == .authorizedWhenInUse || status == .authorizedAlways }
+        var canPrompt: Bool { status == .notDetermined }      // iOS chỉ hỏi MỘT lần
+
+        func request() {
+            if canPrompt {
+                manager.requestWhenInUseAuthorization()
+            } else if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url)                  // đã từ chối → chỉ đổi được trong Settings
+            }
+        }
+
+        nonisolated func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+            let status = manager.authorizationStatus
+            Task { @MainActor in self.status = status }
         }
     }
-    init { manager.delegate = delegate }
+    ```
 
-    override val granted: Boolean
-        get() = status == kCLAuthorizationStatusAuthorizedWhenInUse || status == kCLAuthorizationStatusAuthorizedAlways
-    override fun request() = manager.requestWhenInUseAuthorization()
-}
+Cầu nối với lõi: khi quyền vừa được cấp, gọi `monitor.refreshLocation()` để luồng vị trí đăng ký lại (luồng cũ đã phát
+`PermissionDenied` và dừng). Thêm vào `PulseMonitor`:
+
+```kotlin
+private val locationRestarts = MutableStateFlow(0)
+// trong combine: locationRestarts.flatMapLatest { location.observe() } thay cho location.observe()
+fun refreshLocation() { locationRestarts.value++ }
 ```
+
+=== "Android"
+
+    ```kotlin
+    val permission = rememberLocationPermission()
+    LaunchedEffect(Unit) { if (!permission.granted) permission.request() }
+    LaunchedEffect(permission.granted) { if (permission.granted) monitor.refreshLocation() }
+    ```
+
+=== "iOS"
+
+    ```swift
+    // PulseModel thêm: func refreshLocation() { monitor.refreshLocation() }
+    NavigationStack { … }
+        .task { if permission.canPrompt { permission.request() } }
+        .onChange(of: permission.granted) { _, granted in
+            if granted { model.refreshLocation() }
+        }
+    ```
 
 Thiếu khoá `NSLocationWhenInUseUsageDescription` trong `iosApp/iosApp/Info.plist` thì iOS **không hiện hộp thoại**:
 
@@ -150,9 +192,8 @@ Gán delegate xong, iOS gọi `locationManagerDidChangeAuthorization` ngay một
 ## Làm trên Device Pulse
 
 1. Thêm `AndroidLocationSensor` vào `platformModule` Android, `IosLocationSensor` vào `platformModule` iOS (Koin, [bài 5](05-dependencies.md)).
-2. Trên card Vị trí: nếu `!permission.granted` thì hiện nút "Cho phép vị trí" gọi `permission.request()`.
-   iOS tự bắt đầu nhận vị trí nhờ `locationManagerDidChangeAuthorization`; Android thì flow đã phát `PermissionDenied`
-   sẽ dừng, nên khi `granted` đổi sang `true` cần collect lại `observe()`.
+2. Thẻ Vị trí ở trạng thái `PermissionDenied` hiện nút "Cho phép vị trí" gọi `permission.request()` (Compose và SwiftUI).
+   Quyền vừa được cấp → `monitor.refreshLocation()` như trên.
 3. Màn Detail của `SensorKind.Location`: vĩ độ, kinh độ, `accuracyMeters`, tốc độ (nếu có) và nhãn `fixQuality(fix)` — Good / Fair / Poor.
 
 Giả lập vị trí khi test: Android emulator → nút `⋯` → *Extended Controls* → *Location* (chọn điểm rồi *Set location*, hoặc phát route GPX);

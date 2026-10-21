@@ -6,7 +6,7 @@ Nhờ sensor là interface ([bài 4](04-share-code.md)), phần lớn Device Pul
 ## Mục tiêu
 
 - Test các luật `batteryLevel`, `fixQuality`, `latencyGrade` ở đúng ngưỡng.
-- Test `DashboardViewModel` với sensor giả, dùng `kotlinx-coroutines-test` + Turbine.
+- Test `PulseMonitor` (state chung của hai UI) với sensor giả, dùng `kotlinx-coroutines-test` + Turbine.
 - Test `LatencyProbe` với `MockEngine` của Ktor — không gọi mạng thật.
 - Có một bảng test tay cho phần phụ thuộc phần cứng.
 
@@ -83,21 +83,20 @@ class LatencyProbeTest {
 }
 ```
 
-## Test `DashboardViewModel`
+## Test `PulseMonitor`
 
-`viewModelScope` chạy trên `Dispatchers.Main` — trong test không có main thread thật, nên thay bằng `StandardTestDispatcher`:
+`PulseMonitor` chạy trên `scope` được truyền vào, nên test đưa một scope dùng chung bộ lập lịch của test: không cần `Dispatchers.setMain`, không cần Android.
 
 ```kotlin
-@OptIn(ExperimentalCoroutinesApi::class)
-class DashboardViewModelTest {
+class PulseMonitorTest {
     private val dispatcher = StandardTestDispatcher()
-    @BeforeTest fun setUp() = Dispatchers.setMain(dispatcher)
-    @AfterTest fun tearDown() = Dispatchers.resetMain()
+    private val scope = CoroutineScope(SupervisorJob() + dispatcher)   // đóng vai viewModelScope
+    @AfterTest fun tearDown() = scope.cancel()
 
     @Test fun batteryReadingReachesState() = runTest(dispatcher) {
         val battery = FakeBatterySensor()
         val probe = LatencyProbe(HttpClient(MockEngine { respond("", HttpStatusCode.NoContent) }))
-        val vm = DashboardViewModel(battery, FakeLocationSensor(), FakeNetworkSensor(), probe, FakeHistoryRepository())
+        val vm = PulseMonitor(battery, FakeLocationSensor(), FakeNetworkSensor(), probe, FakeHistoryRepository(), scope)
 
         vm.state.test {
             assertEquals(Reading.Loading, awaitItem().battery)
@@ -114,11 +113,11 @@ Viết thêm theo mẫu đó: `measureLatency()` → `latencyMs` đi từ `Loadi
 
 | Lệnh | Chạy test trên |
 |---|---|
-| `./gradlew :composeApp:allTests` | mọi target, gộp báo cáo HTML trong `composeApp/build/reports` |
-| `./gradlew :composeApp:testDebugUnitTest` | JVM (Android) — nhanh nhất khi đang code |
-| `./gradlew :composeApp:iosSimulatorArm64Test` | iOS simulator (chỉ chạy trên macOS) |
+| `./gradlew :shared:allTests` | mọi target, gộp báo cáo HTML trong `shared/build/reports` |
+| `./gradlew :shared:testDebugUnitTest` | JVM (Android) — nhanh nhất khi đang code |
+| `./gradlew :shared:iosSimulatorArm64Test` | iOS simulator (chỉ chạy trên macOS) |
 
-Tên task phụ thuộc target; gõ `./gradlew :composeApp:tasks --group verification` để xem danh sách đúng.
+Tên task phụ thuộc target; gõ `./gradlew :shared:tasks --group verification` để xem danh sách đúng.
 
 ## Làm trên Device Pulse: test tay
 
@@ -136,7 +135,7 @@ chạy được trên cả Android emulator và iOS Simulator.
 
 ## Kiểm tra
 
-- [ ] `RulesTest`, `LatencyProbeTest`, `DashboardViewModelTest` xanh với `testDebugUnitTest` (Android/JVM).
+- [ ] `RulesTest`, `LatencyProbeTest`, `PulseMonitorTest` xanh với `testDebugUnitTest` (Android/JVM).
 - [ ] Cùng các test đó xanh với `iosSimulatorArm64Test`.
 - [ ] Cố tình sửa `<=` thành `<` trong `batteryLevel` → `batteryThresholds` đỏ.
 - [ ] Đi hết bảng test tay trên Android emulator và iOS Simulator.

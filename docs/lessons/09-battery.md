@@ -2,7 +2,7 @@
 
 Tới đây thẻ Pin vẫn chạy bằng `FakeBatterySensor`. Bài này viết code nền tảng đầu tiên: `AndroidBatterySensor` trong
 `androidMain` và `IosBatterySensor` trong `iosMain`, cùng cài interface `BatterySensor` ở `commonMain`, rồi cắm vào Koin.
-ViewModel và UI không sửa một dòng.
+`PulseMonitor` và cả hai UI không sửa một dòng.
 
 ## Mục tiêu
 

@@ -7,7 +7,7 @@ Trạng thái mạng đọc bằng API gốc từng nền tảng; phần đo đ�
 
 - `AndroidNetworkSensor` và `IosNetworkSensor` phát `Reading<NetworkStatus>` mỗi khi mạng đổi.
 - `LatencyProbe` đo thời gian một request tới `https://www.gstatic.com/generate_204`.
-- Nút "Đo độ trễ" gọi `DashboardViewModel.measureLatency()`, card hiện số ms và `latencyGrade`.
+- Nút "Đo độ trễ" (Compose và SwiftUI) gọi `PulseMonitor.measureLatency()`, card hiện số ms và `latencyGrade`.
 
 ## Android: `ConnectivityManager`
 
@@ -122,17 +122,16 @@ class LatencyProbe(private val client: HttpClient) {
 
 ## Làm trên Device Pulse
 
-Thêm `private val probe: LatencyProbe` vào constructor của `DashboardViewModel` (bài 8); `viewModelOf(::DashboardViewModel)` tự lấy nó từ Koin.
+Thêm `private val probe: LatencyProbe` vào constructor của `PulseMonitor` và `PulseCore` (bài 8); `single { PulseCore(get(), get(), get(), get()) }` lấy nó từ Koin.
 
 ```kotlin
-// trong DashboardViewModel
+// trong PulseMonitor (shared/commonMain)
 private val latency = MutableStateFlow<Reading<Long>?>(null)
 
 fun measureLatency() {
-    viewModelScope.launch {
-        latency.value = Reading.Loading
-        latency.value = probe.measure()
-    }
+    if (latency.value == Reading.Loading) return      // đang đo thì bỏ qua lần bấm thứ hai
+    latency.value = Reading.Loading
+    scope.launch { latency.value = probe.measure() }  // scope = viewModelScope (Android) / MainScope (iOS)
 }
 ```
 

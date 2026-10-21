@@ -126,12 +126,13 @@ data class LocationFix(
 enum class ConnectionType { Wifi, Cellular, Ethernet, None, Unknown }
 data class NetworkStatus(val type: ConnectionType, val isOnline: Boolean)
 
-sealed interface Reading<out T> {
-    data object Loading : Reading<Nothing>
-    data class Available<T>(val value: T) : Reading<T>
-    data object PermissionDenied : Reading<Nothing>
-    data object Unsupported : Reading<Nothing>      // vd pin trên iOS simulator
-    data class Error(val message: String) : Reading<Nothing>
+// sealed CLASS (không phải interface): Swift giữ được kiểu Reading<BatteryInfo> khi vẽ UI bằng SwiftUI (bài 6)
+sealed class Reading<out T : Any> {
+    data object Loading : Reading<Nothing>()
+    data class Available<out T : Any>(val value: T) : Reading<T>()
+    data object PermissionDenied : Reading<Nothing>()
+    data object Unsupported : Reading<Nothing>()      // vd pin trên iOS simulator
+    data class Error(val message: String) : Reading<Nothing>()
 }
 
 enum class SensorKind { Battery, Location, Network }

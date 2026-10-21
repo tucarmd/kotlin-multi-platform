@@ -12,7 +12,7 @@ KMP không đổi phần này — nó chỉ làm cho code bên trong là chung. 
 ## Android: AAB đã ký
 
 ```kotlin
-// composeApp/build.gradle.kts
+// androidApp/build.gradle.kts
 android {
     defaultConfig { versionCode = 1; versionName = "1.0.0" }
     signingConfigs {
@@ -33,7 +33,7 @@ android {
 }
 ```
 
-Chạy `./gradlew :composeApp:bundleRelease` → `composeApp/build/outputs/bundle/release/composeApp-release.aab`.
+Chạy `./gradlew :androidApp:bundleRelease` → `androidApp/build/outputs/bundle/release/androidApp-release.aab`.
 
 - Mật khẩu keystore lấy từ biến môi trường, **không** commit file `.jks` hay mật khẩu.
 - Bật Play App Signing: key trên máy bạn chỉ là *upload key*, mất thì xin Google đặt lại được.
@@ -83,7 +83,7 @@ jobs:
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: 17 }
       - uses: gradle/actions/setup-gradle@v4
-      - run: ./gradlew :composeApp:testDebugUnitTest
+      - run: ./gradlew :shared:testDebugUnitTest
   ios:
     runs-on: macos-latest
     steps:
@@ -91,7 +91,7 @@ jobs:
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: 17 }
       - uses: gradle/actions/setup-gradle@v4
-      - run: ./gradlew :composeApp:iosSimulatorArm64Test
+      - run: ./gradlew :shared:iosSimulatorArm64Test
 ```
 
 Muốn một lệnh cho tất cả thì chạy `allTests` trên runner macOS — chậm và tốn phút hơn.
@@ -111,7 +111,7 @@ Những thứ cố ý để ngoài phạm vi, hợp để luyện tiếp:
 - Thông báo khi pin xuống `Critical` hoặc mất mạng.
 - Biểu đồ pin / độ trễ theo thời gian từ bảng `snapshot`.
 - Xuất lịch sử ra CSV, widget màn hình chính.
-- Thêm target Desktop cho Compose Multiplatform.
+- Thêm target Desktop / Web: `shared/` dùng lại nguyên, chỉ cần viết UI cho nền tảng mới (hoặc thử Compose Multiplatform cho riêng nền tảng đó).
 
 ## Kiểm tra
 

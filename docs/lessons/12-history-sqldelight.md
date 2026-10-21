@@ -7,12 +7,12 @@ Chỉ phần *driver* (cách mở file SQLite) là khác theo nền tảng.
 ## Mục tiêu
 
 - Database `PulseDb` với bảng `snapshot`, chạy trên Android và iOS.
-- `SqlHistoryRepository` cài đặt `HistoryRepository`; ViewModel chỉ biết interface.
+- `SqlHistoryRepository` cài đặt `HistoryRepository`; `PulseMonitor` chỉ biết interface.
 - Màn History liệt kê các lần đo, mới nhất ở trên.
 
 ## Cài
 
-Thêm plugin `app.cash.sqldelight` vào `composeApp/build.gradle.kts`, rồi khai báo database:
+Thêm plugin `app.cash.sqldelight` vào `shared/build.gradle.kts`, rồi khai báo database:
 
 ```kotlin
 sqldelight {
@@ -30,7 +30,7 @@ sqldelight {
 
 ## Viết SQL
 
-`composeApp/src/commonMain/sqldelight/dev/devicepulse/db/Snapshot.sq`:
+`shared/src/commonMain/sqldelight/dev/devicepulse/db/Snapshot.sq`:
 
 ```sql
 CREATE TABLE snapshot (
@@ -114,10 +114,11 @@ class SqlHistoryRepository(db: PulseDb) : HistoryRepository {
 
 ## Làm trên Device Pulse
 
-1. Thêm `private val history: HistoryRepository` vào constructor của `DashboardViewModel`, khai báo `single<HistoryRepository> { SqlHistoryRepository(get()) }` trong Koin.
-2. Thêm `fun saveSnapshot()` vào `DashboardViewModel`: `viewModelScope.launch { history.save(state.value) }`.
-3. Nút "Lưu lần đo" trên Dashboard gọi `saveSnapshot()`; nút lịch sử trên thanh trên cùng điều hướng tới `HistoryRoute`.
-4. Màn History: `LazyColumn` các `Snapshot`, mỗi dòng hiện giờ đo, `battery_percent`%, loại mạng, `latency_ms` ms; giá trị `null` hiện "—".
+1. Thêm `private val history: HistoryRepository` vào constructor của `PulseMonitor` (và `PulseCore`), khai báo `single<HistoryRepository> { SqlHistoryRepository(get()) }` trong Koin.
+2. Thêm vào `PulseMonitor`: `fun saveSnapshot() { scope.launch { history.save(state.value) } }` và
+   `val snapshots = history.observe().stateIn(scope, SharingStarted.WhileSubscribed(5_000), emptyList())`.
+3. Nút "Lưu lần đo" trên Dashboard gọi `saveSnapshot()`; nút lịch sử trên thanh trên cùng mở màn Lịch sử (route `history` / `Route.history`).
+4. Màn History viết 2 lần: `LazyColumn` (Compose) và `List` (SwiftUI) các `Snapshot` (iOS đọc `snapshots` qua `for await` như `state`), mỗi dòng hiện giờ đo, `battery_percent`%, loại mạng, `latency_ms` ms; giá trị `null` hiện "—".
    Query `deleteAll` để dành cho nút "Xoá hết" nếu bạn muốn làm thêm.
 
 ## Kiểm tra

@@ -53,10 +53,10 @@ Cây bên trong `shared/src/`, `androidApp/src/` và `iosApp/` có ở mục *C�
 
 ## Code mẫu khác bài học ở đâu
 
-!!! warning "Code mẫu đã chuyển sang UI native"
-    14 bài viết UI **chung** bằng Compose Multiplatform. Code mẫu hiện dùng kiến trúc **KMP core + UI native**:
-    `shared/` chứa toàn bộ logic, `androidApp/` vẽ bằng Jetpack Compose, `iosApp/` vẽ bằng SwiftUI.
-    Phần core và Koin (bài 4–5, 9–13) gần như giữ nguyên; phần UI (bài 6–8) khác bài học.
+!!! info "Bài học và code mẫu cùng một kiến trúc"
+    Từ 2026-10-21, 14 bài dạy đúng kiến trúc của code mẫu: **KMP core + UI native**. `shared/` chứa toàn bộ logic và
+    state (`PulseMonitor`), `androidApp/` vẽ bằng Jetpack Compose, `iosApp/` vẽ bằng SwiftUI. Code trong bài là bản rút gọn;
+    bản đầy đủ (chip mức độ, snackbar, màn Lịch sử) xem trong các file dưới đây.
 
 | Bài | File trong code mẫu (tính từ `apps/DevicePulse/`) |
 |---|---|

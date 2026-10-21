@@ -10,7 +10,7 @@
       <h1>Một code Kotlin, <em>chạy cả Android và iOS.</em></h1>
       <p class="hero__lead">Lộ trình học Kotlin Multiplatform (KMP) đi theo mục lục docs chính chủ của Kotlin, nhưng
         học bằng tay: mỗi bài thêm một mảnh vào cùng một app — <mark>Device Pulse</mark>, app đo pin, GPS và mạng của điện thoại.
-        UI và logic viết chung một lần, phần cảm biến gọi thẳng API riêng của Android và iOS.</p>
+        Logic viết chung một lần bằng Kotlin, UI viết riêng (Jetpack Compose · SwiftUI), phần cảm biến gọi thẳng API riêng của Android và iOS.</p>
       <div class="hero__cta">
         <a class="btn btn--primary" href="{{ 'roadmap/' | url }}">Xem lộ trình 14 bài →</a>
         <a class="btn" href="{{ 'project/' | url }}">App Device Pulse</a>
@@ -23,7 +23,7 @@
       <li><b>3</b> cấu trúc</li>
       <li class="gate"><b>4</b> share code <i>LÕI</i></li>
       <li><b>5</b> thư viện</li>
-      <li class="loop"><b>6</b> Compose <i>UI</i></li>
+      <li class="loop"><b>6</b> Compose + SwiftUI <i>UI</i></li>
       <li><b>7</b> resources</li>
       <li class="loop"><b>8</b> ViewModel <i>UI</i></li>
       <li class="gate"><b>9</b> pin <i>MÁY</i></li>
@@ -48,7 +48,7 @@
       <a class="card c-coral" href="{{ 'lessons/01-what-is-kmp/' | url }}"><span class="card__emoji">🤔</span><b>KMP khác Flutter chỗ nào?</b><span>Chia sẻ logic, UI tuỳ chọn, khi nào nên dùng</span></a>
       <a class="card c-sun" href="{{ 'lessons/02-setup/' | url }}"><span class="card__emoji">🧰</span><b>Cài máy từ số 0</b><span>IDE, plugin KMP, wizard, chạy app đầu tiên</span></a>
       <a class="card c-sky" href="{{ 'lessons/04-share-code/' | url }}"><span class="card__emoji">🔀</span><b>expect / actual là gì?</b><span>Interface chung, cài đặt riêng cho Android và iOS</span></a>
-      <a class="card c-sage" href="{{ 'lessons/06-compose-basics/' | url }}"><span class="card__emoji">🎨</span><b>Một UI cho 2 nền tảng</b><span>Compose Multiplatform: dashboard 3 thẻ</span></a>
+      <a class="card c-sage" href="{{ 'lessons/06-compose-basics/' | url }}"><span class="card__emoji">🎨</span><b>UI native 2 bên</b><span>Jetpack Compose + SwiftUI trên cùng một state</span></a>
       <a class="card c-coral" href="{{ 'lessons/09-battery/' | url }}"><span class="card__emoji">🔋</span><b>Đọc pin thật</b><span>BatteryManager và UIDevice gọi từ Kotlin</span></a>
       <a class="card c-sun" href="{{ 'lessons/10-location/' | url }}"><span class="card__emoji">📍</span><b>GPS + xin quyền</b><span>LocationManager, CLLocationManager, bị từ chối thì sao</span></a>
       <a class="card c-sky" href="{{ 'lessons/11-network/' | url }}"><span class="card__emoji">📶</span><b>Mạng + đo độ trễ</b><span>ConnectivityManager, NWPathMonitor, Ktor</span></a>

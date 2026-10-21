@@ -93,9 +93,9 @@ nav:
           - "3. Cấu trúc project": lessons/03-project-structure.md
           - "4. Chia sẻ code: model và luật": lessons/04-share-code.md
           - "5. Thêm thư viện": lessons/05-dependencies.md
-          - "6. Compose Multiplatform cơ bản": lessons/06-compose-basics.md
-          - "7. Resources và đa ngôn ngữ": lessons/07-resources.md
-          - "8. ViewModel và điều hướng": lessons/08-viewmodel-navigation.md
+          - "6. UI native: Jetpack Compose + SwiftUI": lessons/06-compose-basics.md
+          - "7. Chuỗi và đa ngôn ngữ": lessons/07-resources.md
+          - "8. State chung và điều hướng": lessons/08-viewmodel-navigation.md
           - "9. Đọc pin": lessons/09-battery.md
           - "10. GPS và xin quyền": lessons/10-location.md
           - "11. Mạng và đo độ trễ": lessons/11-network.md

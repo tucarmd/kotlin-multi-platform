@@ -1,150 +1,325 @@
-# Compose Multiplatform cơ bản
+# UI native: Jetpack Compose + SwiftUI
 
-Compose Multiplatform là Jetpack Compose của Android, được JetBrains đưa lên iOS. Biết Jetpack Compose rồi thì gần như
-biết luôn — khác chủ yếu ở **điểm khởi động** của từng nền tảng. Bài này dựng màn Dashboard của Device Pulse với 3 thẻ,
-chạy trên dữ liệu giả.
+Device Pulse **không** dùng chung UI. Lõi Kotlin (`shared/`) giữ dữ liệu và luật, còn mỗi nền tảng tự vẽ màn hình bằng
+bộ UI của chính nó: Android bằng **Kotlin + Jetpack Compose**, iOS bằng **Swift + SwiftUI**. Bài này dựng màn Dashboard
+3 thẻ **hai lần**, cả hai đọc cùng một `DashboardState` giả nằm trong `shared/`.
 
 ## Mục tiêu
 
-- Biết Android và iOS khởi động hàm `App()` chung thế nào.
-- Viết composable `SensorCard` vẽ được mọi trạng thái của `Reading<T>`.
-- Dựng Dashboard 3 thẻ (Pin / Vị trí / Mạng) bằng Material 3, layout và modifier.
+- Biết mỗi app khởi động thế nào và lấy code chung từ đâu (`project(":shared")` · `import Shared`).
+- Viết `SensorCard` + `ReadingContent` bằng Compose và bằng SwiftUI, vẽ đủ 5 trạng thái của `Reading<T>`.
+- Thấy rõ ranh giới: **đổi dữ liệu ở `shared/` → hai UI cùng đổi**; đổi giao diện thì sửa từng bên.
 
-## Một App(), hai điểm khởi động
+## Hai app, một lõi
 
-Toàn bộ UI nằm trong `@Composable fun App()` ở `commonMain`. Mỗi nền tảng chỉ có vài dòng gọi nó:
+```text
+apps/DevicePulse/
+├── shared/      Kotlin Multiplatform: model, luật, cảm biến, state  → Android: thư viện · iOS: Shared.framework
+├── androidApp/  Kotlin + Jetpack Compose — MainActivity → App() → các màn
+└── iosApp/      Swift + SwiftUI — iOSApp → RootView → các View
+```
 
-=== "Android · androidMain"
+=== "Android · androidApp"
 
     ```kotlin
+    // androidApp/build.gradle.kts
+    dependencies {
+        implementation(project(":shared"))          // model, Reading, DashboardState… dùng như một thư viện Kotlin
+        implementation(platform(libs.compose.bom))
+        implementation(libs.compose.material3)
+        implementation(libs.androidx.activity.compose)
+    }
+    ```
+
+    ```kotlin
+    // androidApp/src/main/kotlin/dev/devicepulse/android/MainActivity.kt
     class MainActivity : ComponentActivity() {
         override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
             enableEdgeToEdge()
+            super.onCreate(savedInstanceState)
             setContent { App() }
         }
     }
     ```
 
-=== "iOS · iosMain"
+=== "iOS · iosApp"
 
-    ```kotlin
-    fun MainViewController() = ComposeUIViewController { App() }
+    ```swift
+    // iosApp/iosApp/iOSApp.swift
+    import SwiftUI
+    import Shared            // framework Gradle build từ shared/ (baseName = "Shared")
+
+    @main
+    struct iOSApp: App {
+        var body: some Scene {
+            WindowGroup { DashboardView(state: fakeDashboardState()) }
+        }
+    }
     ```
 
-    Phía Swift (`iosApp/ContentView.swift`, wizard đã tạo sẵn) bọc `MainViewController()` vào SwiftUI qua `UIViewControllerRepresentable`.
+    Xcode có một bước *Run Script* gọi Gradle (`embedAndSignAppleFrameworkForXcode`) để build `Shared.framework`
+    trước khi biên dịch Swift. Wizard tạo sẵn bước này; sửa Kotlin xong chỉ cần bấm Run lại trong Xcode.
 
-## Layout và modifier
+## Dữ liệu giả đặt ở `shared/`
 
-- `Column` / `Row` / `Box` xếp dọc / ngang / chồng; `LazyColumn` cho danh sách dài (chỉ vẽ dòng đang thấy).
-- `Modifier` đổi cỡ, khoảng cách, bấm. **Thứ tự modifier có ý nghĩa**: `padding` trước `background` khác `background` trước `padding`.
-- Composable nên nhận `modifier: Modifier = Modifier` để chỗ gọi tự chỉnh vị trí, cỡ.
-- Tràn viền (edge-to-edge): dùng `Scaffold` hoặc `Modifier.safeDrawingPadding()` để nội dung không bị tai thỏ / thanh trạng thái che.
-
-## Làm trên Device Pulse
-
-`SensorCard` là composable generic: phần khung (tiêu đề, spinner, lỗi) dùng chung, phần hiện giá trị do chỗ gọi truyền vào.
+Cả hai UI phải vẽ **cùng một** state, nên dữ liệu giả viết một lần trong `commonMain`:
 
 ```kotlin
-// commonMain/kotlin/dev/devicepulse/ui/SensorCard.kt
-@Composable
-fun <T> SensorCard(
-    title: String,
-    reading: Reading<T>,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
-    content: @Composable (T) -> Unit,
-) {
-    Card(onClick = onClick, modifier = modifier.fillMaxWidth()) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(title, style = MaterialTheme.typography.titleMedium)
-            when (reading) {
-                Reading.Loading -> CircularProgressIndicator(Modifier.size(24.dp))
-                is Reading.Available -> content(reading.value)
-                Reading.PermissionDenied -> Text("Chưa được cấp quyền", color = MaterialTheme.colorScheme.error)
-                Reading.Unsupported -> Text("Máy này không hỗ trợ")
-                is Reading.Error -> Text("Lỗi: ${reading.message}", color = MaterialTheme.colorScheme.error)
-            }
-        }
-    }
-}
-```
+// shared/src/commonMain/kotlin/dev/devicepulse/core/Fakes.kt
+data class DashboardState(
+    val battery: Reading<BatteryInfo> = Reading.Loading,
+    val location: Reading<LocationFix> = Reading.Loading,
+    val network: Reading<NetworkStatus> = Reading.Loading,
+)
 
-`when` trên `sealed interface` là *exhaustive*: thêm trạng thái mới vào `Reading` mà quên vẽ thì compiler báo lỗi ngay.
-
-Màn Dashboard chỉ nhận `DashboardState` và vẽ — không tự lấy dữ liệu:
-
-```kotlin
-// commonMain/kotlin/dev/devicepulse/ui/DashboardScreen.kt
-@Composable
-fun DashboardScreen(state: DashboardState, modifier: Modifier = Modifier, onOpen: (SensorKind) -> Unit = {}) {
-    Column(
-        modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        SensorCard("Pin", state.battery, onClick = { onOpen(SensorKind.Battery) }) { b ->
-            Text("${b.levelPercent}% · ${b.charging}", style = MaterialTheme.typography.headlineMedium)
-        }
-        SensorCard("Vị trí", state.location, onClick = { onOpen(SensorKind.Location) }) { fix ->
-            Text("${fix.latitude}, ${fix.longitude} (±${fix.accuracyMeters} m)")
-        }
-        SensorCard("Mạng", state.network, onClick = { onOpen(SensorKind.Network) }) { net ->
-            Text(if (net.isOnline) "${net.type} · online" else "Mất mạng")
-        }
-    }
-}
-
-private val fakeState = DashboardState(
+fun fakeDashboardState() = DashboardState(
     battery = Reading.Available(BatteryInfo(levelPercent = 76, charging = ChargingState.Charging)),
     location = Reading.Loading,
     network = Reading.Available(NetworkStatus(ConnectionType.Wifi, isOnline = true)),
 )
-
-@Composable
-fun App() {
-    MaterialTheme {
-        Scaffold { padding -> DashboardScreen(fakeState, Modifier.padding(padding)) }
-    }
-}
 ```
 
-Chuỗi đang viết cứng — bài 7 chuyển ra resources. `DashboardState` là `data class` trong spec chung
-(xem [trang dự án](../project/index.md)); bài 8 mới có ViewModel sinh ra nó.
+Bài 8 dời `DashboardState` vào `PulseMonitor.kt`, nơi sinh ra state thật.
 
-### @Preview
+## Bật SKIE: cho Swift đọc Kotlin dễ chịu
 
-Xem thẻ ngay trong IDE, không cần chạy máy ảo:
+Không có gì thêm, Swift thấy Kotlin qua lớp Objective-C: `sealed class` thành một đống class con, `enum` không `switch`
+gọn được, hàm top-level nằm trong `FakesKt`, `Flow` gần như không dùng được. **SKIE** (Touchlab) là plugin Gradle sinh
+thêm lớp Swift đẹp hơn cho framework:
 
 ```kotlin
-import androidx.compose.ui.tooling.preview.Preview
-
-@Preview
-@Composable
-private fun SensorCardErrorPreview() {
-    MaterialTheme {
-        SensorCard<BatteryInfo>("Pin", Reading.Error("timeout")) {}
-    }
+// shared/build.gradle.kts
+plugins {
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.skie)          // libs.versions.toml: skie = "0.10.x", id "co.touchlab.skie"
 }
 ```
 
-!!! tip "Preview trong commonMain"
-    Bản Compose Multiplatform mới cho phép `@Preview` ngay trong `commonMain` (cần dependency `ui-tooling-preview`,
-    wizard thường thêm sẵn). Không thấy khung preview → kiểm tra plugin Compose Multiplatform trong IDE, hoặc đặt preview tạm ở `androidMain`.
+| Kotlin | Swift không có SKIE | Swift có SKIE |
+|---|---|---|
+| `sealed class Reading` | `if reading is ReadingLoading … else if let a = reading as? ReadingAvailable` | `switch onEnum(of: reading) { case .loading: … case .available(let a): … }` — thiếu nhánh là lỗi build |
+| `enum class ChargingState` | `switch` phải có `default` | `switch` như enum Swift (`.charging`, `.full`) |
+| hàm top-level `fakeDashboardState()` | `FakesKt.fakeDashboardState()` | `fakeDashboardState()` |
+| `StateFlow<T>` (bài 8) | phải tự viết callback | `for await value in flow` |
+
+## Vẽ 5 trạng thái của `Reading`
+
+Phần khung (spinner, chưa có quyền, không hỗ trợ, lỗi) giống nhau ở mọi thẻ, nên tách một component nhận `content` cho
+trạng thái `Available`. Viết **hai lần**, cùng tên, cùng ý:
+
+=== "Kotlin · Jetpack Compose"
+
+    ```kotlin
+    // androidApp/.../ui/Components.kt
+    @Composable
+    fun <T : Any> ReadingContent(reading: Reading<T>, content: @Composable (T) -> Unit) {
+        when (reading) {
+            Reading.Loading -> CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
+            Reading.PermissionDenied -> Text("Chưa được cấp quyền", color = MaterialTheme.colorScheme.error)
+            Reading.Unsupported -> Text("Máy này không hỗ trợ")
+            is Reading.Error -> Text("Lỗi: ${reading.message}", color = MaterialTheme.colorScheme.error)
+            is Reading.Available -> content(reading.value)
+        }
+    }
+
+    @Composable
+    fun SensorCard(emoji: String, title: String, onClick: () -> Unit, body: @Composable () -> Unit) {
+        Card(onClick = onClick, modifier = Modifier.fillMaxWidth()) {
+            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Text("$emoji  $title", style = MaterialTheme.typography.titleMedium)
+                body()
+            }
+        }
+    }
+    ```
+
+=== "Swift · SwiftUI"
+
+    ```swift
+    // iosApp/iosApp/Views/Components.swift
+    struct ReadingView<T: AnyObject, Content: View>: View {
+        let reading: Reading<T>
+        @ViewBuilder let content: (T) -> Content
+
+        var body: some View {
+            switch onEnum(of: reading) {            // SKIE: sealed class Kotlin → enum Swift
+            case .loading:
+                ProgressView()
+            case .permissionDenied:
+                Text("Chưa được cấp quyền").foregroundStyle(.red)
+            case .unsupported:
+                Text("Máy này không hỗ trợ").foregroundStyle(.secondary)
+            case .error(let error):
+                Text("Lỗi: \(error.message)").foregroundStyle(.red)
+            case .available(let available):
+                content(available.value)
+            }
+        }
+    }
+
+    struct SensorCard<Body: View>: View {
+        let emoji: String
+        let title: String
+        let onTap: () -> Void
+        @ViewBuilder let body_: () -> Body
+
+        var body: some View {
+            VStack(alignment: .leading, spacing: 10) {
+                Text("\(emoji)  \(title)").font(.headline)
+                body_()
+            }
+            .padding(16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 16))
+            .onTapGesture(perform: onTap)
+        }
+    }
+    ```
+
+    `T: AnyObject` vì qua Objective-C mọi object Kotlin là class. Nhờ SKIE, `switch` này phủ đủ 5 nhánh — thêm trạng thái
+    mới vào `Reading` mà quên vẽ thì Xcode báo lỗi, đúng như `when` bên Kotlin.
+
+Bên Kotlin, `when` trên `sealed class` là *exhaustive*: thêm trạng thái mới vào `Reading` mà quên vẽ thì Android báo lỗi ngay.
+
+## Màn Dashboard
+
+Màn hình chỉ **nhận state và vẽ**, không tự lấy dữ liệu:
+
+=== "Kotlin · Jetpack Compose"
+
+    ```kotlin
+    // androidApp/.../ui/DashboardScreen.kt
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun DashboardScreen(state: DashboardState, onOpenDetail: (SensorKind) -> Unit = {}) {
+        Scaffold(topBar = { TopAppBar(title = { Text("Device Pulse") }) }) { padding ->
+            LazyColumn(
+                Modifier.fillMaxSize().padding(padding),
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                item {
+                    SensorCard("🔋", "Pin", { onOpenDetail(SensorKind.Battery) }) {
+                        ReadingContent(state.battery) { Text("${it.levelPercent}% · ${it.charging}") }
+                    }
+                }
+                item {
+                    SensorCard("📍", "Vị trí", { onOpenDetail(SensorKind.Location) }) {
+                        ReadingContent(state.location) { Text("${it.latitude}, ${it.longitude}") }
+                    }
+                }
+                item {
+                    SensorCard("📶", "Mạng", { onOpenDetail(SensorKind.Network) }) {
+                        ReadingContent(state.network) { Text(if (it.isOnline) "${it.type} · online" else "Mất mạng") }
+                    }
+                }
+            }
+        }
+    }
+
+    @Composable
+    fun App() = MaterialTheme { DashboardScreen(fakeDashboardState()) }
+    ```
+
+=== "Swift · SwiftUI"
+
+    ```swift
+    // iosApp/iosApp/Views/DashboardView.swift
+    struct DashboardView: View {
+        let state: DashboardState
+
+        var body: some View {
+            NavigationStack {
+                ScrollView {
+                    VStack(spacing: 12) {
+                        SensorCard(emoji: "🔋", title: "Pin", onTap: {}) {
+                            ReadingView(reading: state.battery) { info in
+                                Text("\(info.levelPercent)% · \(info.charging)")
+                            }
+                        }
+                        SensorCard(emoji: "📍", title: "Vị trí", onTap: {}) {
+                            ReadingView(reading: state.location) { fix in
+                                Text("\(fix.latitude), \(fix.longitude)")
+                            }
+                        }
+                        SensorCard(emoji: "📶", title: "Mạng", onTap: {}) {
+                            ReadingView(reading: state.network) { net in
+                                Text(net.isOnline ? "\(net.type) · online" : "Mất mạng")
+                            }
+                        }
+                    }
+                    .padding(16)
+                }
+                .navigationTitle("Device Pulse")
+            }
+        }
+    }
+    ```
+
+Hai bảng tra nhanh khi chuyển qua lại:
+
+| Ý | Jetpack Compose | SwiftUI |
+|---|---|---|
+| Xếp dọc / ngang / chồng | `Column` / `Row` / `Box` | `VStack` / `HStack` / `ZStack` |
+| Danh sách dài | `LazyColumn` | `List` hoặc `ScrollView` + `LazyVStack` |
+| Chỉnh cỡ, lề, nền | `Modifier.padding(16.dp).background(…)` | `.padding(16).background(…)` |
+| State cục bộ | `var x by remember { mutableStateOf(0) }` | `@State private var x = 0` |
+| Thanh tiêu đề | `Scaffold` + `TopAppBar` | `NavigationStack` + `.navigationTitle` |
+| Tai thỏ / thanh trạng thái | `Scaffold` lo, hoặc `Modifier.safeDrawingPadding()` | SwiftUI tự tránh safe area |
+| Xem trước trong IDE | `@Preview` (Android Studio) | `#Preview { … }` (Xcode) |
+
+Thứ tự modifier có ý nghĩa ở **cả hai**: `padding` trước `background` khác `background` trước `padding`.
+
+## Preview
+
+=== "Android Studio"
+
+    ```kotlin
+    @Preview
+    @Composable
+    private fun ErrorCardPreview() = MaterialTheme {
+        SensorCard("🔋", "Pin", {}) { ReadingContent(Reading.Error("timeout")) { } }
+    }
+    ```
+
+=== "Xcode"
+
+    ```swift
+    #Preview {
+        DashboardView(state: fakeDashboardState())
+    }
+    ```
+
+    Preview của Xcode cần `Shared.framework` đã build một lần (Run app trước, hoặc `./gradlew :shared:linkDebugFrameworkIosSimulatorArm64`).
+
+## Làm trên Device Pulse
+
+1. Bật plugin SKIE trong `shared/build.gradle.kts`, thêm `Fakes.kt` vào `shared/src/commonMain/.../core/`.
+2. Android: `Components.kt`, `DashboardScreen.kt`, `App()` như trên.
+3. iOS: tạo nhóm `Views/` trong Xcode, thêm `Components.swift`, `DashboardView.swift`; sửa `iOSApp.swift`.
+4. Chữ đang viết cứng — bài 7 chuyển ra file chuỗi của **từng nền tảng**.
 
 ## Kiểm tra
 
 - [ ] Android: Dashboard hiện 3 thẻ — Pin `76% · Charging`, Vị trí đang quay spinner, Mạng `Wifi · online`.
-- [ ] iOS (Simulator): cùng 3 thẻ, không bị tai thỏ che tiêu đề đầu.
-- [ ] Đổi `fakeState.location` thành `Reading.PermissionDenied` rồi `Reading.Error("x")` → thẻ Vị trí đổi chữ trên cả hai nền tảng.
-- [ ] Preview `SensorCardErrorPreview` hiện trong IDE.
+- [ ] iOS (Simulator): cùng 3 thẻ, vẽ bằng SwiftUI (thanh tiêu đề lớn kiểu iOS, không phải Material).
+- [ ] Sửa `fakeDashboardState()` trong `shared/`: `location = Reading.PermissionDenied` rồi `Reading.Error("x")` → **cả hai** app đổi chữ, không sửa dòng UI nào.
+- [ ] Preview hiện được ở Android Studio **và** Xcode.
 
-Gặp lỗi build iOS → xem [xử lý sự cố](../reference/troubleshooting.md).
+## Lỗi hay gặp
+
+- Xcode báo `No such module 'Shared'` → framework chưa build; bấm Run một lần hoặc kiểm tra bước *Run Script* gọi Gradle.
+- Sửa Kotlin xong iOS không đổi → Xcode chưa build lại framework; *Product → Clean Build Folder* rồi Run.
+- `Cannot find 'onEnum' in scope` → chưa bật SKIE hoặc chưa build lại framework.
+- Swift thấy `Int32` / `KotlinLong` thay vì `Int` → kiểu số của Kotlin qua Objective-C; ép kiểu khi hiển thị (`Int(info.levelPercent)`).
+- Xem thêm [xử lý sự cố](../reference/troubleshooting.md).
 
 ## Tiếp theo?
 
-- [Bài 7: resources và đa ngôn ngữ](07-resources.md).
-- Đọc thêm: [Platform differences](https://kotlinlang.org/docs/multiplatform/compose-platform-specifics.html) · [Adaptive layouts](https://kotlinlang.org/docs/multiplatform/compose-adaptive-layouts.html) · [Compose Hot Reload](https://kotlinlang.org/docs/multiplatform/compose-hot-reload.html) · [Compose Multiplatform và Jetpack Compose](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-and-jetpack-compose.html).
+- [Bài 7: chuỗi và đa ngôn ngữ trên từng nền tảng](07-resources.md).
+- Đọc thêm: [SwiftUI tutorials](https://developer.apple.com/tutorials/swiftui) · [Compose layouts](https://developer.android.com/develop/ui/compose/layouts/basics) · [Kotlin–Swift interopedia](https://github.com/kotlin-hands-on/kotlin-swift-interopedia) · [SKIE](https://skie.touchlab.co/).
 
 ## Docs gốc
 
-[App entry points](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-entry-points.html) · [Layout basics](https://kotlinlang.org/docs/multiplatform/compose-layout.html) · [Modifiers](https://kotlinlang.org/docs/multiplatform/compose-layout-modifiers.html) · [UI previews](https://kotlinlang.org/docs/multiplatform/compose-previews.html) · [Material 3 trong Compose](https://developer.android.com/develop/ui/compose/designsystems/material3)
+[Create an app with native UI](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html) · [iOS integration methods](https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html) · [Interop with Swift/Objective-C](https://kotlinlang.org/docs/native-objc-interop.html) · [Material 3 trong Compose](https://developer.android.com/develop/ui/compose/designsystems/material3) · [SwiftUI](https://developer.apple.com/documentation/swiftui)

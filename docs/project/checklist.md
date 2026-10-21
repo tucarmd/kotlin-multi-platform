@@ -11,9 +11,9 @@
 
 ## Chặng B: Giao diện
 
-- [ ] Dashboard 3 thẻ với dữ liệu giả, vẽ đủ 5 trạng thái của `Reading` ([bài 6](../lessons/06-compose-basics.md))
+- [ ] Dashboard 3 thẻ với dữ liệu giả, vẽ đủ 5 trạng thái của `Reading` bằng **Jetpack Compose và SwiftUI** ([bài 6](../lessons/06-compose-basics.md))
 - [ ] Đổi máy sang tiếng Việt / tiếng Anh thì app đổi theo ([bài 7](../lessons/07-resources.md))
-- [ ] `DashboardViewModel` + fake sensor; xoay màn không mất state; Dashboard → Detail → back ([bài 8](../lessons/08-viewmodel-navigation.md))
+- [ ] `PulseMonitor` + fake sensor, bọc bằng `PulseViewModel` (Android) và `PulseModel` (iOS); xoay màn không mất state; Dashboard → Detail → back trên cả hai ([bài 8](../lessons/08-viewmodel-navigation.md))
 
 ## Chặng C: Cảm biến thật
 
