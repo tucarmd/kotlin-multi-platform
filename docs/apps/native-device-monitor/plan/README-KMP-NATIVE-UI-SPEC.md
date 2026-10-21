@@ -1,4 +1,4 @@
-[🏠 README](../../README.md) · Plan + bảng phase (P0–P16): [README-KMP-MIGRATION.md](README-KMP-MIGRATION.md)
+[🏠 README](../index.md) · Plan + bảng phase (P0–P16): [README-KMP-MIGRATION.md](README-KMP-MIGRATION.md)
 
 # Spec: UI native riêng từng nền tảng, chỉ phần chung dùng KMP
 

@@ -18,6 +18,11 @@ Học xong 14 bài với Device Pulse, cách nhanh nhất để nhớ là **làm
 | 4 | [🗺️ Trip Log](04-trip-log.md) | Ghi hành trình GPS khi tắt màn hình | Chạy ngầm (Foreground Service / iOS background location), `callbackFlow`, bản đồ, xuất file | 7–10 buổi |
 | 5 | [🚗 OBD Link](05-obd-link.md) | Đọc RPM, tốc độ, mã lỗi qua dongle OBD-II Bluetooth | BLE bằng Kable, state machine kết nối, hàng đợi lệnh, parse byte, tách nhiều module | 10–14 buổi |
 
+!!! example "App demo: Native Device Monitor"
+    Ngoài 5 app luyện tập còn một **app demo** làm xong theo từng phase: [📡 Native Device Monitor](native-device-monitor/index.md).
+    Xin quyền, BLE scan + GATT, camera, Ktor, chạy nền, UI native riêng (Jetpack Compose · SwiftUI) trên ViewModel chung.
+    Code ở `apps/NativeDeviceMonitor/`. Đọc khi muốn xem một app KMP thật lớn cỡ nào và được chia phase ra sao.
+
 ```
  1 Tip Split ──► 2 Pocket Notes ──► 3 Rate Watch ──► Device Pulse ──► 4 Trip Log ──► 5 OBD Link
  logic thuần      + database         + mạng/cache      + cảm biến       + chạy ngầm     + BLE + nhiều module

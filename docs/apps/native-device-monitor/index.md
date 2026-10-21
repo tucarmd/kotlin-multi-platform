@@ -1,4 +1,7 @@
-# Native Device Monitor KMP
+# Native Device Monitor (app demo)
+
+!!! tip "App demo lớn nhất của site"
+    Code: [`apps/NativeDeviceMonitor/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/apps/NativeDeviceMonitor), cạnh 5 app luyện tập. Đây là một app **thật** (BLE, camera, chạy nền, Ktor) làm theo từng phase P0–P16, mỗi phase một commit, có plan + spec đọc được. Dời vào repo này ngày 2026-10-21 (trước đó ở repo private `native-device-monitor-kmp`), giữ nguyên lịch sử commit.
 
 App `native-device-monitor` cũ (repo private [tucarmd/native-mobile-learning](https://github.com/tucarmd/native-mobile-learning/tree/main/native-device-monitor)) viết **hai lần toàn bộ** (Kotlin + Swift). Bản này làm lại theo hướng **KMP core + UI native**:
 
@@ -12,7 +15,7 @@ App `native-device-monitor` cũ (repo private [tucarmd/native-mobile-learning](h
     **Tiếp theo (2026-10-21): tập trung port vào `shared/`.** P13 Pomodoro (app cũ chỉ có iOS) viết thẳng bằng KMP · P14 luật BLE
     đang chép 2 nơi về `commonMain` · P15 code SDK Apple từ Swift sang Kotlin/Native. P16 Final. Chờ duyệt D6–D8:
     [spec port vào shared](plan/README-KMP-SHARED-PORT-SPEC.md).
-    Bảng đầy đủ: [Kế hoạch + tiến độ §3](plan/README-KMP-MIGRATION.md#3-phases-each-ends-with-something-you-can-run--screenshot) · lý do đổi hướng: [Spec](plan/README-KMP-NATIVE-UI-SPEC.md).
+    Bảng đầy đủ: [Kế hoạch + tiến độ §3](plan/README-KMP-MIGRATION.md#3-phases-each-ends-with-something-you-can-run-screenshot) · lý do đổi hướng: [Spec](plan/README-KMP-NATIVE-UI-SPEC.md).
     Commit của P8–P12 ghi nhãn tạm **R1–R5** (đã nằm trong lịch sử git nên không sửa).
 
 ## Đọc theo thứ tự
@@ -23,9 +26,8 @@ App `native-device-monitor` cũ (repo private [tucarmd/native-mobile-learning](h
 3. [Vì sao đổi sang UI native](plan/README-KMP-NATIVE-UI-SPEC.md): spec của P8–P12 (quyết định N1–N3).
 4. [Từng phase: dev đã làm gì](README-KMP-PHASES.md): P0 → P12, mỗi bước gắn nhãn 🎨 UI · 🧩 KMP chung · 🤖 Android · 🍎 iOS. **Đọc trang này khi trình bày / review.**
 5. [App chạy thế nào](README-KMP-HOW-IT-WORKS.md): 6 tầng, app khởi động ai gọi ai, bấm "Scan" hàm nào chạy, KMP gọi SDK nào.
-6. [Android cơ bản qua code](README-KMP-ANDROID-BASICS.md) (tab **Học Kotlin**): `onCreate` chạy khi nào, app có mấy Activity, `Bundle` và `savedInstanceState`, dấu `?` (null safety), xoay màn hình mất gì, `enum class AppTab`.
-   Cùng tab đó là toàn bộ lộ trình [Học Kotlin Multiplatform](kotlin/index.md): 14 bài, khái niệm khó, 900 lỗi Kotlin, tra cứu.
-7. [Kế hoạch site này](plan/README-KMP-DOCS-SITE-PLAN.md): site tài liệu được dựng ra sao (S1–S5).
+6. [Android cơ bản qua code](README-KMP-ANDROID-BASICS.md): `onCreate` chạy khi nào, app có mấy Activity, `Bundle` và `savedInstanceState`, dấu `?` (null safety), xoay màn hình mất gì, `enum class AppTab`.
+7. Học nền trước: [lộ trình 14 bài](../../roadmap.md), [khái niệm khó](../../concepts/index.md), [900 lỗi Kotlin](../../issues/index.md), [5 app luyện tập](../index.md).
 
 ## Module
 
@@ -40,7 +42,7 @@ App `native-device-monitor` cũ (repo private [tucarmd/native-mobile-learning](h
 ## Chạy
 
 ```bash
-# Android (JDK 17+), từ thư mục gốc repo
+# Android (JDK 17+), từ thư mục apps/NativeDeviceMonitor/
 ./gradlew :androidApp:assembleDebug
 adb install -r androidApp/build/outputs/apk/debug/androidApp-debug.apk
 adb shell am start -n com.learn.ndmkmp/.MainActivity --es tab scanner   # --es tab: mở thẳng 1 tab

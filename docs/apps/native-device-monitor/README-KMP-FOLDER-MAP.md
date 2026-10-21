@@ -1,11 +1,11 @@
-[🏠 README](../README.md) · Kiến trúc: [App chạy thế nào](README-KMP-HOW-IT-WORKS.md) · Từng bước: [Từng phase](README-KMP-PHASES.md)
+[🏠 README](index.md) · Kiến trúc: [App chạy thế nào](README-KMP-HOW-IT-WORKS.md) · Từng bước: [Từng phase](README-KMP-PHASES.md)
 
 # Bản đồ thư mục: từng file làm gì
 
 Trang này giải thích **từng thư mục và từng file** trong repo, viết dạng cây có ghi chú. Gồm 2 bản đồ:
 
-1. [**Bản đồ hiện tại (nhánh `main`)**](#1-bản-đồ-hiện-tại-nhánh-main): code đang chạy, KMP core + UI native (Jetpack Compose · SwiftUI).
-2. [**Bản đồ P0 (nhánh `notes/p0`)**](#2-bản-đồ-p0-nhánh-notesp0): khung đầu tiên, đúng cây bạn thấy khi mở worktree `native-device-monitor-kmp-phase-view` trong Android Studio. Mỗi dòng có ghi chú ➜ nói nó đã đổi thành gì trên `main`.
+1. [**Bản đồ hiện tại (nhánh `main`)**](#1-ban-o-hien-tai-nhanh-main): code đang chạy, KMP core + UI native (Jetpack Compose · SwiftUI).
+2. [**Bản đồ P0 (nhánh `ndm/notes/p0`)**](#2-ban-o-p0-nhanh-ndmnotesp0): khung đầu tiên, đúng cây bạn thấy khi mở worktree `ndm-phase-view` trong Android Studio. Mỗi dòng có ghi chú ➜ nói nó đã đổi thành gì trên `main`.
 
 Ký hiệu dùng trong cây:
 
@@ -41,7 +41,7 @@ Ký hiệu dùng trong cây:
 ### 1.1 Gốc repo + Gradle
 
 ```
-native-device-monitor-kmp/
+apps/NativeDeviceMonitor/          (repo kotlin-multi-platform; trước 2026-10-21 là gốc repo native-device-monitor-kmp)
 ├── ⭐ README.md                   giới thiệu, cách chạy, trạng thái từng phần
 ├── ⚙️ settings.gradle.kts          Gradle đọc ĐẦU TIÊN: tên project, nơi tải thư viện (google(), mavenCentral()),
 │                                  danh sách module: include(":androidApp", ":shared")
@@ -50,7 +50,6 @@ native-device-monitor-kmp/
 ├── ⚙️ local.properties             đường dẫn Android SDK trên MÁY BẠN (sdk.dir=…), riêng từng máy, không commit
 ├── ⚙️ gradlew · gradlew.bat         "Gradle wrapper": ./gradlew tự tải đúng Gradle 9.6.1, khỏi cài tay
 ├── ⚙️ .editorconfig · .gitignore    quy ước format · những thứ không đưa lên git (build/, local.properties…)
-├── ⚙️ mkdocs.yml                   cấu hình site tài liệu này (menu, theme, hook)
 │
 ├── gradle/
 │   ├── ⭐ libs.versions.toml       "version catalog": MỌI phiên bản thư viện/plugin ở đây
@@ -59,14 +58,11 @@ native-device-monitor-kmp/
 │   ├── gradle-daemon-jvm.properties   Gradle tự chọn JDK để chạy (tự sinh, không sửa tay)
 │   └── wrapper/                   gradle-wrapper.jar + .properties: cái ./gradlew dùng để tải Gradle
 │
-├── docs/                          tài liệu (trang bạn đang đọc), dựng thành site bằng MkDocs
-│   ├── index.md · README-KMP-*.md  các trang · plan/ = spec + plan từng giai đoạn
-│   ├── assets/                    ảnh chụp màn hình
-│   └── stylesheets/extra.css      màu riêng cho site
-├── hooks/                         plugin nhỏ của MkDocs: đổi link code thành link GitHub, sinh README cho repo site,
-│                                  kotlin_docs.py lấy site repo kotlin-multi-platform vào tab Học Kotlin (docs/kotlin = symlink)
-├── scripts/deploy-site.sh         build site rồi đẩy lên repo public native-device-monitor-kmp-docs
-├── 🟠 build/ · 🟠 site/            sinh ra khi build (Gradle / MkDocs)
+├── 🟠 build/                       sinh ra khi build (Gradle)
+│
+│   Tài liệu (trang bạn đang đọc) KHÔNG nằm ở đây mà ở docs/apps/native-device-monitor/ của repo:
+│   index.md · README-KMP-*.md · plan/ (spec + plan từng giai đoạn) · assets/ (ảnh chụp). Site chung build bằng
+│   mkdocs.yml ở gốc repo kotlin-multi-platform, push main → GitHub Actions đăng lên tucarmd.github.io/kotlin-multi-platform
 ```
 
 ### 1.2 `shared/`: module KMP (phần dùng chung + code SDK Android + adapter iOS)
@@ -259,9 +255,9 @@ Màn hình SwiftUI không tự đặt chữ riêng, trừ ký tự trang trí nh
 | `iosApp/Configuration/Config.xcconfig` `APP_NAME` | tên app iOS | cấu hình build của Xcode, không phải chữ UI |
 | ~~`res/values/strings.xml`~~ · ~~`composeResources/values/strings.xml`~~ | ❌ | đã xoá (P0 còn `composeResources`, xoá ở P11; `app_name` xoá 2026-10-19) |
 
-## 2. Bản đồ P0 (nhánh `notes/p0`)
+## 2. Bản đồ P0 (nhánh `ndm/notes/p0`)
 
-Đây là cây bạn thấy trong Android Studio khi mở worktree `native-device-monitor-kmp-phase-view` (nhánh `notes/p0`): khung KMP đầu tiên, chỉ có 1 màn "hello" vẽ bằng **Compose Multiplatform cho cả 2 máy**. Dòng ➜ cho biết thứ đó trên `main` đã thành gì.
+Đây là cây bạn thấy trong Android Studio khi mở worktree `ndm-phase-view` (nhánh `ndm/notes/p0`): khung KMP đầu tiên, chỉ có 1 màn "hello" vẽ bằng **Compose Multiplatform cho cả 2 máy**. Dòng ➜ cho biết thứ đó trên `main` đã thành gì.
 
 ```
 NativeDeviceMonitorKMP/

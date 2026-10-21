@@ -1,4 +1,4 @@
-[🏠 README](../README.md) · App chạy thế nào: [README-KMP-HOW-IT-WORKS.md](README-KMP-HOW-IT-WORKS.md) · Bản đồ thư mục: [README-KMP-FOLDER-MAP.md](README-KMP-FOLDER-MAP.md)
+[🏠 README](index.md) · App chạy thế nào: [README-KMP-HOW-IT-WORKS.md](README-KMP-HOW-IT-WORKS.md) · Bản đồ thư mục: [README-KMP-FOLDER-MAP.md](README-KMP-FOLDER-MAP.md)
 
 # Android cơ bản qua code của app
 
@@ -6,16 +6,16 @@ Trang này giải thích các khái niệm Android / Kotlin hay gặp, **lấy �
 
 ## Mục lục
 
-1. [`onCreate` chạy khi nào](#1-oncreate-chạy-khi-nào)
-2. [App này có bao nhiêu Activity](#2-app-này-có-bao-nhiêu-activity)
-3. [`Bundle` là gì](#3-bundle-là-gì)
-4. [`savedInstanceState: Bundle?` có phải để mặc định không](#4-savedinstancestate-bundle-có-phải-để-mặc-định-không)
-5. [Dấu `?` sau `Bundle` là gì](#5-dấu--sau-bundle-là-gì)
-6. [Xoay màn hình thì app này mất gì](#6-xoay-màn-hình-thì-app-này-mất-gì)
-7. [`enum class AppTab` và `AppTab.icon`](#7-enum-class-apptab-và-apptabicon)
-8. [Tự kiểm tra](#8-tự-kiểm-tra)
+1. [`onCreate` chạy khi nào](#1-oncreate-chay-khi-nao)
+2. [App này có bao nhiêu Activity](#2-app-nay-co-bao-nhieu-activity)
+3. [`Bundle` là gì](#3-bundle-la-gi)
+4. [`savedInstanceState: Bundle?` có phải để mặc định không](#4-savedinstancestate-bundle-co-phai-e-mac-inh-khong)
+5. [Dấu `?` sau `Bundle` là gì](#5-dau-sau-bundle-la-gi)
+6. [Xoay màn hình thì app này mất gì](#6-xoay-man-hinh-thi-app-nay-mat-gi)
+7. [`enum class AppTab` và `AppTab.icon`](#7-enum-class-apptab-va-apptabicon)
+8. [Tự kiểm tra](#8-tu-kiem-tra)
 
-Code đang nói tới: [MainActivity.kt](../androidApp/src/main/kotlin/com/learn/ndmkmp/MainActivity.kt)
+Code đang nói tới: [MainActivity.kt](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/androidApp/src/main/kotlin/com/learn/ndmkmp/MainActivity.kt)
 
 ```kotlin
 class MainActivity : ComponentActivity() {
@@ -58,7 +58,7 @@ flowchart LR
 
 Vì vậy trong `onCreate` chỉ làm **việc setup một lần**: gọi `super.onCreate(...)` (bắt buộc), gắn UI (`setContent { ... }` với Compose), tạo ViewModel. Đó đúng là 4 dòng trong `MainActivity` ở trên.
 
-Những việc phải làm **mỗi lần màn hình hiện lại** (đọc lại quyền, bắt đầu quét BLE, mở camera) thì đặt ở `onStart` / `onResume`. App này làm việc đó **trong Compose** chứ không override `onResume` của Activity, xem [App.kt](../androidApp/src/main/kotlin/com/learn/ndmkmp/App.kt):
+Những việc phải làm **mỗi lần màn hình hiện lại** (đọc lại quyền, bắt đầu quét BLE, mở camera) thì đặt ở `onStart` / `onResume`. App này làm việc đó **trong Compose** chứ không override `onResume` của Activity, xem [App.kt](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/androidApp/src/main/kotlin/com/learn/ndmkmp/App.kt):
 
 ```kotlin
 // Quay lại từ Settings: đổi quyền không bắn event nào → đọc lại mỗi lần resume.
@@ -72,7 +72,7 @@ LifecycleResumeEffect(vm) {
 
 ## 2. App này có bao nhiêu Activity
 
-**Một Activity duy nhất: `MainActivity`.** Mỗi Activity phải khai báo trong [AndroidManifest.xml](../androidApp/src/main/AndroidManifest.xml):
+**Một Activity duy nhất: `MainActivity`.** Mỗi Activity phải khai báo trong [AndroidManifest.xml](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/androidApp/src/main/AndroidManifest.xml):
 
 ```xml
 <activity android:name=".MainActivity" android:exported="true" ...>
@@ -167,7 +167,7 @@ So với Swift: `Bundle?` giống `Bundle?` (Optional), `?.` giống optional ch
 
 Sách và bài viết hay nói "ViewModel sống qua xoay màn hình". Điều đó **chỉ đúng với `androidx.lifecycle.ViewModel`** lấy bằng `by viewModels()`. App này **không** dùng loại đó.
 
-`AppViewModel` kế thừa [SharedViewModel](../shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/SharedViewModel.kt), một class Kotlin thường trong `commonMain` (để iOS dùng chung được). Nó được tạo trong `onCreate` và dọn trong `onDestroy`. Lý do (ghi trong file): services bên dưới (launcher xin quyền, BLE client) gắn với Activity và chết theo Activity, nên ViewModel sống lâu hơn Activity sẽ giữ services đã chết.
+`AppViewModel` kế thừa [SharedViewModel](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/SharedViewModel.kt), một class Kotlin thường trong `commonMain` (để iOS dùng chung được). Nó được tạo trong `onCreate` và dọn trong `onDestroy`. Lý do (ghi trong file): services bên dưới (launcher xin quyền, BLE client) gắn với Activity và chết theo Activity, nên ViewModel sống lâu hơn Activity sẽ giữ services đã chết.
 
 Hệ quả, khi xoay màn hình (manifest không khai báo `android:configChanges`):
 
@@ -191,7 +191,7 @@ Tự thấy bằng mắt: thêm `Log.d("MainActivity", "onCreate saved=$savedIns
 
 ### 7.1 `enum class` là gì
 
-`enum class` là một kiểu có **danh sách giá trị cố định, biết trước**. App có đúng 5 tab, không hơn không kém, nên dùng enum. Code ở [AppViewModel.kt](../shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/AppViewModel.kt) (nằm trong `commonMain`, Android và iOS dùng chung):
+`enum class` là một kiểu có **danh sách giá trị cố định, biết trước**. App có đúng 5 tab, không hơn không kém, nên dùng enum. Code ở [AppViewModel.kt](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/AppViewModel.kt) (nằm trong `commonMain`, Android và iOS dùng chung):
 
 ```kotlin
 enum class AppTab(val label: String) {          // mỗi giá trị mang theo 1 thuộc tính: label
@@ -223,7 +223,7 @@ Vì sao dùng enum thay cho `String` hay `Int`:
 
 - **Không gõ sai được**: `vm.selectTab(AppTab.SCANER)` báo lỗi ngay lúc biên dịch, còn `selectTab("scaner")` thì chạy rồi mới sai.
 - **`when` bắt đủ trường hợp**: trong `App.kt`, `when (tab) { AppTab.PERMISSIONS -> … }` phải liệt kê đủ 5 nhánh. Mai thêm tab thứ 6 mà quên vẽ màn hình, Kotlin báo lỗi ngay ở mọi `when` thiếu nhánh.
-- **Dùng chung 2 nền tảng**: SKIE biến `AppTab` thành `enum` thật bên Swift, nên [RootView.swift](../iosApp/iosApp/UI/RootView.swift) viết `switch tab { case .permissions: … }` giống hệt bên Kotlin.
+- **Dùng chung 2 nền tảng**: SKIE biến `AppTab` thành `enum` thật bên Swift, nên [RootView.swift](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/iosApp/iosApp/UI/RootView.swift) viết `switch tab { case .permissions: … }` giống hệt bên Kotlin.
 
 ### 7.2 `private val AppTab.icon` (dòng 38 trong `App.kt`)
 

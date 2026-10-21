@@ -1,0 +1,13 @@
+/* Ảnh chụp app đặt cạnh nhau (Android | iOS), bấm để mở ảnh gốc — dùng ở apps/native-device-monitor/ */
+.md-typeset .shots { display: grid; gap: 1.8em; margin: 1.2em 0 2em; }
+.md-typeset .shots--pair { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); align-items: start; }
+.md-typeset .shots figure { margin: 0; max-width: none; width: 100%; }
+.md-typeset .shots figure a { display: block; }
+.md-typeset .shots img {
+  height: auto; display: block;
+  border: 3px solid var(--line, #d8d2c4); border-radius: 18px; box-shadow: var(--shadow, 0 6px 18px rgba(0, 0, 0, .12));
+  background: #fff; cursor: zoom-in;
+}
+.md-typeset .shots--pair img { max-height: 760px; width: auto; max-width: 100%; margin: 0 auto; }
+.md-typeset .shots figcaption { margin-top: .7em; font-weight: 650; max-width: none; }
+.md-typeset .tabbed-set .shots { margin-top: .6em; }

@@ -71,6 +71,7 @@ plugins:
 
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/app-shots.css
 
 extra:
   social:
@@ -126,6 +127,16 @@ nav:
           - "3. Rate Watch": apps/03-rate-watch.md
           - "4. Trip Log": apps/04-trip-log.md
           - "5. OBD Link": apps/05-obd-link.md
+      - "App demo: Native Device Monitor":
+          - apps/native-device-monitor/index.md
+          - "Bản đồ thư mục": apps/native-device-monitor/README-KMP-FOLDER-MAP.md
+          - "Kế hoạch + tiến độ (P0–P16)": apps/native-device-monitor/plan/README-KMP-MIGRATION.md
+          - "Port vào shared: còn gì, viết sao": apps/native-device-monitor/plan/README-KMP-SHARED-PORT-SPEC.md
+          - "Vì sao đổi sang UI native": apps/native-device-monitor/plan/README-KMP-NATIVE-UI-SPEC.md
+          - "Từng phase dev làm gì": apps/native-device-monitor/README-KMP-PHASES.md
+          - "App chạy thế nào": apps/native-device-monitor/README-KMP-HOW-IT-WORKS.md
+          - "Sửa code + xem nhanh": apps/native-device-monitor/README-KMP-DEV-LOOP.md
+          - "Android cơ bản qua code": apps/native-device-monitor/README-KMP-ANDROID-BASICS.md
   - "Gỡ lỗi & tra cứu":
       - "900 lỗi Kotlin":
           - issues/index.md

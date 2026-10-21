@@ -1,4 +1,4 @@
-[🏠 README](../README.md) · Kế hoạch: [README-KMP-MIGRATION.md](plan/README-KMP-MIGRATION.md) · Vì sao UI native: [spec](plan/README-KMP-NATIVE-UI-SPEC.md) · Lộ trình học: [Học KMP qua Device Pulse](https://tucarmd.github.io/kotlin-multi-platform/lessons/02-setup/)
+[🏠 README](index.md) · Kế hoạch: [README-KMP-MIGRATION.md](plan/README-KMP-MIGRATION.md) · Vì sao UI native: [spec](plan/README-KMP-NATIVE-UI-SPEC.md) · Lộ trình học: [Học KMP qua Device Pulse](https://tucarmd.github.io/kotlin-multi-platform/lessons/02-setup/)
 
 # Native Device Monitor KMP chạy thế nào
 
@@ -18,13 +18,13 @@ Màu trong mọi sơ đồ trang này:
 
 ## Mục lục
 
-1. [Bức tranh tổng: 6 tầng](#1-bức-tranh-tổng-6-tầng)
-2. [App khởi động: ai gọi ai](#2-app-khởi-động-ai-gọi-ai)
-3. [Bấm "Scan": hàm nào chạy](#3-bấm-scan-hàm-nào-chạy)
-4. [KMP gọi SDK nào bên dưới](#4-kmp-gọi-sdk-nào-bên-dưới)
-5. [Tầng UI: hai UI native nối với ViewModel chung thế nào](#5-tầng-ui-hai-ui-native-nối-với-viewmodel-chung-thế-nào)
-6. [So với app cũ và với bản Compose Multiplatform (P0–P7)](#6-so-với-app-cũ-và-với-bản-compose-multiplatform-p0p7)
-7. [Tự kiểm tra](#7-tự-kiểm-tra)
+1. [Bức tranh tổng: 6 tầng](#1-buc-tranh-tong-6-tang)
+2. [App khởi động: ai gọi ai](#2-app-khoi-ong-ai-goi-ai)
+3. [Bấm "Scan": hàm nào chạy](#3-bam-scan-ham-nao-chay)
+4. [KMP gọi SDK nào bên dưới](#4-kmp-goi-sdk-nao-ben-duoi)
+5. [Tầng UI: hai UI native nối với ViewModel chung thế nào](#5-tang-ui-hai-ui-native-noi-voi-viewmodel-chung-the-nao)
+6. [So với app cũ và với bản Compose Multiplatform (P0–P7)](#6-so-voi-app-cu-va-voi-ban-compose-multiplatform-p0p7)
+7. [Tự kiểm tra](#7-tu-kiem-tra)
 
 ## 1. Bức tranh tổng: 6 tầng
 
@@ -109,15 +109,15 @@ sequenceDiagram
 
 | # | Hàm | File | Làm gì |
 |---|---|---|---|
-| A1 | `MainActivity.onCreate` | [MainActivity.kt](../androidApp/src/main/kotlin/com/learn/ndmkmp/MainActivity.kt) | tạo services **trước** `setContent`, tạo `AppViewModel`, đọc `--es tab`; `onDestroy` gọi `vm.clear()` |
-| A2 | `createAndroidServices(activity)` | [AndroidServices.kt](../shared/src/androidMain/kotlin/com/learn/ndmkmp/platform/AndroidServices.kt) | chỗ **duy nhất** bên Android chọn fake hay thật cho 5 interface |
-| A3 | `App(vm)` | [App.kt](../androidApp/src/main/kotlin/com/learn/ndmkmp/App.kt) | Scaffold + top bar + `NavigationBar` 5 tab (icon Material), `when (tab)` chọn màn |
-| I1 | `iOSApp` | [iOSApp.swift](../iosApp/iosApp/iOSApp.swift) | `@StateObject AppModel`, `scenePhase == .active` → `vm.onResume()` |
-| I2 | `AppModel` | [AppModel.swift](../iosApp/iosApp/App/AppModel.swift) | giữ `AppViewModel`, đọc launch arg `-tab`, `deinit` → `vm.clear()` |
-| I3 | `IosPlatform.services` → `createIosServices(permissions:ble:media:device:)` | [IosPlatform.swift](../iosApp/iosApp/Platform/IosPlatform.swift) · [IosServices.kt](../shared/src/iosMain/kotlin/com/learn/ndmkmp/platform/IosServices.kt) | Swift tạo 4 object gọi SDK, Kotlin bọc chúng bằng adapter; tạo **một lần** cho cả màn hình lẫn BGAppRefresh |
-| I4 | `RootView` | [RootView.swift](../iosApp/iosApp/UI/RootView.swift) | `TabView` theo `AppTab` dùng chung, icon SF Symbols |
-| C1 | `AppViewModel` | [AppViewModel.kt](../shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/AppViewModel.kt) | tab đang chọn + 5 ViewModel con; radio tắt → `ble.onRadioOff()` |
-| C2 | `AppServices` | [AppServices.kt](../shared/src/commonMain/kotlin/com/learn/ndmkmp/AppServices.kt) | gom 5 interface; `AppServices.fake()` cho preview / test |
+| A1 | `MainActivity.onCreate` | [MainActivity.kt](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/androidApp/src/main/kotlin/com/learn/ndmkmp/MainActivity.kt) | tạo services **trước** `setContent`, tạo `AppViewModel`, đọc `--es tab`; `onDestroy` gọi `vm.clear()` |
+| A2 | `createAndroidServices(activity)` | [AndroidServices.kt](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/androidMain/kotlin/com/learn/ndmkmp/platform/AndroidServices.kt) | chỗ **duy nhất** bên Android chọn fake hay thật cho 5 interface |
+| A3 | `App(vm)` | [App.kt](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/androidApp/src/main/kotlin/com/learn/ndmkmp/App.kt) | Scaffold + top bar + `NavigationBar` 5 tab (icon Material), `when (tab)` chọn màn |
+| I1 | `iOSApp` | [iOSApp.swift](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/iosApp/iosApp/iOSApp.swift) | `@StateObject AppModel`, `scenePhase == .active` → `vm.onResume()` |
+| I2 | `AppModel` | [AppModel.swift](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/iosApp/iosApp/App/AppModel.swift) | giữ `AppViewModel`, đọc launch arg `-tab`, `deinit` → `vm.clear()` |
+| I3 | `IosPlatform.services` → `createIosServices(permissions:ble:media:device:)` | [IosPlatform.swift](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/iosApp/iosApp/Platform/IosPlatform.swift) · [IosServices.kt](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/iosMain/kotlin/com/learn/ndmkmp/platform/IosServices.kt) | Swift tạo 4 object gọi SDK, Kotlin bọc chúng bằng adapter; tạo **một lần** cho cả màn hình lẫn BGAppRefresh |
+| I4 | `RootView` | [RootView.swift](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/iosApp/iosApp/UI/RootView.swift) | `TabView` theo `AppTab` dùng chung, icon SF Symbols |
+| C1 | `AppViewModel` | [AppViewModel.kt](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/AppViewModel.kt) | tab đang chọn + 5 ViewModel con; radio tắt → `ble.onRadioOff()` |
+| C2 | `AppServices` | [AppServices.kt](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/AppServices.kt) | gom 5 interface; `AppServices.fake()` cho preview / test |
 
 > Swift gọi `IosServicesKt.createIosServices(...)`: hàm top-level trong file `IosServices.kt` hiện ra bên Swift thành hàm static của class `IosServicesKt`.
 
@@ -156,16 +156,16 @@ flowchart TB
 
 | # | Hàm | File | Làm gì |
 |---|---|---|---|
-| 1 | nút Scan | [ScannerScreen.kt#L136](../androidApp/src/main/kotlin/com/learn/ndmkmp/ui/scanner/ScannerScreen.kt#L136) · [ScannerView.swift#L109](../iosApp/iosApp/UI/Scanner/ScannerView.swift#L109) | hai UI chỉ gọi `vm.onScanClick()`, không có `if` nghiệp vụ |
-| 2 | `ScannerViewModel.onScanClick` | [ScannerViewModel.kt#L190](../shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/scanner/ScannerViewModel.kt#L190) | đang quét → `stopScan()`, không thì `startScan(filter)` (CarMD only hay không) |
-| 3 | `bleReadiness()` | [BleClient.kt#L22](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BleClient.kt#L22) | luật thuần: không phần cứng > thiếu quyền > tắt radio > sẵn sàng; quyết định nút Scan bật hay tắt |
-| 4 | `BleClient.startScan` | [BleClient.kt#L57](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BleClient.kt#L57) | hợp đồng; ViewModel không biết ai cài đặt |
-| 5 | `AndroidBleClient.startScan` · `FakeBleClient.startScan` | [AndroidBleClient.kt](../shared/src/androidMain/kotlin/com/learn/ndmkmp/core/bluetooth/AndroidBleClient.kt) · [FakeBleClient.kt#L51](../shared/src/commonMain/kotlin/com/learn/ndmkmp/fake/FakeBleClient.kt#L51) | 🤖 Android (P4): `BluetoothLeScanner` thật. 🍎 iOS (P12d): [IosBleClient.kt](../shared/src/iosMain/kotlin/com/learn/ndmkmp/platform/IosBleClient.kt) giữ luật → [BleNative.swift](../iosApp/iosApp/Platform/BleNative.swift) gọi `scanForPeripherals` |
-| 6 | `BluetoothScanFilter.matches` | [BluetoothScanFilter.kt#L31](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BluetoothScanFilter.kt#L31) | lọc tên lúc quét (CarMD2 · CMD-*) |
-| 7 | `ScannerViewModel.rebuild` | [ScannerViewModel.kt#L240](../shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/scanner/ScannerViewModel.kt#L240) | bất kỳ flow nào đổi → dựng lại cả `ScannerUiState` từ giá trị hiện tại |
-| 8 | `isDeviceShown` · `scannerButtonsOf` | [ScannerActions.kt#L70](../shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/scanner/ScannerActions.kt#L70) · [#L106](../shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/scanner/ScannerActions.kt#L106) | ô tìm + ẩn thiết bị không tên / âm thanh; nút Connect / Disconnect bật hay tắt |
-| 9 | `collectAsState()` · `Observed` | [ScannerScreen.kt#L88](../androidApp/src/main/kotlin/com/learn/ndmkmp/ui/scanner/ScannerScreen.kt#L88) · [Observed.swift](../iosApp/iosApp/App/Observed.swift) | `StateFlow` → state của UI; giá trị mới → vẽ lại |
-| 10 | `BluetoothDecoder.decode` | [BluetoothDecoder.kt#L74](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BluetoothDecoder.kt#L74) | byte GATT → chữ đọc được (pin %, heart rate, text…) |
+| 1 | nút Scan | [ScannerScreen.kt#L136](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/androidApp/src/main/kotlin/com/learn/ndmkmp/ui/scanner/ScannerScreen.kt#L136) · [ScannerView.swift#L109](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/iosApp/iosApp/UI/Scanner/ScannerView.swift#L109) | hai UI chỉ gọi `vm.onScanClick()`, không có `if` nghiệp vụ |
+| 2 | `ScannerViewModel.onScanClick` | [ScannerViewModel.kt#L190](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/scanner/ScannerViewModel.kt#L190) | đang quét → `stopScan()`, không thì `startScan(filter)` (CarMD only hay không) |
+| 3 | `bleReadiness()` | [BleClient.kt#L22](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BleClient.kt#L22) | luật thuần: không phần cứng > thiếu quyền > tắt radio > sẵn sàng; quyết định nút Scan bật hay tắt |
+| 4 | `BleClient.startScan` | [BleClient.kt#L57](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BleClient.kt#L57) | hợp đồng; ViewModel không biết ai cài đặt |
+| 5 | `AndroidBleClient.startScan` · `FakeBleClient.startScan` | [AndroidBleClient.kt](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/androidMain/kotlin/com/learn/ndmkmp/core/bluetooth/AndroidBleClient.kt) · [FakeBleClient.kt#L51](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/fake/FakeBleClient.kt#L51) | 🤖 Android (P4): `BluetoothLeScanner` thật. 🍎 iOS (P12d): [IosBleClient.kt](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/iosMain/kotlin/com/learn/ndmkmp/platform/IosBleClient.kt) giữ luật → [BleNative.swift](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/iosApp/iosApp/Platform/BleNative.swift) gọi `scanForPeripherals` |
+| 6 | `BluetoothScanFilter.matches` | [BluetoothScanFilter.kt#L31](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BluetoothScanFilter.kt#L31) | lọc tên lúc quét (CarMD2 · CMD-*) |
+| 7 | `ScannerViewModel.rebuild` | [ScannerViewModel.kt#L240](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/scanner/ScannerViewModel.kt#L240) | bất kỳ flow nào đổi → dựng lại cả `ScannerUiState` từ giá trị hiện tại |
+| 8 | `isDeviceShown` · `scannerButtonsOf` | [ScannerActions.kt#L70](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/scanner/ScannerActions.kt#L70) · [#L106](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/presentation/scanner/ScannerActions.kt#L106) | ô tìm + ẩn thiết bị không tên / âm thanh; nút Connect / Disconnect bật hay tắt |
+| 9 | `collectAsState()` · `Observed` | [ScannerScreen.kt#L88](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/androidApp/src/main/kotlin/com/learn/ndmkmp/ui/scanner/ScannerScreen.kt#L88) · [Observed.swift](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/iosApp/iosApp/App/Observed.swift) | `StateFlow` → state của UI; giá trị mới → vẽ lại |
+| 10 | `BluetoothDecoder.decode` | [BluetoothDecoder.kt#L74](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BluetoothDecoder.kt#L74) | byte GATT → chữ đọc được (pin %, heart rate, text…) |
 
 Bước 2–4 và 6–8, 10 là **cùng một đoạn code Kotlin** trên cả hai máy. Bước 1 và 9 viết 2 lần (Compose / SwiftUI), bước 5 khác nhau theo nền tảng.
 
@@ -173,8 +173,8 @@ Bước 2–4 và 6–8, 10 là **cùng một đoạn code Kotlin** trên cả h
 
 Không có sự kiện nào báo "quyền vừa đổi trong Settings", nên mỗi lần app quay lại phải đọc lại. Hai UI bắt sự kiện bằng cách riêng, rồi cùng gọi **một hàm chung** `AppViewModel.onResume()`:
 
-- Android: [App.kt `LifecycleResumeEffect`](../androidApp/src/main/kotlin/com/learn/ndmkmp/App.kt#L63) → `Activity.onResume`.
-- iOS: [iOSApp.swift `scenePhase == .active`](../iosApp/iosApp/iOSApp.swift#L22).
+- Android: [App.kt `LifecycleResumeEffect`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/androidApp/src/main/kotlin/com/learn/ndmkmp/App.kt#L63) → `Activity.onResume`.
+- iOS: [iOSApp.swift `scenePhase == .active`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/iosApp/iosApp/iOSApp.swift#L22).
 
 ## 4. KMP gọi SDK nào bên dưới
 
@@ -182,15 +182,15 @@ Không có sự kiện nào báo "quyền vừa đổi trong Settings", nên m�
 
 | Interface (commonMain) | Tab | Android: SDK bên dưới (Kotlin) | iOS: SDK bên dưới (Swift `Platform/*Native` + adapter Kotlin) | Trạng thái |
 |---|---|---|---|---|
-| [`PermissionController`](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/permission/PermissionController.kt#L32) | Permissions | `ActivityResultContracts.RequestMultiplePermissions`, `shouldShowRequestPermissionRationale`, `BLUETOOTH_SCAN/CONNECT` (API 31+) hoặc `ACCESS_FINE_LOCATION` (≤ 30), `Settings.ACTION_APPLICATION_DETAILS_SETTINGS` | `CBManager.authorization`, `AVCaptureDevice.authorizationStatus`, `UIApplication.openSettingsURLString` | 🤖 P3 ✅ · 🍎 P12a ✅ |
-| [`BleClient`](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BleClient.kt#L39) | Scanner | `BluetoothLeScanner`, `BluetoothGatt` (hàng đợi thao tác tự viết, ghi CCCD để bật notify, `requestMtu`) | `CoreBluetooth`: `CBCentralManager`, `CBPeripheral` + delegate, timeout connect 15 s | 🤖 P4 ✅ · 🍎 P12d ✅ (GATT cần máy thật) |
-| [`MediaPicker`](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/media/MediaPicker.kt#L14) | Media | `ActivityResultContracts.TakePicture`, `PickVisualMedia`, `FileProvider` | `UIImagePickerController` (camera), `PHPickerViewController` (thư viện ảnh) | 🤖 P5 ✅ · 🍎 P12b ✅ |
-| [`ApiService`](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/network/ApiService.kt#L22) | API | **Ktor** engine `OkHttp` | **Ktor** engine `Darwin` → `NSURLSession` (vẫn là Kotlin dùng chung) | **P6 ✅ cả 2 máy** (`KtorApiService`) |
-| [`DeviceMonitor`](../shared/src/commonMain/kotlin/com/learn/ndmkmp/core/background/DeviceMonitor.kt#L49) | Monitor | `BatteryManager`, `ConnectivityManager`, **Foreground Service**, **WorkManager** (15 phút) | `UIDevice.batteryLevel`, `Network.framework`, **BGTaskScheduler** (`BGAppRefreshTask`); **không có** foreground service | 🤖 P7 ✅ · 🍎 P12c ✅ |
+| [`PermissionController`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/core/permission/PermissionController.kt#L32) | Permissions | `ActivityResultContracts.RequestMultiplePermissions`, `shouldShowRequestPermissionRationale`, `BLUETOOTH_SCAN/CONNECT` (API 31+) hoặc `ACCESS_FINE_LOCATION` (≤ 30), `Settings.ACTION_APPLICATION_DETAILS_SETTINGS` | `CBManager.authorization`, `AVCaptureDevice.authorizationStatus`, `UIApplication.openSettingsURLString` | 🤖 P3 ✅ · 🍎 P12a ✅ |
+| [`BleClient`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/core/bluetooth/BleClient.kt#L39) | Scanner | `BluetoothLeScanner`, `BluetoothGatt` (hàng đợi thao tác tự viết, ghi CCCD để bật notify, `requestMtu`) | `CoreBluetooth`: `CBCentralManager`, `CBPeripheral` + delegate, timeout connect 15 s | 🤖 P4 ✅ · 🍎 P12d ✅ (GATT cần máy thật) |
+| [`MediaPicker`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/core/media/MediaPicker.kt#L14) | Media | `ActivityResultContracts.TakePicture`, `PickVisualMedia`, `FileProvider` | `UIImagePickerController` (camera), `PHPickerViewController` (thư viện ảnh) | 🤖 P5 ✅ · 🍎 P12b ✅ |
+| [`ApiService`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/core/network/ApiService.kt#L22) | API | **Ktor** engine `OkHttp` | **Ktor** engine `Darwin` → `NSURLSession` (vẫn là Kotlin dùng chung) | **P6 ✅ cả 2 máy** (`KtorApiService`) |
+| [`DeviceMonitor`](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/core/background/DeviceMonitor.kt#L49) | Monitor | `BatteryManager`, `ConnectivityManager`, **Foreground Service**, **WorkManager** (15 phút) | `UIDevice.batteryLevel`, `Network.framework`, **BGTaskScheduler** (`BGAppRefreshTask`); **không có** foreground service | 🤖 P7 ✅ · 🍎 P12c ✅ |
 
 ### 4.2 `expect` / `actual` nhỏ (không cần interface)
 
-| `expect` trong [Platform.kt](../shared/src/commonMain/kotlin/com/learn/ndmkmp/Platform.kt) | Android ([Platform.android.kt](../shared/src/androidMain/kotlin/com/learn/ndmkmp/Platform.android.kt)) | iOS ([Platform.ios.kt](../shared/src/iosMain/kotlin/com/learn/ndmkmp/Platform.ios.kt)) |
+| `expect` trong [Platform.kt](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/commonMain/kotlin/com/learn/ndmkmp/Platform.kt) | Android ([Platform.android.kt](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/androidMain/kotlin/com/learn/ndmkmp/Platform.android.kt)) | iOS ([Platform.ios.kt](https://github.com/tucarmd/kotlin-multi-platform/blob/main/apps/NativeDeviceMonitor/shared/src/iosMain/kotlin/com/learn/ndmkmp/Platform.ios.kt)) |
 |---|---|---|
 | `platformName()` | `Build.VERSION.RELEASE` | `UIDevice.currentDevice.systemVersion` |
 | `monotonicMs()` | `SystemClock.elapsedRealtime()` | `NSProcessInfo.systemUptime` |

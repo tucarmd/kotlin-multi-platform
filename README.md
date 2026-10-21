@@ -45,6 +45,12 @@ Làm xong Device Pulse thì luyện thêm 5 app, từ dễ đến khó, **cùng 
 
 Chi tiết từng app và quy ước comment: [5 app luyện tập](https://tucarmd.github.io/kotlin-multi-platform/apps/).
 
+## App demo: Native Device Monitor
+
+**[`apps/NativeDeviceMonitor/`](apps/NativeDeviceMonitor/)**: app thật lớn nhất repo, **KMP core + UI native** (Jetpack Compose · SwiftUI):
+5 tab Permissions · BLE Scanner + GATT · Media · API (Ktor) · Monitor chạy nền. Làm theo phase P0–P16, mỗi phase một commit,
+có plan, spec và trang "từng phase dev làm gì": [docs/apps/native-device-monitor/](https://tucarmd.github.io/kotlin-multi-platform/apps/native-device-monitor/).
+
 ## Tham khảo
 
 | | |
@@ -77,6 +83,7 @@ Push lên `main` → GitHub Actions (`.github/workflows/pages.yml`) build và đ
 - `apps/DevicePulse/` — code hoàn chỉnh của app (Android + iOS)
 - `docs/project/` — app Device Pulse, code mẫu, checklist
 - `docs/apps/` — 5 app luyện tập (dễ → khó) + khung chung, quy ước comment
+- `apps/NativeDeviceMonitor/` + `docs/apps/native-device-monitor/` — app demo KMP core + UI native: code, plan P0–P16, spec
 - `docs/plan/` — đánh giá KMP, kế hoạch học, nghiên cứu Kotlin làm web
 - `docs/reference/` — tài nguyên học, repo mẫu, bản đồ docs gốc, từ điển, lỗi hay gặp
 - `specs/` — thiết kế nội dung (không đăng lên site)

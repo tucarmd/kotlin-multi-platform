@@ -1,9 +1,9 @@
-[🏠 README](../../README.md) · Plan + bảng phase (P0–P16): [README-KMP-MIGRATION.md](README-KMP-MIGRATION.md) · Spec trước: [UI native (P8–P12)](README-KMP-NATIVE-UI-SPEC.md)
+[🏠 README](../index.md) · Plan + bảng phase (P0–P16): [README-KMP-MIGRATION.md](README-KMP-MIGRATION.md) · Spec trước: [UI native (P8–P12)](README-KMP-NATIVE-UI-SPEC.md)
 
 # Spec: tập trung port phần dùng chung vào KMP (`shared/`)
 
 > Tạo: 2026-10-21 · Trạng thái: **Chờ duyệt** (D6–D8 ở §5) · Chưa viết dòng code nào cho P13–P15.
-> Các phase nằm chung bảng P0–P16 của [Plan §3](README-KMP-MIGRATION.md#3-phases-each-ends-with-something-you-can-run--screenshot). P13 Final cũ dời thành **P16**.
+> Các phase nằm chung bảng P0–P16 của [Plan §3](README-KMP-MIGRATION.md#3-phases-each-ends-with-something-you-can-run-screenshot). P13 Final cũ dời thành **P16**.
 
 ## 1. Trả lời nhanh: đã port hết app cũ chưa?
 
