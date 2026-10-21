@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ===== Day 1: BLE permission matrix by API level =====
+         Bluetooth was SPLIT IN TWO in Android 12 (API 31), so both branches must be declared because minSdk = 26.
+
+         OLD branch (API 26–30): BLUETOOTH + BLUETOOTH_ADMIN are install-time (no dialog), but
+         scanning requires RUNTIME ACCESS_FINE_LOCATION — the list of nearby beacons reveals your location.
+         maxSdkVersion="30" = API 31+ devices ignore these 3 lines. -->
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" android:maxSdkVersion="30" />
+
+    <!-- NEW branch (API 31+): 2 separate runtime permissions, no location involved.
+         neverForLocation = promise not to use BLE to derive location → the system doesn't require location.
+         Trade-off: "locatable" advertising packets (some iBeacons) are filtered out. -->
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
+    <!-- Day 1 exercise: also request CAMERA to practise the granted/denied branches on a non-BLE permission.
+         ⚠️ If you DECLARE it you must REQUEST it: declared but not granted → even opening the camera via Intent throws SecurityException. -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- ===== Week 3 · Day 12: Device providers =====
+         Both are install-time (declared = granted, no dialog). Missing → getNetworkCapabilities / isWifiEnabled
+         throw SecurityException. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- ===== Week 3 · Day 14: Foreground Service =====
+         FOREGROUND_SERVICE (API 28+) + the per-TYPE permission (API 34+: dataSync) — both install-time.
+         POST_NOTIFICATIONS is RUNTIME from API 33: if the user denies it the service STILL runs, only the
+         notification is not shown in the shade (still visible in Task Manager). -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- ===== Day 10: API Client =====
+         INTERNET is install-time. Missing → every request throws SecurityException "missing INTERNET permission?".
+         No usesCleartextTraffic needed: every demo URL is https (http:// is blocked by default since API 28). -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- required="false": devices without BLE/camera can still install; the screen just says "not supported". -->
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <application
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Week 3 · Day 14. exported=false: only this app can start it.
+             foregroundServiceType is mandatory from API 34 — missing it throws MissingForegroundServiceTypeException. -->
+        <service
+            android:name=".nativecore.background.MonitorService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+        <!-- Day 10: hands a content:// uri to the Camera app to write the photo into (TakePicture). exported=false + grantUriPermissions:
+             only the app handed the uri in the Intent can read/write it, and only that uri. -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+
+</manifest>

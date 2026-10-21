@@ -1,0 +1,813 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		05B7752A9914F324FEA0092C /* BluetoothLookupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A7C05AA34CB828937C6025 /* BluetoothLookupTests.swift */; };
+		0CD76EDB280DFC022BEBD8CB /* MediaStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692ED6019E0A49C857E9938D /* MediaStrings.swift */; };
+		1377FD0C9B22733A5EF4CE66 /* ApiHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0978DEAB2C2328E62199FCCE /* ApiHelpers.swift */; };
+		23C5DBC607BACACEACF0C081 /* ScannerActionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4D0CB8392EBF9B83254A10 /* ScannerActionsTests.swift */; };
+		25C36E582B8B9BE507AAFFDA /* MediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64218851E2F41F81FB565C52 /* MediaView.swift */; };
+		2D1D31596F2B09D019EC90AA /* PermissionStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA31A41449CFB3E1AED294C /* PermissionStrings.swift */; };
+		2EA68E7CBF43270BF941620D /* DeviceProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59F5F22E58E206FABEFFB5AC /* DeviceProviders.swift */; };
+		3583264D9D6D0127005447FA /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62248DC9CB948711E7A5080B /* BluetoothService.swift */; };
+		3B9F71A64694F951DC7B7FA9 /* AppCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46CAF89964C6002A3CE2EFE2 /* AppCard.swift */; };
+		3E2106AEBB35549CAA01AFDD /* MediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FA7FB67740D22ED0218C14 /* MediaManager.swift */; };
+		3E732CABC9A16FD0E8050718 /* MediaInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406EB7DF6318D835CCD0D260 /* MediaInfo.swift */; };
+		40893D0C13E6B7178F3CF0EB /* AppSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65082DC75B9CA4CDE304DD81 /* AppSpacing.swift */; };
+		41206D2287F1D8FBFBACE9AA /* ScannerStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6791C9D1DF6DF8226D5DDEDE /* ScannerStrings.swift */; };
+		4283E5BFD3D8E66209CD4954 /* AlamofireApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447DE01141573696C988A0C5 /* AlamofireApiClient.swift */; };
+		4A0BC8CE9BDC27E4815B553A /* ApiClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8871062319A328FF19C97EDE /* ApiClientTests.swift */; };
+		4B00FAA507FA8ECB8CC13DC4 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55AA0D41525485D6DF80FC3 /* ApiClient.swift */; };
+		4CE74C22ECA73506FE52A797 /* BluetoothScanFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B62651AE8AD2705956FAB5 /* BluetoothScanFilter.swift */; };
+		4D9EF63DF6A79F185C8BF2C7 /* URLSessionApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7C05A8225F0E93BC48F0DE /* URLSessionApiClient.swift */; };
+		4E4D1B329FCD4E0005CD3571 /* BluetoothDeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121486ADB7CCD97EEA998457 /* BluetoothDeviceInfo.swift */; };
+		5856655277554C48D9AD219E /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786896481036E82162896C29 /* AppStrings.swift */; };
+		58CC590BF2F7CD508FAD82E5 /* PomodoroEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D549A75CD95F098FAFFA39F7 /* PomodoroEngine.swift */; };
+		5B44E1F366AD50CABEE96F63 /* ApiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7378B1300A9A1E4F50E7EE /* ApiView.swift */; };
+		5B708CBC63BC596B9C51A126 /* GattModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E980CDC10D73786DBED03543 /* GattModelTests.swift */; };
+		5DE75FB40A21701109F9F529 /* BackgroundMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88B000E2FEC1446F23705B7 /* BackgroundMonitor.swift */; };
+		6576408F2604C4A649FDB4C9 /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F49C831A7689A8D1E23F932 /* AppColor.swift */; };
+		65B9BE242928BE1218E5BFF9 /* MonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7350CD361CC3AB8852B9E8 /* MonitorView.swift */; };
+		6A1C14B2E3B0E517268FBC1B /* MonitorStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CADCED385B3A66F7B536AB8 /* MonitorStrings.swift */; };
+		6BB473C23AC0A567B7243910 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 17A23FBFD65645A83ED5E2B6 /* Alamofire */; };
+		6E3B82A27462EF3E0266315A /* AppHintText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D667988BEFC097FF711C847 /* AppHintText.swift */; };
+		74CE35AFF1F57FF171DC4E37 /* ApiStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01AA91C5EA1E5578DBF21E0 /* ApiStrings.swift */; };
+		76B14787435A50F196D32A5E /* FileLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A63E1F758897CDE0E1C140 /* FileLoggerTests.swift */; };
+		76EF95C5ED8EB0CD51D1331B /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CFA5442D6A9916279986C9 /* ScannerView.swift */; };
+		780AF91AA33F50C4B74DE06F /* BluetoothClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DAA8102AED69EBF560EC9B /* BluetoothClientService.swift */; };
+		802DDB9FA79133D9B243E55C /* ApiResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43288FB1EBB4DD71F584CDB0 /* ApiResult.swift */; };
+		80662365AADA4FEA4E0D5257 /* PermissionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490AF1724F115F7C0E428D3D /* PermissionStatus.swift */; };
+		807B9CF2BF6E9B0C1DC288B3 /* ScannerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655D45315ACF176F411CF752 /* ScannerActions.swift */; };
+		80E531BDE7623F3CFB0C8B71 /* BluetoothDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFC6E91E5917C26D2F136F1 /* BluetoothDecoder.swift */; };
+		83CCA0869011870BFB84B0AA /* GattSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8A75AB769D239BE6B98C59 /* GattSection.swift */; };
+		853A5779FB46CD40D307F225 /* PomodoroStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA0C6DA1033DE9CF9B040BB /* PomodoroStrings.swift */; };
+		8A7E5364AFA974FAF93011F8 /* PomodoroSessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58124D2774F414889B2385DC /* PomodoroSessionStore.swift */; };
+		8BE32F8344C44DC1E87C7C28 /* PomodoroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4171A4B2F86DF6225D664041 /* PomodoroView.swift */; };
+		93424CAC7C67C417DE0953FE /* NativeDeviceMonitorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E309A0335ED6E8F54D97DF66 /* NativeDeviceMonitorApp.swift */; };
+		94B306CB39798E860130EABF /* PomodoroViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C893F4EEB388F7D223B9D4 /* PomodoroViewModelTests.swift */; };
+		97C6C8E1A10BD96D48D5A3F7 /* DeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0BCAE6A5E33C03B353B662 /* DeviceStatus.swift */; };
+		9CCD40DF2541A42EA2BAB5FB /* FileLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F88B6B75C54276EC9004E9 /* FileLogger.swift */; };
+		A1573D81F5BB92579D2E4806 /* PermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6C6A08DA7599C6EEC90DA1 /* PermissionView.swift */; };
+		AC367601C197285D5316623A /* CameraPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BAC1AEFFEBA446BA37FBBC /* CameraPicker.swift */; };
+		B5529269B65360E68C6BCAB5 /* PermissionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78271B8C794C3B4433B72AC /* PermissionGroup.swift */; };
+		BCA612035D02879EBCBD7A35 /* PomodoroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934EA2FD006F8C524595F3A6 /* PomodoroViewModel.swift */; };
+		BDBA089950F41008B56F1525 /* PermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83AE8D64879AE929F1E640D /* PermissionService.swift */; };
+		C97C405DB2C340DFA3C5F129 /* ApiBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15EA4E5F2F9BD96370BD795 /* ApiBackend.swift */; };
+		D1760FA4E497F992B9664F6D /* BluetoothLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F41C2ABA630CF04100DF5E /* BluetoothLookup.swift */; };
+		DE9EFA810A201EA76A23D442 /* PomodoroEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B33B0B66A83FF320876B033 /* PomodoroEngineTests.swift */; };
+		DEB632ED16DF838985DD66AB /* MediaInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033EDD244D8ADCBFFC7A65E2 /* MediaInfoTests.swift */; };
+		E087ADBEF4F6C5648FC8F777 /* GattModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96048BA647E00B2CDDFA9C30 /* GattModel.swift */; };
+		E22631DC72DF5814211848FF /* AppLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4D5C8FEC7A0E7A3585F04A /* AppLog.swift */; };
+		F0E2987F874A0871D7FD3699 /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B42055CC8E02ABD85EC9F4 /* ProgressRing.swift */; };
+		F2796B9E295E191C0BD331B0 /* AppPrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A505FB27D39CAE1DD0326C1D /* AppPrimaryButton.swift */; };
+		FF31BC955632E1F640A9F108 /* AppHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08C70555FF68CE6EEAA7420 /* AppHeader.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A44B77CA6DE270DC57195420 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7CE41012A6301B268443AE8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 868CFF722140DEA154273157;
+			remoteInfo = NativeDeviceMonitor;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		033EDD244D8ADCBFFC7A65E2 /* MediaInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaInfoTests.swift; sourceTree = "<group>"; };
+		0978DEAB2C2328E62199FCCE /* ApiHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHelpers.swift; sourceTree = "<group>"; };
+		11F88B6B75C54276EC9004E9 /* FileLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLogger.swift; sourceTree = "<group>"; };
+		121486ADB7CCD97EEA998457 /* BluetoothDeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothDeviceInfo.swift; sourceTree = "<group>"; };
+		20DAA8102AED69EBF560EC9B /* BluetoothClientService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothClientService.swift; sourceTree = "<group>"; };
+		2CADCED385B3A66F7B536AB8 /* MonitorStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorStrings.swift; sourceTree = "<group>"; };
+		39C893F4EEB388F7D223B9D4 /* PomodoroViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroViewModelTests.swift; sourceTree = "<group>"; };
+		3B33B0B66A83FF320876B033 /* PomodoroEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroEngineTests.swift; sourceTree = "<group>"; };
+		3D6C6A08DA7599C6EEC90DA1 /* PermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionView.swift; sourceTree = "<group>"; };
+		406EB7DF6318D835CCD0D260 /* MediaInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaInfo.swift; sourceTree = "<group>"; };
+		4171A4B2F86DF6225D664041 /* PomodoroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroView.swift; sourceTree = "<group>"; };
+		43288FB1EBB4DD71F584CDB0 /* ApiResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResult.swift; sourceTree = "<group>"; };
+		447DE01141573696C988A0C5 /* AlamofireApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireApiClient.swift; sourceTree = "<group>"; };
+		46CAF89964C6002A3CE2EFE2 /* AppCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCard.swift; sourceTree = "<group>"; };
+		47B42055CC8E02ABD85EC9F4 /* ProgressRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRing.swift; sourceTree = "<group>"; };
+		490AF1724F115F7C0E428D3D /* PermissionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionStatus.swift; sourceTree = "<group>"; };
+		4F49C831A7689A8D1E23F932 /* AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
+		52FA7FB67740D22ED0218C14 /* MediaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaManager.swift; sourceTree = "<group>"; };
+		58124D2774F414889B2385DC /* PomodoroSessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroSessionStore.swift; sourceTree = "<group>"; };
+		59F5F22E58E206FABEFFB5AC /* DeviceProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceProviders.swift; sourceTree = "<group>"; };
+		5B0BCAE6A5E33C03B353B662 /* DeviceStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStatus.swift; sourceTree = "<group>"; };
+		5B7350CD361CC3AB8852B9E8 /* MonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorView.swift; sourceTree = "<group>"; };
+		62248DC9CB948711E7A5080B /* BluetoothService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothService.swift; sourceTree = "<group>"; };
+		64218851E2F41F81FB565C52 /* MediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaView.swift; sourceTree = "<group>"; };
+		65082DC75B9CA4CDE304DD81 /* AppSpacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSpacing.swift; sourceTree = "<group>"; };
+		655D45315ACF176F411CF752 /* ScannerActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerActions.swift; sourceTree = "<group>"; };
+		6791C9D1DF6DF8226D5DDEDE /* ScannerStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerStrings.swift; sourceTree = "<group>"; };
+		692ED6019E0A49C857E9938D /* MediaStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaStrings.swift; sourceTree = "<group>"; };
+		70843E8C97E1BD2E4C528D21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		772FB34D3452E0386D303A1B /* NativeDeviceMonitor.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NativeDeviceMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		786896481036E82162896C29 /* AppStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
+		7D667988BEFC097FF711C847 /* AppHintText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHintText.swift; sourceTree = "<group>"; };
+		8871062319A328FF19C97EDE /* ApiClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientTests.swift; sourceTree = "<group>"; };
+		8F7C05A8225F0E93BC48F0DE /* URLSessionApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionApiClient.swift; sourceTree = "<group>"; };
+		934EA2FD006F8C524595F3A6 /* PomodoroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroViewModel.swift; sourceTree = "<group>"; };
+		96048BA647E00B2CDDFA9C30 /* GattModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GattModel.swift; sourceTree = "<group>"; };
+		98F41C2ABA630CF04100DF5E /* BluetoothLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothLookup.swift; sourceTree = "<group>"; };
+		A505FB27D39CAE1DD0326C1D /* AppPrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPrimaryButton.swift; sourceTree = "<group>"; };
+		A88B000E2FEC1446F23705B7 /* BackgroundMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMonitor.swift; sourceTree = "<group>"; };
+		ABFC6E91E5917C26D2F136F1 /* BluetoothDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothDecoder.swift; sourceTree = "<group>"; };
+		AD4D0CB8392EBF9B83254A10 /* ScannerActionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerActionsTests.swift; sourceTree = "<group>"; };
+		B3A63E1F758897CDE0E1C140 /* FileLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoggerTests.swift; sourceTree = "<group>"; };
+		B4BAC1AEFFEBA446BA37FBBC /* CameraPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPicker.swift; sourceTree = "<group>"; };
+		BEA0C6DA1033DE9CF9B040BB /* PomodoroStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroStrings.swift; sourceTree = "<group>"; };
+		BF8A75AB769D239BE6B98C59 /* GattSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GattSection.swift; sourceTree = "<group>"; };
+		C7A7C05AA34CB828937C6025 /* BluetoothLookupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothLookupTests.swift; sourceTree = "<group>"; };
+		C9CFA5442D6A9916279986C9 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
+		CE7378B1300A9A1E4F50E7EE /* ApiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiView.swift; sourceTree = "<group>"; };
+		D549A75CD95F098FAFFA39F7 /* PomodoroEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroEngine.swift; sourceTree = "<group>"; };
+		DE4D5C8FEC7A0E7A3585F04A /* AppLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLog.swift; sourceTree = "<group>"; };
+		E08C70555FF68CE6EEAA7420 /* AppHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeader.swift; sourceTree = "<group>"; };
+		E309A0335ED6E8F54D97DF66 /* NativeDeviceMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeDeviceMonitorApp.swift; sourceTree = "<group>"; };
+		E980CDC10D73786DBED03543 /* GattModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GattModelTests.swift; sourceTree = "<group>"; };
+		EBA31A41449CFB3E1AED294C /* PermissionStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionStrings.swift; sourceTree = "<group>"; };
+		F01AA91C5EA1E5578DBF21E0 /* ApiStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiStrings.swift; sourceTree = "<group>"; };
+		F15EA4E5F2F9BD96370BD795 /* ApiBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiBackend.swift; sourceTree = "<group>"; };
+		F55AA0D41525485D6DF80FC3 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
+		F5B62651AE8AD2705956FAB5 /* BluetoothScanFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothScanFilter.swift; sourceTree = "<group>"; };
+		F78271B8C794C3B4433B72AC /* PermissionGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionGroup.swift; sourceTree = "<group>"; };
+		F83AE8D64879AE929F1E640D /* PermissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionService.swift; sourceTree = "<group>"; };
+		FECABFA914142F1E1998F40A /* NativeDeviceMonitorTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = NativeDeviceMonitorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		16CFAED0D7E269D6CC8DDFB1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BB473C23AC0A567B7243910 /* Alamofire in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0A72A4EFD9DE828C7FB84B57 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				4F49C831A7689A8D1E23F932 /* AppColor.swift */,
+				E08C70555FF68CE6EEAA7420 /* AppHeader.swift */,
+				65082DC75B9CA4CDE304DD81 /* AppSpacing.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		110188C8E3E490FB2524AFBD /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				AEDD97F205296492C0512894 /* Api */,
+				F56881A4FB81D5766BD91B46 /* Common */,
+				30D76AC031481EC30B5FB223 /* Media */,
+				E661FCB81A7DE7B8FBD2DE76 /* Monitor */,
+				7D80E7B847A2F5E85CA30389 /* Permission */,
+				F6E00E3ABE789E63D78A3D47 /* Pomodoro */,
+				995C41F273A52A36365F829A /* Scanner */,
+				0A72A4EFD9DE828C7FB84B57 /* Theme */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		15312C361DA3142D4B85CE84 /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				DE4D5C8FEC7A0E7A3585F04A /* AppLog.swift */,
+				11F88B6B75C54276EC9004E9 /* FileLogger.swift */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
+		30D76AC031481EC30B5FB223 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				B4BAC1AEFFEBA446BA37FBBC /* CameraPicker.swift */,
+				692ED6019E0A49C857E9938D /* MediaStrings.swift */,
+				64218851E2F41F81FB565C52 /* MediaView.swift */,
+			);
+			path = Media;
+			sourceTree = "<group>";
+		};
+		33D686F08F15D3DDC52F249C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				447DE01141573696C988A0C5 /* AlamofireApiClient.swift */,
+				F15EA4E5F2F9BD96370BD795 /* ApiBackend.swift */,
+				F55AA0D41525485D6DF80FC3 /* ApiClient.swift */,
+				0978DEAB2C2328E62199FCCE /* ApiHelpers.swift */,
+				43288FB1EBB4DD71F584CDB0 /* ApiResult.swift */,
+				8F7C05A8225F0E93BC48F0DE /* URLSessionApiClient.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		5651BF2C20DC2EFA875859D4 /* Permission */ = {
+			isa = PBXGroup;
+			children = (
+				F78271B8C794C3B4433B72AC /* PermissionGroup.swift */,
+				F83AE8D64879AE929F1E640D /* PermissionService.swift */,
+				490AF1724F115F7C0E428D3D /* PermissionStatus.swift */,
+			);
+			path = Permission;
+			sourceTree = "<group>";
+		};
+		71016029B35A7E0C39A7FB07 /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				59F5F22E58E206FABEFFB5AC /* DeviceProviders.swift */,
+				5B0BCAE6A5E33C03B353B662 /* DeviceStatus.swift */,
+			);
+			path = Device;
+			sourceTree = "<group>";
+		};
+		7BCE67316BE44179695E1C25 /* NativeCore */ = {
+			isa = PBXGroup;
+			children = (
+				9216F859E247BB3576A66360 /* Background */,
+				8CF8C105321C5EC5A327C905 /* Bluetooth */,
+				71016029B35A7E0C39A7FB07 /* Device */,
+				15312C361DA3142D4B85CE84 /* Logging */,
+				C08516FD85BC40B7B71F0D23 /* Media */,
+				33D686F08F15D3DDC52F249C /* Network */,
+				5651BF2C20DC2EFA875859D4 /* Permission */,
+				839987A08164C7EE118B353A /* Pomodoro */,
+			);
+			path = NativeCore;
+			sourceTree = "<group>";
+		};
+		7D80E7B847A2F5E85CA30389 /* Permission */ = {
+			isa = PBXGroup;
+			children = (
+				EBA31A41449CFB3E1AED294C /* PermissionStrings.swift */,
+				3D6C6A08DA7599C6EEC90DA1 /* PermissionView.swift */,
+			);
+			path = Permission;
+			sourceTree = "<group>";
+		};
+		7D844A9050A812B979DDAC55 /* NativeDeviceMonitor */ = {
+			isa = PBXGroup;
+			children = (
+				70843E8C97E1BD2E4C528D21 /* Info.plist */,
+				E309A0335ED6E8F54D97DF66 /* NativeDeviceMonitorApp.swift */,
+				7BCE67316BE44179695E1C25 /* NativeCore */,
+				110188C8E3E490FB2524AFBD /* UI */,
+			);
+			path = NativeDeviceMonitor;
+			sourceTree = "<group>";
+		};
+		839987A08164C7EE118B353A /* Pomodoro */ = {
+			isa = PBXGroup;
+			children = (
+				D549A75CD95F098FAFFA39F7 /* PomodoroEngine.swift */,
+				58124D2774F414889B2385DC /* PomodoroSessionStore.swift */,
+			);
+			path = Pomodoro;
+			sourceTree = "<group>";
+		};
+		8CF8C105321C5EC5A327C905 /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				20DAA8102AED69EBF560EC9B /* BluetoothClientService.swift */,
+				ABFC6E91E5917C26D2F136F1 /* BluetoothDecoder.swift */,
+				121486ADB7CCD97EEA998457 /* BluetoothDeviceInfo.swift */,
+				98F41C2ABA630CF04100DF5E /* BluetoothLookup.swift */,
+				F5B62651AE8AD2705956FAB5 /* BluetoothScanFilter.swift */,
+				62248DC9CB948711E7A5080B /* BluetoothService.swift */,
+				96048BA647E00B2CDDFA9C30 /* GattModel.swift */,
+			);
+			path = Bluetooth;
+			sourceTree = "<group>";
+		};
+		9216F859E247BB3576A66360 /* Background */ = {
+			isa = PBXGroup;
+			children = (
+				A88B000E2FEC1446F23705B7 /* BackgroundMonitor.swift */,
+			);
+			path = Background;
+			sourceTree = "<group>";
+		};
+		995C41F273A52A36365F829A /* Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				BF8A75AB769D239BE6B98C59 /* GattSection.swift */,
+				655D45315ACF176F411CF752 /* ScannerActions.swift */,
+				6791C9D1DF6DF8226D5DDEDE /* ScannerStrings.swift */,
+				C9CFA5442D6A9916279986C9 /* ScannerView.swift */,
+			);
+			path = Scanner;
+			sourceTree = "<group>";
+		};
+		A1D709CF5155F299FA7AE53C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				772FB34D3452E0386D303A1B /* NativeDeviceMonitor.app */,
+				FECABFA914142F1E1998F40A /* NativeDeviceMonitorTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AEDD97F205296492C0512894 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				F01AA91C5EA1E5578DBF21E0 /* ApiStrings.swift */,
+				CE7378B1300A9A1E4F50E7EE /* ApiView.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+		B3CED4D428F05C237E969F53 = {
+			isa = PBXGroup;
+			children = (
+				7D844A9050A812B979DDAC55 /* NativeDeviceMonitor */,
+				C4E49067886CE3C21D81D269 /* NativeDeviceMonitorTests */,
+				A1D709CF5155F299FA7AE53C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C08516FD85BC40B7B71F0D23 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				406EB7DF6318D835CCD0D260 /* MediaInfo.swift */,
+				52FA7FB67740D22ED0218C14 /* MediaManager.swift */,
+			);
+			path = Media;
+			sourceTree = "<group>";
+		};
+		C4E49067886CE3C21D81D269 /* NativeDeviceMonitorTests */ = {
+			isa = PBXGroup;
+			children = (
+				8871062319A328FF19C97EDE /* ApiClientTests.swift */,
+				C7A7C05AA34CB828937C6025 /* BluetoothLookupTests.swift */,
+				B3A63E1F758897CDE0E1C140 /* FileLoggerTests.swift */,
+				E980CDC10D73786DBED03543 /* GattModelTests.swift */,
+				033EDD244D8ADCBFFC7A65E2 /* MediaInfoTests.swift */,
+				3B33B0B66A83FF320876B033 /* PomodoroEngineTests.swift */,
+				39C893F4EEB388F7D223B9D4 /* PomodoroViewModelTests.swift */,
+				AD4D0CB8392EBF9B83254A10 /* ScannerActionsTests.swift */,
+			);
+			path = NativeDeviceMonitorTests;
+			sourceTree = "<group>";
+		};
+		E661FCB81A7DE7B8FBD2DE76 /* Monitor */ = {
+			isa = PBXGroup;
+			children = (
+				2CADCED385B3A66F7B536AB8 /* MonitorStrings.swift */,
+				5B7350CD361CC3AB8852B9E8 /* MonitorView.swift */,
+			);
+			path = Monitor;
+			sourceTree = "<group>";
+		};
+		F56881A4FB81D5766BD91B46 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				46CAF89964C6002A3CE2EFE2 /* AppCard.swift */,
+				7D667988BEFC097FF711C847 /* AppHintText.swift */,
+				A505FB27D39CAE1DD0326C1D /* AppPrimaryButton.swift */,
+				786896481036E82162896C29 /* AppStrings.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		F6E00E3ABE789E63D78A3D47 /* Pomodoro */ = {
+			isa = PBXGroup;
+			children = (
+				BEA0C6DA1033DE9CF9B040BB /* PomodoroStrings.swift */,
+				4171A4B2F86DF6225D664041 /* PomodoroView.swift */,
+				934EA2FD006F8C524595F3A6 /* PomodoroViewModel.swift */,
+				47B42055CC8E02ABD85EC9F4 /* ProgressRing.swift */,
+			);
+			path = Pomodoro;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4FCBF51E93991CD5ADCE5A37 /* NativeDeviceMonitorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D487FE66C78272EB784702CF /* Build configuration list for PBXNativeTarget "NativeDeviceMonitorTests" */;
+			buildPhases = (
+				64AD1B83308FE861D5534F40 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F5C38E3B2BC8416761FFBCD5 /* PBXTargetDependency */,
+			);
+			name = NativeDeviceMonitorTests;
+			packageProductDependencies = (
+			);
+			productName = NativeDeviceMonitorTests;
+			productReference = FECABFA914142F1E1998F40A /* NativeDeviceMonitorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		868CFF722140DEA154273157 /* NativeDeviceMonitor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 95C422CB5ED4290D1EFA1667 /* Build configuration list for PBXNativeTarget "NativeDeviceMonitor" */;
+			buildPhases = (
+				F8EB34672D659FD916738CEF /* Sources */,
+				16CFAED0D7E269D6CC8DDFB1 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NativeDeviceMonitor;
+			packageProductDependencies = (
+				17A23FBFD65645A83ED5E2B6 /* Alamofire */,
+			);
+			productName = NativeDeviceMonitor;
+			productReference = 772FB34D3452E0386D303A1B /* NativeDeviceMonitor.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A7CE41012A6301B268443AE8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					868CFF722140DEA154273157 = {
+						DevelopmentTeam = FCVAGS6GVB;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = E64D55FB7A71C1E4FA607B16 /* Build configuration list for PBXProject "NativeDeviceMonitor" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = B3CED4D428F05C237E969F53;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				1FB77CCCDAD2586611E0D0FB /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = A1D709CF5155F299FA7AE53C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				868CFF722140DEA154273157 /* NativeDeviceMonitor */,
+				4FCBF51E93991CD5ADCE5A37 /* NativeDeviceMonitorTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		64AD1B83308FE861D5534F40 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A0BC8CE9BDC27E4815B553A /* ApiClientTests.swift in Sources */,
+				05B7752A9914F324FEA0092C /* BluetoothLookupTests.swift in Sources */,
+				76B14787435A50F196D32A5E /* FileLoggerTests.swift in Sources */,
+				5B708CBC63BC596B9C51A126 /* GattModelTests.swift in Sources */,
+				DEB632ED16DF838985DD66AB /* MediaInfoTests.swift in Sources */,
+				DE9EFA810A201EA76A23D442 /* PomodoroEngineTests.swift in Sources */,
+				94B306CB39798E860130EABF /* PomodoroViewModelTests.swift in Sources */,
+				23C5DBC607BACACEACF0C081 /* ScannerActionsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8EB34672D659FD916738CEF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4283E5BFD3D8E66209CD4954 /* AlamofireApiClient.swift in Sources */,
+				C97C405DB2C340DFA3C5F129 /* ApiBackend.swift in Sources */,
+				4B00FAA507FA8ECB8CC13DC4 /* ApiClient.swift in Sources */,
+				1377FD0C9B22733A5EF4CE66 /* ApiHelpers.swift in Sources */,
+				802DDB9FA79133D9B243E55C /* ApiResult.swift in Sources */,
+				74CE35AFF1F57FF171DC4E37 /* ApiStrings.swift in Sources */,
+				5B44E1F366AD50CABEE96F63 /* ApiView.swift in Sources */,
+				3B9F71A64694F951DC7B7FA9 /* AppCard.swift in Sources */,
+				6576408F2604C4A649FDB4C9 /* AppColor.swift in Sources */,
+				FF31BC955632E1F640A9F108 /* AppHeader.swift in Sources */,
+				6E3B82A27462EF3E0266315A /* AppHintText.swift in Sources */,
+				E22631DC72DF5814211848FF /* AppLog.swift in Sources */,
+				F2796B9E295E191C0BD331B0 /* AppPrimaryButton.swift in Sources */,
+				40893D0C13E6B7178F3CF0EB /* AppSpacing.swift in Sources */,
+				5856655277554C48D9AD219E /* AppStrings.swift in Sources */,
+				5DE75FB40A21701109F9F529 /* BackgroundMonitor.swift in Sources */,
+				780AF91AA33F50C4B74DE06F /* BluetoothClientService.swift in Sources */,
+				80E531BDE7623F3CFB0C8B71 /* BluetoothDecoder.swift in Sources */,
+				4E4D1B329FCD4E0005CD3571 /* BluetoothDeviceInfo.swift in Sources */,
+				D1760FA4E497F992B9664F6D /* BluetoothLookup.swift in Sources */,
+				4CE74C22ECA73506FE52A797 /* BluetoothScanFilter.swift in Sources */,
+				3583264D9D6D0127005447FA /* BluetoothService.swift in Sources */,
+				AC367601C197285D5316623A /* CameraPicker.swift in Sources */,
+				2EA68E7CBF43270BF941620D /* DeviceProviders.swift in Sources */,
+				97C6C8E1A10BD96D48D5A3F7 /* DeviceStatus.swift in Sources */,
+				9CCD40DF2541A42EA2BAB5FB /* FileLogger.swift in Sources */,
+				E087ADBEF4F6C5648FC8F777 /* GattModel.swift in Sources */,
+				83CCA0869011870BFB84B0AA /* GattSection.swift in Sources */,
+				3E732CABC9A16FD0E8050718 /* MediaInfo.swift in Sources */,
+				3E2106AEBB35549CAA01AFDD /* MediaManager.swift in Sources */,
+				0CD76EDB280DFC022BEBD8CB /* MediaStrings.swift in Sources */,
+				25C36E582B8B9BE507AAFFDA /* MediaView.swift in Sources */,
+				6A1C14B2E3B0E517268FBC1B /* MonitorStrings.swift in Sources */,
+				65B9BE242928BE1218E5BFF9 /* MonitorView.swift in Sources */,
+				93424CAC7C67C417DE0953FE /* NativeDeviceMonitorApp.swift in Sources */,
+				B5529269B65360E68C6BCAB5 /* PermissionGroup.swift in Sources */,
+				BDBA089950F41008B56F1525 /* PermissionService.swift in Sources */,
+				80662365AADA4FEA4E0D5257 /* PermissionStatus.swift in Sources */,
+				2D1D31596F2B09D019EC90AA /* PermissionStrings.swift in Sources */,
+				A1573D81F5BB92579D2E4806 /* PermissionView.swift in Sources */,
+				58CC590BF2F7CD508FAD82E5 /* PomodoroEngine.swift in Sources */,
+				8A7E5364AFA974FAF93011F8 /* PomodoroSessionStore.swift in Sources */,
+				853A5779FB46CD40D307F225 /* PomodoroStrings.swift in Sources */,
+				8BE32F8344C44DC1E87C7C28 /* PomodoroView.swift in Sources */,
+				BCA612035D02879EBCBD7A35 /* PomodoroViewModel.swift in Sources */,
+				F0E2987F874A0871D7FD3699 /* ProgressRing.swift in Sources */,
+				807B9CF2BF6E9B0C1DC288B3 /* ScannerActions.swift in Sources */,
+				41206D2287F1D8FBFBACE9AA /* ScannerStrings.swift in Sources */,
+				76EF95C5ED8EB0CD51D1331B /* ScannerView.swift in Sources */,
+				4D9EF63DF6A79F185C8BF2C7 /* URLSessionApiClient.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F5C38E3B2BC8416761FFBCD5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 868CFF722140DEA154273157 /* NativeDeviceMonitor */;
+			targetProxy = A44B77CA6DE270DC57195420 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0F34360579633AD772ABB892 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.learn.NativeDeviceMonitorTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NativeDeviceMonitor.app/NativeDeviceMonitor";
+			};
+			name = Debug;
+		};
+		184EFAB80F9EC02A1B0326AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FCVAGS6GVB;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NativeDeviceMonitor/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Native Device Monitor";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Native Device Monitor uses Bluetooth to scan for and connect to BLE devices.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Native Device Monitor uses the camera to capture a photo and show its info.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.learn.NativeDeviceMonitor;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		3D4D4BAB88DE3F5850A8474C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		85FA2036305A1767027D6D66 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FCVAGS6GVB;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NativeDeviceMonitor/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Native Device Monitor";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Native Device Monitor uses Bluetooth to scan for and connect to BLE devices.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Native Device Monitor uses the camera to capture a photo and show its info.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.learn.NativeDeviceMonitor;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		E42F2A40C3AE119A707C2E2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		F1A83956C9A9EA189C7AF8BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.learn.NativeDeviceMonitorTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NativeDeviceMonitor.app/NativeDeviceMonitor";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		95C422CB5ED4290D1EFA1667 /* Build configuration list for PBXNativeTarget "NativeDeviceMonitor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85FA2036305A1767027D6D66 /* Debug */,
+				184EFAB80F9EC02A1B0326AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D487FE66C78272EB784702CF /* Build configuration list for PBXNativeTarget "NativeDeviceMonitorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0F34360579633AD772ABB892 /* Debug */,
+				F1A83956C9A9EA189C7AF8BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E64D55FB7A71C1E4FA607B16 /* Build configuration list for PBXProject "NativeDeviceMonitor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D4D4BAB88DE3F5850A8474C /* Debug */,
+				E42F2A40C3AE119A707C2E2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1FB77CCCDAD2586611E0D0FB /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		17A23FBFD65645A83ED5E2B6 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1FB77CCCDAD2586611E0D0FB /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = A7CE41012A6301B268443AE8 /* Project object */;
+}

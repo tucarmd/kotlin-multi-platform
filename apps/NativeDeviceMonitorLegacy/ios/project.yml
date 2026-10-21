@@ -1,0 +1,80 @@
+# XcodeGen spec — generates NativeDeviceMonitor.xcodeproj with: xcodegen generate
+# The .xcodeproj is pre-generated and committed, NO need to install xcodegen to open/run. Only re-run after changing this file.
+name: NativeDeviceMonitor
+options:
+  bundleIdPrefix: com.learn
+  deploymentTarget:
+    iOS: "17.0"
+# API tab · way 2 — the only 3rd-party dependency. Way 1 (URLSessionApiClient) needs nothing.
+packages:
+  Alamofire:
+    url: https://github.com/Alamofire/Alamofire.git
+    from: "5.10.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  NativeDeviceMonitor:
+    type: application
+    platform: iOS
+    sources:
+      - path: NativeDeviceMonitor
+    dependencies:
+      - package: Alamofire
+    # Week 3 · Day 14: 2 keys that have no INFOPLIST_KEY_* form → XcodeGen generates this Info.plist, Xcode MERGES it with
+    # the GENERATE_INFOPLIST_FILE part below. Edit here then `xcodegen generate`, don't hand-edit the generated file.
+    info:
+      path: NativeDeviceMonitor/Info.plist
+      properties:
+        # = Signing & Capabilities › Background Modes › "Background fetch" (needed for BGAppRefreshTask)
+        # + "Uses Bluetooth LE accessories" (bluetooth-central: iOS wakes the app when a connected peripheral sends a notify).
+        UIBackgroundModes: [fetch, bluetooth-central]
+        # Must match BackgroundMonitor.refreshTaskId — missing it crashes with "No launch handler registered" / submit .notPermitted.
+        BGTaskSchedulerPermittedIdentifiers: [com.learn.NativeDeviceMonitor.refresh]
+        # XcodeGen hard-codes 1.0 / 1 by default → point back to the build setting to keep MARKETING_VERSION 0.1.0
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.learn.NativeDeviceMonitor
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: "Native Device Monitor"
+        # Day 1: without these 2 keys the app CRASHES the moment it requests permission (not a denied result)
+        INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription: "Native Device Monitor uses Bluetooth to scan for and connect to BLE devices."
+        # Day 10: the camera is really used to take photos (Media tab). PhotosPicker does NOT need NSPhotoLibraryUsageDescription.
+        INFOPLIST_KEY_NSCameraUsageDescription: "Native Device Monitor uses the camera to capture a photo and show its info."
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        TARGETED_DEVICE_FAMILY: "1"
+        CODE_SIGN_STYLE: Automatic
+        # Kept here (not only hand-edited in the .pbxproj) so `xcodegen generate` doesn't drop it.
+        DEVELOPMENT_TEAM: FCVAGS6GVB
+
+  # Unit tests for pure rules (rowActionOf, BluetoothLookup) — Swift Testing, run on the Simulator, no BLE needed.
+  # Same cases as android/app/src/test/. Run: see docs/tasks/001-scanner-row-connect.md §6.
+  NativeDeviceMonitorTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: NativeDeviceMonitorTests
+    dependencies:
+      - target: NativeDeviceMonitor
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.learn.NativeDeviceMonitorTests
+
+schemes:
+  NativeDeviceMonitor:
+    build:
+      targets:
+        NativeDeviceMonitor: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - NativeDeviceMonitorTests
