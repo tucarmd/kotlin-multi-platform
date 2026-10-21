@@ -137,7 +137,7 @@ nav:
           - "App chạy thế nào": apps/native-device-monitor/README-KMP-HOW-IT-WORKS.md
           - "Sửa code + xem nhanh": apps/native-device-monitor/README-KMP-DEV-LOOP.md
           - "Android cơ bản qua code": apps/native-device-monitor/README-KMP-ANDROID-BASICS.md
-      - "App gốc trước KMP (viết 2 lần)":
+      - "App gốc (trước KMP)":
           - apps/native-device-monitor/legacy/index.md
           - "How it is implemented": apps/native-device-monitor/legacy/README-HOW-TO-IMPLEMENT.md
           - "BLE flow, file by file": apps/native-device-monitor/legacy/README-BLE-FLOW.md

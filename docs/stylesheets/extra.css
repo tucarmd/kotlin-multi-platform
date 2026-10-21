@@ -448,10 +448,13 @@ body {
 
 /* ---------- menu thả xuống của tab (overrides/partials/tabs-item.html) ---------- */
 .md-tabs, .md-tabs__list { overflow: visible; contain: none; }
-.kd-tab { position: relative; }
+/* Menu canh theo cả thanh tab (không theo từng tab) → nhiều cột vẫn nằm trong màn hình, thiếu chỗ thì xuống dòng */
+.md-tabs .md-grid { position: relative; }
+.kd-tab { position: static; }
 .kd {
-  display: none; position: absolute; top: 100%; left: 0; z-index: 10;
-  gap: .4rem 1.6rem; padding: .8rem 1rem;
+  display: none; position: absolute; top: 100%; left: .8rem; right: .8rem; z-index: 10;
+  flex-wrap: wrap; align-items: flex-start;
+  gap: .9rem 1.6rem; padding: .8rem 1rem;
   max-height: 70vh; overflow-y: auto;
   background: var(--paper); color: var(--ink);
   border: 2px solid var(--ink); border-radius: 12px;
@@ -459,10 +462,11 @@ body {
   white-space: normal;
 }
 .kd-tab:hover > .kd, .kd-tab:focus-within > .kd { display: flex; }
-.kd__col { min-width: 11rem; max-width: 17rem; }
+.kd__col { flex: 0 1 auto; min-width: 11rem; max-width: 17rem; }
 .kd__head { display: block; font-weight: 800; font-size: .72rem; color: var(--terra); margin-bottom: .3rem; }
 .kd__list { list-style: none; margin: 0; padding: 0; }
-.kd__col--long { max-width: 30rem; }
+.kd__col--long { min-width: 24rem; max-width: 32rem; }
+.kd__col:not(:has(.kd__list)) { min-width: 0; }   /* mục chỉ có 1 link (vd Playground) không chiếm cả cột */
 .kd__col--long .kd__list { columns: 2; column-gap: 1rem; }
 .kd__list li { break-inside: avoid; }
 .kd__link { display: block; font-size: .66rem; line-height: 1.35; padding: .18rem .3rem; border-radius: 6px; color: var(--ink); }

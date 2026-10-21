@@ -3,7 +3,7 @@
 > Platform: 🍎 iOS only (no Android twin yet) · Created: 2026-10-13 · Branch: `feat/mini-pomodoro-timer`
 > Entry: **Monitor** tab → ⏱ button (top right). Launch straight into it: `xcrun simctl launch booted com.learn.NativeDeviceMonitor -openPomodoro`
 
-<img src="../assets/pomodoro_ios.png" width="260" alt="Pomodoro screen, running">
+![Pomodoro screen, running](../assets/pomodoro_ios.png){ width="260" }
 
 ## 1. Goal · scope · out of scope
 
