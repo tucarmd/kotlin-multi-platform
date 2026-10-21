@@ -22,6 +22,7 @@ Học xong 14 bài với Device Pulse, cách nhanh nhất để nhớ là **làm
     Ngoài 5 app luyện tập còn một **app demo** làm xong theo từng phase: [📡 Native Device Monitor](native-device-monitor/index.md).
     Xin quyền, BLE scan + GATT, camera, Ktor, chạy nền, UI native riêng (Jetpack Compose · SwiftUI) trên ViewModel chung.
     Code ở `apps/NativeDeviceMonitor/`. Đọc khi muốn xem một app KMP thật lớn cỡ nào và được chia phase ra sao.
+    Bản gốc trước KMP (viết 2 lần, Kotlin + Swift) để so sánh: [App gốc](native-device-monitor/legacy/index.md), code `apps/NativeDeviceMonitorLegacy/`.
 
 ```
  1 Tip Split ──► 2 Pocket Notes ──► 3 Rate Watch ──► Device Pulse ──► 4 Trip Log ──► 5 OBD Link

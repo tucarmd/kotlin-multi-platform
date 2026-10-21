@@ -84,6 +84,7 @@ Push lên `main` → GitHub Actions (`.github/workflows/pages.yml`) build và đ
 - `docs/project/` — app Device Pulse, code mẫu, checklist
 - `docs/apps/` — 5 app luyện tập (dễ → khó) + khung chung, quy ước comment
 - `apps/NativeDeviceMonitor/` + `docs/apps/native-device-monitor/` — app demo KMP core + UI native: code, plan P0–P16, spec
+- `apps/NativeDeviceMonitorLegacy/` + `docs/apps/native-device-monitor/legacy/` — bản gốc của app đó trước KMP (Kotlin + Swift viết 2 lần), task 001–007
 - `docs/plan/` — đánh giá KMP, kế hoạch học, nghiên cứu Kotlin làm web
 - `docs/reference/` — tài nguyên học, repo mẫu, bản đồ docs gốc, từ điển, lỗi hay gặp
 - `specs/` — thiết kế nội dung (không đăng lên site)

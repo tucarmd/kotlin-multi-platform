@@ -1,11 +1,14 @@
 # Native Device Monitor
 
-> The learning-path app of [native-mobile-learning](../README.md) — the same app written twice,
+> **The original app, before KMP** (moved here 2026-10-21 from the private repo `native-mobile-learning/native-device-monitor/`, history kept).
+> Its KMP rewrite (shared core + native UI) is [`../NativeDeviceMonitor/`](../NativeDeviceMonitor/README.md) — read the two side by side.
+>
+> The same app written twice,
 > **Android (Kotlin + Jetpack Compose)** and **iOS (Swift + SwiftUI)**, with the same layers and the same file names on both platforms.
 > Every week of the curriculum (Setup → Week 1 → Week 2 → Week 3 → Final) adds one more layer of features to this app.
 >
-> Learning roadmap: [../README.md#learning-roadmap--all-weeks](../README.md#learning-roadmap--all-weeks) ·
-> What is still missing + next work: [../docs/plan/README-NEXT-PHASES.md](../docs/plan/README-NEXT-PHASES.md)
+> Docs (tasks 001–007, BLE flow, how it is implemented): [docs/apps/native-device-monitor/legacy/](../../docs/apps/native-device-monitor/legacy/index.md) ·
+> What is still missing + next work: [docs/plan/README-NEXT-PHASES.md](../../docs/apps/native-device-monitor/legacy/plan/README-NEXT-PHASES.md)
 
 ## Features
 
@@ -20,24 +23,24 @@
 - **API** — GET / POST / HTTP 500 / timeout against jsonplaceholder + httpbin; buttons locked while a request is in flight; 🍎 switch between own `URLSession` code and Alamofire.
 - **Monitor** — battery / network / Bluetooth providers, a JSONL `FileLogger` (append · read · clear, corrupt lines skipped) and a `BackgroundMonitor` (`start(interval)` · `stop()` · `getStatus()` · `getLogs()` · `clearLogs()`) running as an in-app loop, an Android **Foreground Service** / **WorkManager** job, or an iOS **BGAppRefresh** task.
 
-> Code walkthrough (what the code does, why, how to test): [docs/README-HOW-TO-IMPLEMENT.md](../docs/README-HOW-TO-IMPLEMENT.md)
+> Code walkthrough (what the code does, why, how to test): [README-HOW-TO-IMPLEMENT.md](../../docs/apps/native-device-monitor/legacy/README-HOW-TO-IMPLEMENT.md)
 >
-> BLE flow diagrams (how far it runs, which file:line each step goes through, 🤖 + 🍎): [docs/README-BLE-FLOW.md](../docs/README-BLE-FLOW.md)
+> BLE flow diagrams (how far it runs, which file:line each step goes through, 🤖 + 🍎): [README-BLE-FLOW.md](../../docs/apps/native-device-monitor/legacy/README-BLE-FLOW.md)
 
 | Status | Android | iOS |
 |---|:-:|:-:|
 | Permissions (BLE + Camera) + Bluetooth radio | ✅ | ✅ |
 | Scan + connect/disconnect + live state | ✅ | ✅ |
-| Scanner layout: name filter + select row + shared Connect / Disconnect — [task 001](../docs/tasks/001-scanner-row-connect.md) | ✅ | ✅ |
+| Scanner layout: name filter + select row + shared Connect / Disconnect — [task 001](../../docs/apps/native-device-monitor/legacy/tasks/001-scanner-row-connect.md) | ✅ | ✅ |
 | Run + screenshots | ✅ | ✅ |
-| Scanner filters: **Hide unknown devices** + **Hide audio devices** — [task 002](../docs/tasks/002-scanner-hide-filters.md) | ✅ | ✅ |
-| GATT discover · target characteristic · read + decode — [task 003](../docs/tasks/003-gatt-read-notify.md) | ✅ | ✅ |
-| Notify stream → UI · manual / unexpected disconnect · cleanup · error states — [task 003](../docs/tasks/003-gatt-read-notify.md) | ✅ | ✅ |
-| Write characteristic (Text / Hex + ELM327 presets) · MTU — [task 004](../docs/tasks/004-write-mtu.md) | ✅ | ✅ |
+| Scanner filters: **Hide unknown devices** + **Hide audio devices** — [task 002](../../docs/apps/native-device-monitor/legacy/tasks/002-scanner-hide-filters.md) | ✅ | ✅ |
+| GATT discover · target characteristic · read + decode — [task 003](../../docs/apps/native-device-monitor/legacy/tasks/003-gatt-read-notify.md) | ✅ | ✅ |
+| Notify stream → UI · manual / unexpected disconnect · cleanup · error states — [task 003](../../docs/apps/native-device-monitor/legacy/tasks/003-gatt-read-notify.md) | ✅ | ✅ |
+| Write characteristic (Text / Hex + ELM327 presets) · MTU — [task 004](../../docs/apps/native-device-monitor/legacy/tasks/004-write-mtu.md) | ✅ | ✅ |
 | Media (capture + picker) · API client (GET / POST / error / timeout) — Day 10 | ✅ | ✅ |
-| API client: 2 ways to connect, own `URLSession` code vs **Alamofire**, with a Picker on the API tab — [task 007](../docs/tasks/007-api-two-backends.md) | — | ✅ |
-| Week 3 — device providers · FileLogger JSONL · BackgroundMonitor · 🤖 FGS + WorkManager · 🍎 BGAppRefresh · tab Monitor — [task 005](../docs/tasks/005-week3-nativecore-background.md) | ✅ | ✅ |
-| Final — E2E checklist + refactor checklist + clean build (Lint / Analyze) — [task 006](../docs/tasks/006-final-e2e-cleanup.md) | ✅ | ✅ |
+| API client: 2 ways to connect, own `URLSession` code vs **Alamofire**, with a Picker on the API tab — [task 007](../../docs/apps/native-device-monitor/legacy/tasks/007-api-two-backends.md) | — | ✅ |
+| Week 3 — device providers · FileLogger JSONL · BackgroundMonitor · 🤖 FGS + WorkManager · 🍎 BGAppRefresh · tab Monitor — [task 005](../../docs/apps/native-device-monitor/legacy/tasks/005-week3-nativecore-background.md) | ✅ | ✅ |
+| Final — E2E checklist + refactor checklist + clean build (Lint / Analyze) — [task 006](../../docs/apps/native-device-monitor/legacy/tasks/006-final-e2e-cleanup.md) | ✅ | ✅ |
 
 ## Requirements
 
@@ -100,20 +103,20 @@ xcodebuild test -project ios/NativeDeviceMonitor.xcodeproj -scheme NativeDeviceM
 
 ## How to test (short)
 
-Full scenario with expected results: [docs/README-HOW-TO-IMPLEMENT.md §7](../docs/README-HOW-TO-IMPLEMENT.md#7-how-to-test).
+Full scenario with expected results: [README-HOW-TO-IMPLEMENT.md §7](../../docs/apps/native-device-monitor/legacy/README-HOW-TO-IMPLEMENT.md#7-how-to-test).
 
 1. **Permissions tab** → *Request permission* on BLE → allow → `GRANTED`. Do the same on Camera but **deny** → `DENIED`
    (Android: deny twice → `PERMANENTLY DENIED` → button becomes *Open app settings*; iOS: one deny is final).
 2. Toggle Bluetooth in Quick Settings / Control Center → *Bluetooth radio* card flips `RADIO ON` ↔ `RADIO OFF` without leaving the screen.
-3. Second phone: nRF Connect → *Advertiser* → start advertising (connectable). Short Local Name (e.g. `CMD-Test`) + 16-bit service UUID; on iPhone keep nRF Connect **in the foreground** or Android won't see it — full setup + troubleshooting: [§7.1](../docs/README-HOW-TO-IMPLEMENT.md#71-set-up-phone-b-as-the-peripheral-iphone--nrf-connect).
+3. Second phone: nRF Connect → *Advertiser* → start advertising (connectable). Short Local Name (e.g. `CMD-Test`) + 16-bit service UUID; on iPhone keep nRF Connect **in the foreground** or Android won't see it — full setup + troubleshooting: [§7.1](../../docs/apps/native-device-monitor/legacy/README-HOW-TO-IMPLEMENT.md#71-set-up-phone-b-as-the-peripheral-iphone--nrf-connect).
 4. **Scanner tab** → *Scan* → the peripheral appears once (no duplicates), RSSI updates, scan stops by itself after 10 s.
 5. Type part of the name in *Device Name* (e.g. `cmd`) → list narrows. Tap the peripheral's row to select it → **Connect** → spinner → `CONNECTED` (green dot) → **Disconnect** → `Disconnected` (grey).
 6. Turn on *Hide unknown devices* / *Hide audio devices* → unnamed rows / headphones disappear at once (no rescan); the selected or connected device always stays.
 7. Stop advertising / walk away while connected → red `Unexpected disconnect…`. Turn Bluetooth off → red `Bluetooth turned off`, list cleared.
 
-Step-by-step peripheral setup + Scan → Connect → Pair → Read → Notify checklist: [docs/peripheral-setup.md](../docs/peripheral-setup.md).
+Step-by-step peripheral setup + Scan → Connect → Pair → Read → Notify checklist: [docs/peripheral-setup.md](../../docs/apps/native-device-monitor/legacy/peripheral-setup.md).
 
-Day 3 + Day 4 need a peripheral with a real GATT server — nRF Connect *Configure GATT server* on an Android phone, or an ESP32 running the Arduino `BLE_notify` example ([§7.3](../docs/README-HOW-TO-IMPLEMENT.md#73-peripheral-with-gatt-for-day-3--day-4)):
+Day 3 + Day 4 need a peripheral with a real GATT server — nRF Connect *Configure GATT server* on an Android phone, or an ESP32 running the Arduino `BLE_notify` example ([§7.3](../../docs/apps/native-device-monitor/legacy/README-HOW-TO-IMPLEMENT.md#73-peripheral-with-gatt-for-day-3--day-4)):
 
 8. **Connect** → `Discovering services…` → the **GATT** block lists every service and characteristic with its properties; one row is marked `★ target`.
 9. **Read** a readable characteristic (e.g. `2A29` Manufacturer Name, `2A19` Battery Level) → *Last read* shows `raw: …` and `value: …`; Logcat / Xcode console prints `READ 2A19 raw=[5A] decoded=90 %`.
@@ -230,11 +233,11 @@ Retake: Android → open the screen on the phone, `bash ../scripts/screenshot-an
 
 ## Docs
 
-- Code walkthrough + how to test: [../docs/README-HOW-TO-IMPLEMENT.md](../docs/README-HOW-TO-IMPLEMENT.md)
-- BLE flow diagrams (file:line for every step): [../docs/README-BLE-FLOW.md](../docs/README-BLE-FLOW.md)
-- Test peripheral setup (nRF Connect / ESP32): [../docs/peripheral-setup.md](../docs/peripheral-setup.md)
-- How *Hide audio devices* recognises headphones: [../docs/bluetooth-audio-devices.md](../docs/bluetooth-audio-devices.md)
-- Feature tasks 001–006 (requirement, AC, test results): [../docs/tasks/](../docs/tasks/)
+- Code walkthrough + how to test: [README-HOW-TO-IMPLEMENT.md](../../docs/apps/native-device-monitor/legacy/README-HOW-TO-IMPLEMENT.md)
+- BLE flow diagrams (file:line for every step): [README-BLE-FLOW.md](../../docs/apps/native-device-monitor/legacy/README-BLE-FLOW.md)
+- Test peripheral setup (nRF Connect / ESP32): [docs/peripheral-setup.md](../../docs/apps/native-device-monitor/legacy/peripheral-setup.md)
+- How *Hide audio devices* recognises headphones: [docs/bluetooth-audio-devices.md](../../docs/apps/native-device-monitor/legacy/bluetooth-audio-devices.md)
+- Feature tasks 001–006 (requirement, AC, test results): [docs/tasks/](../../docs/apps/native-device-monitor/legacy/tasks/001-scanner-row-connect.md)
 
 ## References
 

@@ -1,4 +1,4 @@
-[🏠 README](../index.md) · Old app: [tucarmd/native-mobile-learning](https://github.com/tucarmd/native-mobile-learning) (`native-device-monitor/`)
+[🏠 README](../index.md) · Old app (before KMP): [`apps/NativeDeviceMonitorLegacy/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/apps/NativeDeviceMonitorLegacy) · [its docs + tasks 001–007](../legacy/index.md)
 
 # Plan — Native Device Monitor → KMP core + native UI (Jetpack Compose · SwiftUI)
 
@@ -32,7 +32,7 @@ Swift/SwiftUI ~5.6k lines). Now: models, rules, ViewModels, HTTP, logger, monito
 
 **Out of scope (→ backlog):** ~~Pomodoro~~ (task 007 → now **P13**, ported straight into `shared/`),
 Phase A–D items of `docs/plan/README-NEXT-PHASES.md` in the old repo, desktop/web targets, store release, new features.
-The old `native-device-monitor/` (repo native-mobile-learning) stays untouched as the reference ("before" version).
+The old app stays untouched as the reference ("before" version): since 2026-10-21 at `apps/NativeDeviceMonitorLegacy/` in this repo (was `native-device-monitor/` in the private repo native-mobile-learning).
 
 ### Who writes what: shared KMP vs native
 
@@ -209,7 +209,9 @@ Rule per phase: one commit, build OK + run for real + screenshot read, then stop
   full history: every SHA in these pages still opens on GitHub). Docs → `docs/apps/native-device-monitor/`, one site for
   everything KMP: https://tucarmd.github.io/kotlin-multi-platform/. Old site `native-device-monitor-kmp-docs` now
   redirects there; own MkDocs setup (mkdocs.yml, hooks, deploy script, docs-site plan S1–S5) removed. Branches
-  `notes/p0` `notes/p1` and tags `phase-p0…p7` live on as `ndm/…`.
+  `notes/p0` `notes/p1` and tags `phase-p0…p7` live on as `ndm/…`. Same day the **original app** (written twice, before
+  KMP) followed: `apps/NativeDeviceMonitorLegacy/` (subtree split, its 9 commits kept) + its docs and tasks 001–007 in
+  `docs/apps/native-device-monitor/legacy/`.
 
 ## 7. Next step
 

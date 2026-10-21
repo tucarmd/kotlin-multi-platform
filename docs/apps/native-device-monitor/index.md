@@ -3,7 +3,7 @@
 !!! tip "App demo lớn nhất của site"
     Code: [`apps/NativeDeviceMonitor/`](https://github.com/tucarmd/kotlin-multi-platform/tree/main/apps/NativeDeviceMonitor), cạnh 5 app luyện tập. Đây là một app **thật** (BLE, camera, chạy nền, Ktor) làm theo từng phase P0–P16, mỗi phase một commit, có plan + spec đọc được. Dời vào repo này ngày 2026-10-21 (trước đó ở repo private `native-device-monitor-kmp`), giữ nguyên lịch sử commit.
 
-App `native-device-monitor` cũ (repo private [tucarmd/native-mobile-learning](https://github.com/tucarmd/native-mobile-learning/tree/main/native-device-monitor)) viết **hai lần toàn bộ** (Kotlin + Swift). Bản này làm lại theo hướng **KMP core + UI native**:
+App gốc trước KMP ([app gốc, đọc docs](legacy/index.md) · [code](https://github.com/tucarmd/kotlin-multi-platform/tree/main/apps/NativeDeviceMonitorLegacy)) viết **hai lần toàn bộ** (Kotlin + Swift). Bản này làm lại theo hướng **KMP core + UI native**:
 
 1. **UI vẫn viết riêng từng nền tảng:** Android là Kotlin + Jetpack Compose (`androidApp/`), iOS là Swift + SwiftUI (`iosApp/`).
 2. **Chỉ phần dùng chung mới viết bằng KMP** (`shared/`): model, luật, ViewModel, interface, HTTP (Ktor), logger, vòng lặp monitor.

@@ -12,7 +12,7 @@ và BLE GATT end-to-end (connect → read → notify → write → MTU) với nR
 
 **Chưa port** (app cũ có, repo này chưa có):
 
-| Thứ trong app cũ | Ở đâu (repo native-mobile-learning) | Vì sao chưa có | Đi về đâu |
+| Thứ trong app cũ | Ở đâu (`apps/NativeDeviceMonitorLegacy/`) | Vì sao chưa có | Đi về đâu |
 |---|---|---|---|
 | ⏱ **Pomodoro** (task 007, MVVM lesson 01) | `ios/…/NativeCore/Pomodoro/` + `UI/Pomodoro/` + 2 file test (~550 dòng, **chỉ iOS**) | Plan cũ để backlog (D5) | **P13**: engine + ViewModel vào `shared/`, Android có Pomodoro lần đầu |
 | Header xanh, chữ trắng mọi màn | `AppHeader.swift` · `headerText` Android (commit `0e92cbf`, `6e2e8e7`) | Làm ở app cũ **sau** lúc copy sang KMP | **P16** (chỉ UI, nhỏ) |

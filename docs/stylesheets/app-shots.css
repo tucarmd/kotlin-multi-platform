@@ -11,3 +11,10 @@
 .md-typeset .shots--pair img { max-height: 760px; width: auto; max-width: 100%; margin: 0 auto; }
 .md-typeset .shots figcaption { margin-top: .7em; font-weight: 650; max-width: none; }
 .md-typeset .tabbed-set .shots { margin-top: .6em; }
+
+/* App gốc (apps/native-device-monitor/legacy/): chip nền tảng + hàng ảnh điện thoại nhỏ */
+.chip--swift { background: #F05138; color: #fff; }
+.chip--kotlin { background: #7F52FF; color: #fff; }
+.md-typeset .phones { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin: 1em 0 1.6em; }
+.md-typeset .phones figure { margin: 0; width: 150px; text-align: center; font-size: .72rem; }
+.md-typeset .phones img { width: 100%; border: 3px solid var(--line, #d8d2c4); border-radius: 22px; box-shadow: var(--shadow, 0 6px 18px rgba(0, 0, 0, .12)); background: #000; }

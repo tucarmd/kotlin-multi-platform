@@ -137,6 +137,21 @@ nav:
           - "App chạy thế nào": apps/native-device-monitor/README-KMP-HOW-IT-WORKS.md
           - "Sửa code + xem nhanh": apps/native-device-monitor/README-KMP-DEV-LOOP.md
           - "Android cơ bản qua code": apps/native-device-monitor/README-KMP-ANDROID-BASICS.md
+      - "App gốc trước KMP (viết 2 lần)":
+          - apps/native-device-monitor/legacy/index.md
+          - "How it is implemented": apps/native-device-monitor/legacy/README-HOW-TO-IMPLEMENT.md
+          - "BLE flow, file by file": apps/native-device-monitor/legacy/README-BLE-FLOW.md
+          - "Test peripheral setup": apps/native-device-monitor/legacy/peripheral-setup.md
+          - "How audio devices are detected": apps/native-device-monitor/legacy/bluetooth-audio-devices.md
+          - "Next phases (parked)": apps/native-device-monitor/legacy/plan/README-NEXT-PHASES.md
+          - "001 · Scanner row + Connect": apps/native-device-monitor/legacy/tasks/001-scanner-row-connect.md
+          - "002 · Scanner hide filters": apps/native-device-monitor/legacy/tasks/002-scanner-hide-filters.md
+          - "003 · GATT read + notify": apps/native-device-monitor/legacy/tasks/003-gatt-read-notify.md
+          - "004 · Write + MTU": apps/native-device-monitor/legacy/tasks/004-write-mtu.md
+          - "005 · NativeCore + background": apps/native-device-monitor/legacy/tasks/005-week3-nativecore-background.md
+          - "006 · Final E2E + cleanup": apps/native-device-monitor/legacy/tasks/006-final-e2e-cleanup.md
+          - "007 · API, two backends": apps/native-device-monitor/legacy/tasks/007-api-two-backends.md
+          - "007 · Mini Pomodoro (MVVM)": apps/native-device-monitor/legacy/tasks/007-mini-pomodoro-mvvm.md
   - "Gỡ lỗi & tra cứu":
       - "900 lỗi Kotlin":
           - issues/index.md

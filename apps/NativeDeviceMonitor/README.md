@@ -1,7 +1,7 @@
 # Native Device Monitor — KMP
 
 > Demo app of [kotlin-multi-platform](../../README.md) (moved here 2026-10-21 from the private repo `native-device-monitor-kmp`, history kept).
-> The same app as `native-device-monitor/` in the private repo [tucarmd/native-mobile-learning](https://github.com/tucarmd/native-mobile-learning/tree/main/native-device-monitor), rebuilt as
+> The same app as `native-device-monitor/` [`apps/NativeDeviceMonitorLegacy/`](../NativeDeviceMonitorLegacy/README.md) (the original, before KMP), rebuilt as
 > **KMP core + native UI**: the UI is written per platform (Android = Kotlin + Jetpack Compose, iOS = Swift + SwiftUI),
 > everything shared (models, rules, ViewModels, interfaces, Ktor HTTP, logger, monitor loop) lives once in `shared/`.
 > Docs: **https://tucarmd.github.io/kotlin-multi-platform/apps/native-device-monitor/**
