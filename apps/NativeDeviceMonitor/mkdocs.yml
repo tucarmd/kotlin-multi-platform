@@ -1,0 +1,95 @@
+site_name: Native Device Monitor KMP
+site_url: https://tucarmd.github.io/native-device-monitor-kmp-docs/
+site_description: Một app KMP core + UI native (Jetpack Compose · SwiftUI) cho Android và iOS — plan, sơ đồ, luồng hàm.
+repo_url: https://github.com/tucarmd/native-device-monitor-kmp
+repo_name: tucarmd/native-device-monitor-kmp
+edit_uri: edit/main/docs/
+# Xem ở máy: mkdocs serve · Build giống CI: mkdocs build --strict
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  language: vi
+  custom_dir: overrides   # partials/tabs-item.html: dropdown gọn dưới mỗi tab
+  font:
+    text: Figtree
+    code: JetBrains Mono
+  icon:
+    logo: material/language-kotlin
+  features:
+    - navigation.tabs          # 2 tab trên cùng: Native Device Monitor · Học Kotlin
+    - navigation.tabs.sticky
+    - navigation.indexes
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle: { icon: material/weather-night, name: Chế độ tối }
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle: { icon: material/weather-sunny, name: Chế độ sáng }
+
+markdown_extensions:
+  - tables
+  - admonition
+  - attr_list
+  - md_in_html
+  # slug giữ dấu tiếng Việt, giống anchor GitHub → link #1-bức-tranh-tổng-6-tầng chạy cả 2 nơi
+  - toc:
+      permalink: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify { kwds: { case: lower } }
+  - pymdownx.highlight: { anchor_linenums: true }
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.details
+  - pymdownx.tabbed: { alternate_style: true }
+  # 2 cái dưới cho trang của tab Học Kotlin
+  - pymdownx.tasklist: { custom_checkbox: true }
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+# Đổi link code ngoài docs/ → GitHub (xem hooks/code_links.py)
+hooks:
+  - hooks/kotlin_docs.py   # tab Học Kotlin: lấy site repo kotlin-multi-platform (đứng đầu: đổi link trước code_links)
+  - hooks/code_links.py
+  - hooks/site_readme.py   # README.md cho repo public gh-pages
+
+plugins:
+  - search
+
+nav:
+  - Native Device Monitor:
+      - Trang chủ: index.md
+      - Bản đồ thư mục: README-KMP-FOLDER-MAP.md
+      - Kế hoạch + tiến độ (P0–P16): plan/README-KMP-MIGRATION.md
+      - "Port vào shared: còn gì, viết sao (spec P13–P15)": plan/README-KMP-SHARED-PORT-SPEC.md
+      - Vì sao đổi sang UI native (spec P8–P12): plan/README-KMP-NATIVE-UI-SPEC.md
+      - Từng phase dev làm gì: README-KMP-PHASES.md
+      - App chạy thế nào: README-KMP-HOW-IT-WORKS.md
+      - Sửa code + xem nhanh: README-KMP-DEV-LOOP.md
+      - Site tài liệu:
+          - Spec: plan/README-KMP-DOCS-SITE-SPEC.md
+          - Plan S1–S5: plan/README-KMP-DOCS-SITE-PLAN.md
+  - Học Kotlin:
+      # hooks/kotlin_docs.py thêm "Trang chủ" Kotlin lên đầu và toàn bộ nav site kotlin-multi-platform xuống dưới
+      - Android qua code app này: README-KMP-ANDROID-BASICS.md
+
+extra_css:
+  - stylesheets/extra.css

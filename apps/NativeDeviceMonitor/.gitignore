@@ -1,0 +1,26 @@
+*.iml
+.kotlin
+.gradle
+**/build/
+xcuserdata
+!src/**/build/
+local.properties
+.idea
+.DS_Store
+captures
+.externalNativeBuild
+.cxx
+node_modules/
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcodeproj/project.xcworkspace/
+!*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
+
+# MkDocs output
+site/
+__pycache__/
+
+# Tab Học Kotlin: symlink tới docs/ của repo kotlin-multi-platform (hooks/kotlin_docs.py tự tạo)
+docs/kotlin
