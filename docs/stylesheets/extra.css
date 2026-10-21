@@ -451,7 +451,8 @@ body {
 /* Menu canh theo cả thanh tab (không theo từng tab) → nhiều cột vẫn nằm trong màn hình, thiếu chỗ thì xuống dòng */
 .md-tabs .md-grid { position: relative; }
 .kd-tab { position: static; }
-.kd {
+/* chỉ trong thanh tab: Pygments cũng dùng class .kd cho từ khoá class/fun/val trong khối code */
+.md-tabs .kd {
   display: none; position: absolute; top: 100%; left: .8rem; right: .8rem; z-index: 10;
   flex-wrap: wrap; align-items: flex-start;
   gap: .9rem 1.6rem; padding: .8rem 1rem;
