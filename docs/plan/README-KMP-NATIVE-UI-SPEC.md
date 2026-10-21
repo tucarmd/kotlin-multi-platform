@@ -1,9 +1,9 @@
-[🏠 README](../../README.md) · Plan + bảng phase (P0–P13): [README-KMP-MIGRATION.md](README-KMP-MIGRATION.md)
+[🏠 README](../../README.md) · Plan + bảng phase (P0–P16): [README-KMP-MIGRATION.md](README-KMP-MIGRATION.md)
 
 # Spec: UI native riêng từng nền tảng, chỉ phần chung dùng KMP
 
 > Tạo: 2026-10-19 · Trạng thái: **Đã duyệt 2026-10-19** · N1 = SKIE · N2 = Swift · N3 = dời Compose UI sang `androidApp/`
-> Tiến độ: **P8–P11 ✅ · P12 ✅ code + simulator (⏳ iPhone thật) · P13 Final chưa**. Các bước này nằm chung một bảng phase với P0–P7: [Plan §3](README-KMP-MIGRATION.md). Commit của P8–P12 ghi nhãn tạm **R1–R5**.
+> Tiến độ: **P8–P11 ✅ · P12 ✅ code + simulator (⏳ iPhone thật) · P13–P15 port vào `shared/` ([spec](README-KMP-SHARED-PORT-SPEC.md)) · P16 Final chưa**. Các bước này nằm chung một bảng phase với P0–P7: [Plan §3](README-KMP-MIGRATION.md). Commit của P8–P12 ghi nhãn tạm **R1–R5**.
 > Thay quyết định **D1** của plan cũ (UI chung bằng Compose Multiplatform) bằng phương án thay thế: **KMP core + UI native**.
 
 ## 1. Mục tiêu
@@ -107,5 +107,5 @@ tự tạo `MutableStateFlow`. *Cách làm ở P12:* interface `core/` giữ ngu
 
 ## 7. Ngoài phạm vi
 
-Pomodoro, desktop/web, phát hành lên store, tính năng mới. Phần 🍎 thật của P3/P4/P5/P7 là P12
+~~Pomodoro~~ (nay là P13), desktop/web, phát hành lên store, tính năng mới. Phần 🍎 thật của P3/P4/P5/P7 là P12
 (xem [plan](README-KMP-MIGRATION.md) §3).

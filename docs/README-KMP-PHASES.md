@@ -4,7 +4,7 @@
 
 Trang này để **trình bày và review lại**. Mỗi phase đọc từ trên xuống: bước 1 → 2 → 3 là đúng thứ tự dev làm, mỗi bước gắn **một nhãn tầng** để biết đang đụng UI, code KMP dùng chung hay code riêng Android / iOS.
 
-> Cập nhật 2026-10-19. **Android: P0–P7 chạy thật** (trừ BLE connect/GATT cần máy thật). **iOS: UI SwiftUI đủ 5 tab (P10), cả 5 interface gọi SDK thật (P12)**, đã chạy trên simulator, chưa chạy trên iPhone thật.
+> Cập nhật 2026-10-21 (thêm kế hoạch P13–P16). **Android: P0–P7 chạy thật** (trừ BLE connect/GATT cần máy thật). **iOS: UI SwiftUI đủ 5 tab (P10), cả 5 interface gọi SDK thật (P12)**, đã chạy trên simulator, chưa chạy trên iPhone thật.
 >
 > **Đổi hướng 2026-10-19:** P0–P7 dùng Compose Multiplatform (một UI cho cả 2 bên). Từ P8–P11 UI tách riêng: Android = Jetpack Compose, iOS = SwiftUI, cả hai đọc chung ViewModel trong `shared/`. Các mục P0–P7 bên dưới là **lịch sử đúng lúc làm** (đường dẫn `shared/.../ui/` nay đã dời sang `androidApp/`).
 
@@ -62,11 +62,14 @@ flowchart LR
 | [P10 SwiftUI 4 tab](#p10--swiftui-đủ-5-tab) | ● | ● | | | ● | | ✅ iOS (Maestro) |
 | [P11 Compose → androidApp](#p11--compose-về-androidapp-shared-hết-compose) | ● | | ● | ● | ● | ● | ✅ A32 |
 | [P12 iOS SDK thật (Swift)](#p12--ios-gọi-sdk-apple-thật-bằng-swift) | | | | | ● | ● | ✅ code + simulator · iPhone thật chưa |
-| P13 Final | | | | | | | chưa |
+| [P13 Pomodoro → shared](#p13p16--kế-hoạch-port-vào-shared) | ● | ● | ● | ● | ● | | ⏳ plan, chờ duyệt |
+| [P14 BLE rules → commonMain](#p13p16--kế-hoạch-port-vào-shared) | | | ● | ● | ● | | ⏳ plan |
+| [P15 iOS SDK → Kotlin/Native](#p13p16--kế-hoạch-port-vào-shared) | | | | | ● | ● | ⏳ plan (D6) |
+| P16 Final | ● | | | | | | chưa |
 
 ● = phase này có sửa · ○ = phải làm nhưng chưa làm · → = phần iOS làm sau, ở P12.
 
-Một dãy số duy nhất P0–P13. Commit của P8–P12 ghi nhãn tạm **R1–R5** (P8 = R1 … P12a–d = R5a–d); lịch sử git không sửa, nên tra commit theo nhãn đó.
+Một dãy số duy nhất P0–P16 (P13 Final cũ = P16 từ 2026-10-21). Commit của P8–P12 ghi nhãn tạm **R1–R5** (P8 = R1 … P12a–d = R5a–d); lịch sử git không sửa, nên tra commit theo nhãn đó.
 
 Điều cần thấy khi nhìn bảng: **từ P3 tới P7 UI không đổi một dòng**. Thứ tự làm thật hơi khác số: P6 (mạng, chạy được trên simulator) làm **trước** P3–P5 (cần máy thật). Màn hình đã viết xong ở P2 trên interface; mỗi phase sau chỉ thay `Fake*` bằng cài đặt thật ở 🤖 / 🍎, rồi đổi **một dòng** trong `createAndroidServices` / `createIosServices`.
 
@@ -240,7 +243,7 @@ git -C ../native-device-monitor-kmp-phase-view checkout phase-p3
 2. 🧩 **KMP chung** (dùng lại từ P1, không sửa): `BluetoothDecoder` giải mã byte, `GattModel` chọn target + `planWrite()`.
 3. 🤖 **Nối dây**: [AndroidServices.kt](https://github.com/tucarmd/native-device-monitor-kmp/blob/2964e21/shared/src/androidMain/kotlin/com/learn/ndmkmp/platform/AndroidServices.kt) đổi sang `AndroidBleClient(applicationContext)` (không giữ Activity → không leak), gọi `release()` khi Activity bị huỷ.
 4. ✅ **Kiểm tra** (emulator, không có thiết bị BLE): Scan chạy và tự dừng sau 10 s; tắt radio giữa chừng → danh sách bị xoá; thu hồi quyền → "Not ready".
-5. ⏳ **Chưa kiểm tra**: connect / discover / read / notify / write / MTU với thiết bị thật (Samsung A32 + nRF Connect) → P13.
+5. ⏳ **Chưa kiểm tra**: connect / discover / read / notify / write / MTU với thiết bị thật (Samsung A32 + nRF Connect) → P16.
 
 | Lúc P4 | Bây giờ |
 |---|---|
@@ -391,10 +394,37 @@ Cách nối: interface `core/` giữ nguyên. Swift implement các interface **c
 5. 🧠 **ViewModel**: `MonitorUiState` thêm tiêu đề / gợi ý theo nền tảng (iOS: BGAppRefresh, không phải WorkManager).
 6. ✅ **Kiểm tra**: 82/82 test trên iOS (thêm `IosAdaptersTest`). Simulator: xin quyền camera → GRANTED, PHPicker thật chọn được ảnh, loop ghi JSONL và log còn sau khi mở lại app, Schedule báo lỗi 1 đúng như mong đợi. **Chưa chạy trên iPhone thật.**
 
+## P13–P16 · Kế hoạch: port vào shared
+
+> Chưa code. Spec đầy đủ (app cũ còn gì, vì sao, thiết kế, D6–D8): [Port vào shared](plan/README-KMP-SHARED-PORT-SPEC.md).
+
+**Đã port hết chưa?** 5 tab (task 001–006) đã port hết code. Chưa có: ⏱ **Pomodoro** (app cũ chỉ iOS) và **header xanh**
+(làm ở app cũ sau lúc copy). Alamofire cố ý bỏ, Ktor thay. Còn viết 2 lần: **luật BLE** (`AndroidBleClient` 779 dòng,
+`IosBleClient` 443 dòng) và **code SDK Apple bằng Swift** (544 dòng trong `iosApp/iosApp/Platform/`).
+
+Công thức viết một tính năng vào KMP, dùng cho cả 3 phase:
+
+| Bước | Nhãn | Đặt ở đâu | Kiểm |
+|---|---|---|---|
+| ① luật thuần (không gọi `Date()` / SDK) | 🧩 | `shared/commonMain/core/<feature>/` | `commonTest` × JVM + iOS |
+| ② cần nền tảng → interface + 2 cài đặt | 🧩 🤖 🍎 | `core/` · `androidMain/` · `iosMain/` (Kotlin/Native) | test adapter |
+| ③ ViewModel: `StateFlow<UiState>` + action + `*Strings` | 🧠 | `shared/commonMain/presentation/<feature>/` | test ViewModel, đồng hồ giả |
+| ④ UI chỉ vẽ | 🎨 | `androidApp/…/ui/` · `iosApp/iosApp/UI/` | chạy máy, chụp ảnh |
+| ⑤ nối dây thật / fake | 📱 | `AndroidServices.kt` · `IosServices.kt` | Maestro |
+
+| Phase | Làm gì | Tầng chính |
+|---|---|---|
+| **P13a** | `PomodoroEngine` + `PomodoroSessionStore` (🤖 SharedPreferences · 🍎 NSUserDefaults bằng Kotlin) + `PomodoroViewModel` + test port từ Swift | 🧩 🧠 |
+| **P13b** | Compose `PomodoroScreen` (Android có lần đầu) + SwiftUI `PomodoroView`, nút ⏱ ở tab Monitor | 🎨 |
+| **P14** | `BleSession` trong `commonMain` giữ 12 `StateFlow` + luật quét / lọc / timeout / Received / dọn dẹp; 2 client chỉ còn gọi SDK | 🧩 🤖 🍎 |
+| **P15a–c** | Quyền + thiết bị → CoreBluetooth → camera/PHPicker gọi thẳng từ `iosMain`, xoá Swift `Platform/` | 🍎 |
+| **P16** | Máy thật (iPhone + A32 + nRF Connect), checklist task 006, header xanh, README "cũ vs mới" | ✅ 🎨 |
+
 ## Còn lại
 
 | Việc | Tầng | Cần gì |
 |---|---|---|
-| Chạy P12 trên iPhone thật | ✅ | chụp ảnh, BLE scan → GATT với nRF Connect, BGAppRefresh (LLDB `_simulateLaunchForTaskWithIdentifier`) |
+| P13–P15 port vào `shared/` | 🧩 🧠 🍎 | duyệt D6–D8 trong [spec](plan/README-KMP-SHARED-PORT-SPEC.md) |
+| Chạy P12/P15 trên iPhone thật | ✅ | chụp ảnh, BLE scan → GATT với nRF Connect, BGAppRefresh (LLDB `_simulateLaunchForTaskWithIdentifier`) |
 | P4 GATT end-to-end | ✅ | Samsung A32 + iPhone + nRF Connect |
-| P13 Final | ✅ | | chạy P12 trên iPhone thật, checklist E2E task 006, README "cũ vs mới" |
+| P16 Final | ✅ | chạy trên iPhone thật, checklist E2E task 006, header xanh, README "cũ vs mới" |

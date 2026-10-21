@@ -78,7 +78,8 @@ nav:
   - Native Device Monitor:
       - Trang chủ: index.md
       - Bản đồ thư mục: README-KMP-FOLDER-MAP.md
-      - Kế hoạch + tiến độ (P0–P13): plan/README-KMP-MIGRATION.md
+      - Kế hoạch + tiến độ (P0–P16): plan/README-KMP-MIGRATION.md
+      - "Port vào shared: còn gì, viết sao (spec P13–P15)": plan/README-KMP-SHARED-PORT-SPEC.md
       - Vì sao đổi sang UI native (spec P8–P12): plan/README-KMP-NATIVE-UI-SPEC.md
       - Từng phase dev làm gì: README-KMP-PHASES.md
       - App chạy thế nào: README-KMP-HOW-IT-WORKS.md

@@ -2,8 +2,9 @@
 
 # Plan — Native Device Monitor → KMP core + native UI (Jetpack Compose · SwiftUI)
 
-> Created: 2026-10-16 · Status: **Approved 2026-10-16 · P0–P7 ✅ (P3 P4 P5 P7 Android only) · 2026-10-19 D1 changed → native UI, P8–P12 ✅ (P12 checked on the simulator, real iPhone pending)**
+> Created: 2026-10-16 · Status: **Approved 2026-10-16 · P0–P7 ✅ (P3 P4 P5 P7 Android only) · 2026-10-19 D1 changed → native UI, P8–P12 ✅ (P12 checked on the simulator, real iPhone pending) · 2026-10-21 next focus = port into `shared/`: P13–P15 planned, waiting for OK (D6–D8)**
 > Native-UI switch: [spec](README-KMP-NATIVE-UI-SPEC.md) · [plan P8–P12](README-KMP-MIGRATION.md)
+> Port into `shared/` (what's left from the old app, how a feature is written into KMP): [spec P13–P15](README-KMP-SHARED-PORT-SPEC.md)
 > Step-by-step per phase (what the dev did, which layer): [Từng phase: dev đã làm gì](../README-KMP-PHASES.md)
 > Learning path: [Học KMP qua Device Pulse](https://tucarmd.github.io/kotlin-multi-platform/lessons/02-setup/) (14 lessons) +
 > official docs [kotlinlang.org/docs/multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html).
@@ -29,7 +30,7 @@ Swift/SwiftUI ~5.6k lines). Now: models, rules, ViewModels, HTTP, logger, monito
 | API | GET / POST / HTTP 500 / timeout, buttons locked in flight |
 | Monitor | battery / network / BT providers, JSONL FileLogger, BackgroundMonitor (🤖 FGS + WorkManager · 🍎 BGAppRefresh) |
 
-**Out of scope (→ backlog):** Pomodoro (task 007, iOS-only, not committed yet — port later as an MVVM exercise),
+**Out of scope (→ backlog):** ~~Pomodoro~~ (task 007 → now **P13**, ported straight into `shared/`),
 Phase A–D items of `docs/plan/README-NEXT-PHASES.md` in the old repo, desktop/web targets, store release, new features.
 The old `native-device-monitor/` (repo native-mobile-learning) stays untouched as the reference ("before" version).
 
@@ -110,10 +111,14 @@ Library choices (versions from the wizard / lesson 5, not hand-picked):
 | P10 ✅ | SwiftUI all 5 tabs | — | Permissions, Scanner + GATT, Media, Monitor in SwiftUI on the shared ViewModels; `InfoRow` for Swift | Maestro through all 5 tabs — [ảnh](../assets/kmp_r3_ios_swiftui_tabs.png) · commits say **P10** |
 | P11 ✅ | Compose → androidApp | — | Compose UI moves to `androidApp/` (Jetpack Compose BOM); `shared/` drops Compose Multiplatform | 78/78 tests, A32 5 tabs + Maestro — [ảnh](../assets/kmp_r4_android_compose_tabs.png) · commits say **P11** |
 | P12 ✅ code · ⏳ iPhone | iOS real SDK in Swift | 9, 12 | = the 🍎 half of P3 P4 P5 P7. P12a permissions · P12b camera/PHPicker · P12c battery, network, BGAppRefresh · P12d CoreBluetooth. Swift `iosApp/Platform/*Native` + Kotlin adapters in `iosMain` | 82/82 tests (+ `IosAdaptersTest`), simulator checked; **real iPhone not yet** · commits say **P12a–P12d** |
-| P13 | Final | 13–14 | Real-device run of P12 (capture, BLE GATT vs nRF Connect, BGAppRefresh), task 006 E2E checklist, lint clean, README + "old vs new" table | All rows ✅ with screenshots, README updated |
+| P13 ⏳ plan | Pomodoro → `shared/` | 4, 8 | Port task 007 (iOS-only in the old app) **straight into KMP**: P13a `core/pomodoro/` engine + `PomodoroSessionStore` (🤖 SharedPreferences · 🍎 NSUserDefaults in Kotlin) + `PomodoroViewModel` + strings, Swift tests → `commonTest` · P13b Compose `PomodoroScreen` (Android's first) + SwiftUI `PomodoroView`, ⏱ button on Monitor | tests green × 2 targets, timer runs on emulator + simulator, lock/unlock keeps the right time — [spec §4](README-KMP-SHARED-PORT-SPEC.md#p13--pomodoro-vào-shared-port-thẳng-android-có-lần-đầu) |
+| P14 ⏳ plan | BLE rules → `commonMain` | — | New `core/bluetooth/BleSession` holds the 12 StateFlows + dedupe / filter / hidden count / 10 s scan / connect timeout / Received (50) / GATT cleanup; `AndroidBleClient` + `IosBleClient` keep only SDK calls (Android keeps its GATT queue) | `BleSessionTest` (virtual time), screens unchanged, Maestro Scanner on both — [spec §4](README-KMP-SHARED-PORT-SPEC.md#p14--ble-luật-chung-về-commonmain-mỗi-nền-tảng-chỉ-còn-gọi-sdk) |
+| P15 ⏳ plan (D6) | iOS SDK in Kotlin/Native | 9, 12 | Reverse N2: P15a permissions + device (CBManager, AVCaptureDevice, UIDevice, nw_path_monitor, BGTaskScheduler) · P15b CoreBluetooth delegates in `iosMain` · P15c camera / PHPicker (may stay Swift). `iosApp/` = SwiftUI + bridges only | 82+ tests, simulator same as P12, Swift `Platform/` deleted — [spec §4](README-KMP-SHARED-PORT-SPEC.md#p15--ios-gọi-sdk-apple-bằng-kotlinnative-thay-cho-swift-nếu-duyệt-d6) |
+| P16 | Final | 13–14 | Real-device run of P12/P15 (capture, BLE GATT vs nRF Connect, BGAppRefresh), task 006 E2E checklist, blue header on both UIs (old commits `0e92cbf` `6e2e8e7`), lint clean, README + "old vs new" + "% shared" tables | All rows ✅ with screenshots, README updated |
 
 Order matters: P0–P2 can be checked on simulator/emulator only; P3–P5, P7, P12 need **real devices** (BLE, camera, background).
 P8–P12 = the switch to native UI (decision D1 changed 2026-10-19, see [spec](README-KMP-NATIVE-UI-SPEC.md)); their commits were written with the temporary labels **P8–P12**, kept in git history.
+P13–P15 = the "port into `shared/`" round (2026-10-21, [spec](README-KMP-SHARED-PORT-SPEC.md)): no new features, only moving code into KMP; the old P13 Final is now **P16**.
 Rule per phase: one commit, build OK + run for real + screenshot read, then stop for an OK.
 
 ## 4. Decisions for you (review these)
@@ -124,7 +129,10 @@ Rule per phase: one commit, build OK + run for real + screenshot read, then stop
 | D2 | BLE | **Write our own `BleClient`** in androidMain (reuse current Kotlin) + iosMain (CoreBluetooth in Kotlin/Native) — keeps the platform-difference learning | **Kable** (JuulLabs) — far less code, one API, used in app #5 of the lesson site; hides the GATT queue / CCCD details |
 | D3 | Where | ~~New folder in native-mobile-learning~~ → **changed 2026-10-16: own private repo `tucarmd/native-device-monitor-kmp`** | — |
 | D4 | IDs | `com.learn.ndmkmp` (both platforms) — can be installed next to the old app | reuse `com.learn.nativedevicemonitor` (replaces old app on device) |
-| D5 | Pomodoro | backlog, after P13 | port in P2 |
+| D5 | Pomodoro | ~~backlog, after P13~~ → **P13**, ported into `shared/` (2026-10-21) | port in P2 |
+| D6 | iOS SDK calls: Swift (N2) or Kotlin/Native | **Kotlin/Native in `iosMain` (P15)**, Media last, may stay Swift | keep Swift, skip P15 |
+| D7 | Time for Pomodoro | `kotlin.time` + **kotlinx-datetime** ("same day" in device time zone) | own expect/actual time-zone offset |
+| D8 | Order | **P13 Pomodoro → P14 BLE → P15 SDK → P16** (pure rules first) | BLE first |
 
 ## 5. Risks
 
@@ -191,7 +199,13 @@ Rule per phase: one commit, build OK + run for real + screenshot read, then stop
   `IosPlatform.services` builds `AppServices` once (screen + BGAppRefresh share the monitor). 82/82 tests (+ `IosAdaptersTest`).
   Simulator: camera prompt, real PHPicker, in-app loop JSONL, BGTask error 1 as expected. **Not yet on a real iPhone.**
 
+- **2026-10-21 · plan: focus on porting into `shared/`** ([spec](README-KMP-SHARED-PORT-SPEC.md)). Inventory vs the old
+  app: tasks 001–006 all ported; **not ported** = Pomodoro (task 007, iOS-only) and the blue header (done in the old app
+  after the copy); Alamofire backend left out on purpose (Ktor). **Still written twice** = BLE client state + rules
+  (Android 779 / iOS 443 lines). New phases P13 Pomodoro → `shared/`, P14 `BleSession` in commonMain, P15 iOS SDK in
+  Kotlin/Native (D6); old P13 Final → P16. No code yet.
+
 ## 7. Next step
 
-Run P12 on a real iPhone (camera capture, BLE scan → GATT against nRF Connect, BGAppRefresh via the LLDB
-`_simulateLaunchForTaskWithIdentifier` trick), then BLE GATT end-to-end on both phones, then P13.
+Wait for OK on D6–D8, then **P13a**: Pomodoro engine + store + ViewModel + tests in `shared/` (no UI yet).
+Real-iPhone run of P12 moves into P16.

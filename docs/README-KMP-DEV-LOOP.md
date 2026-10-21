@@ -1,4 +1,4 @@
-[🏠 README](../README.md) · Kiến trúc: [App chạy thế nào](README-KMP-HOW-IT-WORKS.md) · Plan: [P0–P13](plan/README-KMP-MIGRATION.md)
+[🏠 README](../README.md) · Kiến trúc: [App chạy thế nào](README-KMP-HOW-IT-WORKS.md) · Plan: [P0–P16](plan/README-KMP-MIGRATION.md)
 
 # Sửa code và xem kết quả nhanh
 

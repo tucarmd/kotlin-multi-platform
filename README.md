@@ -4,7 +4,7 @@
 > **KMP core + native UI**: the UI is written per platform (Android = Kotlin + Jetpack Compose, iOS = Swift + SwiftUI),
 > everything shared (models, rules, ViewModels, interfaces, Ktor HTTP, logger, monitor loop) lives once in `shared/`.
 > Docs site: **https://tucarmd.github.io/native-device-monitor-kmp-docs/**
-> Plan + progress, one phase list P0–P13: [docs/plan/README-KMP-MIGRATION.md](docs/plan/README-KMP-MIGRATION.md) · why the native-UI switch (P8–P12): [spec](docs/plan/README-KMP-NATIVE-UI-SPEC.md)
+> Plan + progress, one phase list P0–P16: [docs/plan/README-KMP-MIGRATION.md](docs/plan/README-KMP-MIGRATION.md) · why the native-UI switch (P8–P12): [spec](docs/plan/README-KMP-NATIVE-UI-SPEC.md) · next: port into `shared/` (P13–P15): [spec](docs/plan/README-KMP-SHARED-PORT-SPEC.md)
 > Folder map (every folder and file explained): [docs/README-KMP-FOLDER-MAP.md](docs/README-KMP-FOLDER-MAP.md)
 > How it works (diagrams, function flow, SDK map): [docs/README-KMP-HOW-IT-WORKS.md](docs/README-KMP-HOW-IT-WORKS.md)
 > What the dev did per phase (UI vs shared KMP vs Android/iOS): [docs/README-KMP-PHASES.md](docs/README-KMP-PHASES.md)
