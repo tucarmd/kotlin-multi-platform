@@ -105,7 +105,7 @@ Chữ trên UI (nút, tiêu đề) để thẳng trong `HelloScreen.kt` / `Hello
 
 | Việc | Xong |
 |---|:-:|
-| 1.1 Tạo khung `apps/HelloKmp` từ TipSplit, xoá phần thừa, `xcodegen`, build xanh | ⬜ |
+| 1.1 Tạo khung `apps/HelloKmp` từ TipSplit, xoá phần thừa, `xcodegen`, build xanh | ✅ |
 | 1.2 Shared: `Platform` (expect/actual), `Greeting`, `CounterRules` + `CounterRulesTest` | ⬜ |
 | 1.3 Android: `HelloViewModel` + `HelloScreen`, chạy emulator | ⬜ |
 | 1.4 iOS: `HelloModel` + `HelloView`, chạy simulator | ⬜ |
