@@ -15,22 +15,37 @@
       <a href="{{ first_url(nav_item) | trim }}" class="md-tabs__link" aria-haspopup="true">
         {{ nav_item.title }}
       </a>
-      <div class="kd">
+      <div class="kd" role="menu">
         {% for sec in nav_item.children %}
-          <div class="kd__col{% if sec.children and sec.children | length > 12 %} kd__col--long{% endif %}">
-            {% if sec.children %}
-              <a class="kd__head" href="{{ first_url(sec) | trim }}">{{ sec.title }}</a>
+          {% if sec.children %}
+            {% set pages = sec.children | rejectattr("children") | rejectattr("is_index") | list %}
+            <section class="kd__col{% if pages | length > 12 %} kd__col--long{% endif %}" style="--kd-accent: var(--{{ ['terra', 'sage', 'sky', 'sun'][loop.index0 % 4] }})">
+              <a class="kd__head" href="{{ first_url(sec) | trim }}">
+                <span>{{ sec.title }}</span><span class="kd__count">{{ pages | length }}</span>
+              </a>
               <ul class="kd__list">
-                {% for page in sec.children %}
-                  {% if not page.children and not page.is_index %}
-                    <li><a class="kd__link{% if page.active %} kd__link--active{% endif %}" href="{{ page.url | url }}">{{ page.title }}</a></li>
-                  {% endif %}
+                {% for page in pages %}
+                  {#- "3. Tên (K101–K150)" → số 3 vào ô tròn, "K101–K150" thành nhãn mờ; "P1 · Tên" → P1 vào ô tròn -#}
+                  {% set t = page.title or "" %}
+                  {% set num = "" %}
+                  {% set head = t.split(". ", 1) %}
+                  {% if head | length == 2 and head[0].isdigit() %}{% set num = head[0] %}{% set t = head[1] %}{% endif %}
+                  {% set head = t.split(" · ", 1) %}
+                  {% if not num and head | length == 2 and head[0] | length <= 3 %}{% set num = head[0] %}{% set t = head[1] %}{% endif %}
+                  {% set tag = "" %}
+                  {% if t.endswith(")") and " (" in t %}{% set tag = t.rsplit(" (", 1)[1][:-1] %}{% set t = t.rsplit(" (", 1)[0] %}{% endif %}
+                  <li>
+                    <a class="kd__link{% if page.active %} kd__link--active{% endif %}" href="{{ page.url | url }}" role="menuitem">
+                      <span class="kd__num{% if not num %} kd__num--dot{% endif %}">{{ num }}</span>
+                      <span class="kd__txt">{{ t }}{% if tag %} <small>{{ tag }}</small>{% endif %}</span>
+                    </a>
+                  </li>
                 {% endfor %}
               </ul>
-            {% else %}
-              <a class="kd__head" href="{{ sec.url | url }}">{{ sec.title }}</a>
-            {% endif %}
-          </div>
+            </section>
+          {% else %}
+            <a class="kd__solo" href="{{ sec.url | url }}" role="menuitem"><span>{{ sec.title }}</span><b aria-hidden="true">→</b></a>
+          {% endif %}
         {% endfor %}
       </div>
     </li>
