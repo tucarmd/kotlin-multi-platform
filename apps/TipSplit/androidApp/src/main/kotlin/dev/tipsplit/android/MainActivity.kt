@@ -16,6 +16,7 @@ import dev.tipsplit.android.ui.SplitRoute
  * [Bài 8 · Điều hướng] One screen, so no NavHost. Later apps put NavHost in App.kt and call it from here.
  */
 class MainActivity : ComponentActivity() {
+    // onCreate Kotlin
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
