@@ -1,4 +1,5 @@
-/* [App 1 · B6] Generated from androidApp/src/main/res/values/strings.xml. Same keys; %1$s → %@. */
+/* [App 1 · B6] Generated from androidApp/src/main/res/values/strings.xml. Same keys; %1$s → %@.
+   [Bài 7] iOS picks <lang>.lproj by the phone's language; CFBundleLocalizations in project.yml lists en and vi. */
 "app_name" = "Tip Split";
 "reset" = "Reset";
 "bill" = "Bill amount";

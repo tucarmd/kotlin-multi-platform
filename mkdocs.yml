@@ -88,6 +88,7 @@ nav:
       - "Lộ trình":
           - roadmap.md
           - "Sơ đồ lộ trình": roadmap-map.md
+          - "Sơ đồ KMP chạy thế nào": kmp-how-it-works.md
           - "1. KMP là gì, khi nào dùng": lessons/01-what-is-kmp.md
           - "2. Cài máy, tạo project đầu tiên": lessons/02-setup.md
           - "3. Cấu trúc project": lessons/03-project-structure.md

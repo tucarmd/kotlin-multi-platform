@@ -12,7 +12,14 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
-/** [App 1 · B7] The rules from rules/Rules.kt. Each test name says the behaviour it protects. */
+/**
+ * [App 1 · B7] The rules from rules/Rules.kt. Each test name says the behaviour it protects.
+ *
+ * [Bài 13 · Test luật] The cheapest, most valuable tests: pure input → output, no fakes, no coroutines.
+ * In commonTest, so one file checks the rules on BOTH platforms:
+ *   ./gradlew :shared:testDebugUnitTest            (JVM)
+ *   ./gradlew :shared:iosSimulatorArm64Test        (iOS Simulator)
+ */
 class RulesTest {
 
     @Test

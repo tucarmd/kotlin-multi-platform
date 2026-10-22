@@ -11,6 +11,8 @@ import kotlin.test.assertIs
 /**
  * [App 1 · B7] TipCore: each action updates the input and the result together.
  * No coroutines needed: StateFlow.value is read right after each call.
+ *
+ * [Bài 13] Tests the state holder without any UI: this is why the logic sits in TipCore and not in the ViewModel.
  */
 class TipCoreTest {
 

@@ -23,6 +23,9 @@ import org.junit.runner.RunWith
  * UiIds, never by text, so the tests pass in English and Vietnamese.
  *
  * Run: ./gradlew :androidApp:connectedDebugAndroidTest   (an emulator or phone must be connected)
+ *
+ * [Bài 13 · Test] The top of the test pyramid: slow (needs an emulator), so only a few. The many fast tests live in
+ * shared/src/commonTest and run without any device.
  */
 @RunWith(AndroidJUnit4::class)
 class SplitScreenUiTest {

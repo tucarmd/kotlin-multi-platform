@@ -1,3 +1,11 @@
 _site/
 __pycache__/
 .DS_Store
+
+# Gradle / Kotlin / Xcode build output of every app in apps/ (also covers an app whose own .gitignore is missing)
+build/
+.gradle/
+.kotlin/
+DerivedData/
+xcuserdata/
+local.properties

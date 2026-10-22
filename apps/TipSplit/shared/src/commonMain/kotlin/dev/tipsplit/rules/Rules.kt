@@ -13,6 +13,10 @@ import dev.tipsplit.model.SplitState
  * (`assertEquals(expected, splitBill(...))`). Everything clever in the app lives in this file.
  *
  * Called by: TipCore (core/TipCore.kt). Calls: parseMoney (Money.kt).
+ *
+ * [Bài 4 · Chia sẻ code: luật] This is the "share the logic" level of KMP: the rules are written once in
+ * commonMain, tested once in commonTest, and both UIs only display what they return.
+ * Nothing here needs an Android or Apple API, so it needs neither expect/actual nor an interface.
  */
 
 /** The tip buttons on screen. */

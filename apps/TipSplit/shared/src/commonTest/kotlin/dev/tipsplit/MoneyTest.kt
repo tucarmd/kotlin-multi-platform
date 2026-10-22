@@ -6,7 +6,10 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
-/** [App 1 · B7] parseMoney / formatMoney. Runs on the JVM and the iOS Simulator with the same expectations. */
+/**
+ * [App 1 · B7] parseMoney / formatMoney. Runs on the JVM and the iOS Simulator with the same expectations.
+ * [Bài 13 · Test luật] Edge cases first: empty text, letters, negative numbers, every separator.
+ */
 class MoneyTest {
 
     @Test
